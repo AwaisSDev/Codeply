@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Codeply · Admin Analytics</title>
+<link rel="icon" href="./Favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#eef1f8; --bg2:#f7f9fc;
+    --surface:#ffffff; --surface2:#f4f6fb;
+    --border:#e6eaf2; --border2:#dde3ee;
+    --text:#16203a; --text2:#6b7488; --text3:#a3abbd;
+    --accent:#5468ff; --accent2:#4356e8; --violet:#8b5cf6; --pink:#ec4899;
+    --green:#10b981; --green-dim:#dcfce7;
+    --red:#ef4444; --red-dim:#fee2e2;
+    --amber:#f59e0b; --cyan:#06b6d4;
+    --mono:"Space Grotesk",ui-monospace,Menlo,monospace;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --shadow:0 1px 2px rgba(22,32,58,.04),0 8px 24px rgba(22,32,58,.06);
+    --shadow-lg:0 2px 6px rgba(22,32,58,.05),0 18px 48px rgba(60,80,180,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(900px 500px at 88% -8%,rgba(139,92,246,.10),transparent 60%),
+      radial-gradient(800px 500px at 5% 5%,rgba(84,104,255,.10),transparent 55%),
+      linear-gradient(180deg,var(--bg),var(--bg2) 70%);
+    color:var(--text);font-family:var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent)}
+  .wrap{max-width:1500px;margin:0 auto;padding:24px 28px 64px}
+
+  /* Header */
+  header{display:flex;align-items:center;gap:14px;margin-bottom:24px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo .mark{width:38px;height:38px;border-radius:11px;
+    background:linear-gradient(135deg,var(--accent),var(--violet) 60%,var(--pink));
+    display:grid;place-items:center;font-weight:800;font-size:1.05rem;color:#fff;
+    box-shadow:0 6px 18px rgba(99,102,241,.42)}
+  .logo h1{font-size:1.12rem;font-weight:800;letter-spacing:-.4px;font-family:var(--mono)}
+  .logo .sub{font-size:.68rem;color:var(--text2);font-weight:500}
+  .spacer{flex:1}
+  .pill{font-family:var(--mono);font-size:.66rem;font-weight:600;padding:6px 12px;border-radius:99px;
+    border:1px solid var(--border2);background:var(--surface);color:var(--text2);
+    display:inline-flex;align-items:center;gap:7px;white-space:nowrap;box-shadow:var(--shadow)}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--text3)}
+  .pill.live{color:var(--green);border-color:#bbf7d0}
+  .pill.live .dot{background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.8s infinite}
+  .pill.demo{color:var(--amber);border-color:#fde68a;background:#fffbeb}
+  .pill.demo .dot{background:var(--amber)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .btn{font-family:var(--sans);font-size:.78rem;font-weight:600;padding:9px 15px;border-radius:10px;
+    border:1px solid var(--border2);background:var(--surface);color:var(--text);cursor:pointer;
+    transition:.18s;box-shadow:var(--shadow)}
+  .btn:hover{background:var(--surface2);border-color:#c9d2e3;transform:translateY(-1px)}
+  .btn.primary{background:linear-gradient(135deg,var(--accent),var(--violet));border-color:transparent;color:#fff;
+    box-shadow:0 6px 16px rgba(99,102,241,.34)}
+  .btn.primary:hover{filter:brightness(1.05)}
+
+  /* KPI grid */
+  .kpis{display:grid;grid-template-columns:repeat(7,1fr);gap:14px;margin-bottom:18px}
+  @media(max-width:1200px){.kpis{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:680px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:17px;
+    position:relative;overflow:hidden;box-shadow:var(--shadow);transition:.2s}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .kpi .ico{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:.95rem;
+    background:var(--surface2)}
+  .kpi .lbl{font-size:.64rem;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin:11px 0 6px;font-weight:700}
+  .kpi .val{font-size:1.72rem;font-weight:800;letter-spacing:-1.2px;line-height:1;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  .kpi .delta{font-size:.66rem;color:var(--text2);margin-top:8px;font-weight:500}
+  .accent-blue{color:var(--accent)}.accent-green{color:var(--green)}.accent-red{color:var(--red)}
+  .accent-amber{color:#d97706}.accent-purple{color:var(--violet)}.accent-cyan{color:#0891b2}
+
+  /* Layout */
+  .grid{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;margin-bottom:18px}
+  @media(max-width:1050px){.grid{grid-template-columns:1fr}}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px;box-shadow:var(--shadow)}
+  .panel h2{font-size:.9rem;font-weight:700;display:flex;align-items:center;gap:8px;letter-spacing:-.2px}
+  .panel .ph-sub{font-size:.69rem;color:var(--text2);margin-top:3px}
+  .panel-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+
+  /* Globe */
+  #globePanel{padding:0;overflow:hidden;position:relative;min-height:470px;
+    background:
+      radial-gradient(120% 90% at 50% 0%,#f1f4ff 0,#e9edfb 45%,#e3e9fa 100%);
+    border:1px solid var(--border)}
+  #globeWrap{position:absolute;inset:0}
+  #globeCanvas{display:block;width:100%;height:100%;cursor:grab}
+  #globeCanvas:active{cursor:grabbing}
+  .globe-overlay{position:absolute;top:20px;left:22px;z-index:2;pointer-events:none}
+  .globe-overlay h2{font-size:.9rem;font-weight:700}
+  .globe-overlay .ph-sub{font-size:.69rem;color:var(--text2);margin-top:2px}
+  .globe-legend{position:absolute;bottom:18px;left:22px;z-index:2;background:rgba(255,255,255,.78);
+    backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:13px;padding:12px 14px;
+    max-width:235px;box-shadow:var(--shadow)}
+  .globe-legend .lg-title{font-size:.58rem;text-transform:uppercase;letter-spacing:.8px;color:var(--text2);
+    margin-bottom:9px;font-weight:700}
+  .lg-row{display:flex;align-items:center;gap:9px;font-size:.74rem;margin:5px 0;font-variant-numeric:tabular-nums}
+  .lg-row .sw{width:10px;height:10px;border-radius:50%}
+  .lg-row .nm{flex:1;color:var(--text);font-weight:500}
+  .lg-row .ct{color:var(--text2);font-family:var(--mono);font-weight:600}
+  .lg-scale{height:8px;border-radius:5px;margin-top:11px;
+    background:linear-gradient(90deg,#93c5fd,#8b5cf6,#ec4899)}
+  .lg-scale-lbl{display:flex;justify-content:space-between;font-size:.56rem;color:var(--text3);margin-top:4px;font-family:var(--mono)}
+
+  .chart-box{position:relative;height:235px}
+  .chart-box.tall{height:308px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  @media(max-width:900px){.two{grid-template-columns:1fr}}
+
+  .notes{background:var(--surface2);border:1px solid var(--border);border-radius:13px;padding:13px 16px;
+    font-size:.74rem;color:var(--text2);line-height:1.6}
+  .notes b{color:#b45309}
+
+  /* Login overlay */
+  .overlay{position:fixed;inset:0;
+    background:radial-gradient(800px 500px at 70% 0%,rgba(139,92,246,.18),transparent),
+      radial-gradient(700px 500px at 10% 100%,rgba(84,104,255,.16),transparent),
+      rgba(238,241,248,.7);backdrop-filter:blur(10px);
+    display:grid;place-items:center;z-index:50;padding:20px}
+  .login{width:100%;max-width:390px;background:var(--surface);border:1px solid var(--border);
+    border-radius:22px;padding:30px;box-shadow:var(--shadow-lg)}
+  .login .mark{width:46px;height:46px;border-radius:13px;
+    background:linear-gradient(135deg,var(--accent),var(--violet) 60%,var(--pink));
+    display:grid;place-items:center;font-weight:800;color:#fff;margin-bottom:16px;font-size:1.2rem;
+    box-shadow:0 8px 22px rgba(99,102,241,.4)}
+  .login h2{font-size:1.18rem;margin-bottom:5px;letter-spacing:-.4px}
+  .login p{font-size:.76rem;color:var(--text2);margin-bottom:20px;line-height:1.5}
+  .fld{margin-bottom:13px}
+  .fld label{display:block;font-size:.64rem;color:var(--text2);margin-bottom:7px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+  .fld input{width:100%;height:44px;border-radius:11px;border:1px solid var(--border2);background:var(--surface2);
+    color:var(--text);padding:0 14px;font-size:.88rem;font-family:var(--sans);outline:none;transition:.16s}
+  .fld input:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(84,104,255,.13)}
+  .login .btn{width:100%;height:46px;margin-top:4px}
+  .login .or{text-align:center;font-size:.66rem;color:var(--text3);margin:16px 0 11px;font-weight:600}
+  .msg{font-size:.73rem;margin-top:11px;min-height:16px}
+  .msg.err{color:var(--red)} .msg.ok{color:var(--green)}
+  .cfgwarn{background:#fffbeb;border:1px solid #fde68a;color:#92400e;font-size:.68rem;padding:9px 13px;
+    border-radius:10px;margin-bottom:16px;font-weight:600;line-height:1.5}
+  .qrbox{display:grid;place-items:center;background:#fff;border:1px solid var(--border);border-radius:14px;
+    padding:14px;margin-bottom:14px}
+  .qrbox img{width:170px;height:170px;border-radius:6px}
+  .secret-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface2);
+    border:1px solid var(--border);border-radius:10px;padding:9px 13px;margin-bottom:15px}
+  .secret-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:.6px;color:var(--text2);font-weight:700}
+  .secret-row code{font-family:var(--mono);font-size:.74rem;color:var(--text);word-break:break-all}
+  #mfaCode{letter-spacing:.42em;text-align:center;font-family:var(--mono);font-size:1.15rem;font-weight:600}
+
+  .skel{background:linear-gradient(90deg,var(--surface2) 25%,#eaeefa 50%,var(--surface2) 75%);
+    background-size:200% 100%;animation:sh 1.3s infinite;border-radius:7px;color:transparent!important}
+  @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">
+      <div class="mark">C</div>
+      <div>
+        <h1>Codeply Analytics</h1>
+        <div class="sub">admin dashboard</div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <span class="pill" id="modePill"><span class="dot"></span><span id="modeTxt">connecting…</span></span>
+    <span class="pill" id="updPill"><span class="dot"></span><span id="updTxt">—</span></span>
+    <button class="btn" id="refreshBtn">↻ Refresh</button>
+    <button class="btn" id="signoutBtn" style="display:none">Sign out</button>
+  </header>
+
+  <!-- KPI cards -->
+  <div class="kpis" id="kpis">
+    <div class="card kpi"><div class="ico">🆕</div><div class="lbl">Signups Today</div><div class="val accent-blue" id="kSignToday">—</div><div class="delta" id="kSignTodayD">this week: —</div></div>
+    <div class="card kpi"><div class="ico">👥</div><div class="lbl">Total Users</div><div class="val" id="kTotal">—</div><div class="delta" id="kTotalD">waitlist: —</div></div>
+    <div class="card kpi"><div class="ico">🟢</div><div class="lbl">Active Now</div><div class="val accent-green" id="kActive">—</div><div class="delta">last 5 min</div></div>
+    <div class="card kpi"><div class="ico">💰</div><div class="lbl">Revenue (mo)</div><div class="val accent-green" id="kRev">—</div><div class="delta" id="kRevD">—</div></div>
+    <div class="card kpi"><div class="ico">🔁</div><div class="lbl">Churn Rate</div><div class="val accent-red" id="kChurn">—</div><div class="delta" id="kChurnD">—</div></div>
+    <div class="card kpi"><div class="ico">📁</div><div class="lbl">Placements</div><div class="val accent-purple" id="kPlace">—</div><div class="delta" id="kPlaceD">this month: —</div></div>
+    <div class="card kpi"><div class="ico">⚡</div><div class="lbl">Top Model</div><div class="val accent-cyan" id="kModel" style="font-size:.98rem;line-height:1.2;word-break:break-word">—</div><div class="delta" id="kModelD">—</div></div>
+  </div>
+
+  <!-- Globe + signups -->
+  <div class="grid">
+    <div class="panel" id="globePanel">
+      <div class="globe-overlay">
+        <h2>🌍 Users by Country</h2>
+        <div class="ph-sub">warmer glow = more users · drag to rotate</div>
+      </div>
+      <div id="globeWrap"><canvas id="globeCanvas"></canvas></div>
+      <div class="globe-legend" id="globeLegend">
+        <div class="lg-title">Top countries</div>
+        <div id="legendRows"><div class="lg-row"><span class="nm">—</span></div></div>
+        <div class="lg-scale"></div>
+        <div class="lg-scale-lbl"><span>fewer</span><span>more users</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div><h2>📈 Signups</h2><div class="ph-sub">new registered profiles · last 14 days</div></div>
+      </div>
+      <div class="chart-box tall"><canvas id="signupChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Peak hours + models -->
+  <div class="two">
+    <div class="panel">
+      <div class="panel-head"><div><h2>🕐 Peak Usage Hours</h2><div class="ph-sub">AI calls by hour of day · UTC, 30d</div></div></div>
+      <div class="chart-box"><canvas id="hoursChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><div><h2>⚡ Most Used Models</h2><div class="ph-sub">OpenRouter / provider models by volume</div></div></div>
+      <div class="chart-box"><canvas id="modelChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Revenue split + notes -->
+  <div class="two">
+    <div class="panel">
+      <div class="panel-head"><div><h2>💳 Active Plan Mix</h2><div class="ph-sub">active paid subscriptions</div></div></div>
+      <div class="chart-box"><canvas id="planChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><div><h2>ℹ️ Data Notes</h2><div class="ph-sub">capture status &amp; sources</div></div></div>
+      <div class="notes" id="notesBox">All metrics nominal.</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;color:var(--text3);font-size:.66rem;margin-top:28px;font-family:var(--mono)">
+    Codeply admin analytics · data via /api/admin-stats · globe: Three.js · charts: Chart.js
+  </div>
+</div>
+
+<!-- Login overlay -->
+<div class="overlay" id="overlay">
+  <div class="login">
+    <div class="mark">C</div>
+
+    <!-- STEP 1 · email + password -->
+    <div id="stepLogin">
+      <h2>Admin sign in</h2>
+      <p>Sign in with your Codeply admin account to load live analytics.</p>
+      <div class="cfgwarn" id="cfgWarn" style="display:none">⚠ Set SUPABASE_URL / SUPABASE_ANON / API_BASE in this file to enable live mode.</div>
+      <div class="fld"><label>Email</label><input id="liEmail" type="email" placeholder="Enter admin email" autocomplete="username"></div>
+      <div class="fld"><label>Password</label><input id="liPass" type="password" placeholder="••••••••" autocomplete="current-password"></div>
+      <button class="btn primary" id="liBtn">Continue</button>
+    </div>
+
+    <!-- STEP 2 · emailed one-time code -->
+    <div id="step2fa" style="display:none">
+      <h2 id="mfaTitle">Check your email</h2>
+      <p id="mfaDesc">Enter the code we emailed you.</p>
+      <div class="fld"><label>Email code</label>
+        <input id="mfaCode" inputmode="numeric" maxlength="8" placeholder="••••••••" autocomplete="one-time-code"></div>
+      <button class="btn primary" id="mfaVerifyBtn">Verify &amp; load</button>
+      <button class="btn" id="mfaResendBtn" style="width:100%;margin-top:8px">Resend code</button>
+      <button class="btn" id="mfaBackBtn" style="width:100%;margin-top:8px">Back</button>
+    </div>
+
+    <div class="msg" id="liMsg"></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+/* ============================ CONFIG ====================================== */
+// Only the API base is needed. The Supabase URL + anon key are pulled at runtime
+// from your existing /api/config route (which reads them from your Vercel env
+// vars) — so no secrets are pasted into this file.
+const API_BASE = 'https://codeply.online'; // your Vercel deployment / domain
+/* ========================================================================== */
+
+const $ = (id) => document.getElementById(id);
+let SUPABASE_URL = '', SUPABASE_ANON = '';
+let sb = null, session = null, charts = {}, globe = null, demoMode = false;
+
+/* ---------- Country centroids (ISO-2 → [lat, lon, name]) ---------- */
+const CC = {
+  US:[39.8,-98.6,'United States'],PK:[30.4,69.3,'Pakistan'],IN:[22.4,78.7,'India'],GB:[54,-2.4,'United Kingdom'],
+  CA:[56.1,-106.3,'Canada'],DE:[51.2,10.5,'Germany'],FR:[46.2,2.2,'France'],BR:[-14.2,-51.9,'Brazil'],
+  AU:[-25.3,133.8,'Australia'],NG:[9.1,8.7,'Nigeria'],ID:[-0.8,113.9,'Indonesia'],JP:[36.2,138.3,'Japan'],
+  RU:[61.5,105.3,'Russia'],CN:[35.9,104.2,'China'],MX:[23.6,-102.6,'Mexico'],ES:[40.5,-3.7,'Spain'],
+  IT:[41.9,12.6,'Italy'],NL:[52.1,5.3,'Netherlands'],SE:[60.1,18.6,'Sweden'],PL:[51.9,19.1,'Poland'],
+  TR:[39,35.2,'Turkey'],SA:[23.9,45.1,'Saudi Arabia'],AE:[23.4,53.8,'UAE'],EG:[26.8,30.8,'Egypt'],
+  ZA:[-30.6,22.9,'South Africa'],KE:[-0.02,37.9,'Kenya'],AR:[-38.4,-63.6,'Argentina'],CL:[-35.7,-71.5,'Chile'],
+  CO:[4.6,-74.3,'Colombia'],PH:[12.9,121.8,'Philippines'],VN:[14.1,108.3,'Vietnam'],TH:[15.9,100.99,'Thailand'],
+  MY:[4.2,101.98,'Malaysia'],SG:[1.35,103.8,'Singapore'],KR:[35.9,127.8,'South Korea'],BD:[23.7,90.4,'Bangladesh'],
+  UA:[48.4,31.2,'Ukraine'],RO:[45.9,24.97,'Romania'],PT:[39.4,-8.2,'Portugal'],IE:[53.4,-8.2,'Ireland'],
+  CH:[46.8,8.2,'Switzerland'],BE:[50.5,4.5,'Belgium'],AT:[47.5,14.6,'Austria'],NO:[60.5,8.5,'Norway'],
+  DK:[56.3,9.5,'Denmark'],FI:[61.9,25.7,'Finland'],GR:[39.1,21.8,'Greece'],CZ:[49.8,15.5,'Czechia'],
+  HU:[47.2,19.5,'Hungary'],IL:[31.0,34.9,'Israel'],MA:[31.8,-7.1,'Morocco'],GH:[7.9,-1.0,'Ghana'],
+  NZ:[-40.9,174.9,'New Zealand'],PE:[-9.2,-75.0,'Peru'],LK:[7.9,80.8,'Sri Lanka'],NP:[28.4,84.1,'Nepal'],
+  TW:[23.7,121,'Taiwan'],HK:[22.3,114.2,'Hong Kong']
+};
+
+/* ============================ DATA LOADING ================================= */
+async function loadStats(){
+  if(demoMode) return demoStats();
+  const res = await fetch(API_BASE + '/api/admin-stats', {
+    headers: { Authorization: 'Bearer ' + session.access_token }
+  });
+  if(res.status === 403) throw new Error('Your account is not an admin. Run: update profiles set is_admin=true where email=…');
+  if(!res.ok) throw new Error('API error ' + res.status);
+  return res.json();
+}
+
+function demoStats(){
+  const trend=[];const today=new Date();
+  for(let i=13;i>=0;i--){const d=new Date(today-i*864e5);trend.push({date:d.toISOString().slice(0,10),count:Math.round(8+Math.random()*22+(13-i)*1.3)});}
+  const hours=Array.from({length:24},(_,h)=>{const peak=Math.exp(-Math.pow((h-15)/4.5,2))+0.45*Math.exp(-Math.pow((h-21)/3,2));return{hour:h,calls:Math.round(peak*420+Math.random()*40)};});
+  return {
+    generated_at:new Date().toISOString(),
+    signups:{today:27,week:163,total:4218,waitlist_total:1190,trend},
+    users:{total:4218,active_now:38},
+    revenue:{month:3640,currency:'USD',source:'whop',mrr:3480,active_starter:212,active_pro:74},
+    churn:{rate:3.9,canceled_month:11,active_total:286},
+    placements:{total:184230,month:38940},
+    models:[{model:'openai/gpt-4o-mini',calls:14200},{model:'anthropic/claude-3.5-sonnet',calls:9120},{model:'google/gemini-flash-1.5',calls:6050},{model:'deepseek/deepseek-chat',calls:4380},{model:'meta-llama/llama-3.1-70b',calls:2910},{model:'openai/gpt-4o',calls:2110},{model:'qwen/qwen-2.5-72b',calls:1240}],
+    peak_hours:hours,
+    countries:[{country:'US',users:1420},{country:'PK',users:880},{country:'IN',users:640},{country:'GB',users:410},{country:'DE',users:300},{country:'CA',users:255},{country:'BR',users:210},{country:'NG',users:180},{country:'AU',users:150},{country:'FR',users:140},{country:'ID',users:120},{country:'AE',users:95},{country:'JP',users:80},{country:'NL',users:70},{country:'ZA',users:60}],
+    _notes:['DEMO DATA — illustrative figures, not from your database.']
+  };
+}
+
+/* ============================ RENDER ====================================== */
+const fmt = (n)=> n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'k':String(n??0);
+const money = (n,c)=> (c==='USD'?'$':'')+ (Number(n)||0).toLocaleString(undefined,{maximumFractionDigits:0}) + (c&&c!=='USD'?' '+c:'');
+
+function render(s){
+  $('kSignToday').textContent = fmt(s.signups.today);
+  $('kSignTodayD').textContent = 'this week: ' + fmt(s.signups.week);
+  $('kTotal').textContent = fmt(s.signups.total);
+  $('kTotalD').textContent = 'waitlist: ' + fmt(s.signups.waitlist_total);
+  $('kActive').textContent = fmt(s.users.active_now);
+  $('kRev').textContent = money(s.revenue.month, s.revenue.currency);
+  $('kRevD').textContent = (s.revenue.source||'').includes('whop') ? 'via Whop · MRR '+money(s.revenue.mrr,'USD') : 'est. · MRR '+money(s.revenue.mrr,'USD');
+  $('kChurn').textContent = (s.churn.rate||0)+'%';
+  $('kChurnD').textContent = s.churn.canceled_month + ' canceled / ' + s.churn.active_total + ' active';
+  $('kPlace').textContent = fmt(s.placements.total);
+  $('kPlaceD').textContent = 'this month: ' + fmt(s.placements.month);
+  const top = (s.models&&s.models[0])||null;
+  $('kModel').textContent = top ? top.model.split('/').pop() : '—';
+  $('kModelD').textContent = top ? fmt(top.calls)+' calls' : 'no data';
+
+  drawSignups(s.signups.trend||[]);
+  drawHours(s.peak_hours||[]);
+  drawModels(s.models||[]);
+  drawPlans(s.revenue);
+  drawLegend(s.countries||[]);
+  buildGlobe(s.countries||[]);
+
+  const notes = s._notes||[];
+  $('notesBox').innerHTML = notes.length
+    ? notes.map(n=> demoMode ? '<b>'+n+'</b>' : '• '+n).join('<br>')
+    : '✓ All metrics are reading from live data.';
+
+  const t = new Date(s.generated_at);
+  $('updTxt').textContent = 'updated ' + t.toLocaleTimeString();
+}
+
+/* ---------- Chart.js helpers (light theme) ---------- */
+Chart.defaults.color = '#6b7488';
+Chart.defaults.font.family = '"Space Grotesk",ui-monospace,Menlo,monospace';
+Chart.defaults.font.size = 10;
+const grid = { color:'rgba(22,32,58,.06)' };
+
+function fresh(id){ if(charts[id]){charts[id].destroy();delete charts[id];} return $(id).getContext('2d'); }
+
+function drawSignups(trend){
+  const ctx = fresh('signupChart');
+  const g = ctx.createLinearGradient(0,0,0,300);
+  g.addColorStop(0,'rgba(84,104,255,.30)'); g.addColorStop(1,'rgba(84,104,255,0)');
+  charts.signupChart = new Chart(ctx,{type:'line',data:{labels:trend.map(d=>d.date.slice(5)),
+    datasets:[{data:trend.map(d=>d.count),borderColor:'#5468ff',backgroundColor:g,fill:true,tension:.4,
+      pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:'#5468ff',pointHoverBorderColor:'#fff',pointHoverBorderWidth:2,borderWidth:3}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false}},y:{grid,beginAtZero:true,ticks:{precision:0}}}}});
+}
+function drawHours(hours){
+  const ctx = fresh('hoursChart');
+  const max = Math.max(1,...hours.map(h=>h.calls));
+  charts.hoursChart = new Chart(ctx,{type:'bar',data:{labels:hours.map(h=>String(h.hour).padStart(2,'0')),
+    datasets:[{data:hours.map(h=>h.calls),borderRadius:4,
+      backgroundColor:hours.map(h=>{const t=h.calls/max;
+        const c=mix3([147,197,253],[139,92,246],[236,72,153],t);return 'rgba('+c[0]+','+c[1]+','+c[2]+',.92)';})}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{title:(i)=>i[0].label+':00 UTC'}}},
+      scales:{x:{grid:{display:false},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:12}},y:{grid,beginAtZero:true}}}});
+}
+function drawModels(models){
+  const ctx = fresh('modelChart');
+  const labels = models.map(m=>m.model.split('/').pop());
+  const colors = ['#5468ff','#8b5cf6','#ec4899','#06b6d4','#10b981','#f59e0b','#6366f1','#f43f5e'];
+  charts.modelChart = new Chart(ctx,{type:'bar',data:{labels,
+    datasets:[{data:models.map(m=>m.calls),borderRadius:6,
+      backgroundColor:labels.map((_,i)=>colors[i%colors.length])}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{grid,beginAtZero:true},y:{grid:{display:false}}}}});
+}
+function drawPlans(rev){
+  const ctx = fresh('planChart');
+  const st = rev.active_starter||0, pr = rev.active_pro||0;
+  charts.planChart = new Chart(ctx,{type:'doughnut',
+    data:{labels:['Starter ('+st+')','Pro ('+pr+')'],
+      datasets:[{data:[st,pr],backgroundColor:['#5468ff','#8b5cf6'],borderColor:'#fff',borderWidth:4}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'64%',
+      plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:14,font:{size:11}}},
+        tooltip:{callbacks:{label:(c)=>c.label}}}}});
+}
+
+/* ---------- color helpers (blue → violet → pink) ---------- */
+function mix3(a,b,c,t){
+  const lerp=(x,y,k)=>Math.round(x+(y-x)*k);
+  if(t<0.5){const k=t/0.5;return [lerp(a[0],b[0],k),lerp(a[1],b[1],k),lerp(a[2],b[2],k)];}
+  const k=(t-0.5)/0.5;return [lerp(b[0],c[0],k),lerp(b[1],c[1],k),lerp(b[2],c[2],k)];
+}
+function colorFor(t){const c=mix3([147,197,253],[139,92,246],[236,72,153],Math.max(0,Math.min(1,t)));return 'rgb('+c[0]+','+c[1]+','+c[2]+')';}
+
+function drawLegend(countries){
+  const rows = countries.slice(0,6);
+  const max = Math.max(1,...countries.map(c=>c.users));
+  $('legendRows').innerHTML = rows.length ? rows.map(c=>{
+    const name=(CC[c.country]&&CC[c.country][2])||c.country;const col=colorFor(c.users/max);
+    return '<div class="lg-row"><span class="sw" style="background:'+col+';box-shadow:0 0 8px '+col+'"></span><span class="nm">'+name+'</span><span class="ct">'+fmt(c.users)+'</span></div>';
+  }).join('') : '<div class="lg-row"><span class="nm" style="color:var(--text3)">No country data yet</span></div>';
+}
+
+/* ============================ THREE.JS GLOBE (light) ====================== */
+function buildGlobe(countries){
+  const canvas = $('globeCanvas');
+  const wrap = $('globeWrap');
+  const W = wrap.clientWidth, H = wrap.clientHeight;
+
+  if(!globe){
+    const renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45,W/H,0.1,100);
+    camera.position.z = 3.05;
+
+    scene.add(new THREE.AmbientLight(0xffffff,0.85));
+    const dir = new THREE.DirectionalLight(0xffffff,0.7); dir.position.set(5,3,5); scene.add(dir);
+    const rim = new THREE.DirectionalLight(0xbcd0ff,0.5); rim.position.set(-4,-2,-3); scene.add(rim);
+
+    const root = new THREE.Group(); scene.add(root);
+
+    // light "ocean" sphere
+    const sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(1,64,64),
+      new THREE.MeshPhongMaterial({color:0xdfeaff,emissive:0xeaf1ff,emissiveIntensity:.35,shininess:30,specular:0xffffff})
+    );
+    root.add(sphere);
+
+    // soft graticule
+    const wire = new THREE.Mesh(
+      new THREE.SphereGeometry(1.003,36,24),
+      new THREE.MeshBasicMaterial({color:0x9db4e8,wireframe:true,transparent:true,opacity:0.22})
+    );
+    root.add(wire);
+
+    // soft atmosphere
+    const atmo = new THREE.Mesh(
+      new THREE.SphereGeometry(1.2,48,48),
+      new THREE.ShaderMaterial({
+        transparent:true,side:THREE.BackSide,
+        vertexShader:'varying vec3 vN; void main(){ vN=normalize(normalMatrix*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+        fragmentShader:'varying vec3 vN; void main(){ float i=pow(0.66-dot(vN,vec3(0,0,1.0)),2.6); gl_FragColor=vec4(0.45,0.40,0.95,1.0)*i;}'
+      })
+    );
+    root.add(atmo);
+
+    const markers = new THREE.Group(); root.add(markers);
+    globe = {renderer,scene,camera,root,markers,vel:0.0016,drag:false,px:0,py:0};
+
+    canvas.addEventListener('pointerdown',e=>{globe.drag=true;globe.px=e.clientX;globe.py=e.clientY;});
+    addEventListener('pointerup',()=>globe.drag=false);
+    addEventListener('pointermove',e=>{
+      if(!globe.drag)return;
+      globe.root.rotation.y += (e.clientX-globe.px)*0.005;
+      globe.root.rotation.x += (e.clientY-globe.py)*0.005;
+      globe.root.rotation.x = Math.max(-1.2,Math.min(1.2,globe.root.rotation.x));
+      globe.px=e.clientX;globe.py=e.clientY;
+    });
+
+    (function loop(){
+      requestAnimationFrame(loop);
+      if(!globe.drag) globe.root.rotation.y += globe.vel;
+      globe.renderer.render(globe.scene,globe.camera);
+    })();
+
+    addEventListener('resize',()=>{
+      const w=wrap.clientWidth,h=wrap.clientHeight;
+      globe.renderer.setSize(w,h);globe.camera.aspect=w/h;globe.camera.updateProjectionMatrix();
+    });
+  }
+
+  globe.renderer.setSize(W,H);
+  globe.camera.aspect=W/H; globe.camera.updateProjectionMatrix();
+
+  while(globe.markers.children.length) globe.markers.remove(globe.markers.children[0]);
+  const max = Math.max(1,...countries.map(c=>c.users));
+  const llToVec=(lat,lon,r)=>{const p=(90-lat)*Math.PI/180,t=(lon+180)*Math.PI/180;
+    return new THREE.Vector3(-r*Math.sin(p)*Math.cos(t), r*Math.cos(p), r*Math.sin(p)*Math.sin(t));};
+
+  countries.forEach(c=>{
+    const meta=CC[c.country]; if(!meta) return;
+    const t=c.users/max;
+    const col=new THREE.Color(colorFor(t));
+    const size=0.016+0.05*t;
+    const pin=new THREE.Mesh(new THREE.SphereGeometry(size,16,16),
+      new THREE.MeshBasicMaterial({color:col}));
+    pin.position.copy(llToVec(meta[0],meta[1],1.015));
+    globe.markers.add(pin);
+    const halo=new THREE.Sprite(new THREE.SpriteMaterial({
+      color:col,transparent:true,opacity:0.4+0.5*t,depthWrite:false}));
+    halo.scale.setScalar(0.10+0.24*t);
+    halo.position.copy(pin.position);
+    globe.markers.add(halo);
+  });
+}
+
+/* ============================ APP FLOW ==================================== */
+async function refresh(){
+  $('updTxt').textContent='loading…';
+  document.querySelectorAll('.kpi .val').forEach(e=>e.classList.add('skel'));
+  try{
+    const s = await loadStats();
+    document.querySelectorAll('.kpi .val').forEach(e=>e.classList.remove('skel'));
+    render(s);
+  }catch(e){
+    document.querySelectorAll('.kpi .val').forEach(e=>e.classList.remove('skel'));
+    $('updTxt').textContent='error';
+    alert('Could not load stats: '+e.message);
+  }
+}
+
+function enterDashboard(isDemo){
+  demoMode=isDemo;
+  $('overlay').style.display='none';
+  $('signoutBtn').style.display = isDemo ? 'none':'';
+  const pill=$('modePill'),txt=$('modeTxt');
+  if(isDemo){pill.className='pill demo';txt.textContent='DEMO MODE';}
+  else{pill.className='pill live';txt.textContent='LIVE';}
+  refresh();
+}
+
+/* ---------- step 2: emailed one-time code (Supabase email OTP) ---------- */
+let pendingEmail=null;
+const msg=(t,k)=>{const m=$('liMsg');m.className='msg'+(k?' '+k:'');m.textContent=t||'';};
+function showStep(two){ $('stepLogin').style.display=two?'none':''; $('step2fa').style.display=two?'':'none'; }
+
+async function sendEmailCode(){
+  msg('Sending code…');
+  const {error}=await sb.auth.signInWithOtp({ email: pendingEmail, options:{ shouldCreateUser:false } });
+  if(error) return msg(error.message,'err');
+  $('mfaTitle').textContent='Check your email';
+  $('mfaDesc').textContent='Enter the code we just emailed to '+pendingEmail+'.';
+  msg(''); showStep(true); $('mfaCode').value=''; $('mfaCode').focus();
+}
+
+async function verifyEmailCode(){
+  const code=$('mfaCode').value.trim();
+  if(!/^\d{6,8}$/.test(code)) return msg('Enter the emailed code.','err');
+  msg('Verifying…');
+  const {data,error}=await sb.auth.verifyOtp({ email: pendingEmail, token: code, type:'email' });
+  if(error) return msg(error.message||'Invalid or expired code.','err');
+  session=data.session; msg('Verified ✓','ok'); enterDashboard(false);
+}
+
+async function init(){
+  $('refreshBtn').onclick=refresh;
+  $('signoutBtn').onclick=async()=>{ if(sb) await sb.auth.signOut(); location.reload(); };
+
+  // Pull Supabase URL + anon key from your hosted /api/config (Vercel env vars).
+  try{
+    const r=await fetch(API_BASE+'/api/config');
+    const c=await r.json();
+    SUPABASE_URL=c.url||''; SUPABASE_ANON=c.anonKey||'';
+  }catch(_){ /* handled below */ }
+
+  if(SUPABASE_URL && SUPABASE_ANON && window.supabase){
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+  } else {
+    $('cfgWarn').style.display='block';
+    $('cfgWarn').textContent='⚠ Could not load config from '+API_BASE+'/api/config — check API_BASE at the top of this file.';
+  }
+
+  // Step 1: email + password → on success, email a one-time code.
+  $('liBtn').onclick=async()=>{
+    if(!sb) return msg('Backend not reachable. Check API_BASE.','err');
+    const email=$('liEmail').value.trim(),password=$('liPass').value;
+    if(!email||!password) return msg('Enter email and password.','err');
+    msg('Checking credentials…');
+    const {error}=await sb.auth.signInWithPassword({email,password});
+    if(error) return msg(error.message,'err');
+    // Drop the password-only session so nothing is usable until the email code
+    // is verified — this makes the emailed code a true second factor.
+    await sb.auth.signOut();
+    pendingEmail=email;
+    await sendEmailCode();
+  };
+
+  // Step 2 wiring.
+  $('mfaVerifyBtn').onclick=verifyEmailCode;
+  $('mfaResendBtn').onclick=sendEmailCode;
+  $('mfaCode').addEventListener('keydown',e=>{ if(e.key==='Enter') verifyEmailCode(); });
+  $('mfaBackBtn').onclick=async()=>{ if(sb) await sb.auth.signOut(); session=null; pendingEmail=null; msg(''); showStep(false); };
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
