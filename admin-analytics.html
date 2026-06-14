@@ -248,8 +248,7 @@
       <p>Sign in with your Codeply admin account to load live analytics.</p>
       <div class="cfgwarn" id="cfgWarn" style="display:none">⚠ Set SUPABASE_URL / SUPABASE_ANON / API_BASE in this file to enable live mode.</div>
       <div class="fld"><label>Email</label><input id="liEmail" type="email" placeholder="Enter admin email" autocomplete="username"></div>
-      <div class="fld"><label>Password</label><input id="liPass" type="password" placeholder="••••••••" autocomplete="current-password"></div>
-      <button class="btn primary" id="liBtn">Continue</button>
+      <button class="btn primary" id="liBtn">Email me a code</button>
     </div>
 
     <!-- STEP 2 · emailed one-time code -->
@@ -593,20 +592,15 @@ async function init(){
     $('cfgWarn').textContent='⚠ Could not load config from '+API_BASE+'/api/config — check API_BASE at the top of this file.';
   }
 
-  // Step 1: email + password → on success, email a one-time code.
+  // Step 1: enter email → Supabase emails a one-time code (passwordless).
   $('liBtn').onclick=async()=>{
     if(!sb) return msg('Backend not reachable. Check API_BASE.','err');
-    const email=$('liEmail').value.trim(),password=$('liPass').value;
-    if(!email||!password) return msg('Enter email and password.','err');
-    msg('Checking credentials…');
-    const {error}=await sb.auth.signInWithPassword({email,password});
-    if(error) return msg(error.message,'err');
-    // Drop the password-only session so nothing is usable until the email code
-    // is verified — this makes the emailed code a true second factor.
-    await sb.auth.signOut();
+    const email=$('liEmail').value.trim();
+    if(!email) return msg('Enter your admin email.','err');
     pendingEmail=email;
     await sendEmailCode();
   };
+  $('liEmail').addEventListener('keydown',e=>{ if(e.key==='Enter') $('liBtn').click(); });
 
   // Step 2 wiring.
   $('mfaVerifyBtn').onclick=verifyEmailCode;
