@@ -271,10 +271,11 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 /* ============================ CONFIG ====================================== */
-// Only the API base is needed. The Supabase URL + anon key are pulled at runtime
-// from your existing /api/config route (which reads them from your Vercel env
-// vars) — so no secrets are pasted into this file.
-const API_BASE = 'https://codeply.online'; // your Vercel deployment / domain
+// Hosted on your own site? Leave API_BASE = '' so requests are SAME-ORIGIN
+// (relative to this page) — no CORS, works on any domain/alias it's served from.
+// Only set an absolute URL (e.g. 'https://codeply.online') if you open this file
+// locally / from a different domain than the API.
+const API_BASE = '';
 /* ========================================================================== */
 
 const $ = (id) => document.getElementById(id);
