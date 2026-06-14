@@ -36,39 +36,6 @@ export default async function handler(req, res) {
         updated_at: new Date().toISOString(),
       }, { onConflict: 'user_id,month' });
       if (error) return res.status(500).json({ message: 'Could not record usage.' });
-
-      // Per-event log (powers the admin dashboard: peak hours, model ranking,
-      // users-by-country, live "active now"). Best-effort: never blocks usage.
-      // Requires supabase-migration-v3.sql (usage_events table); the insert is
-      // wrapped so a missing table or column simply no-ops.
-      try {
-        // Country comes free from Vercel's edge geo headers.
-        const country =
-          req.headers['x-vercel-ip-country'] ||
-          req.headers['cf-ipcountry'] ||
-          null;
-
-        // Model/provider: prefer what the client reports, else the saved setting.
-        let model = body.model || null;
-        let provider = body.provider || null;
-        if (!model) {
-          const { data: s } = await supabase
-            .from('user_settings')
-            .select('model,provider')
-            .eq('user_id', user.id)
-            .maybeSingle();
-          model = s?.model || null;
-          provider = provider || s?.provider || null;
-        }
-
-        await supabase.from('usage_events').insert({
-          user_id: user.id,
-          model,
-          provider,
-          country: country ? String(country).toUpperCase().slice(0, 2) : null,
-          tokens,
-        });
-      } catch { /* table not migrated yet, or transient — ignore */ }
     }
   } else if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET, POST');

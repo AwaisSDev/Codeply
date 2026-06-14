@@ -274,13 +274,14 @@ drop policy if exists "usage_events_admin_read_all" on public.usage_events;
 create policy "usage_events_admin_read_all" on public.usage_events
   for select to authenticated using (public.is_admin_user());
 
--- Aggregate helpers used by /api/admin-stats
+-- Aggregate helpers used by /api/admin-stats.
+-- These read from your REAL per-call log: public.usage_history.
 create or replace function public.usage_by_hour(p_days integer default 30)
 returns table (hour integer, calls bigint)
 language sql stable security definer set search_path = public as $$
   select extract(hour from created_at at time zone 'UTC')::int as hour,
          count(*)::bigint as calls
-  from public.usage_events
+  from public.usage_history
   where created_at >= now() - make_interval(days => greatest(p_days, 1))
   group by 1 order by 1;
 $$;
@@ -289,26 +290,27 @@ create or replace function public.usage_by_model(p_days integer default 30, p_li
 returns table (model text, calls bigint)
 language sql stable security definer set search_path = public as $$
   select coalesce(model, 'unknown') as model, count(*)::bigint as calls
-  from public.usage_events
+  from public.usage_history
   where created_at >= now() - make_interval(days => greatest(p_days, 1))
   group by 1 order by 2 desc limit greatest(p_limit, 1);
 $$;
 
+-- Country lives on profiles (captured at signup / via geo). p_days kept for
+-- signature compatibility.
 create or replace function public.users_by_country(p_days integer default 90)
 returns table (country text, users bigint)
 language sql stable security definer set search_path = public as $$
-  select coalesce(country, 'XX') as country, count(distinct user_id)::bigint as users
-  from public.usage_events
-  where created_at >= now() - make_interval(days => greatest(p_days, 1))
-    and user_id is not null
-  group by 1 order by 2 desc;
+  select country, count(*)::bigint as users
+  from public.profiles
+  where country is not null and country <> ''
+  group by country order by 2 desc;
 $$;
 
 create or replace function public.active_users(p_minutes integer default 5)
 returns bigint
 language sql stable security definer set search_path = public as $$
   select count(distinct user_id)::bigint
-  from public.usage_events
+  from public.usage_history
   where created_at >= now() - make_interval(mins => greatest(p_minutes, 1))
     and user_id is not null;
 $$;
@@ -320,7 +322,45 @@ grant execute on function public.active_users(integer)            to authenticat
 
 
 -- ════════════════════════════════════════════════════════════════════════════
--- SECTION 4 — MAKE YOURSELF ADMIN  (required for the dashboard to load)
+-- SECTION 4 — KEEP profiles IN SYNC WITH auth.users
+-- ----------------------------------------------------------------------------
+-- Signups land in auth.users. The app only writes public.profiles on certain
+-- API calls, so profiles can lag. This backfills every existing user and adds
+-- a trigger so new signups get a profile row automatically — which is what the
+-- analytics dashboard counts as "users".
 -- ════════════════════════════════════════════════════════════════════════════
--- Uncomment & run once the account exists (sign up in the app first):
+
+-- Backfill existing auth users into profiles (preserving original signup time)
+insert into public.profiles (id, email, created_at)
+select u.id, u.email, u.created_at
+from auth.users u
+on conflict (id) do nothing;
+
+-- Auto-create a profile whenever a new user signs up
+create or replace function public.handle_new_user()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  insert into public.profiles (id, email, full_name, avatar_url, created_at)
+  values (
+    new.id,
+    new.email,
+    new.raw_user_meta_data->>'full_name',
+    new.raw_user_meta_data->>'avatar_url',
+    coalesce(new.created_at, now())
+  )
+  on conflict (id) do nothing;
+  return new;
+end;
+$$;
+
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();
+
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- SECTION 5 — MAKE YOURSELF ADMIN  (required for the dashboard to load)
+-- ════════════════════════════════════════════════════════════════════════════
+-- After the backfill above, your profile row exists. Run this to flag it:
 -- update public.profiles set is_admin = true where email = 'mawais9171@gmail.com';

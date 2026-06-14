@@ -174,20 +174,24 @@ export default async function handler(req, res) {
   let activeNow = await tryRpc('active_users', { p_minutes: 5 });
   if (activeNow === null) {
     activeNow = 0;
-    notes.push('active_now requires migration v3 (usage_events). Showing 0 until events are logged.');
+    notes.push('active_now needs the active_users() function (run supabase-migration-v3.sql). Reads usage_history, last 5 min.');
   }
 
   // ── Code placements (times AI was used) ─────────────────────────────────────
+  // Primary source: usage_history (one row per AI call). Falls back to the
+  // usage_monthly aggregate if usage_history is empty/unavailable.
   let placementsTotal = 0, placementsMonth = 0;
-  try {
-    const { data: allUsage } = await supabase.from('usage_monthly').select('requests,month');
-    if (allUsage) {
-      for (const r of allUsage) {
+  placementsTotal = await countRows('usage_history');
+  placementsMonth = await countRows('usage_history', (q) => q.gte('created_at', startOfMonthUTC()));
+  if (placementsTotal === 0) {
+    try {
+      const { data: allUsage } = await supabase.from('usage_monthly').select('requests,month');
+      for (const r of allUsage || []) {
         placementsTotal += r.requests || 0;
         if (r.month === month) placementsMonth += r.requests || 0;
       }
-    }
-  } catch { /* leave zeros */ }
+    } catch { /* leave zeros */ }
+  }
 
   // ── Revenue (Whop first, subscription estimate fallback) ────────────────────
   const subRev = await subscriptionRevenue();
@@ -223,7 +227,7 @@ export default async function handler(req, res) {
       models = Object.entries(counts)
         .map(([model, calls]) => ({ model, calls }))
         .sort((a, b) => b.calls - a.calls).slice(0, 8);
-      if (models.length) notes.push('Models shown by current user selection (user_settings). Apply migration v3 + usage.js patch for ranking by real call volume.');
+      if (models.length) notes.push('Models shown by current user selection (user_settings). Once usage_history has rows, ranking switches to real call volume.');
     } catch { models = []; }
   }
 
@@ -231,7 +235,7 @@ export default async function handler(req, res) {
   let peakHours = await tryRpc('usage_by_hour', { p_days: 30 });
   if (!peakHours) {
     peakHours = [];
-    notes.push('Peak usage hours require migration v3 (usage_events). No hourly data yet.');
+    notes.push('Peak usage hours need the usage_by_hour() function (run supabase-migration-v3.sql). Reads usage_history.');
   }
   // normalize to a full 0..23 array
   const hourMap = {};
@@ -250,7 +254,7 @@ export default async function handler(req, res) {
       }
       countries = Object.entries(counts).map(([country, users]) => ({ country, users }))
         .sort((a, b) => b.users - a.users);
-      if (!countries.length) notes.push('No country data yet. Country is captured on new AI calls / signups once migration v3 + usage.js patch are deployed.');
+      if (!countries.length) notes.push('No country data yet. profiles.country fills in as signups are captured with geo (x-vercel-ip-country).');
     } catch { countries = []; }
   }
   countries = (countries || []).map((c) => ({ country: c.country, users: Number(c.users) || 0 }));
