@@ -87,8 +87,9 @@
   .main{flex:1;overflow-y:auto}
   .main::-webkit-scrollbar{width:10px}
   .main::-webkit-scrollbar-thumb{background:#d6dbe6;border-radius:8px;border:3px solid var(--bg)}
-  .sec{padding:30px 36px 8px;max-width:1180px;scroll-margin-top:10px}
-  .sec:last-of-type{padding-bottom:48px}
+  .page{display:none;padding:30px 36px 48px;max-width:1180px}
+  .page.active{display:block;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
   .ph{margin-bottom:20px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .ph-title{font-size:1.5rem;font-weight:800;letter-spacing:-.025em}
   .ph-sub{font-size:.9rem;color:var(--ink-2);margin-top:3px}
@@ -207,26 +208,26 @@
       </div>
       <nav>
         <div class="nav-sec">Monitor</div>
-        <div class="nav-item active b" data-sec="sec-overview" data-color="b">
+        <div class="nav-item active b" data-page="page-overview" data-color="b">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
           Overview
         </div>
-        <div class="nav-item" data-sec="sec-signups" data-color="g">
+        <div class="nav-item" data-page="page-signups" data-color="g">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></span>
           New signups
         </div>
         <div class="nav-sec">Manage</div>
-        <div class="nav-item" data-sec="sec-users" data-color="b">
+        <div class="nav-item" data-page="page-users" data-color="b">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
           All users
         </div>
         <div class="nav-sec">Usage</div>
-        <div class="nav-item" data-sec="sec-usage" data-color="y">
+        <div class="nav-item" data-page="page-usage" data-color="y">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span>
           Models &amp; hours
         </div>
         <div class="nav-sec">Revenue</div>
-        <div class="nav-item" data-sec="sec-billing" data-color="r">
+        <div class="nav-item" data-page="page-billing" data-color="r">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span>
           Revenue &amp; churn
         </div>
@@ -242,7 +243,7 @@
     <main class="main">
 
       <!-- OVERVIEW -->
-      <section class="sec" id="sec-overview">
+      <section class="page active" id="page-overview">
         <div class="ph">
           <div><div class="ph-title">Overview</div><div class="ph-sub">User growth &amp; activity across Codeply</div></div>
         </div>
@@ -296,31 +297,41 @@
             <div class="stat-delta" id="kPlaceD">this month: —</div>
           </div>
         </div>
+
+        <div class="grid-2">
+          <div class="card" style="margin-bottom:0">
+            <div class="card-head">
+              <div class="card-title"><span class="swatch-ico" style="background:var(--blue)"></span>Signups · last 14 days</div>
+              <div class="card-sub">per day</div>
+            </div>
+            <div class="card-body"><div class="chart-box tall"><canvas id="signupChart"></canvas></div></div>
+          </div>
+          <div class="card" style="margin-bottom:0">
+            <div class="card-head">
+              <div class="card-title"><span class="swatch-ico" style="background:var(--green)"></span>Recent signups</div>
+              <div class="card-sub">5 newest users</div>
+            </div>
+            <div class="feed" id="recentList"></div>
+          </div>
+        </div>
       </section>
 
       <!-- NEW SIGNUPS (today) -->
-      <section class="sec" id="sec-signups">
+      <section class="page" id="page-signups">
         <div class="ph">
           <div><div class="ph-title">New signups</div><div class="ph-sub">Everyone who joined today</div></div>
         </div>
-        <div class="card">
+        <div class="card" style="margin-bottom:0">
           <div class="card-head">
             <div class="card-title"><span class="swatch-ico" style="background:var(--green)"></span>Today's signups</div>
             <div class="card-sub" id="todayCount">—</div>
           </div>
           <div class="feed" id="todayFeed"></div>
         </div>
-        <div class="card" style="margin-bottom:0">
-          <div class="card-head">
-            <div class="card-title"><span class="swatch-ico" style="background:var(--blue)"></span>Signups · last 14 days</div>
-            <div class="card-sub">per day</div>
-          </div>
-          <div class="card-body"><div class="chart-box tall"><canvas id="signupChart"></canvas></div></div>
-        </div>
       </section>
 
       <!-- ALL USERS -->
-      <section class="sec" id="sec-users">
+      <section class="page" id="page-users">
         <div class="ph">
           <div><div class="ph-title">All users</div><div class="ph-sub" id="usersSub">—</div></div>
         </div>
@@ -334,7 +345,8 @@
       </section>
 
       <!-- MODELS & HOURS -->
-      <section class="sec" id="sec-usage">
+      <section class="page" id="page-usage">
+        <div class="ph"><div><div class="ph-title">Models &amp; hours</div><div class="ph-sub">AI usage patterns across Codeply</div></div></div>
         <div class="grid-2">
           <div class="card" style="margin-bottom:0">
             <div class="card-head">
@@ -354,7 +366,8 @@
       </section>
 
       <!-- REVENUE & CHURN -->
-      <section class="sec" id="sec-billing">
+      <section class="page" id="page-billing">
+        <div class="ph"><div><div class="ph-title">Revenue &amp; churn</div><div class="ph-sub">Billing health this month</div></div></div>
         <div class="grid-2">
           <div class="card" style="margin-bottom:0">
             <div class="card-head">
@@ -417,7 +430,7 @@ const API_BASE = '';
 
 const $ = (id) => document.getElementById(id);
 let SUPABASE_URL='', SUPABASE_ANON='';
-let sb=null, session=null, charts={}, pendingEmail=null;
+let sb=null, session=null, charts={}, pendingEmail=null, lastStats=null, currentPage='page-overview';
 
 /* ---------- data ---------- */
 async function loadStats(){
@@ -445,11 +458,9 @@ function render(s){
   const top=(s.models&&s.models[0])||null;
   $('kModelD').textContent=top?('top: '+top.model.split('/').pop()+' · '+fmt(top.calls)+' calls'):'no usage_history yet';
 
-  drawSignups(s.signups.trend||[]);
-  drawHours(s.peak_hours||[]);
-  drawModels(s.models||[]);
-  drawPlans(s.revenue);
   renderUsers(s.users_list||[]);
+  lastStats=s;
+  renderChartsFor(currentPage);
 
   const notes=s._notes||[];
   $('notesBox').innerHTML = notes.length ? notes.map(n=>'• '+n).join('<br>') : '✓ All metrics reading from live data.';
@@ -508,18 +519,26 @@ function avatarHtml(u,cls){
 }
 function timeAgo(iso){const d=Date.now()-Date.parse(iso);const m=Math.floor(d/6e4);
   if(m<1)return'just now'; if(m<60)return m+'m ago'; const h=Math.floor(m/60); if(h<24)return h+'h ago'; return Math.floor(h/24)+'d ago';}
+function feedRow(u,isNew){
+  return '<div class="feed-item">'+avatarHtml(u,'feed-av')+
+    '<div class="feed-main"><div class="feed-name">'+esc(displayName(u))+(isNew?' <span class="new-tag">NEW</span>':'')+'</div>'+
+    '<div class="feed-meta">'+esc(u.email||'')+' · '+esc(u.plan||'free')+'</div></div>'+
+    '<div class="feed-time">'+timeAgo(u.created_at)+'</div></div>';
+}
 
 function renderUsers(list){
+  // Recent 5 (overview)
+  $('recentList').innerHTML = list.length ? list.slice(0,5).map(u=>feedRow(u,false)).join('')
+    : '<div style="padding:20px;color:var(--ink-3);font-size:.82rem">No users yet.</div>';
+
+  // Today's signups (New signups page)
   const start=new Date(); start.setHours(0,0,0,0);
   const today=list.filter(u=>Date.parse(u.created_at)>=start.getTime());
   $('todayCount').textContent=today.length+' today';
-  $('todayFeed').innerHTML = today.length ? today.map(u=>
-    '<div class="feed-item">'+avatarHtml(u,'feed-av')+
-      '<div class="feed-main"><div class="feed-name">'+esc(displayName(u))+' <span class="new-tag">NEW</span></div>'+
-      '<div class="feed-meta">'+esc(u.email||'')+' · '+esc(u.plan||'free')+'</div></div>'+
-      '<div class="feed-time">'+timeAgo(u.created_at)+'</div></div>'
-  ).join('') : '<div style="padding:20px;color:var(--ink-3);font-size:.82rem">No new signups yet today.</div>';
+  $('todayFeed').innerHTML = today.length ? today.map(u=>feedRow(u,true)).join('')
+    : '<div style="padding:20px;color:var(--ink-3);font-size:.82rem">No new signups yet today.</div>';
 
+  // Full directory (All users page)
   $('usersSub').textContent=fmt(list.length)+' recent accounts';
   $('usersBody').innerHTML = list.length ? list.map(u=>{
     const joined=u.created_at?new Date(u.created_at).toLocaleDateString():'—';
@@ -528,6 +547,24 @@ function renderUsers(list){
       '<td><span class="t-plan">'+esc(u.plan||'free')+'</span></td>'+
       '<td class="t-time">'+joined+'</td></tr>';
   }).join('') : '<tr><td colspan="3" style="color:var(--ink-3)">No users found.</td></tr>';
+}
+
+/* ---------- page switching ---------- */
+function renderChartsFor(page){
+  if(!lastStats) return;
+  const s=lastStats;
+  if(page==='page-overview') drawSignups(s.signups.trend||[]);
+  else if(page==='page-usage'){ drawHours(s.peak_hours||[]); drawModels(s.models||[]); }
+  else if(page==='page-billing') drawPlans(s.revenue);
+}
+function goPage(page){
+  document.querySelectorAll('.nav-item').forEach(n=>n.className='nav-item');
+  const item=document.querySelector('.nav-item[data-page="'+page+'"]');
+  if(item) item.classList.add('active', item.dataset.color||'b');
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active', p.id===page));
+  currentPage=page;
+  const main=document.querySelector('.main'); if(main) main.scrollTop=0;
+  renderChartsFor(page);
 }
 
 /* ---------- login (passwordless email OTP) ---------- */
@@ -567,12 +604,8 @@ function enterDashboard(){
 }
 
 async function init(){
-  // sidebar nav → smooth scroll to section
-  document.querySelectorAll('.nav-item').forEach(it=>it.onclick=()=>{
-    document.querySelectorAll('.nav-item').forEach(n=>n.className='nav-item');
-    it.classList.add('active', it.dataset.color||'b');
-    const sec=$(it.dataset.sec); if(sec) sec.scrollIntoView({behavior:'smooth',block:'start'});
-  });
+  // sidebar nav → switch pages
+  document.querySelectorAll('.nav-item').forEach(it=>it.onclick=()=>goPage(it.dataset.page));
 
   $('refreshBtn').onclick=refresh;
   $('signoutBtn').onclick=async()=>{ if(sb) await sb.auth.signOut(); location.reload(); };
