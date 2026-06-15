@@ -259,6 +259,31 @@ export default async function handler(req, res) {
   }
   countries = (countries || []).map((c) => ({ country: c.country, users: Number(c.users) || 0 }));
 
+  // ── Recent users (directory + today's signup feed) ──────────────────────────
+  // name + avatar (pfp) when the user has them; plan from subscriptions.
+  let usersList = [];
+  try {
+    const { data: recent } = await supabase
+      .from('profiles')
+      .select('id,email,full_name,avatar_url,created_at')
+      .order('created_at', { ascending: false })
+      .limit(200);
+    const { data: subs } = await supabase.from('subscriptions').select('user_id,plan,status');
+    const subMap = {};
+    for (const s of subs || []) subMap[s.user_id] = s;
+    usersList = (recent || []).map((p) => {
+      const sub = subMap[p.id];
+      return {
+        id: p.id,
+        email: p.email,
+        full_name: p.full_name,
+        avatar_url: p.avatar_url,
+        created_at: p.created_at,
+        plan: sub && sub.status === 'active' ? sub.plan : 'free',
+      };
+    });
+  } catch { usersList = []; }
+
   return res.status(200).json({
     generated_at: new Date().toISOString(),
     signups: { today: signupToday, week: signupWeek, total: totalUsers, waitlist_total: waitlistTotal, trend },
@@ -269,6 +294,7 @@ export default async function handler(req, res) {
     models: models || [],
     peak_hours,
     countries,
+    users_list: usersList,
     _notes: notes,
   });
 }

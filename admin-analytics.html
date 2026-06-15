@@ -128,18 +128,31 @@
 
   .chart-box{position:relative;height:240px}
   .chart-box.tall{height:300px}
-  #globeBody{padding:0;position:relative;height:430px;background:radial-gradient(120% 90% at 50% 0%,#f1f4ff,#e7ecfb)}
-  #globeCanvas{display:block;width:100%;height:100%;cursor:grab}
-  #globeCanvas:active{cursor:grabbing}
-  .globe-legend{position:absolute;bottom:16px;left:18px;background:rgba(255,255,255,.82);backdrop-filter:blur(10px);
-    border:1px solid var(--line);border-radius:12px;padding:11px 13px;max-width:225px;box-shadow:var(--sh-sm)}
-  .lg-title{font-size:.56rem;text-transform:uppercase;letter-spacing:.8px;color:var(--ink-3);margin-bottom:8px;font-weight:700}
-  .lg-row{display:flex;align-items:center;gap:9px;font-size:.74rem;margin:4px 0}
-  .lg-row .sw{width:10px;height:10px;border-radius:50%}
-  .lg-row .nm{flex:1;font-weight:600}
-  .lg-row .ct{color:var(--ink-3);font-family:var(--mono);font-weight:600}
-  .lg-scale{height:8px;border-radius:5px;margin-top:10px;background:linear-gradient(90deg,#4285F4,#FBBC04,#EA4335)}
-  .lg-scale-lbl{display:flex;justify-content:space-between;font-size:.55rem;color:var(--ink-3);margin-top:3px;font-family:var(--mono)}
+  /* Signup feed */
+  .feed{padding:4px 0;max-height:460px;overflow-y:auto}
+  .feed-item{display:flex;align-items:center;gap:13px;padding:12px 20px;border-bottom:1px solid var(--line-2)}
+  .feed-item:last-child{border-bottom:none}
+  .feed-item:hover{background:var(--surface-2)}
+  .feed-av,.u-av{flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;overflow:hidden}
+  .feed-av{width:38px;height:38px;border-radius:50%;font-size:.84rem}
+  .feed-main{flex:1;min-width:0}
+  .feed-name{font-size:.84rem;font-weight:700;color:var(--ink)}
+  .feed-name .new-tag{font-family:var(--mono);font-size:.52rem;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--green);padding:1px 6px;border-radius:var(--r-pill);margin-left:7px;vertical-align:middle}
+  .feed-meta{font-family:var(--mono);font-size:.68rem;color:var(--ink-3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .feed-time{font-family:var(--mono);font-size:.64rem;color:var(--ink-3);flex-shrink:0}
+
+  /* Users table */
+  table{width:100%;border-collapse:collapse}
+  th{font-family:var(--mono);font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:11px 20px;background:var(--surface-2);border-bottom:1px solid var(--line-2)}
+  td{padding:12px 20px;font-size:.8rem;color:var(--ink-2);border-bottom:1px solid var(--line-2);vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:var(--surface-2)}
+  .u-cell{display:flex;align-items:center;gap:11px}
+  .u-av{width:32px;height:32px;border-radius:50%;font-size:.72rem}
+  .u-name{font-size:.82rem;font-weight:700;color:var(--ink)}
+  .u-mail{font-family:var(--mono);font-size:.66rem;color:var(--ink-3);margin-top:1px}
+  .t-plan{font-family:var(--mono);font-size:.62rem;padding:3px 9px;border-radius:var(--r-pill);background:var(--line-2);color:var(--ink-2);font-weight:600;text-transform:capitalize}
+  .t-time{font-family:var(--mono);font-size:.68rem;color:var(--ink-3)}
 
   .notes{font-size:.76rem;color:var(--ink-2);line-height:1.65}
   .notes b{color:var(--yellow-ink)}
@@ -200,11 +213,12 @@
         </div>
         <div class="nav-item" data-sec="sec-signups" data-color="g">
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></span>
-          Signups
+          New signups
         </div>
-        <div class="nav-item" data-sec="sec-country" data-color="b">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20"/></svg></span>
-          Users by country
+        <div class="nav-sec">Manage</div>
+        <div class="nav-item" data-sec="sec-users" data-color="b">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+          All users
         </div>
         <div class="nav-sec">Usage</div>
         <div class="nav-item" data-sec="sec-usage" data-color="y">
@@ -284,33 +298,38 @@
         </div>
       </section>
 
-      <!-- SIGNUPS -->
+      <!-- NEW SIGNUPS (today) -->
       <section class="sec" id="sec-signups">
+        <div class="ph">
+          <div><div class="ph-title">New signups</div><div class="ph-sub">Everyone who joined today</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title"><span class="swatch-ico" style="background:var(--green)"></span>Today's signups</div>
+            <div class="card-sub" id="todayCount">—</div>
+          </div>
+          <div class="feed" id="todayFeed"></div>
+        </div>
         <div class="card" style="margin-bottom:0">
           <div class="card-head">
             <div class="card-title"><span class="swatch-ico" style="background:var(--blue)"></span>Signups · last 14 days</div>
-            <div class="card-sub">new registered profiles per day</div>
+            <div class="card-sub">per day</div>
           </div>
           <div class="card-body"><div class="chart-box tall"><canvas id="signupChart"></canvas></div></div>
         </div>
       </section>
 
-      <!-- USERS BY COUNTRY -->
-      <section class="sec" id="sec-country">
+      <!-- ALL USERS -->
+      <section class="sec" id="sec-users">
+        <div class="ph">
+          <div><div class="ph-title">All users</div><div class="ph-sub" id="usersSub">—</div></div>
+        </div>
         <div class="card" style="margin-bottom:0">
           <div class="card-head">
-            <div class="card-title"><span class="swatch-ico" style="background:var(--blue)"></span>🌍 Users by country</div>
-            <div class="card-sub">warmer glow = more users · drag to rotate</div>
+            <div class="card-title"><span class="swatch-ico" style="background:var(--blue)"></span>Directory</div>
+            <div class="card-sub">most recent first</div>
           </div>
-          <div id="globeBody">
-            <canvas id="globeCanvas"></canvas>
-            <div class="globe-legend">
-              <div class="lg-title">Top countries</div>
-              <div id="legendRows"><div class="lg-row"><span class="nm">—</span></div></div>
-              <div class="lg-scale"></div>
-              <div class="lg-scale-lbl"><span>fewer</span><span>more users</span></div>
-            </div>
-          </div>
+          <table><thead><tr><th>User</th><th>Plan</th><th>Joined</th></tr></thead><tbody id="usersBody"></tbody></table>
         </div>
       </section>
 
@@ -386,7 +405,6 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
@@ -399,26 +417,7 @@ const API_BASE = '';
 
 const $ = (id) => document.getElementById(id);
 let SUPABASE_URL='', SUPABASE_ANON='';
-let sb=null, session=null, charts={}, globe=null, pendingEmail=null;
-
-/* Country centroids ISO-2 → [lat, lon, name] */
-const CC = {
-  US:[39.8,-98.6,'United States'],PK:[30.4,69.3,'Pakistan'],IN:[22.4,78.7,'India'],GB:[54,-2.4,'United Kingdom'],
-  CA:[56.1,-106.3,'Canada'],DE:[51.2,10.5,'Germany'],FR:[46.2,2.2,'France'],BR:[-14.2,-51.9,'Brazil'],
-  AU:[-25.3,133.8,'Australia'],NG:[9.1,8.7,'Nigeria'],ID:[-0.8,113.9,'Indonesia'],JP:[36.2,138.3,'Japan'],
-  RU:[61.5,105.3,'Russia'],CN:[35.9,104.2,'China'],MX:[23.6,-102.6,'Mexico'],ES:[40.5,-3.7,'Spain'],
-  IT:[41.9,12.6,'Italy'],NL:[52.1,5.3,'Netherlands'],SE:[60.1,18.6,'Sweden'],PL:[51.9,19.1,'Poland'],
-  TR:[39,35.2,'Turkey'],SA:[23.9,45.1,'Saudi Arabia'],AE:[23.4,53.8,'UAE'],EG:[26.8,30.8,'Egypt'],
-  ZA:[-30.6,22.9,'South Africa'],KE:[-0.02,37.9,'Kenya'],AR:[-38.4,-63.6,'Argentina'],CL:[-35.7,-71.5,'Chile'],
-  CO:[4.6,-74.3,'Colombia'],PH:[12.9,121.8,'Philippines'],VN:[14.1,108.3,'Vietnam'],TH:[15.9,100.99,'Thailand'],
-  MY:[4.2,101.98,'Malaysia'],SG:[1.35,103.8,'Singapore'],KR:[35.9,127.8,'South Korea'],BD:[23.7,90.4,'Bangladesh'],
-  UA:[48.4,31.2,'Ukraine'],RO:[45.9,24.97,'Romania'],PT:[39.4,-8.2,'Portugal'],IE:[53.4,-8.2,'Ireland'],
-  CH:[46.8,8.2,'Switzerland'],BE:[50.5,4.5,'Belgium'],AT:[47.5,14.6,'Austria'],NO:[60.5,8.5,'Norway'],
-  DK:[56.3,9.5,'Denmark'],FI:[61.9,25.7,'Finland'],GR:[39.1,21.8,'Greece'],CZ:[49.8,15.5,'Czechia'],
-  HU:[47.2,19.5,'Hungary'],IL:[31.0,34.9,'Israel'],MA:[31.8,-7.1,'Morocco'],GH:[7.9,-1.0,'Ghana'],
-  NZ:[-40.9,174.9,'New Zealand'],PE:[-9.2,-75.0,'Peru'],LK:[7.9,80.8,'Sri Lanka'],NP:[28.4,84.1,'Nepal'],
-  TW:[23.7,121,'Taiwan'],HK:[22.3,114.2,'Hong Kong']
-};
+let sb=null, session=null, charts={}, pendingEmail=null;
 
 /* ---------- data ---------- */
 async function loadStats(){
@@ -450,8 +449,7 @@ function render(s){
   drawHours(s.peak_hours||[]);
   drawModels(s.models||[]);
   drawPlans(s.revenue);
-  drawLegend(s.countries||[]);
-  buildGlobe(s.countries||[]);
+  renderUsers(s.users_list||[]);
 
   const notes=s._notes||[];
   $('notesBox').innerHTML = notes.length ? notes.map(n=>'• '+n).join('<br>') : '✓ All metrics reading from live data.';
@@ -498,62 +496,38 @@ function drawPlans(rev){
 function mix3(a,b,c,t){const lerp=(x,y,k)=>Math.round(x+(y-x)*k);t=Math.max(0,Math.min(1,t));
   if(t<0.5){const k=t/0.5;return [lerp(a[0],b[0],k),lerp(a[1],b[1],k),lerp(a[2],b[2],k)];}
   const k=(t-0.5)/0.5;return [lerp(b[0],c[0],k),lerp(b[1],c[1],k),lerp(b[2],c[2],k)];}
-function colorFor(t){const c=mix3([66,133,244],[251,188,4],[234,67,53],t);return 'rgb('+c[0]+','+c[1]+','+c[2]+')';}
-
-function drawLegend(countries){
-  const rows=countries.slice(0,6);
-  const max=Math.max(1,...countries.map(c=>c.users));
-  $('legendRows').innerHTML = rows.length ? rows.map(c=>{
-    const name=(CC[c.country]&&CC[c.country][2])||c.country;const col=colorFor(c.users/max);
-    return '<div class="lg-row"><span class="sw" style="background:'+col+';box-shadow:0 0 8px '+col+'"></span><span class="nm">'+name+'</span><span class="ct">'+fmt(c.users)+'</span></div>';
-  }).join('') : '<div class="lg-row"><span class="nm" style="color:var(--ink-3)">No country data yet</span></div>';
+/* ---------- users directory + today's signup feed ---------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function displayName(u){ return u.full_name || (u.email ? u.email.split('@')[0] : 'User'); }
+function avColor(s){const c=['#4285F4','#34A853','#FBBC04','#EA4335','#7c3aed','#06b6d4'];let h=0;for(const ch of String(s))h+=ch.charCodeAt(0);return c[h%c.length];}
+function initials(n){return String(n).split(/[ ._-]+/).filter(Boolean).slice(0,2).map(p=>p[0]).join('').toUpperCase()||'U';}
+function avatarHtml(u,cls){
+  const name=displayName(u);
+  if(u.avatar_url) return '<div class="'+cls+'"><img src="'+esc(u.avatar_url)+'" alt="" style="width:100%;height:100%;object-fit:cover" referrerpolicy="no-referrer"></div>';
+  return '<div class="'+cls+'" style="background:'+avColor(name)+'">'+esc(initials(name))+'</div>';
 }
+function timeAgo(iso){const d=Date.now()-Date.parse(iso);const m=Math.floor(d/6e4);
+  if(m<1)return'just now'; if(m<60)return m+'m ago'; const h=Math.floor(m/60); if(h<24)return h+'h ago'; return Math.floor(h/24)+'d ago';}
 
-/* ---------- Three.js globe ---------- */
-function buildGlobe(countries){
-  const canvas=$('globeCanvas'),wrap=$('globeBody');
-  const W=wrap.clientWidth,H=wrap.clientHeight;
-  if(!W||!H){ requestAnimationFrame(()=>buildGlobe(countries)); return; }
+function renderUsers(list){
+  const start=new Date(); start.setHours(0,0,0,0);
+  const today=list.filter(u=>Date.parse(u.created_at)>=start.getTime());
+  $('todayCount').textContent=today.length+' today';
+  $('todayFeed').innerHTML = today.length ? today.map(u=>
+    '<div class="feed-item">'+avatarHtml(u,'feed-av')+
+      '<div class="feed-main"><div class="feed-name">'+esc(displayName(u))+' <span class="new-tag">NEW</span></div>'+
+      '<div class="feed-meta">'+esc(u.email||'')+' · '+esc(u.plan||'free')+'</div></div>'+
+      '<div class="feed-time">'+timeAgo(u.created_at)+'</div></div>'
+  ).join('') : '<div style="padding:20px;color:var(--ink-3);font-size:.82rem">No new signups yet today.</div>';
 
-  if(!globe){
-    const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-    const scene=new THREE.Scene();
-    const camera=new THREE.PerspectiveCamera(45,W/H,0.1,100); camera.position.z=3.05;
-    scene.add(new THREE.AmbientLight(0xffffff,0.9));
-    const dir=new THREE.DirectionalLight(0xffffff,0.7); dir.position.set(5,3,5); scene.add(dir);
-    const root=new THREE.Group(); scene.add(root);
-    root.add(new THREE.Mesh(new THREE.SphereGeometry(1,64,64),
-      new THREE.MeshPhongMaterial({color:0xdfeaff,emissive:0xeaf1ff,emissiveIntensity:.35,shininess:30,specular:0xffffff})));
-    root.add(new THREE.Mesh(new THREE.SphereGeometry(1.003,36,24),
-      new THREE.MeshBasicMaterial({color:0x9db4e8,wireframe:true,transparent:true,opacity:0.22})));
-    root.add(new THREE.Mesh(new THREE.SphereGeometry(1.2,48,48),new THREE.ShaderMaterial({
-      transparent:true,side:THREE.BackSide,
-      vertexShader:'varying vec3 vN; void main(){ vN=normalize(normalMatrix*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
-      fragmentShader:'varying vec3 vN; void main(){ float i=pow(0.66-dot(vN,vec3(0,0,1.0)),2.6); gl_FragColor=vec4(0.42,0.55,1.0,1.0)*i;}'})));
-    const markers=new THREE.Group(); root.add(markers);
-    globe={renderer,scene,camera,root,markers,vel:0.0016,drag:false,px:0,py:0};
-    canvas.addEventListener('pointerdown',e=>{globe.drag=true;globe.px=e.clientX;globe.py=e.clientY;});
-    addEventListener('pointerup',()=>globe.drag=false);
-    addEventListener('pointermove',e=>{ if(!globe.drag)return;
-      globe.root.rotation.y+=(e.clientX-globe.px)*0.005; globe.root.rotation.x+=(e.clientY-globe.py)*0.005;
-      globe.root.rotation.x=Math.max(-1.2,Math.min(1.2,globe.root.rotation.x)); globe.px=e.clientX;globe.py=e.clientY;});
-    (function loop(){ requestAnimationFrame(loop); if(!globe.drag) globe.root.rotation.y+=globe.vel; globe.renderer.render(globe.scene,globe.camera); })();
-    addEventListener('resize',()=>{const w=wrap.clientWidth,h=wrap.clientHeight; if(w&&h){globe.renderer.setSize(w,h);globe.camera.aspect=w/h;globe.camera.updateProjectionMatrix();}});
-  }
-  globe.renderer.setSize(W,H); globe.camera.aspect=W/H; globe.camera.updateProjectionMatrix();
-  while(globe.markers.children.length) globe.markers.remove(globe.markers.children[0]);
-  const max=Math.max(1,...countries.map(c=>c.users));
-  const llToVec=(lat,lon,r)=>{const p=(90-lat)*Math.PI/180,t=(lon+180)*Math.PI/180;
-    return new THREE.Vector3(-r*Math.sin(p)*Math.cos(t),r*Math.cos(p),r*Math.sin(p)*Math.sin(t));};
-  countries.forEach(c=>{
-    const meta=CC[c.country]; if(!meta) return;
-    const t=c.users/max,col=new THREE.Color(colorFor(t)),size=0.016+0.05*t;
-    const pin=new THREE.Mesh(new THREE.SphereGeometry(size,16,16),new THREE.MeshBasicMaterial({color:col}));
-    pin.position.copy(llToVec(meta[0],meta[1],1.015)); globe.markers.add(pin);
-    const halo=new THREE.Sprite(new THREE.SpriteMaterial({color:col,transparent:true,opacity:0.4+0.5*t,depthWrite:false}));
-    halo.scale.setScalar(0.10+0.24*t); halo.position.copy(pin.position); globe.markers.add(halo);
-  });
+  $('usersSub').textContent=fmt(list.length)+' recent accounts';
+  $('usersBody').innerHTML = list.length ? list.map(u=>{
+    const joined=u.created_at?new Date(u.created_at).toLocaleDateString():'—';
+    return '<tr><td><div class="u-cell">'+avatarHtml(u,'u-av')+
+      '<div><div class="u-name">'+esc(displayName(u))+'</div><div class="u-mail">'+esc(u.email||'')+'</div></div></div></td>'+
+      '<td><span class="t-plan">'+esc(u.plan||'free')+'</span></td>'+
+      '<td class="t-time">'+joined+'</td></tr>';
+  }).join('') : '<tr><td colspan="3" style="color:var(--ink-3)">No users found.</td></tr>';
 }
 
 /* ---------- login (passwordless email OTP) ---------- */
