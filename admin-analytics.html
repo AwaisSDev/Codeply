@@ -231,6 +231,13 @@
           <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span>
           Revenue &amp; churn
         </div>
+
+        <div class="nav-sec">Feedback</div>
+        <div class="nav-item" data-page="page-bugs" data-color="r">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="6" width="8" height="14" rx="4"/><path d="M19 7l-3 2M5 7l3 2M12 2v4M3 13h3M18 13h3M19 18l-3-1M5 18l3-1"/></svg></span>
+          Bug reports
+          <span id="bugNavCount" style="margin-left:auto;font-family:var(--mono);font-size:.6rem;font-weight:700;background:var(--red);color:#fff;padding:1px 7px;border-radius:999px;display:none">0</span>
+        </div>
       </nav>
 
       <div class="sb-user">
@@ -383,6 +390,18 @@
             </div>
             <div class="card-body"><div class="notes" id="notesBox">Loading…</div></div>
           </div>
+        </div>
+      </section>
+
+      <!-- BUG REPORTS -->
+      <section class="page" id="page-bugs">
+        <div class="ph"><div><div class="ph-title">Bug reports</div><div class="ph-sub">Submitted by users from inside the app</div></div></div>
+        <div class="card" style="margin-bottom:0">
+          <div class="card-head">
+            <div class="card-title"><span class="swatch-ico" style="background:var(--red)"></span>Reports</div>
+            <div class="card-sub" id="bugsCount">—</div>
+          </div>
+          <table><thead><tr><th>When</th><th>From</th><th>Title</th><th>Details</th><th>Ver</th><th>Status</th></tr></thead><tbody id="bugsBody"></tbody></table>
         </div>
       </section>
 
@@ -549,6 +568,39 @@ function renderUsers(list){
   }).join('') : '<tr><td colspan="3" style="color:var(--ink-3)">No users found.</td></tr>';
 }
 
+/* ---------- bug reports (queried straight from Supabase via admin RLS) ---------- */
+async function loadBugs(){
+  if(!sb || !session) return;
+  const {data,error}=await sb.from('bug_reports')
+    .select('id,created_at,user_email,title,description,app_version,status')
+    .order('created_at',{ascending:false}).limit(300);
+  renderBugs(error?[]:(data||[]));
+}
+function renderBugs(rows){
+  const open=rows.filter(b=>b.status!=='resolved'&&b.status!=='closed').length;
+  $('bugsCount').textContent=rows.length+' total · '+open+' open';
+  const nav=$('bugNavCount');
+  if(nav){ if(open>0){nav.style.display='inline-block';nav.textContent=open;} else nav.style.display='none'; }
+  const STATUSES=['open','in-progress','resolved','closed'];
+  $('bugsBody').innerHTML = rows.length ? rows.map(b=>{
+    const when=b.created_at?timeAgo(b.created_at):'—';
+    const opts=STATUSES.map(s=>'<option value="'+s+'"'+(b.status===s?' selected':'')+'>'+s+'</option>').join('');
+    return '<tr>'+
+      '<td class="t-time">'+when+'</td>'+
+      '<td class="u-mail">'+esc(b.user_email||'—')+'</td>'+
+      '<td><div class="u-name">'+esc(b.title||'—')+'</div></td>'+
+      '<td style="max-width:340px;white-space:normal;line-height:1.5">'+esc(b.description||'')+'</td>'+
+      '<td><span class="t-plan">'+esc(b.app_version||'—')+'</span></td>'+
+      '<td><select class="bugstatus" data-id="'+esc(b.id)+'" style="height:30px;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:var(--mono);font-size:.66rem;padding:0 8px;color:var(--ink)">'+opts+'</select></td>'+
+    '</tr>';
+  }).join('') : '<tr><td colspan="6" style="color:var(--ink-3);text-align:center;padding:28px">No bug reports yet. 🎉</td></tr>';
+  document.querySelectorAll('.bugstatus').forEach(sel=>sel.onchange=async()=>{
+    sel.disabled=true;
+    try{ await sb.from('bug_reports').update({status:sel.value}).eq('id',sel.dataset.id); loadBugs(); }
+    finally{ sel.disabled=false; }
+  });
+}
+
 /* ---------- page switching ---------- */
 function renderChartsFor(page){
   if(!lastStats) return;
@@ -565,6 +617,7 @@ function goPage(page){
   currentPage=page;
   const main=document.querySelector('.main'); if(main) main.scrollTop=0;
   renderChartsFor(page);
+  if(page==='page-bugs') loadBugs();
 }
 
 /* ---------- login (passwordless email OTP) ---------- */
@@ -601,13 +654,14 @@ function enterDashboard(){
   const email=(session&&session.user&&session.user.email)||'';
   if(email){ $('userName').textContent='Admin · '+email.split('@')[0]; $('userInitial').textContent=email[0].toUpperCase(); }
   refresh();
+  loadBugs();   // populate the bug-reports table + nav badge on load
 }
 
 async function init(){
   // sidebar nav → switch pages
   document.querySelectorAll('.nav-item').forEach(it=>it.onclick=()=>goPage(it.dataset.page));
 
-  $('refreshBtn').onclick=refresh;
+  $('refreshBtn').onclick=()=>{ refresh(); loadBugs(); };
   $('signoutBtn').onclick=async()=>{ if(sb) await sb.auth.signOut(); location.reload(); };
 
   // pull Supabase url + anon key from /api/config (Vercel env vars)
