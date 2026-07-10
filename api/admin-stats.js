@@ -265,7 +265,7 @@ export default async function handler(req, res) {
   try {
     const { data: recent } = await supabase
       .from('profiles')
-      .select('id,email,full_name,avatar_url,created_at')
+      .select('id,email,full_name,avatar_url,created_at,referral_source')
       .order('created_at', { ascending: false })
       .limit(200);
     const { data: subs } = await supabase.from('subscriptions').select('user_id,plan,status');
@@ -280,6 +280,7 @@ export default async function handler(req, res) {
         avatar_url: p.avatar_url,
         created_at: p.created_at,
         plan: sub && sub.status === 'active' ? sub.plan : 'free',
+        referral_source: p.referral_source || null,
       };
     });
   } catch { usersList = []; }

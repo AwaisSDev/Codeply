@@ -347,7 +347,7 @@
             <div class="card-title"><span class="swatch-ico" style="background:var(--blue)"></span>Directory</div>
             <div class="card-sub">most recent first</div>
           </div>
-          <table><thead><tr><th>User</th><th>Plan</th><th>Joined</th></tr></thead><tbody id="usersBody"></tbody></table>
+          <table><thead><tr><th>User</th><th>Plan</th><th>From</th><th>Joined</th></tr></thead><tbody id="usersBody"></tbody></table>
         </div>
       </section>
 
@@ -564,8 +564,9 @@ function renderUsers(list){
     return '<tr><td><div class="u-cell">'+avatarHtml(u,'u-av')+
       '<div><div class="u-name">'+esc(displayName(u))+'</div><div class="u-mail">'+esc(u.email||'')+'</div></div></div></td>'+
       '<td><span class="t-plan">'+esc(u.plan||'free')+'</span></td>'+
+      '<td><span class="t-plan">'+esc(u.referral_source||'—')+'</span></td>'+
       '<td class="t-time">'+joined+'</td></tr>';
-  }).join('') : '<tr><td colspan="3" style="color:var(--ink-3)">No users found.</td></tr>';
+  }).join('') : '<tr><td colspan="4" style="color:var(--ink-3)">No users found.</td></tr>';
 }
 
 /* ---------- bug reports (queried straight from Supabase via admin RLS) ---------- */
