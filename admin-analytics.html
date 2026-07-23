@@ -3,687 +3,752 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Codeply — Admin Analytics</title>
+<title>Codeply · Admin Analytics</title>
 <link rel="icon" href="./Favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f4f6fb; --surface:#ffffff; --surface-2:#f7f9fc;
-    --line:#e6eaf2; --line-2:#eef1f7; --ink:#16203a; --ink-2:#5b647a; --ink-3:#98a1b4;
-    --mono:"Space Grotesk",ui-monospace,Menlo,Consolas,monospace;
+    --bg:#eef1f8; --bg2:#f7f9fc;
+    --surface:#ffffff; --surface2:#f4f6fb;
+    --border:#e6eaf2; --border2:#dde3ee;
+    --text:#16203a; --text2:#6b7488; --text3:#a3abbd;
+    --accent:#5468ff; --accent2:#4356e8; --violet:#8b5cf6; --pink:#ec4899;
+    --green:#10b981; --green-dim:#dcfce7;
+    --red:#ef4444; --red-dim:#fee2e2;
+    --amber:#f59e0b; --cyan:#06b6d4;
+    --mono:"Space Grotesk",ui-monospace,Menlo,monospace;
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    --blue:#4285F4; --blue-700:#1a56db; --blue-tint:#eaf1ff; --blue-tint2:#d6e4ff;
-    --green:#34A853; --green-600:#1e8e3e; --green-tint:#e6f4ea;
-    --yellow:#FBBC04; --yellow-ink:#b45309; --yellow-tint:#fef7e0;
-    --red:#EA4335; --red-600:#c5221f; --red-tint:#fce8e6;
-    --r-pill:999px; --r-sm:8px; --r-md:12px; --r-lg:16px;
-    --sh-sm:0 1px 2px rgba(22,32,58,.05),0 4px 12px rgba(22,32,58,.05);
-    --sh-md:0 2px 6px rgba(22,32,58,.06),0 12px 28px rgba(22,32,58,.10);
-    --sh-lg:0 8px 30px rgba(22,32,58,.18);
+    --shadow:0 1px 2px rgba(22,32,58,.04),0 8px 24px rgba(22,32,58,.06);
+    --shadow-lg:0 2px 6px rgba(22,32,58,.05),0 18px 48px rgba(60,80,180,.12);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{background:var(--bg);color:var(--ink);font-family:var(--sans);overflow:hidden;-webkit-font-smoothing:antialiased}
-  .win{height:100vh;display:flex;flex-direction:column}
+  body{
+    background:
+      radial-gradient(900px 500px at 88% -8%,rgba(139,92,246,.10),transparent 60%),
+      radial-gradient(800px 500px at 5% 5%,rgba(84,104,255,.10),transparent 55%),
+      linear-gradient(180deg,var(--bg),var(--bg2) 70%);
+    color:var(--text);font-family:var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased;
+    font-size:15px;line-height:1.5;
+  }
+  a{color:var(--accent)}
+  .wrap{max-width:1500px;margin:0 auto;padding:24px 28px 64px}
 
-  .rainbow-strip{display:flex;height:3px}
-  .rainbow-strip span{flex:1}
-  .rainbow-strip span:nth-child(1){background:#4285F4}
-  .rainbow-strip span:nth-child(2){background:#34A853}
-  .rainbow-strip span:nth-child(3){background:#FBBC04}
-  .rainbow-strip span:nth-child(4){background:#EA4335}
+  /* Header */
+  header{display:flex;align-items:center;gap:14px;margin-bottom:26px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:13px}
+  .logo .mark{width:42px;height:42px;border-radius:12px;
+    background:#fff;border:1px solid var(--border2);
+    display:grid;place-items:center;
+    box-shadow:var(--shadow)}
+  .logo .mark svg{width:30px;height:30px;display:block}
+  .logo h1{font-size:1.32rem;font-weight:800;letter-spacing:-.6px;font-family:var(--sans);color:var(--text)}
+  .logo .sub{font-size:.72rem;color:var(--text2);font-weight:600;letter-spacing:.2px;margin-top:1px}
+  .spacer{flex:1}
+  .pill{font-family:var(--mono);font-size:.7rem;font-weight:700;padding:7px 13px;border-radius:99px;
+    border:1px solid var(--border2);background:var(--surface);color:var(--text2);
+    display:inline-flex;align-items:center;gap:7px;white-space:nowrap;box-shadow:var(--shadow);letter-spacing:.2px}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--text3)}
+  .pill.live{color:var(--green);border-color:#bbf7d0}
+  .pill.live .dot{background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 1.8s infinite}
+  .pill.demo{color:var(--amber);border-color:#fde68a;background:#fffbeb}
+  .pill.demo .dot{background:var(--amber)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .btn{font-family:var(--sans);font-size:.82rem;font-weight:700;padding:10px 16px;border-radius:10px;
+    border:1px solid var(--border2);background:var(--surface);color:var(--text);cursor:pointer;
+    transition:.18s;box-shadow:var(--shadow);letter-spacing:-.1px}
+  .btn:hover{background:var(--surface2);border-color:#c9d2e3;transform:translateY(-1px)}
+  .btn.primary{background:linear-gradient(135deg,var(--accent),var(--violet));border-color:transparent;color:#fff;
+    box-shadow:0 6px 16px rgba(99,102,241,.34)}
+  .btn.primary:hover{filter:brightness(1.05)}
+  #liBtn{background:#1a73e8;border-color:transparent;box-shadow:0 6px 16px rgba(26,115,232,.34);transition:background-color .18s,box-shadow .18s}
+  #liBtn:hover{background:#34a853;filter:none;box-shadow:0 6px 16px rgba(52,168,83,.34)}
 
-  /* Titlebar */
-  .titlebar{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;
-    background:var(--surface);border-bottom:1px solid var(--line);flex-shrink:0;position:relative;z-index:20}
-  .tb-strip{position:absolute;top:0;left:0;right:0}
-  .tb-brand{display:flex;align-items:center;gap:10px}
-  .tb-brand .cmark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--blue),#7c3aed 70%,var(--red));
-    display:grid;place-items:center;color:#fff;font-weight:800;font-size:.85rem}
-  .tb-brand .nm{font-size:.9rem;font-weight:800;letter-spacing:-.01em;font-family:var(--mono)}
-  .tb-brand .tag{font-family:var(--mono);font-size:.54rem;font-weight:700;color:#fff;background:var(--ink);padding:2px 7px;border-radius:var(--r-pill)}
-  .tb-right{display:flex;align-items:center;gap:9px}
-  .pill{font-family:var(--mono);font-size:.62rem;font-weight:700;padding:6px 11px;border-radius:var(--r-pill);
-    border:1px solid var(--line);color:var(--ink-3);display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
-  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--ink-3)}
-  .pill.live{color:var(--green-600);background:var(--green-tint);border-color:transparent}
-  .pill.live .dot{background:var(--green);animation:wpulse 2s infinite}
-  @keyframes wpulse{0%{box-shadow:0 0 0 0 rgba(52,168,83,.4)}70%{box-shadow:0 0 0 7px rgba(52,168,83,0)}100%{box-shadow:0 0 0 0 rgba(52,168,83,0)}}
-  .tb-btn{font-family:var(--sans);font-size:.74rem;font-weight:600;padding:7px 13px;border-radius:var(--r-sm);
-    border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;transition:.15s}
-  .tb-btn:hover{background:var(--surface-2);border-color:#cfd6e4}
+  /* Admin avatar */
+  .avatar-btn{width:42px;height:42px;border-radius:50%;overflow:hidden;border:2px solid var(--border2);
+    cursor:pointer;position:relative;background:var(--surface2);display:grid;place-items:center;
+    box-shadow:var(--shadow);transition:.18s;flex-shrink:0}
+  .avatar-btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .avatar-btn img{width:100%;height:100%;object-fit:cover;display:block}
+  .avatar-btn .ph{font-size:1rem;font-weight:800;color:var(--text2);font-family:var(--sans)}
+  .avatar-btn input{display:none}
+  .avatar-wrap{position:relative;display:inline-flex}
+  .avatar-edit{position:absolute;bottom:-2px;right:-2px;width:16px;height:16px;border-radius:50%;
+    background:var(--accent);color:#fff;display:grid;place-items:center;font-size:.55rem;border:2px solid var(--surface);
+    pointer-events:none}
 
-  .app{flex:1;display:flex;min-height:0}
+  /* KPI grid */
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}
+  @media(max-width:1200px){.kpis{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:680px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;
+    position:relative;overflow:hidden;box-shadow:var(--shadow);transition:.2s}
+  .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+  .kpi .ico{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-size:1rem;
+    background:var(--surface2)}
+  .kpi .lbl{font-size:.68rem;color:var(--text2);text-transform:uppercase;letter-spacing:.8px;margin:13px 0 7px;font-weight:800;font-family:var(--sans)}
+  .kpi .val{font-size:2.05rem;font-weight:800;letter-spacing:-1.4px;line-height:1;font-variant-numeric:tabular-nums;font-family:var(--mono)}
+  .kpi .delta{font-size:.72rem;color:var(--text2);margin-top:9px;font-weight:600}
+  .accent-blue{color:var(--accent)}.accent-green{color:var(--green)}.accent-red{color:var(--red)}
+  .accent-amber{color:#d97706}.accent-purple{color:var(--violet)}.accent-cyan{color:#0891b2}
 
-  /* Sidebar */
-  .sidebar{width:248px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column}
-  .sb-logo{display:flex;align-items:center;gap:11px;padding:18px 18px 14px}
-  .sb-logo .cmark{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--blue),#7c3aed 70%,var(--red));
-    display:grid;place-items:center;color:#fff;font-weight:800}
-  .sb-logo .nm{font-size:1.12rem;font-weight:800;letter-spacing:-.02em}
-  .sb-logo .nm .ai{font-family:var(--mono);font-size:.5rem;font-weight:700;color:var(--ink-2);background:var(--line-2);padding:2px 5px;border-radius:5px;vertical-align:middle;margin-left:3px;letter-spacing:.06em}
-  nav{padding:4px 12px;flex:1;overflow-y:auto}
-  .nav-sec{font-family:var(--mono);font-size:.58rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:0 10px;margin:16px 0 7px}
-  .nav-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:11px;cursor:pointer;color:var(--ink-2);font-size:.88rem;font-weight:600;transition:.14s;margin-bottom:3px}
-  .nav-item:hover{background:var(--line-2);color:var(--ink)}
-  .nav-item .ico{width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-  .nav-item .ico svg{width:19px;height:19px}
-  .nav-item.active.b{background:var(--blue-tint);color:var(--blue-700)} .nav-item.active.b .ico{color:var(--blue)}
-  .nav-item.active.g{background:var(--green-tint);color:var(--green-600)} .nav-item.active.g .ico{color:var(--green-600)}
-  .nav-item.active.y{background:var(--yellow-tint);color:var(--yellow-ink)} .nav-item.active.y .ico{color:var(--yellow-ink)}
-  .nav-item.active.r{background:var(--red-tint);color:var(--red-600)} .nav-item.active.r .ico{color:var(--red)}
+  /* Layout */
+  .grid{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;margin-bottom:18px}
+  @media(max-width:1050px){.grid{grid-template-columns:1fr}}
+  .panel{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px;box-shadow:var(--shadow)}
+  .panel h2{font-size:1.02rem;font-weight:800;display:flex;align-items:center;gap:8px;letter-spacing:-.3px;font-family:var(--sans)}
+  .panel .ph-sub{font-size:.74rem;color:var(--text2);margin-top:4px;font-weight:500}
+  .panel-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
 
-  .sb-user{margin:0 14px 14px;padding:11px 12px;border-radius:var(--r-md);display:flex;align-items:center;gap:11px;border:1px solid var(--line);transition:box-shadow .15s}
-  .sb-user:hover{box-shadow:var(--sh-sm)}
-  .avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative}
-  .avatar.rainbow{background:conic-gradient(from 210deg,#4285F4,#34A853,#FBBC04,#EA4335,#4285F4)}
-  .avatar.rainbow span{position:absolute;inset:3px;border-radius:50%;background:#fff;color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:800}
-  .sb-user .un{font-size:.82rem;font-weight:700;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .sb-user .up{font-size:.68rem;color:var(--ink-3);margin-top:1px}
+  /* Globe */
+  #globePanel{padding:0;overflow:hidden;position:relative;min-height:470px;
+    background:
+      radial-gradient(120% 90% at 50% 0%,#f1f4ff 0,#e9edfb 45%,#e3e9fa 100%);
+    border:1px solid var(--border)}
+  #globeWrap{position:absolute;inset:0}
+  #globeCanvas{display:block;width:100%;height:100%;cursor:grab}
+  #globeCanvas:active{cursor:grabbing}
+  .globe-overlay{position:absolute;top:20px;left:22px;z-index:2;pointer-events:none}
+  .globe-overlay h2{font-size:1.02rem;font-weight:800}
+  .globe-overlay .ph-sub{font-size:.74rem;color:var(--text2);margin-top:3px}
+  .globe-legend{position:absolute;bottom:18px;left:22px;z-index:2;background:rgba(255,255,255,.78);
+    backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:13px;padding:12px 14px;
+    max-width:235px;box-shadow:var(--shadow)}
+  .globe-legend .lg-title{font-size:.62rem;text-transform:uppercase;letter-spacing:.9px;color:var(--text2);
+    margin-bottom:9px;font-weight:800}
+  .lg-row{display:flex;align-items:center;gap:9px;font-size:.78rem;margin:5px 0;font-variant-numeric:tabular-nums;font-weight:500}
+  .lg-row .sw{width:10px;height:10px;border-radius:50%}
+  .lg-row .nm{flex:1;color:var(--text);font-weight:600}
+  .lg-row .ct{color:var(--text2);font-family:var(--mono);font-weight:700}
+  .lg-scale{height:8px;border-radius:5px;margin-top:11px;
+    background:linear-gradient(90deg,#93c5fd,#8b5cf6,#ec4899)}
+  .lg-scale-lbl{display:flex;justify-content:space-between;font-size:.6rem;color:var(--text3);margin-top:4px;font-family:var(--mono);font-weight:600}
 
-  /* Main */
-  .main{flex:1;overflow-y:auto}
-  .main::-webkit-scrollbar{width:10px}
-  .main::-webkit-scrollbar-thumb{background:#d6dbe6;border-radius:8px;border:3px solid var(--bg)}
-  .page{display:none;padding:30px 36px 48px;max-width:1180px}
-  .page.active{display:block;animation:fade .25s ease}
-  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-  .ph{margin-bottom:20px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .ph-title{font-size:1.5rem;font-weight:800;letter-spacing:-.025em}
-  .ph-sub{font-size:.9rem;color:var(--ink-2);margin-top:3px}
+  .chart-box{position:relative;height:235px}
+  .chart-box.tall{height:308px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+  @media(max-width:900px){.two{grid-template-columns:1fr}}
 
-  /* Stat cards */
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:8px}
-  @media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
-  .stat{background:var(--surface);border-radius:var(--r-lg);padding:20px;border:1px solid var(--line);box-shadow:var(--sh-sm);position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s}
-  .stat:hover{transform:translateY(-2px);box-shadow:var(--sh-md)}
-  .stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-  .stat-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center}
-  .stat-ico svg{width:21px;height:21px}
-  .stat.b .stat-ico{background:var(--blue-tint);color:var(--blue)}
-  .stat.g .stat-ico{background:var(--green-tint);color:var(--green-600)}
-  .stat.y .stat-ico{background:var(--yellow-tint);color:var(--yellow-ink)}
-  .stat.r .stat-ico{background:var(--red-tint);color:var(--red)}
-  .stat-spark{display:flex;align-items:flex-end;gap:3px;height:30px}
-  .stat-spark span{width:5px;border-radius:2px;background:currentColor;opacity:.35}
-  .stat.b .stat-spark{color:var(--blue)} .stat.g .stat-spark{color:var(--green-600)}
-  .stat.y .stat-spark{color:var(--yellow-ink)} .stat.r .stat-spark{color:var(--red)}
-  .stat-spark span:last-child{opacity:1}
-  .stat-val{font-family:var(--mono);font-size:2rem;font-weight:700;letter-spacing:-.02em;line-height:1}
-  .stat.b .stat-val{color:var(--blue-700)} .stat.g .stat-val{color:var(--green-600)}
-  .stat.y .stat-val{color:var(--yellow-ink)} .stat.r .stat-val{color:var(--red-600)}
-  .stat-lab{font-size:.78rem;font-weight:600;color:var(--ink-2);margin-top:9px}
-  .stat-delta{font-family:var(--mono);font-size:.66rem;color:var(--ink-3);margin-top:6px}
-
-  /* Cards */
-  .grid-2{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start}
-  @media(max-width:980px){.grid-2{grid-template-columns:1fr}}
-  .card{background:var(--surface);border-radius:var(--r-lg);border:1px solid var(--line);box-shadow:var(--sh-sm);margin-bottom:18px;overflow:hidden}
-  .card-head{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;border-bottom:1px solid var(--line-2)}
-  .card-title{font-size:.92rem;font-weight:700;display:flex;align-items:center;gap:9px}
-  .card-title .swatch-ico{width:8px;height:8px;border-radius:3px}
-  .card-sub{font-family:var(--mono);font-size:.62rem;color:var(--ink-3)}
-  .card-body{padding:18px 20px}
-
-  .chart-box{position:relative;height:240px}
-  .chart-box.tall{height:300px}
-  /* Signup feed */
-  .feed{padding:4px 0;max-height:460px;overflow-y:auto}
-  .feed-item{display:flex;align-items:center;gap:13px;padding:12px 20px;border-bottom:1px solid var(--line-2)}
-  .feed-item:last-child{border-bottom:none}
-  .feed-item:hover{background:var(--surface-2)}
-  .feed-av,.u-av{flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;overflow:hidden}
-  .feed-av{width:38px;height:38px;border-radius:50%;font-size:.84rem}
-  .feed-main{flex:1;min-width:0}
-  .feed-name{font-size:.84rem;font-weight:700;color:var(--ink)}
-  .feed-name .new-tag{font-family:var(--mono);font-size:.52rem;font-weight:700;letter-spacing:.06em;color:#fff;background:var(--green);padding:1px 6px;border-radius:var(--r-pill);margin-left:7px;vertical-align:middle}
-  .feed-meta{font-family:var(--mono);font-size:.68rem;color:var(--ink-3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .feed-time{font-family:var(--mono);font-size:.64rem;color:var(--ink-3);flex-shrink:0}
-
-  /* Users table */
-  table{width:100%;border-collapse:collapse}
-  th{font-family:var(--mono);font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:11px 20px;background:var(--surface-2);border-bottom:1px solid var(--line-2)}
-  td{padding:12px 20px;font-size:.8rem;color:var(--ink-2);border-bottom:1px solid var(--line-2);vertical-align:middle}
-  tbody tr:last-child td{border-bottom:none}
-  tbody tr:hover{background:var(--surface-2)}
-  .u-cell{display:flex;align-items:center;gap:11px}
-  .u-av{width:32px;height:32px;border-radius:50%;font-size:.72rem}
-  .u-name{font-size:.82rem;font-weight:700;color:var(--ink)}
-  .u-mail{font-family:var(--mono);font-size:.66rem;color:var(--ink-3);margin-top:1px}
-  .t-plan{font-family:var(--mono);font-size:.62rem;padding:3px 9px;border-radius:var(--r-pill);background:var(--line-2);color:var(--ink-2);font-weight:600;text-transform:capitalize}
-  .t-time{font-family:var(--mono);font-size:.68rem;color:var(--ink-3)}
-
-  .notes{font-size:.76rem;color:var(--ink-2);line-height:1.65}
-  .notes b{color:var(--yellow-ink)}
+  .notes{background:var(--surface2);border:1px solid var(--border);border-radius:13px;padding:14px 17px;
+    font-size:.78rem;color:var(--text2);line-height:1.65;font-weight:500}
+  .notes b{color:#b45309}
 
   /* Login overlay */
-  .overlay{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px;
-    background:radial-gradient(700px 460px at 70% 0%,rgba(66,133,244,.16),transparent),
-      radial-gradient(640px 460px at 12% 100%,rgba(124,58,237,.14),transparent),rgba(244,246,251,.72);backdrop-filter:blur(10px)}
-  .login{width:100%;max-width:390px;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--sh-lg);overflow:hidden;position:relative}
-  .login .rainbow-strip{position:absolute;top:0;left:0;right:0}
-  .login .cmark{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--blue),#7c3aed 70%,var(--red));display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.2rem;margin:6px 0 14px}
-  .login h2{font-size:1.16rem;margin-bottom:5px;letter-spacing:-.3px}
-  .login p{font-size:.76rem;color:var(--ink-2);margin-bottom:18px;line-height:1.5}
+  .overlay{position:fixed;inset:0;
+    background:radial-gradient(800px 500px at 70% 0%,rgba(139,92,246,.18),transparent),
+      radial-gradient(700px 500px at 10% 100%,rgba(84,104,255,.16),transparent),
+      rgba(238,241,248,.7);backdrop-filter:blur(10px);
+    display:grid;place-items:center;z-index:50;padding:20px}
+  .login{width:100%;max-width:390px;background:var(--surface);border:1px solid var(--border);
+    border-radius:22px;padding:30px;box-shadow:var(--shadow-lg)}
+  .login .mark{width:52px;height:52px;border-radius:14px;
+    background:#fff;border:1px solid var(--border2);
+    display:grid;place-items:center;margin-bottom:16px;
+    box-shadow:var(--shadow)}
+  .login .mark svg{width:34px;height:34px}
+  .login h2{font-size:1.32rem;margin-bottom:6px;letter-spacing:-.5px;font-weight:800}
+  .login p{font-size:.82rem;color:var(--text2);margin-bottom:20px;line-height:1.55;font-weight:500}
   .fld{margin-bottom:13px}
-  .fld label{display:block;font-size:.62rem;color:var(--ink-2);margin-bottom:7px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
-  .fld input{width:100%;height:44px;border-radius:11px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);padding:0 14px;font-size:.88rem;font-family:var(--sans);outline:none;transition:.15s}
-  .fld input:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px var(--blue-tint)}
-  .login .tb-btn.primary{width:100%;height:46px;background:linear-gradient(135deg,var(--blue),#7c3aed);border:none;color:#fff;font-size:.85rem;font-weight:700;border-radius:11px;box-shadow:0 6px 16px rgba(66,133,244,.32)}
-  .login .tb-btn.primary:hover{filter:brightness(1.05)}
-  .login .ghost{width:100%;margin-top:8px}
-  #mfaCode{letter-spacing:.42em;text-align:center;font-family:var(--mono);font-size:1.15rem;font-weight:600}
-  .cfgwarn{background:var(--yellow-tint);border:1px solid #fde68a;color:var(--yellow-ink);font-size:.68rem;padding:9px 13px;border-radius:10px;margin-bottom:16px;font-weight:600;line-height:1.5}
-  .msg{font-size:.73rem;margin-top:11px;min-height:16px}
-  .msg.err{color:var(--red-600)} .msg.ok{color:var(--green-600)}
+  .fld label{display:block;font-size:.68rem;color:var(--text2);margin-bottom:7px;font-weight:800;text-transform:uppercase;letter-spacing:.7px}
+  .fld input{width:100%;height:44px;border-radius:11px;border:1px solid var(--border2);background:var(--surface2);
+    color:var(--text);padding:0 14px;font-size:.92rem;font-family:var(--sans);outline:none;transition:.16s;font-weight:500}
+  .fld input:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(84,104,255,.13)}
+  .login .btn{width:100%;height:46px;margin-top:4px}
+  .msg{font-size:.78rem;margin-top:11px;min-height:16px;font-weight:600}
+  .msg.err{color:var(--red)} .msg.ok{color:var(--green)}
+  .cfgwarn{background:#fffbeb;border:1px solid #fde68a;color:#92400e;font-size:.72rem;padding:10px 13px;
+    border-radius:10px;margin-bottom:16px;font-weight:700;line-height:1.5}
+  .qrbox{display:grid;place-items:center;background:#fff;border:1px solid var(--border);border-radius:14px;
+    padding:14px;margin-bottom:14px}
+  .qrbox img{width:170px;height:170px;border-radius:6px}
+  .secret-row{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface2);
+    border:1px solid var(--border);border-radius:10px;padding:9px 13px;margin-bottom:15px}
+  .secret-lbl{font-size:.64rem;text-transform:uppercase;letter-spacing:.7px;color:var(--text2);font-weight:800}
+  .secret-row code{font-family:var(--mono);font-size:.78rem;color:var(--text);word-break:break-all}
+  #mfaCode{letter-spacing:.42em;text-align:center;font-family:var(--mono);font-size:1.2rem;font-weight:700}
 
-  .skel{background:linear-gradient(90deg,var(--surface-2) 25%,#e9edf6 50%,var(--surface-2) 75%);background-size:200% 100%;animation:sh 1.3s infinite;border-radius:7px;color:transparent!important}
+  /* Avatar crop modal */
+  .crop-box{width:100%;max-width:360px;background:var(--surface);border:1px solid var(--border);
+    border-radius:22px;padding:26px;box-shadow:var(--shadow-lg);text-align:center}
+  .crop-box h2{font-size:1.15rem;font-weight:800;margin-bottom:4px;letter-spacing:-.4px}
+  .crop-box p{font-size:.78rem;color:var(--text2);margin-bottom:18px;font-weight:500}
+  .crop-stage{position:relative;width:270px;height:270px;margin:0 auto;border-radius:16px;overflow:hidden;
+    background:#0d1120;cursor:grab;touch-action:none}
+  .crop-stage:active{cursor:grabbing}
+  .crop-stage img{position:absolute;top:0;left:0;user-select:none;pointer-events:none;will-change:transform}
+  .crop-ring{position:absolute;inset:0;pointer-events:none;
+    box-shadow:0 0 0 999px rgba(13,17,32,.62);border-radius:50%;margin:12px}
+  .crop-controls{display:flex;align-items:center;gap:10px;margin:18px 0 20px}
+  .crop-controls input[type=range]{flex:1;accent-color:var(--accent)}
+  .crop-controls .zi{font-size:.85rem;color:var(--text2)}
+  .crop-actions{display:flex;gap:10px}
+  .crop-actions .btn{flex:1}
+
+  .skel{background:linear-gradient(90deg,var(--surface2) 25%,#eaeefa 50%,var(--surface2) 75%);
+    background-size:200% 100%;animation:sh 1.3s infinite;border-radius:7px;color:transparent!important}
   @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
 </style>
 </head>
 <body>
-<div class="win">
-
-  <!-- Titlebar -->
-  <div class="titlebar">
-    <div class="rainbow-strip tb-strip"><span></span><span></span><span></span><span></span></div>
-    <div class="tb-brand">
-      <div class="cmark">C</div><span class="nm">Codeply</span><span class="tag">ADMIN</span>
+<div class="wrap">
+  <header>
+    <div class="logo">
+      <div class="mark">
+        <img src="./Favicon-RBG.png" alt="Codeply" style="width:100%;height:100%;object-fit:contain;border-radius:inherit">
+      </div>
+      <div>
+        <h1>Codeply</h1>
+        <div class="sub">Admin Analytics</div>
+      </div>
     </div>
-    <div class="tb-right">
-      <span class="pill" id="modePill"><span class="dot"></span><span id="modeTxt">connecting…</span></span>
-      <span class="pill" id="updPill"><span class="dot"></span><span id="updTxt">—</span></span>
-      <button class="tb-btn" id="refreshBtn">↻ Refresh</button>
-      <button class="tb-btn" id="signoutBtn" style="display:none">Sign out</button>
+    <div class="spacer"></div>
+    <span class="pill" id="modePill"><span class="dot"></span><span id="modeTxt">connecting…</span></span>
+    <span class="pill" id="updPill"><span class="dot"></span><span id="updTxt">-</span></span>
+    <button class="btn" id="refreshBtn">↻ Refresh</button>
+    <div class="avatar-wrap">
+      <label class="avatar-btn" id="avatarBtn" title="Upload admin photo">
+        <span class="ph" id="avatarPh">A</span>
+        <img id="avatarImg" style="display:none">
+        <input type="file" id="avatarInput" accept="image/*">
+      </label>
+      <div class="avatar-edit">✎</div>
+    </div>
+    <button class="btn" id="signoutBtn" style="display:none">Sign out</button>
+  </header>
+
+  <!-- KPI cards -->
+  <div class="kpis" id="kpis">
+    <div class="card kpi"><div class="ico">🆕</div><div class="lbl">Signups Today</div><div class="val accent-blue" id="kSignToday">-</div><div class="delta" id="kSignTodayD">this week: -</div></div>
+    <div class="card kpi"><div class="ico">👥</div><div class="lbl">Total Users</div><div class="val" id="kTotal">-</div><div class="delta" id="kTotalD">waitlist: -</div></div>
+    <div class="card kpi"><div class="ico">🟢</div><div class="lbl">Active Now</div><div class="val accent-green" id="kActive">-</div><div class="delta">last 5 min</div></div>
+    <div class="card kpi"><div class="ico">📁</div><div class="lbl">Placements</div><div class="val accent-purple" id="kPlace">-</div><div class="delta" id="kPlaceD">this month: -</div></div>
+    <div class="card kpi"><div class="ico">⚡</div><div class="lbl">Top Model</div><div class="val accent-cyan" id="kModel" style="font-size:1.05rem;line-height:1.2;word-break:break-word">-</div><div class="delta" id="kModelD">-</div></div>
+  </div>
+
+  <!-- Globe + signups -->
+  <div class="grid">
+    <div class="panel" id="globePanel">
+      <div class="globe-overlay">
+        <h2>🌍 Users by Country</h2>
+        <div class="ph-sub">warmer glow = more users · drag to rotate</div>
+      </div>
+      <div id="globeWrap"><canvas id="globeCanvas"></canvas></div>
+      <div class="globe-legend" id="globeLegend">
+        <div class="lg-title">Top countries</div>
+        <div id="legendRows"><div class="lg-row"><span class="nm">-</span></div></div>
+        <div class="lg-scale"></div>
+        <div class="lg-scale-lbl"><span>fewer</span><span>more users</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div><h2>📈 Signups</h2><div class="ph-sub">new registered profiles · last 14 days</div></div>
+      </div>
+      <div class="chart-box tall"><canvas id="signupChart"></canvas></div>
     </div>
   </div>
 
-  <div class="app">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sb-logo">
-        <div class="cmark">C</div><span class="nm">Codeply<span class="ai">ADMIN</span></span>
-      </div>
-      <nav>
-        <div class="nav-sec">Monitor</div>
-        <div class="nav-item active b" data-page="page-overview" data-color="b">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
-          Overview
-        </div>
-        <div class="nav-item" data-page="page-signups" data-color="g">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></span>
-          New signups
-        </div>
-        <div class="nav-sec">Manage</div>
-        <div class="nav-item" data-page="page-users" data-color="b">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
-          All users
-        </div>
-        <div class="nav-sec">Usage</div>
-        <div class="nav-item" data-page="page-usage" data-color="y">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg></span>
-          Models &amp; hours
-        </div>
-        <div class="nav-sec">Revenue</div>
-        <div class="nav-item" data-page="page-billing" data-color="r">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></span>
-          Revenue &amp; churn
-        </div>
+  <!-- Peak hours + models -->
+  <div class="two">
+    <div class="panel">
+      <div class="panel-head"><div><h2>🕐 Peak Usage Hours</h2><div class="ph-sub">AI calls by hour of day · UTC, 30d</div></div></div>
+      <div class="chart-box"><canvas id="hoursChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><div><h2>⚡ Most Used Models</h2><div class="ph-sub">OpenRouter / provider models by volume</div></div></div>
+      <div class="chart-box"><canvas id="modelChart"></canvas></div>
+    </div>
+  </div>
 
-        <div class="nav-sec">Feedback</div>
-        <div class="nav-item" data-page="page-bugs" data-color="r">
-          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="6" width="8" height="14" rx="4"/><path d="M19 7l-3 2M5 7l3 2M12 2v4M3 13h3M18 13h3M19 18l-3-1M5 18l3-1"/></svg></span>
-          Bug reports
-          <span id="bugNavCount" style="margin-left:auto;font-family:var(--mono);font-size:.6rem;font-weight:700;background:var(--red);color:#fff;padding:1px 7px;border-radius:999px;display:none">0</span>
-        </div>
-      </nav>
+  <!-- Notes -->
+  <div class="two" style="grid-template-columns:1fr">
+    <div class="panel">
+      <div class="panel-head"><div><h2>ℹ️ Data Notes</h2><div class="ph-sub">capture status &amp; sources</div></div></div>
+      <div class="notes" id="notesBox">All metrics nominal.</div>
+    </div>
+  </div>
 
-      <div class="sb-user">
-        <div class="avatar rainbow"><span id="userInitial">A</span></div>
-        <div><div class="un" id="userName">Admin</div><div class="up">Owner · all access</div></div>
-      </div>
-    </aside>
-
-    <!-- Main -->
-    <main class="main">
-
-      <!-- OVERVIEW -->
-      <section class="page active" id="page-overview">
-        <div class="ph">
-          <div><div class="ph-title">Overview</div><div class="ph-sub">User growth &amp; activity across Codeply</div></div>
-        </div>
-        <div class="stats">
-          <div class="stat b">
-            <div class="stat-top">
-              <div class="stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></div>
-              <div class="stat-spark"><span style="height:35%"></span><span style="height:50%"></span><span style="height:42%"></span><span style="height:60%"></span><span style="height:72%"></span><span style="height:65%"></span><span style="height:100%"></span></div>
-            </div>
-            <div class="stat-val" id="kSignToday">—</div><div class="stat-lab">New signups · today</div>
-            <div class="stat-delta" id="kSignTodayD">this week: —</div>
-          </div>
-          <div class="stat b">
-            <div class="stat-top">
-              <div class="stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-              <div class="stat-spark"><span style="height:40%"></span><span style="height:55%"></span><span style="height:48%"></span><span style="height:70%"></span><span style="height:65%"></span><span style="height:85%"></span><span style="height:100%"></span></div>
-            </div>
-            <div class="stat-val" id="kTotal">—</div><div class="stat-lab">Total users</div>
-            <div class="stat-delta" id="kTotalD">waitlist: —</div>
-          </div>
-          <div class="stat g">
-            <div class="stat-top">
-              <div class="stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-              <div class="stat-spark"><span style="height:50%"></span><span style="height:62%"></span><span style="height:45%"></span><span style="height:78%"></span><span style="height:60%"></span><span style="height:72%"></span><span style="height:90%"></span></div>
-            </div>
-            <div class="stat-val" id="kActive">—</div><div class="stat-lab">Active users · last 5 min</div>
-            <div class="stat-delta">live presence</div>
-          </div>
-          <div class="stat g">
-            <div class="stat-top">
-              <div class="stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-              <div class="stat-spark"><span style="height:45%"></span><span style="height:58%"></span><span style="height:52%"></span><span style="height:66%"></span><span style="height:74%"></span><span style="height:80%"></span><span style="height:100%"></span></div>
-            </div>
-            <div class="stat-val" id="kRev">—</div><div class="stat-lab">Revenue · this month</div>
-            <div class="stat-delta" id="kRevD">—</div>
-          </div>
-          <div class="stat r">
-            <div class="stat-top">
-              <div class="stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.5 9a9 9 0 0 1 14.8-3.4L23 10M1 14l4.7 4.4A9 9 0 0 0 20.5 15"/></svg></div>
-              <div class="stat-spark"><span style="height:70%"></span><span style="height:55%"></span><span style="height:60%"></span><span style="height:40%"></span><span style="height:48%"></span><span style="height:35%"></span><span style="height:30%"></span></div>
-            </div>
-            <div class="stat-val" id="kChurn">—</div><div class="stat-lab">Churn rate · this month</div>
-            <div class="stat-delta" id="kChurnD">—</div>
-          </div>
-          <div class="stat y">
-            <div class="stat-top">
-              <div class="stat-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
-              <div class="stat-spark"><span style="height:40%"></span><span style="height:52%"></span><span style="height:48%"></span><span style="height:64%"></span><span style="height:70%"></span><span style="height:82%"></span><span style="height:100%"></span></div>
-            </div>
-            <div class="stat-val" id="kPlace">—</div><div class="stat-lab">Code placements · total</div>
-            <div class="stat-delta" id="kPlaceD">this month: —</div>
-          </div>
-        </div>
-
-        <div class="grid-2">
-          <div class="card" style="margin-bottom:0">
-            <div class="card-head">
-              <div class="card-title"><span class="swatch-ico" style="background:var(--blue)"></span>Signups · last 14 days</div>
-              <div class="card-sub">per day</div>
-            </div>
-            <div class="card-body"><div class="chart-box tall"><canvas id="signupChart"></canvas></div></div>
-          </div>
-          <div class="card" style="margin-bottom:0">
-            <div class="card-head">
-              <div class="card-title"><span class="swatch-ico" style="background:var(--green)"></span>Recent signups</div>
-              <div class="card-sub">5 newest users</div>
-            </div>
-            <div class="feed" id="recentList"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- NEW SIGNUPS (today) -->
-      <section class="page" id="page-signups">
-        <div class="ph">
-          <div><div class="ph-title">New signups</div><div class="ph-sub">Everyone who joined today</div></div>
-        </div>
-        <div class="card" style="margin-bottom:0">
-          <div class="card-head">
-            <div class="card-title"><span class="swatch-ico" style="background:var(--green)"></span>Today's signups</div>
-            <div class="card-sub" id="todayCount">—</div>
-          </div>
-          <div class="feed" id="todayFeed"></div>
-        </div>
-      </section>
-
-      <!-- ALL USERS -->
-      <section class="page" id="page-users">
-        <div class="ph">
-          <div><div class="ph-title">All users</div><div class="ph-sub" id="usersSub">—</div></div>
-        </div>
-        <div class="card" style="margin-bottom:0">
-          <div class="card-head">
-            <div class="card-title"><span class="swatch-ico" style="background:var(--blue)"></span>Directory</div>
-            <div class="card-sub">most recent first</div>
-          </div>
-          <table><thead><tr><th>User</th><th>Plan</th><th>From</th><th>Joined</th></tr></thead><tbody id="usersBody"></tbody></table>
-        </div>
-      </section>
-
-      <!-- MODELS & HOURS -->
-      <section class="page" id="page-usage">
-        <div class="ph"><div><div class="ph-title">Models &amp; hours</div><div class="ph-sub">AI usage patterns across Codeply</div></div></div>
-        <div class="grid-2">
-          <div class="card" style="margin-bottom:0">
-            <div class="card-head">
-              <div class="card-title"><span class="swatch-ico" style="background:var(--yellow)"></span>🕐 Peak usage hours</div>
-              <div class="card-sub">AI calls by hour · UTC, 30d</div>
-            </div>
-            <div class="card-body"><div class="chart-box"><canvas id="hoursChart"></canvas></div></div>
-          </div>
-          <div class="card" style="margin-bottom:0">
-            <div class="card-head">
-              <div class="card-title"><span class="swatch-ico" style="background:var(--green)"></span>⚡ Most used models</div>
-              <div class="card-sub" id="kModelD">—</div>
-            </div>
-            <div class="card-body"><div class="chart-box"><canvas id="modelChart"></canvas></div></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- REVENUE & CHURN -->
-      <section class="page" id="page-billing">
-        <div class="ph"><div><div class="ph-title">Revenue &amp; churn</div><div class="ph-sub">Billing health this month</div></div></div>
-        <div class="grid-2">
-          <div class="card" style="margin-bottom:0">
-            <div class="card-head">
-              <div class="card-title"><span class="swatch-ico" style="background:var(--green)"></span>💳 Active plan mix</div>
-              <div class="card-sub">active paid subscriptions</div>
-            </div>
-            <div class="card-body"><div class="chart-box"><canvas id="planChart"></canvas></div></div>
-          </div>
-          <div class="card" style="margin-bottom:0">
-            <div class="card-head">
-              <div class="card-title"><span class="swatch-ico" style="background:var(--ink-3)"></span>ℹ️ Data notes</div>
-              <div class="card-sub">sources &amp; capture status</div>
-            </div>
-            <div class="card-body"><div class="notes" id="notesBox">Loading…</div></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- BUG REPORTS -->
-      <section class="page" id="page-bugs">
-        <div class="ph"><div><div class="ph-title">Bug reports</div><div class="ph-sub">Submitted by users from inside the app</div></div></div>
-        <div class="card" style="margin-bottom:0">
-          <div class="card-head">
-            <div class="card-title"><span class="swatch-ico" style="background:var(--red)"></span>Reports</div>
-            <div class="card-sub" id="bugsCount">—</div>
-          </div>
-          <table><thead><tr><th>When</th><th>From</th><th>Title</th><th>Details</th><th>Ver</th><th>Status</th></tr></thead><tbody id="bugsBody"></tbody></table>
-        </div>
-      </section>
-
-    </main>
+  <div style="text-align:center;color:var(--text3);font-size:.7rem;margin-top:28px;font-family:var(--mono);font-weight:600">
+    Codeply admin analytics · data via /api/admin-stats · globe: Three.js · charts: Chart.js
   </div>
 </div>
 
 <!-- Login overlay -->
 <div class="overlay" id="overlay">
   <div class="login">
-    <div class="rainbow-strip"><span></span><span></span><span></span><span></span></div>
-    <div class="cmark">C</div>
-
-    <div id="stepLogin">
-      <h2>Admin sign in</h2>
-      <p>Enter your admin email and we'll send a one-time code to sign you in.</p>
-      <div class="cfgwarn" id="cfgWarn" style="display:none"></div>
-      <div class="fld"><label>Email</label><input id="liEmail" type="email" placeholder="Enter admin email" autocomplete="username"></div>
-      <button class="tb-btn primary" id="liBtn">Email me a code</button>
+    <div class="mark">
+      <img src="./Favicon-RBG.png" alt="Codeply" style="width:100%;height:100%;object-fit:contain;border-radius:inherit">
     </div>
 
+    <!-- STEP 1 · email only -->
+    <div id="stepLogin">
+      <h2>Admin sign in</h2>
+      <p>Enter your Codeply admin email and we'll send you a one-time login code.</p>
+      <div class="cfgwarn" id="cfgWarn" style="display:none">⚠ Set SUPABASE_URL / SUPABASE_ANON / API_BASE in this file to enable live mode.</div>
+      <div class="fld"><label>Email</label><input id="liEmail" type="email" placeholder="Enter admin email" autocomplete="username"></div>
+      <button class="btn primary" id="liBtn">Send code</button>
+    </div>
+
+    <!-- STEP 2 · one-time email code -->
     <div id="step2fa" style="display:none">
       <h2 id="mfaTitle">Check your email</h2>
-      <p id="mfaDesc">Enter the code we emailed you.</p>
-      <div class="fld"><label>Email code</label>
-        <input id="mfaCode" inputmode="numeric" maxlength="8" placeholder="••••••••" autocomplete="one-time-code"></div>
-      <button class="tb-btn primary" id="mfaVerifyBtn">Verify &amp; load</button>
-      <button class="tb-btn ghost" id="mfaResendBtn">Resend code</button>
-      <button class="tb-btn ghost" id="mfaBackBtn">Back</button>
+      <p id="mfaDesc">Enter the 6-digit code we just sent to your email.</p>
+
+      <div class="fld"><label>6-digit code</label>
+        <input id="mfaCode" inputmode="numeric" maxlength="6" placeholder="123456" autocomplete="one-time-code"></div>
+      <button class="btn primary" id="mfaVerifyBtn">Verify &amp; load</button>
+      <button class="btn" id="mfaBackBtn" style="width:100%;margin-top:8px">Back</button>
     </div>
 
     <div class="msg" id="liMsg"></div>
   </div>
 </div>
 
+<!-- Avatar crop overlay -->
+<div class="overlay" id="cropOverlay" style="display:none;z-index:60">
+  <div class="crop-box">
+    <h2>Update admin photo</h2>
+    <p>Drag to reposition · scroll or use the slider to zoom</p>
+    <div class="crop-stage" id="cropStage">
+      <img id="cropImg" alt="">
+      <div class="crop-ring"></div>
+    </div>
+    <div class="crop-controls">
+      <span class="zi">−</span>
+      <input type="range" id="cropZoom" min="1" max="3" step="0.01" value="1">
+      <span class="zi">+</span>
+    </div>
+    <div class="crop-actions">
+      <button class="btn" id="cropCancel">Cancel</button>
+      <button class="btn primary" id="cropSave">Save photo</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
-/* ============================ CONFIG ====================================== */
-// Hosted on your own site? Leave API_BASE = '' so requests are SAME-ORIGIN
-// (relative to this page) — no CORS. Only set an absolute URL if you open this
-// file from a different domain than the API.
-const API_BASE = '';
+/* ============================ CONFIG - fill these in ======================= */
+const SUPABASE_URL  = 'https://YOUR-PROJECT.supabase.co'; // Supabase → Settings → API → Project URL
+const SUPABASE_ANON = 'YOUR_SUPABASE_ANON_KEY';           // public anon key (safe to ship)
+const API_BASE      = 'https://codeply.online';           // where /api/admin-stats is hosted
 /* ========================================================================== */
 
 const $ = (id) => document.getElementById(id);
-let SUPABASE_URL='', SUPABASE_ANON='';
-let sb=null, session=null, charts={}, pendingEmail=null, lastStats=null, currentPage='page-overview';
+const CONFIGURED = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON.includes('YOUR_');
+let sb = null, session = null, charts = {}, globe = null, demoMode = false;
 
-/* ---------- data ---------- */
+/* ---------- Country centroids (ISO-2 → [lat, lon, name]) ---------- */
+const CC = {
+  US:[39.8,-98.6,'United States'],PK:[30.4,69.3,'Pakistan'],IN:[22.4,78.7,'India'],GB:[54,-2.4,'United Kingdom'],
+  CA:[56.1,-106.3,'Canada'],DE:[51.2,10.5,'Germany'],FR:[46.2,2.2,'France'],BR:[-14.2,-51.9,'Brazil'],
+  AU:[-25.3,133.8,'Australia'],NG:[9.1,8.7,'Nigeria'],ID:[-0.8,113.9,'Indonesia'],JP:[36.2,138.3,'Japan'],
+  RU:[61.5,105.3,'Russia'],CN:[35.9,104.2,'China'],MX:[23.6,-102.6,'Mexico'],ES:[40.5,-3.7,'Spain'],
+  IT:[41.9,12.6,'Italy'],NL:[52.1,5.3,'Netherlands'],SE:[60.1,18.6,'Sweden'],PL:[51.9,19.1,'Poland'],
+  TR:[39,35.2,'Turkey'],SA:[23.9,45.1,'Saudi Arabia'],AE:[23.4,53.8,'UAE'],EG:[26.8,30.8,'Egypt'],
+  ZA:[-30.6,22.9,'South Africa'],KE:[-0.02,37.9,'Kenya'],AR:[-38.4,-63.6,'Argentina'],CL:[-35.7,-71.5,'Chile'],
+  CO:[4.6,-74.3,'Colombia'],PH:[12.9,121.8,'Philippines'],VN:[14.1,108.3,'Vietnam'],TH:[15.9,100.99,'Thailand'],
+  MY:[4.2,101.98,'Malaysia'],SG:[1.35,103.8,'Singapore'],KR:[35.9,127.8,'South Korea'],BD:[23.7,90.4,'Bangladesh'],
+  UA:[48.4,31.2,'Ukraine'],RO:[45.9,24.97,'Romania'],PT:[39.4,-8.2,'Portugal'],IE:[53.4,-8.2,'Ireland'],
+  CH:[46.8,8.2,'Switzerland'],BE:[50.5,4.5,'Belgium'],AT:[47.5,14.6,'Austria'],NO:[60.5,8.5,'Norway'],
+  DK:[56.3,9.5,'Denmark'],FI:[61.9,25.7,'Finland'],GR:[39.1,21.8,'Greece'],CZ:[49.8,15.5,'Czechia'],
+  HU:[47.2,19.5,'Hungary'],IL:[31.0,34.9,'Israel'],MA:[31.8,-7.1,'Morocco'],GH:[7.9,-1.0,'Ghana'],
+  NZ:[-40.9,174.9,'New Zealand'],PE:[-9.2,-75.0,'Peru'],LK:[7.9,80.8,'Sri Lanka'],NP:[28.4,84.1,'Nepal'],
+  TW:[23.7,121,'Taiwan'],HK:[22.3,114.2,'Hong Kong']
+};
+
+/* ============================ DATA LOADING ================================= */
 async function loadStats(){
-  const res = await fetch(API_BASE + '/api/admin-stats', { headers:{ Authorization:'Bearer '+session.access_token } });
-  if(res.status===403) throw new Error('This account is not an admin. Set is_admin=true in profiles.');
-  if(!res.ok) throw new Error('API error '+res.status);
+  if(demoMode) return demoStats();
+  const res = await fetch(API_BASE + '/api/admin-stats', {
+    headers: { Authorization: 'Bearer ' + session.access_token }
+  });
+  if(res.status === 403) throw new Error('Your account is not an admin. Run: update profiles set is_admin=true where email=…');
+  if(!res.ok) throw new Error('API error ' + res.status);
   return res.json();
 }
 
-const fmt=(n)=> n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'k':String(n??0);
-const money=(n,c)=> (c==='USD'?'$':'')+(Number(n)||0).toLocaleString(undefined,{maximumFractionDigits:0})+(c&&c!=='USD'?' '+c:'');
-
-function render(s){
-  $('kSignToday').textContent=fmt(s.signups.today);
-  $('kSignTodayD').textContent='this week: '+fmt(s.signups.week);
-  $('kTotal').textContent=fmt(s.signups.total);
-  $('kTotalD').textContent='waitlist: '+fmt(s.signups.waitlist_total);
-  $('kActive').textContent=fmt(s.users.active_now);
-  $('kRev').textContent=money(s.revenue.month,s.revenue.currency);
-  $('kRevD').textContent=(s.revenue.source||'').includes('whop')?'via Whop · MRR '+money(s.revenue.mrr,'USD'):'est. · MRR '+money(s.revenue.mrr,'USD');
-  $('kChurn').textContent=(s.churn.rate||0)+'%';
-  $('kChurnD').textContent=s.churn.canceled_month+' canceled / '+s.churn.active_total+' active';
-  $('kPlace').textContent=fmt(s.placements.total);
-  $('kPlaceD').textContent='this month: '+fmt(s.placements.month);
-  const top=(s.models&&s.models[0])||null;
-  $('kModelD').textContent=top?('top: '+top.model.split('/').pop()+' · '+fmt(top.calls)+' calls'):'no usage_history yet';
-
-  renderUsers(s.users_list||[]);
-  lastStats=s;
-  renderChartsFor(currentPage);
-
-  const notes=s._notes||[];
-  $('notesBox').innerHTML = notes.length ? notes.map(n=>'• '+n).join('<br>') : '✓ All metrics reading from live data.';
-  $('updTxt').textContent='updated '+new Date(s.generated_at).toLocaleTimeString();
+function demoStats(){
+  const trend=[];const today=new Date();
+  for(let i=13;i>=0;i--){const d=new Date(today-i*864e5);trend.push({date:d.toISOString().slice(0,10),count:Math.round(8+Math.random()*22+(13-i)*1.3)});}
+  const hours=Array.from({length:24},(_,h)=>{const peak=Math.exp(-Math.pow((h-15)/4.5,2))+0.45*Math.exp(-Math.pow((h-21)/3,2));return{hour:h,calls:Math.round(peak*420+Math.random()*40)};});
+  return {
+    generated_at:new Date().toISOString(),
+    signups:{today:27,week:163,total:4218,waitlist_total:1190,trend},
+    users:{total:4218,active_now:38},
+    placements:{total:184230,month:38940},
+    models:[{model:'openai/gpt-4o-mini',calls:14200},{model:'anthropic/claude-3.5-sonnet',calls:9120},{model:'google/gemini-flash-1.5',calls:6050},{model:'deepseek/deepseek-chat',calls:4380},{model:'meta-llama/llama-3.1-70b',calls:2910},{model:'openai/gpt-4o',calls:2110},{model:'qwen/qwen-2.5-72b',calls:1240}],
+    peak_hours:hours,
+    countries:[{country:'US',users:1420},{country:'PK',users:880},{country:'IN',users:640},{country:'GB',users:410},{country:'DE',users:300},{country:'CA',users:255},{country:'BR',users:210},{country:'NG',users:180},{country:'AU',users:150},{country:'FR',users:140},{country:'ID',users:120},{country:'AE',users:95},{country:'JP',users:80},{country:'NL',users:70},{country:'ZA',users:60}],
+    _notes:['DEMO DATA - illustrative figures, not from your database.']
+  };
 }
 
-/* ---------- charts ---------- */
-Chart.defaults.color='#5b647a';
-Chart.defaults.font.family='"Space Grotesk",ui-monospace,Menlo,monospace';
-Chart.defaults.font.size=10;
-const grid={color:'rgba(22,32,58,.06)'};
+/* ============================ RENDER ====================================== */
+const fmt = (n)=> n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'k':String(n??0);
+
+function render(s){
+  $('kSignToday').textContent = fmt(s.signups.today);
+  $('kSignTodayD').textContent = 'this week: ' + fmt(s.signups.week);
+  $('kTotal').textContent = fmt(s.signups.total);
+  $('kTotalD').textContent = 'waitlist: ' + fmt(s.signups.waitlist_total);
+  $('kActive').textContent = fmt(s.users.active_now);
+  $('kPlace').textContent = fmt(s.placements.total);
+  $('kPlaceD').textContent = 'this month: ' + fmt(s.placements.month);
+  const top = (s.models&&s.models[0])||null;
+  $('kModel').textContent = top ? top.model.split('/').pop() : '-';
+  $('kModelD').textContent = top ? fmt(top.calls)+' calls' : 'no data';
+
+  drawSignups(s.signups.trend||[]);
+  drawHours(s.peak_hours||[]);
+  drawModels(s.models||[]);
+  drawLegend(s.countries||[]);
+  buildGlobe(s.countries||[]);
+
+  const notes = s._notes||[];
+  $('notesBox').innerHTML = notes.length
+    ? notes.map(n=> demoMode ? '<b>'+n+'</b>' : '• '+n).join('<br>')
+    : '✓ All metrics are reading from live data.';
+
+  const t = new Date(s.generated_at);
+  $('updTxt').textContent = 'updated ' + t.toLocaleTimeString();
+}
+
+/* ---------- Chart.js helpers (light theme) ---------- */
+Chart.defaults.color = '#6b7488';
+Chart.defaults.font.family = '"Inter",-apple-system,sans-serif';
+Chart.defaults.font.size = 12;
+Chart.defaults.font.weight = 600;
+const grid = { color:'rgba(22,32,58,.06)' };
+
 function fresh(id){ if(charts[id]){charts[id].destroy();delete charts[id];} return $(id).getContext('2d'); }
 
 function drawSignups(trend){
-  const ctx=fresh('signupChart');
-  const g=ctx.createLinearGradient(0,0,0,300);
-  g.addColorStop(0,'rgba(66,133,244,.30)'); g.addColorStop(1,'rgba(66,133,244,0)');
-  charts.signupChart=new Chart(ctx,{type:'line',data:{labels:trend.map(d=>d.date.slice(5)),
-    datasets:[{data:trend.map(d=>d.count),borderColor:'#4285F4',backgroundColor:g,fill:true,tension:.4,pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:'#4285F4',pointHoverBorderColor:'#fff',pointHoverBorderWidth:2,borderWidth:3}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid,beginAtZero:true,ticks:{precision:0}}}}});
+  const ctx = fresh('signupChart');
+  const g = ctx.createLinearGradient(0,0,0,300);
+  g.addColorStop(0,'rgba(84,104,255,.30)'); g.addColorStop(1,'rgba(84,104,255,0)');
+  charts.signupChart = new Chart(ctx,{type:'line',data:{labels:trend.map(d=>d.date.slice(5)),
+    datasets:[{data:trend.map(d=>d.count),borderColor:'#5468ff',backgroundColor:g,fill:true,tension:.4,
+      pointRadius:0,pointHoverRadius:5,pointHoverBackgroundColor:'#5468ff',pointHoverBorderColor:'#fff',pointHoverBorderWidth:2,borderWidth:3}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false}},y:{grid,beginAtZero:true,ticks:{precision:0}}}}});
 }
 function drawHours(hours){
-  const ctx=fresh('hoursChart');
-  const max=Math.max(1,...hours.map(h=>h.calls));
-  charts.hoursChart=new Chart(ctx,{type:'bar',data:{labels:hours.map(h=>String(h.hour).padStart(2,'0')),
-    datasets:[{data:hours.map(h=>h.calls),borderRadius:4,backgroundColor:hours.map(h=>{const c=mix3([66,133,244],[251,188,4],[234,67,53],h.calls/max);return 'rgba('+c[0]+','+c[1]+','+c[2]+',.92)';})}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{title:(i)=>i[0].label+':00 UTC'}}},scales:{x:{grid:{display:false},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:12}},y:{grid,beginAtZero:true}}}});
+  const ctx = fresh('hoursChart');
+  const max = Math.max(1,...hours.map(h=>h.calls));
+  charts.hoursChart = new Chart(ctx,{type:'bar',data:{labels:hours.map(h=>String(h.hour).padStart(2,'0')),
+    datasets:[{data:hours.map(h=>h.calls),borderRadius:4,
+      backgroundColor:hours.map(h=>{const t=h.calls/max;
+        const c=mix3([147,197,253],[139,92,246],[236,72,153],t);return 'rgba('+c[0]+','+c[1]+','+c[2]+',.92)';})}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{title:(i)=>i[0].label+':00 UTC'}}},
+      scales:{x:{grid:{display:false},ticks:{maxRotation:0,autoSkip:true,maxTicksLimit:12}},y:{grid,beginAtZero:true}}}});
 }
 function drawModels(models){
-  const ctx=fresh('modelChart');
-  const labels=models.map(m=>m.model.split('/').pop());
-  const colors=['#4285F4','#34A853','#FBBC04','#EA4335','#7c3aed','#06b6d4','#1a56db','#c5221f'];
-  charts.modelChart=new Chart(ctx,{type:'bar',data:{labels,datasets:[{data:models.map(m=>m.calls),borderRadius:6,backgroundColor:labels.map((_,i)=>colors[i%colors.length])}]},
-    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid,beginAtZero:true},y:{grid:{display:false}}}}});
-}
-function drawPlans(rev){
-  const ctx=fresh('planChart');
-  const st=rev.active_starter||0,pr=rev.active_pro||0;
-  charts.planChart=new Chart(ctx,{type:'doughnut',data:{labels:['Starter ('+st+')','Pro ('+pr+')'],datasets:[{data:[st,pr],backgroundColor:['#4285F4','#34A853'],borderColor:'#fff',borderWidth:4}]},
-    options:{responsive:true,maintainAspectRatio:false,cutout:'64%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:14,font:{size:11}}}}}});
+  const ctx = fresh('modelChart');
+  const labels = models.map(m=>m.model.split('/').pop());
+  const colors = ['#5468ff','#8b5cf6','#ec4899','#06b6d4','#10b981','#f59e0b','#6366f1','#f43f5e'];
+  charts.modelChart = new Chart(ctx,{type:'bar',data:{labels,
+    datasets:[{data:models.map(m=>m.calls),borderRadius:6,
+      backgroundColor:labels.map((_,i)=>colors[i%colors.length])}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{grid,beginAtZero:true},y:{grid:{display:false}}}}});
 }
 
-/* ---------- color helpers (blue → yellow → red heat) ---------- */
-function mix3(a,b,c,t){const lerp=(x,y,k)=>Math.round(x+(y-x)*k);t=Math.max(0,Math.min(1,t));
+/* ---------- color helpers (blue → violet → pink) ---------- */
+function mix3(a,b,c,t){
+  const lerp=(x,y,k)=>Math.round(x+(y-x)*k);
   if(t<0.5){const k=t/0.5;return [lerp(a[0],b[0],k),lerp(a[1],b[1],k),lerp(a[2],b[2],k)];}
-  const k=(t-0.5)/0.5;return [lerp(b[0],c[0],k),lerp(b[1],c[1],k),lerp(b[2],c[2],k)];}
-/* ---------- users directory + today's signup feed ---------- */
-function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-function displayName(u){ return u.full_name || (u.email ? u.email.split('@')[0] : 'User'); }
-function avColor(s){const c=['#4285F4','#34A853','#FBBC04','#EA4335','#7c3aed','#06b6d4'];let h=0;for(const ch of String(s))h+=ch.charCodeAt(0);return c[h%c.length];}
-function initials(n){return String(n).split(/[ ._-]+/).filter(Boolean).slice(0,2).map(p=>p[0]).join('').toUpperCase()||'U';}
-function avatarHtml(u,cls){
-  const name=displayName(u);
-  if(u.avatar_url) return '<div class="'+cls+'"><img src="'+esc(u.avatar_url)+'" alt="" style="width:100%;height:100%;object-fit:cover" referrerpolicy="no-referrer"></div>';
-  return '<div class="'+cls+'" style="background:'+avColor(name)+'">'+esc(initials(name))+'</div>';
+  const k=(t-0.5)/0.5;return [lerp(b[0],c[0],k),lerp(b[1],c[1],k),lerp(b[2],c[2],k)];
 }
-function timeAgo(iso){const d=Date.now()-Date.parse(iso);const m=Math.floor(d/6e4);
-  if(m<1)return'just now'; if(m<60)return m+'m ago'; const h=Math.floor(m/60); if(h<24)return h+'h ago'; return Math.floor(h/24)+'d ago';}
-function feedRow(u,isNew){
-  return '<div class="feed-item">'+avatarHtml(u,'feed-av')+
-    '<div class="feed-main"><div class="feed-name">'+esc(displayName(u))+(isNew?' <span class="new-tag">NEW</span>':'')+'</div>'+
-    '<div class="feed-meta">'+esc(u.email||'')+' · '+esc(u.plan||'free')+'</div></div>'+
-    '<div class="feed-time">'+timeAgo(u.created_at)+'</div></div>';
+function colorFor(t){const c=mix3([147,197,253],[139,92,246],[236,72,153],Math.max(0,Math.min(1,t)));return 'rgb('+c[0]+','+c[1]+','+c[2]+')';}
+
+function drawLegend(countries){
+  const rows = countries.slice(0,6);
+  const max = Math.max(1,...countries.map(c=>c.users));
+  $('legendRows').innerHTML = rows.length ? rows.map(c=>{
+    const name=(CC[c.country]&&CC[c.country][2])||c.country;const col=colorFor(c.users/max);
+    return '<div class="lg-row"><span class="sw" style="background:'+col+';box-shadow:0 0 8px '+col+'"></span><span class="nm">'+name+'</span><span class="ct">'+fmt(c.users)+'</span></div>';
+  }).join('') : '<div class="lg-row"><span class="nm" style="color:var(--text3)">No country data yet</span></div>';
 }
 
-function renderUsers(list){
-  // Recent 5 (overview)
-  $('recentList').innerHTML = list.length ? list.slice(0,5).map(u=>feedRow(u,false)).join('')
-    : '<div style="padding:20px;color:var(--ink-3);font-size:.82rem">No users yet.</div>';
+/* ============================ THREE.JS GLOBE (light) ====================== */
+function buildGlobe(countries){
+  const canvas = $('globeCanvas');
+  const wrap = $('globeWrap');
+  const W = wrap.clientWidth, H = wrap.clientHeight;
 
-  // Today's signups (New signups page)
-  const start=new Date(); start.setHours(0,0,0,0);
-  const today=list.filter(u=>Date.parse(u.created_at)>=start.getTime());
-  $('todayCount').textContent=today.length+' today';
-  $('todayFeed').innerHTML = today.length ? today.map(u=>feedRow(u,true)).join('')
-    : '<div style="padding:20px;color:var(--ink-3);font-size:.82rem">No new signups yet today.</div>';
+  if(!globe){
+    const renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45,W/H,0.1,100);
+    camera.position.z = 3.05;
 
-  // Full directory (All users page)
-  $('usersSub').textContent=fmt(list.length)+' recent accounts';
-  $('usersBody').innerHTML = list.length ? list.map(u=>{
-    const joined=u.created_at?new Date(u.created_at).toLocaleDateString():'—';
-    return '<tr><td><div class="u-cell">'+avatarHtml(u,'u-av')+
-      '<div><div class="u-name">'+esc(displayName(u))+'</div><div class="u-mail">'+esc(u.email||'')+'</div></div></div></td>'+
-      '<td><span class="t-plan">'+esc(u.plan||'free')+'</span></td>'+
-      '<td><span class="t-plan">'+esc(u.referral_source||'—')+'</span></td>'+
-      '<td class="t-time">'+joined+'</td></tr>';
-  }).join('') : '<tr><td colspan="4" style="color:var(--ink-3)">No users found.</td></tr>';
-}
+    scene.add(new THREE.AmbientLight(0xffffff,0.85));
+    const dir = new THREE.DirectionalLight(0xffffff,0.7); dir.position.set(5,3,5); scene.add(dir);
+    const rim = new THREE.DirectionalLight(0xbcd0ff,0.5); rim.position.set(-4,-2,-3); scene.add(rim);
 
-/* ---------- bug reports (queried straight from Supabase via admin RLS) ---------- */
-async function loadBugs(){
-  if(!sb || !session) return;
-  const {data,error}=await sb.from('bug_reports')
-    .select('id,created_at,user_email,title,description,app_version,status')
-    .order('created_at',{ascending:false}).limit(300);
-  renderBugs(error?[]:(data||[]));
-}
-function renderBugs(rows){
-  const open=rows.filter(b=>b.status!=='resolved'&&b.status!=='closed').length;
-  $('bugsCount').textContent=rows.length+' total · '+open+' open';
-  const nav=$('bugNavCount');
-  if(nav){ if(open>0){nav.style.display='inline-block';nav.textContent=open;} else nav.style.display='none'; }
-  const STATUSES=['open','in-progress','resolved','closed'];
-  $('bugsBody').innerHTML = rows.length ? rows.map(b=>{
-    const when=b.created_at?timeAgo(b.created_at):'—';
-    const opts=STATUSES.map(s=>'<option value="'+s+'"'+(b.status===s?' selected':'')+'>'+s+'</option>').join('');
-    return '<tr>'+
-      '<td class="t-time">'+when+'</td>'+
-      '<td class="u-mail">'+esc(b.user_email||'—')+'</td>'+
-      '<td><div class="u-name">'+esc(b.title||'—')+'</div></td>'+
-      '<td style="max-width:340px;white-space:normal;line-height:1.5">'+esc(b.description||'')+'</td>'+
-      '<td><span class="t-plan">'+esc(b.app_version||'—')+'</span></td>'+
-      '<td><select class="bugstatus" data-id="'+esc(b.id)+'" style="height:30px;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:var(--mono);font-size:.66rem;padding:0 8px;color:var(--ink)">'+opts+'</select></td>'+
-    '</tr>';
-  }).join('') : '<tr><td colspan="6" style="color:var(--ink-3);text-align:center;padding:28px">No bug reports yet. 🎉</td></tr>';
-  document.querySelectorAll('.bugstatus').forEach(sel=>sel.onchange=async()=>{
-    sel.disabled=true;
-    try{ await sb.from('bug_reports').update({status:sel.value}).eq('id',sel.dataset.id); loadBugs(); }
-    finally{ sel.disabled=false; }
+    const root = new THREE.Group(); scene.add(root);
+
+    // light "ocean" sphere
+    const sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(1,64,64),
+      new THREE.MeshPhongMaterial({color:0xdfeaff,emissive:0xeaf1ff,emissiveIntensity:.35,shininess:30,specular:0xffffff})
+    );
+    root.add(sphere);
+
+    // soft graticule
+    const wire = new THREE.Mesh(
+      new THREE.SphereGeometry(1.003,36,24),
+      new THREE.MeshBasicMaterial({color:0x9db4e8,wireframe:true,transparent:true,opacity:0.22})
+    );
+    root.add(wire);
+
+    // soft atmosphere
+    const atmo = new THREE.Mesh(
+      new THREE.SphereGeometry(1.2,48,48),
+      new THREE.ShaderMaterial({
+        transparent:true,side:THREE.BackSide,
+        vertexShader:'varying vec3 vN; void main(){ vN=normalize(normalMatrix*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+        fragmentShader:'varying vec3 vN; void main(){ float i=pow(0.66-dot(vN,vec3(0,0,1.0)),2.6); gl_FragColor=vec4(0.45,0.40,0.95,1.0)*i;}'
+      })
+    );
+    root.add(atmo);
+
+    const markers = new THREE.Group(); root.add(markers);
+    globe = {renderer,scene,camera,root,markers,vel:0.0016,drag:false,px:0,py:0};
+
+    canvas.addEventListener('pointerdown',e=>{globe.drag=true;globe.px=e.clientX;globe.py=e.clientY;});
+    addEventListener('pointerup',()=>globe.drag=false);
+    addEventListener('pointermove',e=>{
+      if(!globe.drag)return;
+      globe.root.rotation.y += (e.clientX-globe.px)*0.005;
+      globe.root.rotation.x += (e.clientY-globe.py)*0.005;
+      globe.root.rotation.x = Math.max(-1.2,Math.min(1.2,globe.root.rotation.x));
+      globe.px=e.clientX;globe.py=e.clientY;
+    });
+
+    (function loop(){
+      requestAnimationFrame(loop);
+      if(!globe.drag) globe.root.rotation.y += globe.vel;
+      globe.renderer.render(globe.scene,globe.camera);
+    })();
+
+    addEventListener('resize',()=>{
+      const w=wrap.clientWidth,h=wrap.clientHeight;
+      globe.renderer.setSize(w,h);globe.camera.aspect=w/h;globe.camera.updateProjectionMatrix();
+    });
+  }
+
+  globe.renderer.setSize(W,H);
+  globe.camera.aspect=W/H; globe.camera.updateProjectionMatrix();
+
+  while(globe.markers.children.length) globe.markers.remove(globe.markers.children[0]);
+  const max = Math.max(1,...countries.map(c=>c.users));
+  const llToVec=(lat,lon,r)=>{const p=(90-lat)*Math.PI/180,t=(lon+180)*Math.PI/180;
+    return new THREE.Vector3(-r*Math.sin(p)*Math.cos(t), r*Math.cos(p), r*Math.sin(p)*Math.sin(t));};
+
+  countries.forEach(c=>{
+    const meta=CC[c.country]; if(!meta) return;
+    const t=c.users/max;
+    const col=new THREE.Color(colorFor(t));
+    const size=0.016+0.05*t;
+    const pin=new THREE.Mesh(new THREE.SphereGeometry(size,16,16),
+      new THREE.MeshBasicMaterial({color:col}));
+    pin.position.copy(llToVec(meta[0],meta[1],1.015));
+    globe.markers.add(pin);
+    const halo=new THREE.Sprite(new THREE.SpriteMaterial({
+      color:col,transparent:true,opacity:0.4+0.5*t,depthWrite:false}));
+    halo.scale.setScalar(0.10+0.24*t);
+    halo.position.copy(pin.position);
+    globe.markers.add(halo);
   });
 }
 
-/* ---------- page switching ---------- */
-function renderChartsFor(page){
-  if(!lastStats) return;
-  const s=lastStats;
-  if(page==='page-overview') drawSignups(s.signups.trend||[]);
-  else if(page==='page-usage'){ drawHours(s.peak_hours||[]); drawModels(s.models||[]); }
-  else if(page==='page-billing') drawPlans(s.revenue);
-}
-function goPage(page){
-  document.querySelectorAll('.nav-item').forEach(n=>n.className='nav-item');
-  const item=document.querySelector('.nav-item[data-page="'+page+'"]');
-  if(item) item.classList.add('active', item.dataset.color||'b');
-  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active', p.id===page));
-  currentPage=page;
-  const main=document.querySelector('.main'); if(main) main.scrollTop=0;
-  renderChartsFor(page);
-  if(page==='page-bugs') loadBugs();
+/* ============================ APP FLOW ==================================== */
+async function refresh(){
+  $('updTxt').textContent='loading…';
+  document.querySelectorAll('.kpi .val').forEach(e=>e.classList.add('skel'));
+  try{
+    const s = await loadStats();
+    document.querySelectorAll('.kpi .val').forEach(e=>e.classList.remove('skel'));
+    render(s);
+  }catch(e){
+    document.querySelectorAll('.kpi .val').forEach(e=>e.classList.remove('skel'));
+    $('updTxt').textContent='error';
+    alert('Could not load stats: '+e.message);
+  }
 }
 
-/* ---------- login (passwordless email OTP) ---------- */
+function enterDashboard(isDemo){
+  demoMode=isDemo;
+  $('overlay').style.display='none';
+  $('signoutBtn').style.display = isDemo ? 'none':'';
+  const pill=$('modePill'),txt=$('modeTxt');
+  if(isDemo){pill.className='pill demo';txt.textContent='DEMO MODE';}
+  else{pill.className='pill live';txt.textContent='LIVE';}
+  refresh();
+}
+
+/* ---------- one-time email code (Supabase OTP, no password) ---------- */
+let pendingEmail=null;
 const msg=(t,k)=>{const m=$('liMsg');m.className='msg'+(k?' '+k:'');m.textContent=t||'';};
 function showStep(two){ $('stepLogin').style.display=two?'none':''; $('step2fa').style.display=two?'':'none'; }
 
-async function sendEmailCode(){
-  msg('Sending code…');
-  const {error}=await sb.auth.signInWithOtp({ email:pendingEmail, options:{ shouldCreateUser:false } });
+async function sendLoginCode(email){
+  const {error}=await sb.auth.signInWithOtp({ email, options:{ shouldCreateUser:false } });
   if(error) return msg(error.message,'err');
-  $('mfaDesc').textContent='Enter the code we just emailed to '+pendingEmail+'.';
+  pendingEmail=email;
   msg(''); showStep(true); $('mfaCode').value=''; $('mfaCode').focus();
 }
-async function verifyEmailCode(){
+
+async function verifyCode(){
   const code=$('mfaCode').value.trim();
-  if(!/^\d{6,8}$/.test(code)) return msg('Enter the emailed code.','err');
+  if(!/^\d{6}$/.test(code)) return msg('Enter the 6-digit code.','err');
   msg('Verifying…');
   const {data,error}=await sb.auth.verifyOtp({ email:pendingEmail, token:code, type:'email' });
-  if(error) return msg(error.message||'Invalid or expired code.','err');
-  session=data.session; msg('Verified ✓','ok'); enterDashboard();
+  if(error) return msg(error.message||'Invalid code, try again.','err');
+  session=data.session;
+  msg('Verified ✓','ok'); finishLogin();
 }
 
-/* ---------- app ---------- */
-async function refresh(){
-  $('updTxt').textContent='loading…';
-  document.querySelectorAll('.stat-val').forEach(e=>e.classList.add('skel'));
-  try{ const s=await loadStats(); document.querySelectorAll('.stat-val').forEach(e=>e.classList.remove('skel')); render(s); }
-  catch(e){ document.querySelectorAll('.stat-val').forEach(e=>e.classList.remove('skel')); $('updTxt').textContent='error'; alert('Could not load stats: '+e.message); }
+async function finishLogin(){
+  const {data}=await sb.auth.getSession();
+  session=data.session;
+  enterDashboard(false);
 }
-function enterDashboard(){
-  $('overlay').style.display='none';
-  $('signoutBtn').style.display='';
-  $('modePill').className='pill live'; $('modeTxt').textContent='LIVE';
-  const email=(session&&session.user&&session.user.email)||'';
-  if(email){ $('userName').textContent='Admin · '+email.split('@')[0]; $('userInitial').textContent=email[0].toUpperCase(); }
-  refresh();
-  loadBugs();   // populate the bug-reports table + nav badge on load
+
+/* ============================ ADMIN AVATAR + CROP ========================= */
+const cropState = { img:null, natW:0, natH:0, scale:1, minScale:1, x:0, y:0, drag:false, sx:0, sy:0 };
+const STAGE_SIZE = 270;
+
+function loadStoredAvatar(){
+  const saved = localStorage.getItem('codeply_admin_avatar');
+  if(saved){
+    $('avatarImg').src = saved;
+    $('avatarImg').style.display='block';
+    $('avatarPh').style.display='none';
+  }
+}
+
+function openCropper(file){
+  const reader = new FileReader();
+  reader.onload = (e)=>{
+    const img = new Image();
+    img.onload = ()=>{
+      cropState.natW = img.naturalWidth; cropState.natH = img.naturalHeight;
+      const minScale = STAGE_SIZE / Math.min(img.naturalWidth, img.naturalHeight);
+      cropState.minScale = minScale; cropState.scale = minScale;
+      cropState.x = (STAGE_SIZE - img.naturalWidth*minScale)/2;
+      cropState.y = (STAGE_SIZE - img.naturalHeight*minScale)/2;
+      $('cropImg').src = e.target.result;
+      $('cropZoom').min = minScale; $('cropZoom').max = minScale*4; $('cropZoom').value = minScale; $('cropZoom').step = minScale/100;
+      applyCropTransform();
+      $('cropOverlay').style.display='grid';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function applyCropTransform(){
+  const img = $('cropImg');
+  img.style.width = (cropState.natW*cropState.scale)+'px';
+  img.style.height = (cropState.natH*cropState.scale)+'px';
+  img.style.transform = 'translate('+cropState.x+'px,'+cropState.y+'px)';
+}
+
+function clampCropPosition(){
+  const w = cropState.natW*cropState.scale, h = cropState.natH*cropState.scale;
+  cropState.x = Math.min(0, Math.max(STAGE_SIZE-w, cropState.x));
+  cropState.y = Math.min(0, Math.max(STAGE_SIZE-h, cropState.y));
+}
+
+function saveCroppedAvatar(){
+  const canvas = document.createElement('canvas');
+  const OUT = 256;
+  canvas.width = OUT; canvas.height = OUT;
+  const ctx = canvas.getContext('2d');
+  ctx.beginPath(); ctx.arc(OUT/2, OUT/2, OUT/2, 0, Math.PI*2); ctx.closePath(); ctx.clip();
+  const img = $('cropImg');
+  const ratio = OUT/STAGE_SIZE;
+  ctx.drawImage(img, cropState.x*ratio, cropState.y*ratio, cropState.natW*cropState.scale*ratio, cropState.natH*cropState.scale*ratio);
+  const dataUrl = canvas.toDataURL('image/png');
+  $('avatarImg').src = dataUrl;
+  $('avatarImg').style.display='block';
+  $('avatarPh').style.display='none';
+  localStorage.setItem('codeply_admin_avatar', dataUrl);
+  $('cropOverlay').style.display='none';
+}
+
+function initAvatarCropper(){
+  loadStoredAvatar();
+  $('avatarInput').addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(file) openCropper(file);
+    e.target.value='';
+  });
+  const stage = $('cropStage');
+  stage.addEventListener('pointerdown', e=>{ cropState.drag=true; cropState.sx=e.clientX; cropState.sy=e.clientY; stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointerup', ()=> cropState.drag=false);
+  stage.addEventListener('pointermove', e=>{
+    if(!cropState.drag) return;
+    cropState.x += (e.clientX-cropState.sx);
+    cropState.y += (e.clientY-cropState.sy);
+    cropState.sx=e.clientX; cropState.sy=e.clientY;
+    clampCropPosition(); applyCropTransform();
+  });
+  stage.addEventListener('wheel', e=>{
+    e.preventDefault();
+    const delta = -e.deltaY*0.001;
+    setZoom(cropState.scale*(1+delta));
+  }, {passive:false});
+  $('cropZoom').addEventListener('input', e=> setZoom(parseFloat(e.target.value)) );
+  $('cropCancel').addEventListener('click', ()=> $('cropOverlay').style.display='none' );
+  $('cropSave').addEventListener('click', saveCroppedAvatar);
+
+  function setZoom(newScale){
+    newScale = Math.max(cropState.minScale, Math.min(cropState.minScale*4, newScale));
+    const cx = STAGE_SIZE/2, cy = STAGE_SIZE/2;
+    const ratio = newScale/cropState.scale;
+    cropState.x = cx - (cx-cropState.x)*ratio;
+    cropState.y = cy - (cy-cropState.y)*ratio;
+    cropState.scale = newScale;
+    $('cropZoom').value = newScale;
+    clampCropPosition(); applyCropTransform();
+  }
 }
 
 async function init(){
-  // sidebar nav → switch pages
-  document.querySelectorAll('.nav-item').forEach(it=>it.onclick=()=>goPage(it.dataset.page));
+  if(!CONFIGURED) $('cfgWarn').style.display='block';
 
-  $('refreshBtn').onclick=()=>{ refresh(); loadBugs(); };
+  $('refreshBtn').onclick=refresh;
   $('signoutBtn').onclick=async()=>{ if(sb) await sb.auth.signOut(); location.reload(); };
 
-  // pull Supabase url + anon key from /api/config (Vercel env vars)
-  try{ const r=await fetch(API_BASE+'/api/config'); const c=await r.json(); SUPABASE_URL=c.url||''; SUPABASE_ANON=c.anonKey||''; }catch(_){}
-  if(SUPABASE_URL && SUPABASE_ANON && window.supabase){ sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON); }
-  else { $('cfgWarn').style.display='block'; $('cfgWarn').textContent='⚠ Could not load config from '+(API_BASE||'(same origin)')+'/api/config — check API_BASE / deployment.'; }
-
   $('liBtn').onclick=async()=>{
-    if(!sb) return msg('Backend not reachable. Check API_BASE.','err');
+    if(!CONFIGURED) return msg('Live mode needs SUPABASE_URL / anon key set in this file.','err');
+    if(!sb) return msg('Auth library not ready.','err');
     const email=$('liEmail').value.trim();
     if(!email) return msg('Enter your admin email.','err');
-    pendingEmail=email; await sendEmailCode();
+    msg('Sending code…');
+    await sendLoginCode(email);
   };
-  $('liEmail').addEventListener('keydown',e=>{ if(e.key==='Enter') $('liBtn').click(); });
-  $('mfaVerifyBtn').onclick=verifyEmailCode;
-  $('mfaResendBtn').onclick=sendEmailCode;
-  $('mfaCode').addEventListener('keydown',e=>{ if(e.key==='Enter') verifyEmailCode(); });
-  $('mfaBackBtn').onclick=async()=>{ if(sb) await sb.auth.signOut(); session=null; pendingEmail=null; msg(''); showStep(false); };
 
-  // restore an existing session
-  if(sb){ const {data}=await sb.auth.getSession(); if(data.session){ session=data.session; enterDashboard(); } }
+  $('mfaVerifyBtn').onclick=verifyCode;
+  $('mfaCode').addEventListener('keydown',e=>{ if(e.key==='Enter') verifyCode(); });
+  $('mfaBackBtn').onclick=async()=>{ pendingEmail=null; msg(''); showStep(false); };
+
+  initAvatarCropper();
+
+  if(CONFIGURED && window.supabase){
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+    const {data}=await sb.auth.getSession();
+    if(data.session){ session=data.session; enterDashboard(false); }
+  }
 }
 document.addEventListener('DOMContentLoaded',init);
 </script>
