@@ -356,10 +356,10 @@
     <!-- STEP 2 · one-time email code -->
     <div id="step2fa" style="display:none">
       <h2 id="mfaTitle">Check your email</h2>
-      <p id="mfaDesc">Enter the 6-digit code we just sent to your email.</p>
+      <p id="mfaDesc">Enter the 8-digit code we just sent to your email.</p>
 
-      <div class="fld"><label>6-digit code</label>
-        <input id="mfaCode" inputmode="numeric" maxlength="6" placeholder="123456" autocomplete="one-time-code"></div>
+      <div class="fld"><label>8-digit code</label>
+        <input id="mfaCode" inputmode="numeric" maxlength="8" placeholder="12345678" autocomplete="one-time-code"></div>
       <button class="btn primary" id="mfaVerifyBtn">Verify &amp; load</button>
       <button class="btn" id="mfaBackBtn" style="width:100%;margin-top:8px;justify-content:center">Back</button>
     </div>
@@ -734,7 +734,7 @@ async function sendLoginCode(email){
 
 async function verifyCode(){
   const code=$('mfaCode').value.trim();
-  if(!/^\d{6}$/.test(code)) return msg('Enter the 6-digit code.','err');
+  if(!/^\d{8}$/.test(code)) return msg('Enter the 8-digit code.','err');
   msg('Verifying…');
   const {data,error}=await sb.auth.verifyOtp({ email:pendingEmail, token:code, type:'email' });
   if(error) return msg(error.message||'Invalid code, try again.','err');
