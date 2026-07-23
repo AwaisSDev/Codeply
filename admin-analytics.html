@@ -286,7 +286,7 @@
     <div id="stepLogin">
       <h2>Admin sign in</h2>
       <p>Enter your Codeply admin email and we'll send you a one-time login code.</p>
-      <div class="cfgwarn" id="cfgWarn" style="display:none">⚠ Couldn't load Supabase config from Vercel. Check SUPABASE_URL / SUPABASE_ANON_KEY env vars and the /api/public-config endpoint.</div>
+      <div class="cfgwarn" id="cfgWarn" style="display:none">⚠ Couldn't load Supabase config from /api/config. Check SUPABASE_URL / SUPABASE_ANON_KEY env vars on Vercel.</div>
       <div class="fld"><label>Email</label><input id="liEmail" type="email" placeholder="Enter admin email" autocomplete="username"></div>
       <button class="btn primary" id="liBtn">Send code</button>
     </div>
@@ -333,20 +333,21 @@
 <script>
 /* ============================ CONFIG ======================================= */
 // SUPABASE_URL / SUPABASE_ANON_KEY are NOT hardcoded here. They live as
-// environment variables on Vercel and are fetched at load time from a small
-// serverless endpoint (/api/public-config) that reads process.env and returns
-// them as JSON. This keeps the file free of any embedded project secrets and
-// lets you rotate keys from the Vercel dashboard without editing this file.
-const API_BASE = 'https://codeply.online'; // where /api/admin-stats + /api/public-config are hosted
+// environment variables on Vercel and are fetched at load time from the
+// existing /api/config endpoint (api/config.js -> lib/supabaseClient.js's
+// publicSupabaseConfig), which reads process.env and returns { url, anonKey }.
+// This keeps the file free of any embedded project secrets and lets you
+// rotate keys from the Vercel dashboard without editing this file.
+const API_BASE = 'https://codeply.online'; // where /api/admin-stats + /api/config are hosted
 let SUPABASE_URL = '', SUPABASE_ANON = '', CONFIGURED = false;
 
 async function loadPublicConfig(){
   try{
-    const res = await fetch(API_BASE + '/api/public-config');
+    const res = await fetch(API_BASE + '/api/config');
     if(!res.ok) throw new Error('config fetch failed: ' + res.status);
     const cfg = await res.json();
-    SUPABASE_URL = cfg.supabaseUrl || '';
-    SUPABASE_ANON = cfg.supabaseAnonKey || '';
+    SUPABASE_URL = cfg.url || '';
+    SUPABASE_ANON = cfg.anonKey || '';
     CONFIGURED = !!SUPABASE_URL && !!SUPABASE_ANON;
   }catch(e){
     CONFIGURED = false;
