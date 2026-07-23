@@ -441,6 +441,21 @@ const CC = {
   TW:[23.7,121,'Taiwan'],HK:[22.3,114.2,'Hong Kong']
 };
 
+// profiles.country isn't guaranteed to be an ISO-2 code — some rows store the
+// full country name (e.g. an app-side "which country are you from" picker).
+// Build a name -> code reverse map so either format resolves.
+const CC_BY_NAME = {};
+for(const code in CC) CC_BY_NAME[CC[code][2].toUpperCase()] = code;
+
+function resolveCountry(raw){
+  const v = String(raw||'').trim();
+  if(!v) return null;
+  const upper = v.toUpperCase();
+  if(CC[upper]) return CC[upper];
+  const byName = CC_BY_NAME[upper];
+  return byName ? CC[byName] : null;
+}
+
 /* ============================ DATA LOADING ================================= */
 async function loadStats(){
   if(demoMode) return demoStats();
@@ -479,8 +494,7 @@ function demoStats(){
 const fmt = (n)=> n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'k':String(n??0);
 const esc = (s)=> String(s??'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const displayName = (u)=> u.full_name || (u.email ? u.email.split('@')[0] : 'Unknown');
-const normCC = (code)=> String(code||'').trim().toUpperCase();
-const countryName = (code)=> code ? ((CC[normCC(code)]&&CC[normCC(code)][2]) || code) : '—';
+const countryName = (code)=> code ? ((resolveCountry(code)&&resolveCountry(code)[2]) || code) : '—';
 
 function avatarHtml(u){
   if(u.avatar_url) return '<img class="u-av" src="'+esc(u.avatar_url)+'" alt="">';
@@ -681,8 +695,7 @@ function buildGlobe(countries){
   let placed=0, skipped=[];
   countries.forEach(c=>{
     try{
-      const code=String(c.country||'').trim().toUpperCase();
-      const meta=CC[code];
+      const meta=resolveCountry(c.country);
       if(!meta){ skipped.push(JSON.stringify(c.country)); return; }
       const t=c.users/max;
       const st=Math.sqrt(t); // sqrt curve so a single/small dataset doesn't max out into a giant blob
