@@ -338,12 +338,15 @@
 // publicSupabaseConfig), which reads process.env and returns { url, anonKey }.
 // This keeps the file free of any embedded project secrets and lets you
 // rotate keys from the Vercel dashboard without editing this file.
-const API_BASE = 'https://codeply.online'; // where /api/admin-stats + /api/config are hosted
+// Fetched via a relative path (same origin as this page) so that Vercel's
+// apex → www redirect never turns this into a cross-origin request the
+// browser refuses to follow (curl follows redirects transparently, but a
+// browser fetch() to the apex domain 307-redirecting to www fails CORS).
 let SUPABASE_URL = '', SUPABASE_ANON = '', CONFIGURED = false;
 
 async function loadPublicConfig(){
   try{
-    const res = await fetch(API_BASE + '/api/config');
+    const res = await fetch('/api/config');
     if(!res.ok) throw new Error('config fetch failed: ' + res.status);
     const cfg = await res.json();
     SUPABASE_URL = cfg.url || '';
