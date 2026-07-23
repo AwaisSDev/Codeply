@@ -610,38 +610,25 @@ function buildGlobe(countries){
     const camera = new THREE.PerspectiveCamera(45,W/H,0.1,100);
     camera.position.z = 3.05;
 
-    scene.add(new THREE.AmbientLight(0xffffff,0.72));
-    const dir = new THREE.DirectionalLight(0xffffff,0.85); dir.position.set(5,3,5); scene.add(dir);
-    const rim = new THREE.DirectionalLight(0xbcd0ff,0.45); rim.position.set(-4,-2,-3); scene.add(rim);
-
     const root = new THREE.Group(); scene.add(root);
+    root.rotation.y = -2.2; // default view: Africa / Middle East / South Asia facing camera
 
     // real earth texture (three.js public example textures, CDN-hosted, CORS-enabled)
+    // MeshBasicMaterial is unlit so the globe reads as an evenly-lit flat map,
+    // with no directional-light shadow across the oceans.
     const TEX_BASE = 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/planets/';
     const loader = new THREE.TextureLoader();
     loader.crossOrigin = 'anonymous';
     const earthMap = loader.load(TEX_BASE+'earth_atmos_2048.jpg');
-    const earthSpecular = loader.load(TEX_BASE+'earth_specular_2048.jpg');
 
     const sphere = new THREE.Mesh(
       new THREE.SphereGeometry(1,64,64),
-      new THREE.MeshPhongMaterial({map:earthMap,specularMap:earthSpecular,specular:0x333333,shininess:14})
+      new THREE.MeshBasicMaterial({map:earthMap})
     );
     root.add(sphere);
 
-    // soft atmosphere (blue rim glow)
-    const atmo = new THREE.Mesh(
-      new THREE.SphereGeometry(1.2,48,48),
-      new THREE.ShaderMaterial({
-        transparent:true,side:THREE.BackSide,
-        vertexShader:'varying vec3 vN; void main(){ vN=normalize(normalMatrix*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
-        fragmentShader:'varying vec3 vN; void main(){ float i=pow(0.66-dot(vN,vec3(0,0,1.0)),2.6); gl_FragColor=vec4(0.10,0.45,0.91,1.0)*i;}'
-      })
-    );
-    root.add(atmo);
-
     const markers = new THREE.Group(); root.add(markers);
-    globe = {renderer,scene,camera,root,markers,vel:0.0016,drag:false,px:0,py:0};
+    globe = {renderer,scene,camera,root,markers,drag:false,px:0,py:0};
 
     canvas.addEventListener('pointerdown',e=>{globe.drag=true;globe.px=e.clientX;globe.py=e.clientY;});
     addEventListener('pointerup',()=>globe.drag=false);
@@ -655,7 +642,6 @@ function buildGlobe(countries){
 
     (function loop(){
       requestAnimationFrame(loop);
-      if(!globe.drag) globe.root.rotation.y += globe.vel;
       globe.renderer.render(globe.scene,globe.camera);
     })();
 
