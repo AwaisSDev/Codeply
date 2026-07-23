@@ -622,20 +622,12 @@ function buildGlobe(countries){
     loader.crossOrigin = 'anonymous';
     const earthMap = loader.load(TEX_BASE+'earth_atmos_2048.jpg');
     const earthSpecular = loader.load(TEX_BASE+'earth_specular_2048.jpg');
-    const cloudMap = loader.load(TEX_BASE+'earth_clouds_1024.png');
 
     const sphere = new THREE.Mesh(
       new THREE.SphereGeometry(1,64,64),
       new THREE.MeshPhongMaterial({map:earthMap,specularMap:earthSpecular,specular:0x333333,shininess:14})
     );
     root.add(sphere);
-
-    // thin drifting cloud layer
-    const clouds = new THREE.Mesh(
-      new THREE.SphereGeometry(1.012,64,64),
-      new THREE.MeshLambertMaterial({map:cloudMap,transparent:true,opacity:0.55,depthWrite:false})
-    );
-    root.add(clouds);
 
     // soft atmosphere (blue rim glow)
     const atmo = new THREE.Mesh(
@@ -649,7 +641,7 @@ function buildGlobe(countries){
     root.add(atmo);
 
     const markers = new THREE.Group(); root.add(markers);
-    globe = {renderer,scene,camera,root,markers,clouds,vel:0.0016,cloudVel:0.0009,drag:false,px:0,py:0};
+    globe = {renderer,scene,camera,root,markers,vel:0.0016,drag:false,px:0,py:0};
 
     canvas.addEventListener('pointerdown',e=>{globe.drag=true;globe.px=e.clientX;globe.py=e.clientY;});
     addEventListener('pointerup',()=>globe.drag=false);
@@ -664,7 +656,6 @@ function buildGlobe(countries){
     (function loop(){
       requestAnimationFrame(loop);
       if(!globe.drag) globe.root.rotation.y += globe.vel;
-      if(globe.clouds) globe.clouds.rotation.y += globe.cloudVel;
       globe.renderer.render(globe.scene,globe.camera);
     })();
 
