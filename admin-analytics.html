@@ -286,7 +286,7 @@
     <div id="stepLogin">
       <h2>Admin sign in</h2>
       <p>Enter your Codeply admin email and we'll send you a one-time login code.</p>
-      <div class="cfgwarn" id="cfgWarn" style="display:none">⚠ Set SUPABASE_URL / SUPABASE_ANON / API_BASE in this file to enable live mode.</div>
+      <div class="cfgwarn" id="cfgWarn" style="display:none">⚠ Couldn't load Supabase config from Vercel. Check SUPABASE_URL / SUPABASE_ANON_KEY env vars and the /api/public-config endpoint.</div>
       <div class="fld"><label>Email</label><input id="liEmail" type="email" placeholder="Enter admin email" autocomplete="username"></div>
       <button class="btn primary" id="liBtn">Send code</button>
     </div>
@@ -331,14 +331,29 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
-/* ============================ CONFIG - fill these in ======================= */
-const SUPABASE_URL  = 'https://YOUR-PROJECT.supabase.co'; // Supabase → Settings → API → Project URL
-const SUPABASE_ANON = 'YOUR_SUPABASE_ANON_KEY';           // public anon key (safe to ship)
-const API_BASE      = 'https://codeply.online';           // where /api/admin-stats is hosted
-/* ========================================================================== */
+/* ============================ CONFIG ======================================= */
+// SUPABASE_URL / SUPABASE_ANON_KEY are NOT hardcoded here. They live as
+// environment variables on Vercel and are fetched at load time from a small
+// serverless endpoint (/api/public-config) that reads process.env and returns
+// them as JSON. This keeps the file free of any embedded project secrets and
+// lets you rotate keys from the Vercel dashboard without editing this file.
+const API_BASE = 'https://codeply.online'; // where /api/admin-stats + /api/public-config are hosted
+let SUPABASE_URL = '', SUPABASE_ANON = '', CONFIGURED = false;
+
+async function loadPublicConfig(){
+  try{
+    const res = await fetch(API_BASE + '/api/public-config');
+    if(!res.ok) throw new Error('config fetch failed: ' + res.status);
+    const cfg = await res.json();
+    SUPABASE_URL = cfg.supabaseUrl || '';
+    SUPABASE_ANON = cfg.supabaseAnonKey || '';
+    CONFIGURED = !!SUPABASE_URL && !!SUPABASE_ANON;
+  }catch(e){
+    CONFIGURED = false;
+  }
+}
 
 const $ = (id) => document.getElementById(id);
-const CONFIGURED = !SUPABASE_URL.includes('YOUR-PROJECT') && !SUPABASE_ANON.includes('YOUR_');
 let sb = null, session = null, charts = {}, globe = null, demoMode = false;
 
 /* ---------- Country centroids (ISO-2 → [lat, lon, name]) ---------- */
@@ -724,13 +739,20 @@ function initAvatarCropper(){
 }
 
 async function init(){
+  $('liBtn').disabled = true;
+  $('liEmail').placeholder = 'Loading config...';
+
+  await loadPublicConfig();
+
+  $('liBtn').disabled = false;
+  $('liEmail').placeholder = 'Enter admin email';
   if(!CONFIGURED) $('cfgWarn').style.display='block';
 
   $('refreshBtn').onclick=refresh;
   $('signoutBtn').onclick=async()=>{ if(sb) await sb.auth.signOut(); location.reload(); };
 
   $('liBtn').onclick=async()=>{
-    if(!CONFIGURED) return msg('Live mode needs SUPABASE_URL / anon key set in this file.','err');
+    if(!CONFIGURED) return msg('Live mode is not configured. Check SUPABASE_URL / SUPABASE_ANON_KEY on Vercel.','err');
     if(!sb) return msg('Auth library not ready.','err');
     const email=$('liEmail').value.trim();
     if(!email) return msg('Enter your admin email.','err');
