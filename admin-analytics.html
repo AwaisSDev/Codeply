@@ -662,15 +662,16 @@ function buildGlobe(countries){
   countries.forEach(c=>{
     const meta=CC[c.country]; if(!meta) return;
     const t=c.users/max;
+    const st=Math.sqrt(t); // sqrt curve so a single/small dataset doesn't max out into a giant blob
     const col=new THREE.Color(colorFor(t));
-    const size=0.016+0.05*t;
+    const size=0.009+st*0.016;
     const pin=new THREE.Mesh(new THREE.SphereGeometry(size,16,16),
       new THREE.MeshBasicMaterial({color:col}));
     pin.position.copy(llToVec(meta[0],meta[1],1.02));
     globe.markers.add(pin);
     const halo=new THREE.Sprite(new THREE.SpriteMaterial({
-      map:getGlowTexture(),color:col,transparent:true,opacity:0.5+0.5*t,depthWrite:false,blending:THREE.AdditiveBlending}));
-    halo.scale.setScalar(0.09+0.20*t);
+      map:getGlowTexture(),color:col,transparent:true,opacity:0.32+0.35*t,depthWrite:false,blending:THREE.AdditiveBlending}));
+    halo.scale.setScalar(0.04+st*0.07);
     halo.position.copy(pin.position);
     globe.markers.add(halo);
   });
