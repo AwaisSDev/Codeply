@@ -677,22 +677,33 @@ function buildGlobe(countries){
   const llToVec=(lat,lon,r)=>{const p=(90-lat)*Math.PI/180,t=(lon+180)*Math.PI/180;
     return new THREE.Vector3(-r*Math.sin(p)*Math.cos(t), r*Math.cos(p), r*Math.sin(p)*Math.sin(t));};
 
+  let placed=0, skipped=[];
   countries.forEach(c=>{
-    const meta=CC[c.country]; if(!meta) return;
-    const t=c.users/max;
-    const st=Math.sqrt(t); // sqrt curve so a single/small dataset doesn't max out into a giant blob
-    const col=new THREE.Color(colorFor(t));
-    const size=0.020+st*0.022;
-    const pin=new THREE.Mesh(new THREE.SphereGeometry(size,16,16),
-      new THREE.MeshBasicMaterial({color:col}));
-    pin.position.copy(llToVec(meta[0],meta[1],1.02));
-    globe.markers.add(pin);
-    const halo=new THREE.Sprite(new THREE.SpriteMaterial({
-      map:getGlowTexture(),color:col,transparent:true,opacity:0.4+0.4*t,depthWrite:false,blending:THREE.AdditiveBlending}));
-    halo.scale.setScalar(0.07+st*0.10);
-    halo.position.copy(pin.position);
-    globe.markers.add(halo);
+    try{
+      const meta=CC[c.country];
+      if(!meta){ skipped.push(c.country); return; }
+      const t=c.users/max;
+      const st=Math.sqrt(t); // sqrt curve so a single/small dataset doesn't max out into a giant blob
+      const col=new THREE.Color(colorFor(t));
+      const size=0.020+st*0.022;
+      const pin=new THREE.Mesh(new THREE.SphereGeometry(size,16,16),
+        new THREE.MeshBasicMaterial({color:col,depthTest:false}));
+      pin.position.copy(llToVec(meta[0],meta[1],1.02));
+      pin.renderOrder=10;
+      globe.markers.add(pin);
+      const halo=new THREE.Sprite(new THREE.SpriteMaterial({
+        map:getGlowTexture(),color:col,transparent:true,opacity:0.4+0.4*t,depthWrite:false,depthTest:false,blending:THREE.AdditiveBlending}));
+      halo.scale.setScalar(0.07+st*0.10);
+      halo.position.copy(pin.position);
+      halo.renderOrder=9;
+      globe.markers.add(halo);
+      placed++;
+    }catch(err){
+      console.error('[globe] failed to place marker for', c, err);
+    }
   });
+  if(skipped.length) console.warn('[globe] no lat/lon known for country code(s):', skipped);
+  console.info('[globe] placed', placed, 'of', countries.length, 'country markers');
 }
 
 /* ============================ APP FLOW ==================================== */
