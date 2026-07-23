@@ -479,7 +479,8 @@ function demoStats(){
 const fmt = (n)=> n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'k':String(n??0);
 const esc = (s)=> String(s??'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const displayName = (u)=> u.full_name || (u.email ? u.email.split('@')[0] : 'Unknown');
-const countryName = (code)=> code ? ((CC[code]&&CC[code][2]) || code) : '—';
+const normCC = (code)=> String(code||'').trim().toUpperCase();
+const countryName = (code)=> code ? ((CC[normCC(code)]&&CC[normCC(code)][2]) || code) : '—';
 
 function avatarHtml(u){
   if(u.avatar_url) return '<img class="u-av" src="'+esc(u.avatar_url)+'" alt="">';
@@ -575,7 +576,7 @@ function drawLegend(countries){
   const rows = countries.slice(0,6);
   const max = Math.max(1,...countries.map(c=>c.users));
   $('legendRows').innerHTML = rows.length ? rows.map(c=>{
-    const name=(CC[c.country]&&CC[c.country][2])||c.country;const col=colorFor(c.users/max);
+    const name=countryName(c.country);const col=colorFor(c.users/max);
     return '<div class="lg-row"><span class="sw" style="background:'+col+';box-shadow:0 0 8px '+col+'"></span><span class="nm">'+name+'</span><span class="ct">'+fmt(c.users)+'</span></div>';
   }).join('') : '<div class="lg-row"><span class="nm" style="color:var(--text3)">No country data yet</span></div>';
 }
@@ -680,8 +681,9 @@ function buildGlobe(countries){
   let placed=0, skipped=[];
   countries.forEach(c=>{
     try{
-      const meta=CC[c.country];
-      if(!meta){ skipped.push(c.country); return; }
+      const code=String(c.country||'').trim().toUpperCase();
+      const meta=CC[code];
+      if(!meta){ skipped.push(JSON.stringify(c.country)); return; }
       const t=c.users/max;
       const st=Math.sqrt(t); // sqrt curve so a single/small dataset doesn't max out into a giant blob
       const col=new THREE.Color(colorFor(t));
@@ -702,7 +704,7 @@ function buildGlobe(countries){
       console.error('[globe] failed to place marker for', c, err);
     }
   });
-  if(skipped.length) console.warn('[globe] no lat/lon known for country code(s):', skipped);
+  if(skipped.length) console.warn('[globe] no lat/lon known for country code(s): ' + skipped.join(', '));
   console.info('[globe] placed', placed, 'of', countries.length, 'country markers');
 }
 
