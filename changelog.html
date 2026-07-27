@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Changelog - Codeply</title>
+    <meta name="description" content="What's new in Codeply — smarter caching, automatic file detection, built-in AI with no API key required, and a terminal CLI on the way.">
+    <link rel="canonical" href="https://codeply.online/changelog">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Codeply">
+    <meta property="og:url" content="https://codeply.online/changelog">
+    <meta property="og:title" content="Changelog - Codeply">
+    <meta property="og:description" content="What's new in Codeply — smarter caching, automatic file detection, built-in AI with no API key required, and a terminal CLI on the way.">
+    <meta property="og:image" content="https://codeply.online/Favicon-RBG.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --g-blue: #4285F4; --g-red: #ea4335; --g-yellow: #fbbc04; --g-green: #34a853;
+            --grad-brand: linear-gradient(90deg, var(--g-blue) 0 25%, var(--g-red) 25% 50%, var(--g-yellow) 50% 75%, var(--g-green) 75% 100%);
+            --sans: 'Inter', Arial, sans-serif; --mono: 'Fira Code', monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--sans);
+            background: linear-gradient(160deg, #5bb8f5 0%, #89c9f5 15%, #b8dff7 30%, #e8f4fb 45%, #f5e6d3 60%, #f0c9a0 75%, #e8a87c 88%, #d4956a 100%);
+            background-attachment: fixed;
+            color: #202124;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+        .topline { height: 3px; background: var(--grad-brand); }
+
+        header {
+            display: flex; align-items: center; gap: 10px;
+            padding: 16px clamp(20px, 6vw, 72px);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            position: sticky; top: 0; z-index: 100;
+        }
+        header img.logo { width: 32px; height: 32px; border-radius: 8px; }
+        header .brand { font-weight: 800; font-size: 1.15rem; color: #202124; }
+        header nav { margin-left: auto; display: flex; gap: 8px; }
+        header nav a {
+            color: #202124; font-size: .84rem; font-weight: 600;
+            padding: 7px 20px; border-radius: 999px;
+            background: rgba(255,255,255,0.45);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.85);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9);
+            transition: background .2s, box-shadow .2s;
+        }
+        header nav a:hover { background: rgba(255,255,255,0.7); }
+
+        .hero { text-align: center; padding: clamp(56px, 9vw, 96px) 20px 8px; }
+        .hero .eyebrow {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px); border-radius: 999px;
+            padding: 5px 16px; font-size: .78rem; font-weight: 600; color: #5f6368;
+            margin-bottom: 24px; letter-spacing: .04em; text-transform: uppercase;
+        }
+        .hero .eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: #34a853; display: inline-block; }
+        .hero h1 {
+            font-size: clamp(2rem, 4.6vw, 3rem); font-weight: 800;
+            letter-spacing: -.04em; line-height: 1.15; color: #202124;
+            margin-bottom: 14px;
+        }
+        .hero p { color: #5f6368; font-size: 1rem; line-height: 1.7; max-width: 520px; margin: 0 auto; }
+
+        .log-wrap { max-width: 720px; margin: 56px auto 100px; padding: 0 20px; }
+        .entry {
+            background: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 20px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 32px 32px 28px; margin-bottom: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+        .entry .tag {
+            display: inline-block; font-family: var(--mono); font-size: .72rem; font-weight: 700;
+            color: #1a6ff0; background: rgba(66,133,244,.12); border-radius: 6px;
+            padding: 3px 10px; margin-bottom: 14px; letter-spacing: .02em;
+        }
+        .entry .tag.soon { color: #b3261e; background: rgba(179,38,30,.1); }
+        .entry h2 { font-size: 1.2rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 12px; }
+        .entry ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .entry li { color: #3c4043; font-size: .92rem; line-height: 1.6; padding-left: 20px; position: relative; }
+        .entry li::before {
+            content: ''; position: absolute; left: 0; top: 8px;
+            width: 6px; height: 6px; border-radius: 50%; background: var(--g-blue);
+        }
+        .entry li strong { color: #202124; }
+
+        @media (max-width: 640px) { .entry { padding: 24px 22px; } }
+    </style>
+</head>
+
+<body>
+    <div class="topline"></div>
+
+    <header>
+        <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+            <img class="logo" src="Favicon-RBG.png" alt="Codeply" />
+            <span class="brand">Codeply</span>
+        </a>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/download">Download</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="eyebrow"><span></span> Changelog</div>
+        <h1>What's new in Codeply</h1>
+        <p>The overlay keeps getting sharper. Here's what's shipped recently — and what's coming next.</p>
+    </section>
+
+    <div class="log-wrap">
+        <div class="entry">
+            <span class="tag">Latest</span>
+            <h2>Built-in AI, no API key required</h2>
+            <ul>
+                <li><strong>Sign in and go.</strong> Codeply now runs on a built-in AI engine — no more pasting in a provider API key or picking a model. Sign in with your email, get a code, and you're editing.</li>
+                <li><strong>Smarter caching.</strong> Identical requests against an unchanged file are now instant and free — Codeply remembers what it already worked out instead of re-asking the AI.</li>
+                <li><strong>Better disambiguation.</strong> When the same property or value shows up in more than one place in a file, Codeply now uses the surrounding context to find the one you actually meant, instead of guessing.</li>
+                <li><strong>Daily usage, visible.</strong> A usage bar in the dashboard's Subscription tab shows exactly how much of your daily limit you've used.</li>
+                <li><strong>Onboarding that remembers you.</strong> The "where'd you hear about us" and country questions are now tied to your account, not your device — switching accounts on the same computer won't skip them.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped</span>
+            <h2>Intelligent file detection & multi-file placement</h2>
+            <ul>
+                <li><strong>Paste and go.</strong> Copy code from anywhere and Codeply figures out which file it belongs in — even across multiple files in one paste — using project structure, framework conventions, and a search of your codebase's own identifiers.</li>
+                <li><strong>Surgical edits.</strong> Changes land as small, verified diffs instead of full-file rewrites — faster, cheaper, and far less likely to touch anything you didn't ask about.</li>
+                <li><strong>Local response cache.</strong> A per-project cache (<code>.codeply/</code>) keeps recent AI answers and file history on disk, with automatic expiry and a size cap so it never grows unbounded.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag soon">Coming soon</span>
+            <h2>Codeply from the terminal</h2>
+            <ul>
+                <li><strong>A real CLI.</strong> <code>codeply apply "&lt;instruction&gt;" --file path/to/file</code> — same account, same AI, same daily allowance, from any terminal. In active development; not yet publicly released.</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>

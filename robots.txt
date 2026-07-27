@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin-analytics.html
+
+Sitemap: https://codeply.online/sitemap.xml
