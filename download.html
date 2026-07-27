@@ -142,37 +142,45 @@
         .divider span { font-size: .78rem; font-weight: 600; color: #9aa0a6; white-space: nowrap; }
 
         /* ── CLI install ── */
-        .cli-wrap { max-width: 560px; margin: 0 auto 48px; padding: 0 20px; }
-        .cli-card {
-            background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.8);
-            border-radius: 18px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 40px rgba(0,0,0,.07), inset 0 1px 0 rgba(255,255,255,0.95);
-            overflow: hidden;
+        .cli-wrap { max-width: 520px; margin: 0 auto 8px; padding: 0 20px; }
+        .cli-eyebrow {
+            text-align: center; font-size: .74rem; font-weight: 700; color: #5f6368;
+            letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px;
         }
-        .cli-tabs { display: flex; border-bottom: 1px solid rgba(0,0,0,.08); }
+        .cli-card {
+            background: #16181d; border: 1px solid rgba(255,255,255,.08);
+            border-radius: 16px; overflow: hidden;
+            box-shadow: 0 16px 48px rgba(0,0,0,.28), 0 0 0 1px rgba(255,255,255,.02);
+        }
+        .cli-tabs { display: flex; padding: 8px 8px 0; gap: 4px; }
         .cli-tab {
-            flex: 1; padding: 12px 0; background: none; border: none; cursor: pointer;
-            font-family: var(--sans); font-weight: 600; font-size: .8rem; color: #9aa0a6;
+            padding: 8px 16px; background: none; border: none; cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            font-family: var(--sans); font-weight: 600; font-size: .78rem; color: #6b7078;
             transition: color .15s, background .15s;
         }
-        .cli-tab.active { color: #202124; background: rgba(255,255,255,.5); }
-        .cli-tab:hover:not(.active) { color: #5f6368; }
-        .cli-cmd { display: flex; align-items: center; gap: 10px; padding: 14px 16px; }
+        .cli-tab.active { color: #e8eaed; background: #1e2127; }
+        .cli-tab:hover:not(.active) { color: #9aa0a6; }
+        .cli-cmd {
+            display: flex; align-items: center; gap: 12px;
+            background: #1e2127; padding: 16px 18px; margin: 0 8px 8px; border-radius: 10px;
+        }
+        .cli-cmd .prompt { color: var(--g-green); font-family: var(--mono); font-weight: 700; flex-shrink: 0; }
         .cli-cmd code {
-            flex: 1; font-family: var(--mono); font-size: .82rem; color: #1a6ff0;
+            flex: 1; font-family: var(--mono); font-size: .84rem; color: #d3e3fd;
             overflow-x: auto; white-space: nowrap; scrollbar-width: none;
         }
         .cli-cmd code::-webkit-scrollbar { display: none; }
         .cli-copy {
             flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
-            border: 1px solid rgba(0,0,0,.1); background: rgba(255,255,255,.6);
-            color: #5f6368; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: background .15s, color .15s;
+            border: 1px solid rgba(255,255,255,.1); background: rgba(255,255,255,.05);
+            color: #9aa0a6; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background .15s, color .15s, border-color .15s;
         }
-        .cli-copy:hover { background: rgba(255,255,255,.95); color: #202124; }
-        .cli-copy.copied { color: #34a853; border-color: #34a853; }
-        .cli-note { text-align: center; font-size: .76rem; color: #9aa0a6; margin-top: 10px; }
-        .cli-note code { font-family: var(--mono); background: rgba(255,255,255,.5); border-radius: 4px; padding: 1px 5px; }
+        .cli-copy:hover { background: rgba(255,255,255,.12); color: #e8eaed; }
+        .cli-copy.copied { color: #81c995; border-color: #81c995; }
+        .cli-note { text-align: center; font-size: .76rem; color: #9aa0a6; margin-top: 12px; }
+        .cli-note code { font-family: var(--mono); background: rgba(255,255,255,.35); border-radius: 4px; padding: 1px 5px; }
 
         /* ── Steps ── */
         .steps-wrap {
@@ -254,6 +262,24 @@
         </div>
     </section>
 
+    <section class="cli-wrap">
+        <div class="cli-eyebrow">or from the terminal</div>
+        <div class="cli-card">
+            <div class="cli-tabs">
+                <button class="cli-tab" data-os="win" id="cli-tab-win">PowerShell</button>
+                <button class="cli-tab" data-os="unix" id="cli-tab-unix">macOS / Linux</button>
+            </div>
+            <div class="cli-cmd">
+                <span class="prompt">&gt;</span>
+                <code id="cli-cmd-text"></code>
+                <button class="cli-copy" id="cli-copy-btn" title="Copy">
+                    <svg id="cli-copy-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+            </div>
+        </div>
+        <p class="cli-note">Installs the <code>codeply</code> command &middot; a separate tool from the desktop app above, same account and daily limit &middot; then run <code>codeply login</code>.</p>
+    </section>
+
     <div class="divider">
         <hr><span>Get started in minutes</span><hr>
     </div>
@@ -283,28 +309,6 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <div class="divider">
-        <hr><span>prefer the terminal?</span><hr>
-    </div>
-
-    <section class="cli-wrap">
-        <h2 style="text-align:center;font-size:1.1rem;font-weight:800;color:#202124;margin-bottom:6px;">Codeply CLI</h2>
-        <p style="text-align:center;color:#5f6368;font-size:.86rem;margin-bottom:20px;">A separate terminal tool, same account, same daily limit as the desktop app above. Not required if you're using the desktop app.</p>
-        <div class="cli-card">
-            <div class="cli-tabs">
-                <button class="cli-tab" data-os="win" id="cli-tab-win">PowerShell</button>
-                <button class="cli-tab" data-os="unix" id="cli-tab-unix">macOS / Linux</button>
-            </div>
-            <div class="cli-cmd">
-                <code id="cli-cmd-text"></code>
-                <button class="cli-copy" id="cli-copy-btn" title="Copy">
-                    <svg id="cli-copy-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                </button>
-            </div>
-        </div>
-        <p class="cli-note">Installs the <code>codeply</code> command, then run <code>codeply login</code>.</p>
     </section>
 
     <script>

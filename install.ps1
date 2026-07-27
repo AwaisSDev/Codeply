@@ -22,6 +22,15 @@ if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
 
 Write-Host "Installing Codeply..."
 npm install -g codeply-cli
+# $ErrorActionPreference only catches PowerShell's own errors, not a failed
+# EXTERNAL command's exit code -- npm can print "404 Not Found" and exit
+# non-zero while the script sails on and prints a false success message
+# unless $LASTEXITCODE is checked explicitly.
+if ($LASTEXITCODE -ne 0) {
+    Write-Host ""
+    Write-Host "Install failed (npm exited with code $LASTEXITCODE). See the errors above." -ForegroundColor Red
+    exit $LASTEXITCODE
+}
 
 Write-Host ""
 Write-Host "Codeply installed. Run 'codeply login' to get started." -ForegroundColor Green
