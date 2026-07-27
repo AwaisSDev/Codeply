@@ -1266,15 +1266,6 @@
         }
         /* Button row */
         .cp-btn-row { display: flex; gap: 8px; padding: 10px 14px; }
-        .cp-btn-analyze {
-            flex: 1; padding: 11px 0;
-            background: #d2e3fc; color: #1a73e8; border: none; border-radius: 10px;
-            font-weight: 700; font-size: 1rem; cursor: pointer;
-            font-family: var(--font-serif); transition: background .2s, transform .12s;
-        }
-        .cp-btn-analyze:hover:not(:disabled) { background: #b8d0f8; }
-        .cp-btn-analyze:active:not(:disabled) { transform: scale(.97); }
-        .cp-btn-analyze:disabled { opacity:.5; cursor:default; }
         .cp-btn-apply {
             flex: 1; padding: 11px 0;
             background: #fff; color: #34a853; border: 1.5px solid #34a853;
@@ -2085,7 +2076,6 @@
                         </div>
                         <!-- Buttons -->
                         <div class="cp-btn-row">
-                            <button id="cpBtnAnalyze" class="cp-btn-analyze" disabled>Analyze</button>
                             <button id="cpBtnApply" class="cp-btn-apply" disabled>Apply</button>
                         </div>
                     </div>
@@ -2281,8 +2271,7 @@
                                     </div>
                                     <!-- Buttons -->
                                     <div style="display:flex;gap:6px;padding:8px 12px;">
-                                        <button style="flex:1;padding:8px 0;background:#d2e3fc;color:#1a73e8;border:none;border-radius:8px;font-weight:700;font-size:0.82rem;cursor:pointer;font-family:var(--font-serif);">Analyze</button>
-                                        <button id="hlp-apply-btn" style="flex:1;padding:8px 0;background:#fff;color:#34a853;border:1.5px solid #34a853;border-radius:8px;font-weight:700;font-size:0.82rem;cursor:pointer;font-family:var(--font-serif);opacity:0.4;">Apply</button>
+                                        <button id="hlp-apply-btn" style="flex:1;padding:8px 0;background:#fff;color:#34a853;border:1.5px solid #34a853;border-radius:8px;font-weight:700;font-size:0.82rem;cursor:pointer;font-family:var(--font-serif);">Apply</button>
                                     </div>
                                 </div>
                             </div>
@@ -2320,7 +2309,6 @@
                         var statusText= document.getElementById('hlp-status-text');
                         var spinner   = document.getElementById('hlp-spinner');
                         var applyBtn  = document.getElementById('hlp-apply-btn');
-                        var analyzeBtn= popup.querySelector('button:first-child');
                         var hl5       = document.getElementById('hl-line5');
                         if(!popup) return;
 
@@ -2348,13 +2336,13 @@
                                     popup.style.transform = 'scale(1) translateY(0)';
                                     hotkey.style.opacity = '0';
 
-                                    // Step 4: cursor moves to Analyze btn (1400ms)
+                                    // Step 4: cursor moves to Apply btn (1400ms)
                                     setTimeout(() => {
-                                        moveCursor(cursor, container, analyzeBtn, 0.5, 0.5);
+                                        moveCursor(cursor, container, applyBtn, 0.5, 0.5);
 
-                                        // Step 5: click Analyze (1700ms)
+                                        // Step 5: click Apply (1700ms)
                                         setTimeout(() => {
-                                            flash(analyzeBtn, '#b8d0f8', '#d2e3fc');
+                                            flash(applyBtn, '#e6f4ea', '#fff');
 
                                             // Step 6: scanning... (2000ms)
                                             setTimeout(() => {
@@ -2362,22 +2350,13 @@
                                                 spinner.style.borderTopColor = '#34a853';
                                                 spinner.style.animation = 'cpspin .7s linear infinite';
 
-                                                // Step 7: Enhancement Found (3200ms)
+                                                // Step 7: Enhancement Found, then apply (3200ms)
                                                 setTimeout(() => {
                                                     spinner.style.animation = 'none';
                                                     spinner.style.border = '2px solid #34a853';
                                                     statusText.innerHTML = '<div style="font-size:0.82rem;font-weight:800;color:#34a853;">Enhancement Found</div><div style="font-size:0.72rem;color:#9aa0a6;margin-top:2px;">Upgrade line 5: use payload dict</div>';
-                                                    applyBtn.style.opacity = '1';
 
-                                                    // Step 8: cursor moves to Apply (3600ms)
-                                                    setTimeout(() => {
-                                                        moveCursor(cursor, container, applyBtn, 0.5, 0.5);
-
-                                                        // Step 9: click Apply
-                                                        setTimeout(() => {
-                                                            flash(applyBtn, '#e6f4ea', '#fff');
-
-                                                            // Step 10: close popup, RED overlay on line 5
+                                                            // Step 8: close popup, RED overlay on line 5
                                                             setTimeout(() => {
                                                                 popup.style.opacity = '0';
                                                                 popup.style.transform = 'scale(0.92) translateY(-8px)';
@@ -2405,13 +2384,10 @@
                                                                         spinner.style.border = '2px solid #e0e0e0';
                                                                         spinner.style.borderTopColor = '#4285F4';
                                                                         statusText.innerHTML = '<div style="font-size:0.82rem;font-weight:700;color:#202124;">Scanning auth.py...</div><div style="font-size:0.72rem;color:#9aa0a6;margin-top:2px;">Analyzing line 5</div>';
-                                                                        applyBtn.style.opacity = '0.4';
                                                                         setTimeout(run, 1200);
                                                                     }, 1000);
                                                                 }, 550);
                                                             }, 350);
-                                                        }, 500);
-                                                    }, 400);
                                                 }, 1200);
                                             }, 300);
                                         }, 400);
@@ -2592,8 +2568,6 @@
                     <div style="display:flex;flex-direction:column;gap:0.7rem;align-items:flex-start;">
                         <a href="/docs" style="color:var(--text-secondary);text-decoration:none;font-size:1rem;">Documentation</a>
                         <a href="/blog" style="color:var(--text-secondary);text-decoration:none;font-size:1rem;">Blog</a>
-                        <a href="/support" style="color:var(--text-secondary);text-decoration:none;font-size:1rem;">Support</a>
-                        <a href="https://github.com/codeplyai" target="_blank" style="color:var(--text-secondary);text-decoration:none;font-size:1rem;">GitHub</a>
                     </div>
                 </div>
                 <!-- Company -->
@@ -2926,7 +2900,6 @@
             const elStatusTitle = document.getElementById('cpStatusTitle');
             const elStatusSub   = document.getElementById('cpStatusSub');
             const elStatusArea  = document.getElementById('cpStatusArea');
-            const elBtnAnalyze  = document.getElementById('cpBtnAnalyze');
             const elBtnApply    = document.getElementById('cpBtnApply');
             const elReloadBtn   = document.getElementById('cpReloadBtn');
             const elFileName    = document.getElementById('cpFileName');
@@ -3010,12 +2983,9 @@
                 elCode.textContent = '';
                 elPlaceholder.style.display = 'block';
                 elCursor.className = 'cp-cursor hidden';
-                elBtnAnalyze.disabled = true;
                 elBtnApply.disabled = true;
                 elBtnApply.textContent = 'Apply';
                 elBtnApply.style.cssText = '';
-                elBtnAnalyze.textContent = 'Analyze';
-                elBtnAnalyze.style.cssText = '';
                 restoreLine5();
                 setStatus('◈', 'Waiting for code', 'Copy code or type an instruction to get started.');
                 state = STATES.IDLE;
@@ -3031,7 +3001,6 @@
                 elPlaceholder.style.display = 'none';
                 elCursor.className = 'cp-cursor';
                 elCode.textContent = '';
-                elBtnAnalyze.disabled = true;
                 elBtnApply.disabled = true;
 
                 for (let ch of DEMO.code) {
@@ -3042,9 +3011,9 @@
                 if (typingCancel) return;
                 elCursor.className = 'cp-cursor hidden';
                 state = STATES.READY;
-                elBtnAnalyze.disabled = false;
+                elBtnApply.disabled = false;
 
-                // Cursor appears at popup top, glides to Analyze
+                // Cursor appears at popup top, glides to Apply
                 await delay(380);
                 if (typingCancel || state !== STATES.READY) return;
                 const popupEl = document.getElementById('cpPopupEl');
@@ -3053,31 +3022,23 @@
                 cursorShow();
                 await delay(320);
                 elDemoCursor.style.transition = 'left .55s cubic-bezier(.4,0,.2,1), top .55s cubic-bezier(.4,0,.2,1), opacity .3s';
-                await autoCursorClick(elBtnAnalyze);
-            }
-
-            async function doAnalyze() {
-                if (state !== STATES.READY) return;
-                state = STATES.ANALYZING;
-                elBtnAnalyze.disabled = true;
-                setStatus('', 'Analyzing…', 'Scanning project for best placement…', true);
-                await delay(1400);
-                if (state !== STATES.ANALYZING) return;
-                state = STATES.DONE;
-                setStatus('✓', DEMO.statusTitle, DEMO.statusSub, false, true);
-                elBtnApply.disabled = false;
-
-                // Cursor glides to Apply
-                await delay(500);
-                if (state !== STATES.DONE) return;
                 await autoCursorClick(elBtnApply);
             }
 
             async function doApply() {
-                if (state !== STATES.DONE) return;
-                state = STATES.APPLIED;
+                if (state !== STATES.READY) return;
+                state = STATES.ANALYZING;
                 elBtnApply.disabled = true;
-                elBtnAnalyze.disabled = true;
+                elBtnApply.textContent = 'Applying…';
+                setStatus('', 'Applying…', 'Scanning project for best placement…', true);
+                await delay(1400);
+                if (state !== STATES.ANALYZING) return;
+                state = STATES.DONE;
+                setStatus('✓', DEMO.statusTitle, DEMO.statusSub, false, true);
+                await delay(500);
+                if (state !== STATES.DONE) return;
+
+                state = STATES.APPLIED;
                 cursorHide();
 
                 const tl = document.getElementById(DEMO.applyLineId);
@@ -3123,7 +3084,6 @@
                 autoTimer = setTimeout(() => { reset(); setTimeout(startTyping, 700); }, 4200);
             }
 
-            elBtnAnalyze.addEventListener('click', doAnalyze);
             elBtnApply.addEventListener('click', doApply);
             if (elReloadBtn) elReloadBtn.addEventListener('click', () => { reset(true); setTimeout(startTyping, 700); });
 
