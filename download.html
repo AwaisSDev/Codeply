@@ -141,6 +141,39 @@
         .divider hr { flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.55); }
         .divider span { font-size: .78rem; font-weight: 600; color: #9aa0a6; white-space: nowrap; }
 
+        /* ── CLI install ── */
+        .cli-wrap { max-width: 560px; margin: 0 auto 48px; padding: 0 20px; }
+        .cli-card {
+            background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 18px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 40px rgba(0,0,0,.07), inset 0 1px 0 rgba(255,255,255,0.95);
+            overflow: hidden;
+        }
+        .cli-tabs { display: flex; border-bottom: 1px solid rgba(0,0,0,.08); }
+        .cli-tab {
+            flex: 1; padding: 12px 0; background: none; border: none; cursor: pointer;
+            font-family: var(--sans); font-weight: 600; font-size: .8rem; color: #9aa0a6;
+            transition: color .15s, background .15s;
+        }
+        .cli-tab.active { color: #202124; background: rgba(255,255,255,.5); }
+        .cli-tab:hover:not(.active) { color: #5f6368; }
+        .cli-cmd { display: flex; align-items: center; gap: 10px; padding: 14px 16px; }
+        .cli-cmd code {
+            flex: 1; font-family: var(--mono); font-size: .82rem; color: #1a6ff0;
+            overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+        }
+        .cli-cmd code::-webkit-scrollbar { display: none; }
+        .cli-copy {
+            flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
+            border: 1px solid rgba(0,0,0,.1); background: rgba(255,255,255,.6);
+            color: #5f6368; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background .15s, color .15s;
+        }
+        .cli-copy:hover { background: rgba(255,255,255,.95); color: #202124; }
+        .cli-copy.copied { color: #34a853; border-color: #34a853; }
+        .cli-note { text-align: center; font-size: .76rem; color: #9aa0a6; margin-top: 10px; }
+        .cli-note code { font-family: var(--mono); background: rgba(255,255,255,.5); border-radius: 4px; padding: 1px 5px; }
+
         /* ── Steps ── */
         .steps-wrap {
             max-width: 760px; margin: 0 auto 100px; padding: 0 20px;
@@ -252,6 +285,28 @@
         </div>
     </section>
 
+    <div class="divider">
+        <hr><span>prefer the terminal?</span><hr>
+    </div>
+
+    <section class="cli-wrap">
+        <h2 style="text-align:center;font-size:1.1rem;font-weight:800;color:#202124;margin-bottom:6px;">Codeply CLI</h2>
+        <p style="text-align:center;color:#5f6368;font-size:.86rem;margin-bottom:20px;">A separate terminal tool, same account, same daily limit as the desktop app above. Not required if you're using the desktop app.</p>
+        <div class="cli-card">
+            <div class="cli-tabs">
+                <button class="cli-tab" data-os="win" id="cli-tab-win">PowerShell</button>
+                <button class="cli-tab" data-os="unix" id="cli-tab-unix">macOS / Linux</button>
+            </div>
+            <div class="cli-cmd">
+                <code id="cli-cmd-text"></code>
+                <button class="cli-copy" id="cli-copy-btn" title="Copy">
+                    <svg id="cli-copy-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+            </div>
+        </div>
+        <p class="cli-note">Installs the <code>codeply</code> command, then run <code>codeply login</code>.</p>
+    </section>
+
     <script>
         // Pulls the real latest release tag instead of a hardcoded version
         // string that goes stale the moment a new build ships.
@@ -264,6 +319,47 @@
                 document.getElementById('version-badge').textContent = `Latest stable · v${tag}`;
             })
             .catch(() => { /* keep the static fallback text */ });
+
+        // CLI install tabs + copy-to-clipboard.
+        (function() {
+            const COMMANDS = {
+                win: 'irm https://codeply.online/install.ps1 | iex',
+                unix: 'curl -fsSL https://codeply.online/install.sh | sh',
+            };
+            const codeEl = document.getElementById('cli-cmd-text');
+            const copyBtn = document.getElementById('cli-copy-btn');
+            const copyIcon = document.getElementById('cli-copy-icon');
+            const tabs = {
+                win: document.getElementById('cli-tab-win'),
+                unix: document.getElementById('cli-tab-unix'),
+            };
+            if (!codeEl || !copyBtn) return;
+
+            function setOs(os) {
+                codeEl.textContent = COMMANDS[os];
+                Object.entries(tabs).forEach(([key, el]) => el.classList.toggle('active', key === os));
+            }
+
+            tabs.win.addEventListener('click', () => setOs('win'));
+            tabs.unix.addEventListener('click', () => setOs('unix'));
+
+            // Best-effort default based on platform; either tab is always one click away.
+            const isWindows = /win/i.test(navigator.platform || navigator.userAgent || '');
+            setOs(isWindows ? 'win' : 'unix');
+
+            const CHECK_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+            const COPY_ICON = copyIcon.outerHTML;
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(codeEl.textContent).then(() => {
+                    copyBtn.classList.add('copied');
+                    copyBtn.innerHTML = CHECK_ICON;
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = COPY_ICON;
+                    }, 1400);
+                });
+            });
+        })();
     </script>
 
 </body>
