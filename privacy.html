@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy - Codeply</title>
+    <meta name="description" content="What Codeply collects, why, and who it's shared with.">
+    <link rel="canonical" href="https://codeply.online/privacy">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Codeply">
+    <meta property="og:url" content="https://codeply.online/privacy">
+    <meta property="og:title" content="Privacy Policy - Codeply">
+    <meta property="og:description" content="What Codeply collects, why, and who it's shared with.">
+    <meta property="og:image" content="https://codeply.online/Favicon-RBG.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --g-blue: #4285F4; --grad-brand: linear-gradient(90deg, #4285F4 0 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75% 100%);
+            --sans: 'Inter', Arial, sans-serif; --mono: 'Fira Code', monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--sans);
+            background: linear-gradient(160deg, #5bb8f5 0%, #89c9f5 15%, #b8dff7 30%, #e8f4fb 45%, #f5e6d3 60%, #f0c9a0 75%, #e8a87c 88%, #d4956a 100%);
+            background-attachment: fixed;
+            color: #202124;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: #1a6ff0; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .topline { height: 3px; background: var(--grad-brand); }
+
+        header {
+            display: flex; align-items: center; gap: 10px;
+            padding: 16px clamp(20px, 6vw, 72px);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            position: sticky; top: 0; z-index: 100;
+        }
+        header img.logo { width: 32px; height: 32px; border-radius: 8px; }
+        header .brand { font-weight: 800; font-size: 1.15rem; color: #202124; text-decoration: none; }
+        header nav { margin-left: auto; display: flex; gap: 8px; }
+        header nav a {
+            color: #202124; font-size: .84rem; font-weight: 600;
+            padding: 7px 20px; border-radius: 999px;
+            background: rgba(255,255,255,0.45);
+            border: 1px solid rgba(255,255,255,0.85);
+            transition: background .2s;
+        }
+        header nav a:hover { background: rgba(255,255,255,0.7); text-decoration: none; }
+
+        .doc-wrap { max-width: 700px; margin: 0 auto; padding: 56px 20px 100px; }
+        .doc-wrap h1 { font-size: 2rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 6px; }
+        .doc-wrap .updated { color: #5f6368; font-size: .85rem; margin-bottom: 40px; }
+        .card {
+            background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 20px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 36px clamp(24px, 5vw, 44px);
+            box-shadow: 0 8px 32px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,0.9);
+        }
+        .card h2 { font-size: 1.1rem; font-weight: 800; letter-spacing: -.01em; margin: 28px 0 10px; }
+        .card h2:first-child { margin-top: 0; }
+        .card p { color: #3c4043; font-size: .92rem; line-height: 1.75; margin-bottom: 10px; }
+        .card ul { margin: 8px 0 12px 20px; }
+        .card li { color: #3c4043; font-size: .92rem; line-height: 1.75; margin-bottom: 6px; }
+        .card li strong { color: #202124; }
+    </style>
+</head>
+
+<body>
+    <div class="topline"></div>
+
+    <header>
+        <a href="/" class="brand" style="display:flex;align-items:center;gap:10px;">
+            <img class="logo" src="Favicon-RBG.png" alt="Codeply" />
+            <span>Codeply</span>
+        </a>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/download">Download</a>
+        </nav>
+    </header>
+
+    <div class="doc-wrap">
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated July 27, 2026</p>
+
+        <div class="card">
+            <p>This policy covers what Codeply (the desktop app, dashboard, and this website) collects, why, and who it's shared with. It doesn't cover third-party services you connect to on your own (like the AI providers or payment processor described below) beyond what Codeply itself sends them.</p>
+
+            <h2>Information we collect</h2>
+            <ul>
+                <li><strong>Account information.</strong> Your email address, and if you sign in with Google or GitHub, the name and avatar those providers share with us.</li>
+                <li><strong>Onboarding answers.</strong> How you heard about Codeply and which country you're in, if you choose to answer.</li>
+                <li><strong>Usage records.</strong> Which AI model handled a request, token counts, the text of the instruction you typed (not the full contents of your files), and the name of the file you were editing. This is what powers your usage history in the dashboard.</li>
+                <li><strong>Apply records.</strong> A timestamp and file path each time you apply a change, used only to enforce your daily limit.</li>
+                <li><strong>Bug reports.</strong> Whatever you choose to include if you submit one through the app.</li>
+                <li><strong>Your code, transiently.</strong> When you ask Codeply to make an edit, the relevant file content and your instruction are sent to Codeply's AI backend and relayed to the underlying AI provider (Groq, or OpenRouter as a fallback) to generate a response. Codeply itself doesn't store your file contents beyond that request.</li>
+                <li><strong>Payment information.</strong> If you subscribe to a paid plan, billing is handled entirely by Whop. Codeply does not receive or store your card details.</li>
+            </ul>
+
+            <h2>How we use it</h2>
+            <p>To run the service: authenticate you, apply your edits, enforce daily limits fairly, show you your own usage history, respond to bug reports, and understand in general terms how people find Codeply.</p>
+
+            <h2>Who we share it with</h2>
+            <ul>
+                <li><strong>Supabase</strong>, for authentication and database hosting.</li>
+                <li><strong>Groq</strong>, and <strong>OpenRouter</strong> as a fallback, to generate AI responses.</li>
+                <li><strong>Whop</strong>, for billing on paid plans.</li>
+            </ul>
+            <p>We don't sell your data, and we don't share it with anyone else outside of what's needed to run the service.</p>
+
+            <h2>Retention</h2>
+            <p>The local response cache on your own machine expires automatically after 7 days. Account and usage data is kept for as long as your account exists. You can request deletion at any time (see Contact below).</p>
+
+            <h2>Your choices</h2>
+            <p>You can request a copy of your data, ask us to correct it, or ask us to delete your account and associated data, by emailing us. Signing out clears the local session on that device.</p>
+
+            <h2>Children's privacy</h2>
+            <p>Codeply isn't directed at children, and we don't knowingly collect information from anyone under 13.</p>
+
+            <h2>Changes</h2>
+            <p>If this policy changes in a material way, we'll update the date at the top of this page.</p>
+
+            <h2>Contact</h2>
+            <p>Questions about this policy, or a request about your data: <a href="mailto:hello@codeply.online">hello@codeply.online</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

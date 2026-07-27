@@ -83,7 +83,7 @@
             margin-bottom: 24px; letter-spacing: .04em; text-transform: uppercase;
             white-space: nowrap;
         }
-        .hero .eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: #34a853; display: inline-block; }
+        .hero .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: #34a853; display: inline-block; flex-shrink: 0; }
         .hero h1 {
             font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800;
             letter-spacing: -.04em; line-height: 1.15; color: #202124;
@@ -196,7 +196,7 @@
     </header>
 
     <section class="hero">
-        <div class="eyebrow"><span></span> <span id="version-eyebrow">Now available</span></div>
+        <div class="eyebrow"><span class="dot"></span> <span id="version-eyebrow">Now available</span></div>
         <h1>Get <span class="grad-text">Codeply</span><br>on your desktop</h1>
         <p>The AI overlay that places code surgically into your files. Sign in and start pasting in minutes.</p>
         <div class="version-badge" id="version-badge">Latest stable</div>

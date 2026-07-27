@@ -1,6 +1,12 @@
 {
   "rewrites": [
     { "source": "/download", "destination": "/download.html" },
-    { "source": "/changelog", "destination": "/changelog.html" }
+    { "source": "/changelog", "destination": "/changelog.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/careers", "destination": "/careers.html" },
+    { "source": "/docs", "destination": "/docs.html" },
+    { "source": "/blog", "destination": "/blog.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" }
   ]
 }
