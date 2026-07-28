@@ -167,9 +167,18 @@
         </div>
 
         <div class="entry">
-            <span class="tag">Coming soon</span>
-            <h2>The terminal</h2>
-            <p>A CLI is in active development, same account, same AI, same daily allowance, usable from any terminal instead of the desktop overlay. Not yet publicly released. See the <a href="/changelog" style="color:#1a6ff0;">changelog</a> for progress.</p>
+            <span class="tag">05 · The CLI</span>
+            <h2>Codeply from the terminal</h2>
+            <p>A real coding agent in your shell: it reads your codebase, edits and creates files, searches for patterns, and runs commands, checking its own work along the way. Same job as tools like Claude Code, just built into Codeply.</p>
+            <ul>
+                <li><strong>Install</strong> with one line, no npm knowledge needed:
+                    <br><code>irm https://codeply.online/install.ps1 | iex</code> (Windows)
+                    <br><code>curl -fsSL https://codeply.online/install.sh | sh</code> (macOS / Linux / WSL)
+                </li>
+                <li><strong>Sign in</strong> with <code>codeply login</code>, same account as the desktop app, sharing the same daily limit.</li>
+                <li>Run <code>codeply</code> with no arguments for the full interactive agent, or <code>codeply apply "&lt;instruction&gt;" --file path/to/file</code> for a single one-shot edit.</li>
+                <li>Prefer your own model? <code>codeply provider ollama</code> switches to a local or cloud Ollama model, no Codeply daily cap at all.</li>
+            </ul>
         </div>
     </div>
 

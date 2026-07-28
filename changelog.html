@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Changelog - Codeply AI</title>
-    <meta name="description" content="What's new in Codeply: smarter caching, automatic file detection, built-in AI with no API key required, and a terminal CLI on the way.">
+    <meta name="description" content="What's new in Codeply: a terminal coding agent CLI is here, plus smarter caching, automatic file detection, and built-in AI with no API key required.">
     <link rel="canonical" href="https://codeply.online/changelog">
     <meta name="robots" content="index, follow">
 
@@ -13,7 +13,7 @@
     <meta property="og:site_name" content="Codeply AI">
     <meta property="og:url" content="https://codeply.online/changelog">
     <meta property="og:title" content="Changelog - Codeply AI">
-    <meta property="og:description" content="What's new in Codeply: smarter caching, automatic file detection, built-in AI with no API key required, and a terminal CLI on the way.">
+    <meta property="og:description" content="What's new in Codeply: a terminal coding agent CLI is here, plus smarter caching, automatic file detection, and built-in AI with no API key required.">
     <meta property="og:image" content="https://codeply.online/Favicon-RBG.png">
 
     <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
@@ -91,6 +91,8 @@
             padding: 3px 10px; margin-bottom: 14px; letter-spacing: .02em;
         }
         .entry .tag.soon { color: #b3261e; background: rgba(179,38,30,.1); }
+        .entry .tag.new { color: #1e7e34; background: rgba(52,168,83,.14); }
+        .entry code { font-family: var(--mono); background: rgba(0,0,0,.05); border-radius: 4px; padding: 1px 6px; font-size: .88em; }
         .entry h2 { font-size: 1.2rem; font-weight: 800; letter-spacing: -.02em; margin-bottom: 12px; }
         .entry ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
         .entry li { color: #3c4043; font-size: .92rem; line-height: 1.6; padding-left: 20px; position: relative; }
@@ -126,7 +128,21 @@
 
     <div class="log-wrap">
         <div class="entry">
-            <span class="tag">Latest</span>
+            <span class="tag new">Just launched</span>
+            <h2>Codeply, now in your terminal</h2>
+            <ul>
+                <li><strong>A real coding agent, not just a script runner.</strong> The Codeply CLI reads your codebase, edits and creates files, searches for patterns, runs shell commands, and checks its own work before moving on, the same job tools like Claude Code do, right in your shell instead of a browser.</li>
+                <li><strong>One line to install.</strong> No npm knowledge required:
+                    <br><code>irm https://codeply.online/install.ps1 | iex</code> (Windows)
+                    <br><code>curl -fsSL https://codeply.online/install.sh | sh</code> (macOS / Linux / WSL)
+                </li>
+                <li><strong>Same account, same limit.</strong> Sign in with <code>codeply login</code> and it shares the exact daily cap with the desktop app, not a separate quota. Prefer to bring your own model instead? <code>codeply provider ollama</code> switches to a local or cloud Ollama model with no Codeply cap at all.</li>
+                <li><strong>Still scriptable.</strong> <code>codeply apply "&lt;instruction&gt;" --file path/to/file</code> for a single one-shot edit, no interactive session needed.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped</span>
             <h2>Built-in AI, no API key required</h2>
             <ul>
                 <li><strong>Sign in and go.</strong> Codeply now runs on a built-in AI engine, no more pasting in a provider API key or picking a model. Sign in with your email, get a code, and you're editing.</li>
@@ -144,14 +160,6 @@
                 <li><strong>Paste and go.</strong> Copy code from anywhere and Codeply figures out which file it belongs in, even across multiple files in one paste, using project structure, framework conventions, and a search of your codebase's own identifiers.</li>
                 <li><strong>Surgical edits.</strong> Changes land as small, verified diffs instead of full-file rewrites: faster, cheaper, and far less likely to touch anything you didn't ask about.</li>
                 <li><strong>Local response cache.</strong> A per-project cache (<code>.codeply/</code>) keeps recent AI answers and file history on disk, with automatic expiry and a size cap so it never grows unbounded.</li>
-            </ul>
-        </div>
-
-        <div class="entry">
-            <span class="tag soon">Coming soon</span>
-            <h2>Codeply from the terminal</h2>
-            <ul>
-                <li><strong>A real CLI.</strong> <code>codeply apply "&lt;instruction&gt;" --file path/to/file</code>: same account, same AI, same daily allowance, from any terminal. In active development; not yet publicly released.</li>
             </ul>
         </div>
     </div>
