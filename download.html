@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Download Codeply AI - Windows &amp; macOS</title>
+    <title>Download Codeply - Windows &amp; macOS</title>
     <meta name="description" content="Download Codeply for Windows or macOS. The AI overlay that places code surgically into your files. Sign in and start pasting in minutes.">
     <link rel="canonical" href="https://codeply.online/download">
     <meta name="robots" content="index, follow">
@@ -24,7 +24,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
     <style>
         :root {
             --g-blue: #4285F4; --g-red: #ea4335; --g-yellow: #fbbc04; --g-green: #34a853;
@@ -124,7 +124,7 @@
         .card h3 { margin: 16px 0 28px; font-size: 1.2rem; font-weight: 800; color: #202124; letter-spacing: -.02em; }
         .btn-dl {
             display: inline-flex; align-items: center; gap: 9px;
-            font-weight: 700; font-size: .92rem; color: #fff;
+            font-weight: 700; font-size: .92rem; color: #ffffff !important;
             padding: 14px 32px; border-radius: 999px; border: none; cursor: pointer;
             transition: transform .2s, box-shadow .2s, filter .2s;
             width: 100%; justify-content: center;
@@ -188,31 +188,40 @@
             max-width: 760px; margin: 0 auto 100px; padding: 0 20px;
         }
         .steps-wrap h2 {
-            font-size: 1.35rem; font-weight: 800; color: #202124;
-            letter-spacing: -.02em; margin-bottom: 24px; text-align: center;
+            font-size: 2.2rem; font-weight: 800; color: #202124;
+            letter-spacing: -.02em; margin-bottom: 48px; text-align: center;
         }
         .steps-grid { display: flex; flex-direction: column; gap: 0; }
         .step {
             display: flex; gap: 18px; align-items: flex-start;
-            padding: 20px 24px;
+            padding: 24px 24px;
             background: rgba(255,255,255,0.45); backdrop-filter: blur(16px);
             border: 1px solid rgba(255,255,255,0.75);
             margin-bottom: -1px;
-            transition: background .2s;
+            transition: background
+        }
+        .step .step-content {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .step .step-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        } .2s;
         }
         .step:first-child { border-radius: 16px 16px 0 0; }
         .step:last-child  { border-radius: 0 0 16px 16px; margin-bottom: 0; }
         .step:hover { background: rgba(255,255,255,0.65); }
         .step .n {
-            width: 30px; height: 30px; border-radius: 10px;
+            width: 50px; height: 50px; border-radius: 12px;
             background: linear-gradient(135deg, #4285F4, #1a6ff0);
             display: grid; place-items: center;
-            font-family: var(--mono); font-size: .75rem; font-weight: 700;
-            color: #fff; flex: none; box-shadow: 0 2px 8px rgba(66,133,244,.35);
+            font-family: var(--mono); font-size: 1.5rem; font-weight: 800;
+            color: #fff; flex: none; box-shadow: 0 4px 12px rgba(66,133,244,.35);
         }
         .step-body { padding-top: 4px; }
-        .step-body strong { font-size: .94rem; color: #202124; display: block; margin-bottom: 3px; }
-        .step-body p { color: #5f6368; font-size: .84rem; line-height: 1.6; }
+        .step-body strong { font-size: 1.1rem; color: #202124; display: block; margin-bottom: 8px; font-weight: 800; }
+        .step-body p { color: #5f6368; font-size: 0.95rem; line-height: 1.6; }
         .step-body kbd {
             background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,.12);
             border-bottom: 2px solid rgba(0,0,0,.15); border-radius: 5px;
@@ -224,9 +233,13 @@
             .step { padding: 16px 18px; }
         }
     </style>
+
+    <!-- Shared design system. Loaded last so it settles the cascade. -->
+    <link rel="stylesheet" href="theme.css">
+    <script src="theme.js" defer></script>
 </head>
 
-<body>
+<body class="page">
     <div class="topline"></div>
 
     <header>
@@ -366,6 +379,23 @@
             });
         })();
     </script>
+
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <nav aria-label="Footer">
+                <a href="/">Home</a>
+                <a href="/download">Download</a>
+                <a href="/docs">Docs</a>
+                <a href="/changelog">Changelog</a>
+                <a href="/blog">Blog</a>
+                <a href="/about">About</a>
+                <a href="/careers">Careers</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+            </nav>
+            <p>&copy; 2026 Codeply AI</p>
+        </div>
+    </footer>
 
 </body>
 </html>

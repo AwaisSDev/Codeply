@@ -38,7 +38,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16"  href="favicons/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32"  href="favicons/favicon-32x32.png">
@@ -67,8 +67,20 @@
             --text-primary: #202124;
             --text-secondary: #5f6368;
             --border-light: #dadce0;
-            --font-serif: 'Inter', Arial, sans-serif;
-            --font-display: 'Inter', Arial, sans-serif;
+            --font-serif: 'Google Sans Text', 'Google Sans', 'Figtree', 'Inter', Arial, sans-serif;
+            --font-display: 'Google Sans Display', 'Google Sans', 'Figtree', 'Inter', Arial, sans-serif;
+
+            /* Google-grade surface + elevation scale */
+            --surface-page: #f8f9fa;
+            --surface-card: #ffffff;
+            --tint-blue: #e8f0fe;
+            --tint-green: #e6f4ea;
+            --tint-yellow: #fef7e0;
+            --tint-red: #fce8e6;
+            --elev-1: 0 1px 2px rgba(60, 64, 67, .08), 0 1px 3px 1px rgba(60, 64, 67, .06);
+            --elev-2: 0 1px 3px rgba(60, 64, 67, .10), 0 4px 8px 3px rgba(60, 64, 67, .07);
+            --elev-3: 0 4px 8px rgba(60, 64, 67, .10), 0 12px 28px 6px rgba(60, 64, 67, .10);
+            --section-y: clamp(5rem, 11vw, 9.5rem);
 
             --ide-bg: #202124;
             --ide-sidebar: #2b2c2f;
@@ -552,7 +564,7 @@
         }
 
         /* FAQ */
-        .faq-item.open .faq-answer { max-height: 200px !important; }
+        .faq-item.open .faq-answer { max-height: 420px !important; }
         .faq-item.open .faq-icon { transform: rotate(90deg); color: var(--google-blue); }
 
         /* How it Works */
@@ -1953,9 +1965,16 @@
             }
         }
     </style>
+
+    <!-- Shared design system. Loaded last so it settles the cascade
+         over the page-specific rules above. -->
+    <link rel="stylesheet" href="theme.css">
+    <script src="theme.js" defer></script>
 </head>
 
 <body>
+
+    <a class="skip-link" href="#how-it-works">Skip to content</a>
 
     <header>
         <div class="container">
@@ -1967,7 +1986,7 @@
                 <div class="nav-links">
                     <a href="#features">Features</a>
                     <a class="btn btn-primary" id="nav-auth-control" href="/download"
-                        style="padding: 0.75rem 1.8rem; font-size: 1rem; background: var(--google-green); border-color: var(--google-green);">Download</a>
+                        style="padding: 0.7rem 1.6rem; font-size: 0.95rem;">Download</a>
                 </div>
             </nav>
         </div>
@@ -1977,8 +1996,8 @@
         <!-- Hero Section -->
         <section class="hero">
             <div class="container">
-                <h1 class="reveal">Stop Guessing Where <br><span class="word-blue">AI</span> <span
-                        class="word-red">Code</span> <span class="word-green">Goes.</span></h1>
+                <h1 class="reveal">Stop guessing where <br><span class="word-blue">AI</span> <span
+                        class="word-red">code</span> <span class="word-green">goes.</span></h1>
                 <p class="reveal">The surgical desktop overlay that tells you exactly which file and lines to edit.
                     Built for the era of AI-generated code.</p>
                 <div class="hero-ctas reveal" style="justify-content: center;">
@@ -2089,26 +2108,25 @@
         <!-- How it Works -->
         <section id="how-it-works">
             <div class="container">
-                <div style="text-align: center; margin-bottom: 4rem;">
-                    <h2 style="font-family: var(--font-display); font-size: 3.2rem; color: var(--google-blue);">How it
-                        Works
-                    </h2>
+                <div class="section-head">
+                    <h2>Three steps, no searching</h2>
+                    <p class="section-sub">From pasted snippet to the exact line it belongs on.</p>
                 </div>
                 <div class="steps">
                     <div class="step reveal">
-                        <div class="step-num">01</div>
-                        <h3>Hit the Hotkey</h3>
-                        <p>Summon Codply instantly with a global shortcut while you're in your browser or terminal.</p>
+                        <div class="step-num">STEP 01</div>
+                        <h3>Hit the hotkey</h3>
+                        <p>Summon Codeply instantly with a global shortcut while you're in your browser or terminal.</p>
                     </div>
-                    <div class="step reveal">
-                        <div class="step-num" style="color: var(--google-red) !important;">02</div>
-                        <h3 style="color: var(--google-red) !important;">Paste Your Code</h3>
+                    <div class="step reveal" style="--reveal-delay:90ms">
+                        <div class="step-num">STEP 02</div>
+                        <h3>Paste your code</h3>
                         <p>Paste that AI-generated snippet you just got. No need to format or clean it up.</p>
                     </div>
-                    <div class=" step reveal">
-                        <div class="step-num" style="color: var(--google-green) !important;">03</div>
-                        <h3 style="color: var(--google-green) !important;">Get Exact Instructions</h3>
-                        <p>Codply scans your project and tells you exactly where to put the code, line by line.</p>
+                    <div class="step reveal" style="--reveal-delay:180ms">
+                        <div class="step-num">STEP 03</div>
+                        <h3>Get exact instructions</h3>
+                        <p>Codeply scans your project and tells you exactly where to put the code, line by line.</p>
                     </div>
                 </div>
             </div>
@@ -2117,10 +2135,10 @@
         <!-- Features -->
         <section id="features">
             <div class="container">
-                <div style="text-align: center; margin-bottom: 4rem;">
-                    <h2 style="font-family: var(--font-display); font-size: 3.2rem; color: var(--google-blue);">Built
-                        for
-                        Precision</h2>
+                <div class="section-head">
+                    <h2>Built for precision</h2>
+                    <p class="section-sub">Everything Codeply does is aimed at one thing: the right file, the right
+                        line.</p>
                 </div>
                 <div class="features-grid">
                     <div class="feature-card reveal">
@@ -2129,33 +2147,33 @@
                                 <circle cx="12" cy="12" r="3"></circle>
                                 <path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path>
                             </svg></div>
-                        <h3>Exact Placement</h3>
+                        <h3>Exact placement</h3>
                         <p>No more searching. We identify the exact file and line numbers for replacements, additions,
                             or deletions.</p>
                     </div>
-                    <div class="feature-card reveal">
+                    <div class="feature-card reveal" style="--reveal-delay:80ms">
                         <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24">
                                 <path d="M14.7 6.3a4 4 0 0 0-5 5L4 17v3h3l5.7-5.7a4 4 0 0 0 5-5l-2.8 2.8-2-2 2.8-2.8Z">
                                 </path>
                             </svg></div>
-                        <h3>Break Recovery</h3>
-                        <p>Pasted something and it broke? Paste the error back into Codply, and it will trace the root
+                        <h3>Break recovery</h3>
+                        <p>Pasted something and it broke? Paste the error back into Codeply, and it will trace the root
                             cause and fix it.</p>
                     </div>
-                    <div class="feature-card reveal">
+                    <div class="feature-card reveal" style="--reveal-delay:160ms">
                         <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24">
                                 <rect x="4" y="5" width="16" height="11" rx="2"></rect>
                                 <path d="M8 20h8M10 16v4M14 16v4"></path>
                             </svg></div>
-                        <h3>Any Editor</h3>
-                        <p>Works as a system-wide overlay. Whether you use VS Code, Sublime, or Vim, Codply is there.
+                        <h3>Any editor</h3>
+                        <p>Works as a system-wide overlay. Whether you use VS Code, Sublime, or Vim, Codeply is there.
                         </p>
                     </div>
-                    <div class="feature-card reveal">
+                    <div class="feature-card reveal" style="--reveal-delay:240ms">
                         <div class="feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24">
                                 <path d="M7 18h10a4 4 0 0 0 .7-7.9A6 6 0 0 0 6.3 9.2 4.5 4.5 0 0 0 7 18Z"></path>
                             </svg></div>
-                        <h3>Lightweight App</h3>
+                        <h3>Lightweight app</h3>
                         <p>An Desktop app that lives in your system tray. Minimal CPU usage, maximum productivity.</p>
                     </div>
                 </div>
@@ -2165,15 +2183,14 @@
         <!-- Who it's for -->
         <section class="who-section">
             <div class="container" style="text-align: center;">
-                <h2
-                    style="font-family: var(--font-display); font-size: 2.2rem; color: var(--google-blue); margin-bottom: 1rem;">
-                    Built for You</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 3rem;">Codply is the surgical tool for the new
-                    generation of developers.</p>
+                <div class="section-head" style="margin-bottom:0;">
+                    <h2>Built for you</h2>
+                    <p class="section-sub">Codeply is the surgical tool for the new generation of developers.</p>
+                </div>
                 <div class="who-grid">
-                    <span class="who-tag reveal">Self-taught Devs</span>
-                    <span class="who-tag reveal">Beginners</span>
-                    <span class="who-tag reveal">Vibe Coders</span>
+                    <span class="who-tag reveal">Self-taught devs</span>
+                    <span class="who-tag reveal" style="--reveal-delay:80ms">Beginners</span>
+                    <span class="who-tag reveal" style="--reveal-delay:160ms">Vibe coders</span>
                 </div>
             </div>
         </section>
@@ -2181,10 +2198,12 @@
         <!-- How Codeply Helps -->
         <section id="how-codeply-helps">
             <div class="container">
-                <h2 style="font-family:var(--font-display);font-size:3rem;font-weight:800;color:var(--text-primary);margin-bottom:3rem;">How Codeply helps during <span style="color:var(--google-blue);">coding</span></h2>
-                <div style="display:grid;grid-template-columns:2fr 3fr;gap:2rem;align-items:stretch;">
+                <div class="section-head is-left">
+                    <h2>How Codeply helps while you <span style="color:var(--google-blue);">code</span></h2>
+                </div>
+                <div class="split-grid split-grid--2-3" style="display:grid;grid-template-columns:2fr 3fr;gap:2rem;align-items:stretch;">
                     <!-- LEFT: short text card -->
-                    <div style="background:#ffffff;border:1px solid rgba(255,255,255,0.75);border-radius:24px;padding:2.5rem;box-shadow:0 4px 24px rgba(0,0,0,0.06);display:flex;flex-direction:column;justify-content:center;">
+                    <div class="panel-card" style="background:#ffffff;border:1px solid rgba(255,255,255,0.75);border-radius:24px;padding:2.5rem;box-shadow:0 4px 24px rgba(0,0,0,0.06);display:flex;flex-direction:column;justify-content:center;">
                         <h3 style="font-size:1.6rem;font-weight:800;color:#111;margin-bottom:1rem;line-height:1.3;">Codeply <span style="display:inline-block;color:var(--google-blue);padding:3px 14px;border-radius:999px;background:rgba(255,255,255,0.55);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(255,255,255,0.9);box-shadow:0 2px 16px rgba(66,133,244,0.18),inset 0 1px 0 rgba(255,255,255,0.95),inset 0 -1px 0 rgba(255,255,255,0.4);text-shadow:0 1px 2px rgba(255,255,255,0.8);">scans</span> your entire project</h3>
                         <p style="color:#5f6368;font-size:1rem;line-height:1.6;margin-bottom:2rem;">Reads your file structure, imports, and context in real time, so it knows exactly where new code belongs.</p>
                         <div style="display:flex;flex-direction:column;gap:10px;">
@@ -2202,7 +2221,7 @@
                     </div>
 
                     <!-- RIGHT: full VS Code + popup animation -->
-                    <div style="background:#1e1e1e;border-radius:24px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.3);position:relative;min-height:420px;">
+                    <div class="panel-ide" style="background:#1e1e1e;border-radius:24px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.3);position:relative;min-height:420px;">
                         <!-- VS Code titlebar -->
                         <div style="background:#323233;padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #2d2d2d;">
                             <span style="width:12px;height:12px;border-radius:50%;background:#ff5f57;display:block;"></span>
@@ -2213,7 +2232,7 @@
                         <!-- Editor body -->
                         <div style="display:flex;height:calc(100% - 36px);">
                             <!-- Sidebar -->
-                            <div style="background:#252526;width:130px;flex-shrink:0;padding:10px 0;font-family:'Fira Code',monospace;font-size:0.72rem;">
+                            <div class="panel-ide-sidebar" style="background:#252526;width:130px;flex-shrink:0;padding:10px 0;font-family:'Fira Code',monospace;font-size:0.72rem;">
                                 <div style="padding:5px 12px;color:#9ca3af;">📁 src</div>
                                 <div style="padding:5px 12px;background:#37373d;color:#fff;border-left:2px solid #1a73e8;">🐍 auth.py</div>
                                 <div style="padding:5px 12px;color:#9ca3af;">🐍 models.py</div>
@@ -2424,8 +2443,8 @@
         <!-- Stats Section -->
         <section id="stats">
             <div class="container">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:stretch;">
-                    <div style="background:#ffffff;border:1px solid rgba(255,255,255,0.5);border-radius:24px;padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;">
+                <div class="split-grid split-grid--1-1" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:stretch;">
+                    <div class="panel-card" style="background:#ffffff;border:1px solid rgba(255,255,255,0.5);border-radius:24px;padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;">
                         <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:6px;">LIVE ANALYSIS</div>
                         <div style="font-size:2.5rem;font-weight:800;color:var(--google-blue);font-family:'Fira Code',monospace;margin-bottom:12px;">auth.py</div>
                         <div style="font-family:'Fira Code',monospace;font-size:0.92rem;line-height:1.85;margin-bottom:1.5rem;color:var(--text-secondary);">
@@ -2456,7 +2475,7 @@
                         </div>
                     </div>
                     <div>
-                        <h2 style="font-family:var(--font-display);font-size:2.8rem;font-weight:800;color:var(--text-primary);margin-bottom:2.5rem;">Surgical precision<br><span style="color:var(--google-blue);">code placement</span></h2>
+                        <h2 style="margin-bottom:2.5rem;">Surgical precision<br><span style="color:var(--google-blue);">code placement</span></h2>
                         <div style="display:flex;flex-direction:column;gap:1.5rem;">
                             <div style="border-bottom:1px solid var(--border-light);padding-bottom:1.5rem;">
                                 <div style="font-size:2.5rem;font-weight:800;color:var(--text-primary);">50+</div>
@@ -2482,7 +2501,7 @@
         <!-- FAQ Section -->
         <section id="faq">
             <div class="container" style="max-width:780px;">
-                <h2 style="font-family:var(--font-display);font-size:3rem;font-weight:800;color:var(--text-primary);margin-bottom:3rem;">Frequently asked<br>questions</h2>
+                <h2 style="margin-bottom:3rem;">Frequently asked questions</h2>
                 <div id="faq-list" style="display:flex;flex-direction:column;">
                 </div>
             </div>
@@ -2492,7 +2511,7 @@
         <section>
             <div class="container">
                 <div class="footer-cta reveal">
-                    <h2>Ready for Codeply?</h2>
+                    <h2>Ready when you are</h2>
                     <p>Stop guessing where AI code goes. Download Codeply and get exact file + line placement.</p>
                     <div class="hero-ctas">
                         <a id="cta-download-btn" href="/download" class="btn btn-primary" style="font-size: 1.2rem; padding: 0.9rem 2.2rem;">Download</a>
@@ -2506,8 +2525,8 @@
         <div class="waitlist-dialog" role="dialog" aria-modal="true" aria-labelledby="waitlist-title">
             <div class="waitlist-head">
                 <div>
-                    <h2 id="waitlist-title">Join the Codply waitlist</h2>
-                    <p>Get early access when Codply opens up.</p>
+                    <h2 id="waitlist-title">Join the Codeply waitlist</h2>
+                    <p>Get early access when Codeply opens up.</p>
                 </div>
                 <button class="modal-close" type="button" aria-label="Close waitlist form">&times;</button>
             </div>
@@ -2527,7 +2546,7 @@
     </div>
     <footer>
         <div class="container">
-            <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding:3rem 0 2rem;">
+            <div class="footer-grid" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding:3rem 0 2rem;">
                 <!-- Brand -->
                 <div>
                     <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;">
@@ -2734,7 +2753,7 @@
             if (!currentSession) {
                 navAuthControl.classList.remove('is-profile');
                 navAuthControl.textContent = 'Download';
-                navAuthControl.setAttribute('aria-label', 'Get started with Codply');
+                navAuthControl.setAttribute('aria-label', 'Get started with Codeply');
                 navAuthControl.title = 'Get started';
                 return;
             }

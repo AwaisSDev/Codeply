@@ -4,22 +4,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog - Codeply AI</title>
+    <title>Blog - Codeply</title>
     <meta name="description" content="Codeply's blog. Nothing published yet, check back soon.">
     <link rel="canonical" href="https://codeply.online/blog">
     <meta name="robots" content="index, follow">
 
     <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Codeply AI">
+    <meta property="og:site_name" content="Codeply">
     <meta property="og:url" content="https://codeply.online/blog">
-    <meta property="og:title" content="Blog - Codeply AI">
+    <meta property="og:title" content="Blog - Codeply">
     <meta property="og:description" content="Codeply's blog. Nothing published yet, check back soon.">
     <meta property="og:image" content="https://codeply.online/Favicon-RBG.png">
 
     <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
     <style>
         :root {
             --g-blue: #4285F4; --g-red: #ea4335; --g-yellow: #fbbc04; --g-green: #34a853;
@@ -91,9 +91,13 @@
         .entry a.cta { color: #1a6ff0; font-weight: 600; }
         .entry a.cta:hover { text-decoration: underline; }
     </style>
+
+    <!-- Shared design system. Loaded last so it settles the cascade. -->
+    <link rel="stylesheet" href="theme.css">
+    <script src="theme.js" defer></script>
 </head>
 
-<body>
+<body class="page">
     <div class="topline"></div>
 
     <header>
@@ -120,6 +124,23 @@
             <p>The <a class="cta" href="/changelog">changelog</a> is where actual updates land as they ship.</p>
         </div>
     </div>
+
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <nav aria-label="Footer">
+                <a href="/">Home</a>
+                <a href="/download">Download</a>
+                <a href="/docs">Docs</a>
+                <a href="/changelog">Changelog</a>
+                <a href="/blog">Blog</a>
+                <a href="/about">About</a>
+                <a href="/careers">Careers</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+            </nav>
+            <p>&copy; 2026 Codeply
+        </div>
+    </footer>
 
 </body>
 </html>

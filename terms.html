@@ -19,7 +19,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
     <style>
         :root {
             --g-blue: #4285F4; --grad-brand: linear-gradient(90deg, #4285F4 0 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75% 100%);
@@ -60,24 +60,28 @@
         header nav a:hover { background: rgba(255,255,255,0.7); text-decoration: none; }
 
         .doc-wrap { max-width: 700px; margin: 0 auto; padding: 56px 20px 100px; }
-        .doc-wrap h1 { font-size: 2rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 6px; }
-        .doc-wrap .updated { color: #5f6368; font-size: .85rem; margin-bottom: 40px; }
+        .doc-wrap h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 6px; }
+        .doc-wrap .updated { color: #5f6368; font-size: 1rem; margin-bottom: 40px; }
         .card {
             background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.8);
             border-radius: 20px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             padding: 36px clamp(24px, 5vw, 44px);
             box-shadow: 0 8px 32px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,0.9);
         }
-        .card h2 { font-size: 1.1rem; font-weight: 800; letter-spacing: -.01em; margin: 28px 0 10px; }
+        .card h2 { font-size: 1.4rem; font-weight: 800; letter-spacing: -.01em; margin: 28px 0 10px; }
         .card h2:first-child { margin-top: 0; }
-        .card p { color: #3c4043; font-size: .92rem; line-height: 1.75; margin-bottom: 10px; }
+        .card p { color: #3c4043; font-size: 1.1rem; line-height: 1.75; margin-bottom: 10px; }
         .card ul { margin: 8px 0 12px 20px; }
-        .card li { color: #3c4043; font-size: .92rem; line-height: 1.75; margin-bottom: 6px; }
+        .card li { color: #3c4043; font-size: 1.1rem; line-height: 1.75; margin-bottom: 6px; }
         .card li strong { color: #202124; }
     </style>
+
+    <!-- Shared design system. Loaded last so it settles the cascade. -->
+    <link rel="stylesheet" href="theme.css">
+    <script src="theme.js" defer></script>
 </head>
 
-<body>
+<body class="page">
     <div class="topline"></div>
 
     <header>
@@ -134,6 +138,23 @@
             <p>Questions about these terms: <a href="mailto:hello@codeply.online">hello@codeply.online</a></p>
         </div>
     </div>
+
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <nav aria-label="Footer">
+                <a href="/">Home</a>
+                <a href="/download">Download</a>
+                <a href="/docs">Docs</a>
+                <a href="/changelog">Changelog</a>
+                <a href="/blog">Blog</a>
+                <a href="/about">About</a>
+                <a href="/careers">Careers</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+            </nav>
+            <p>&copy; 2026 Codeply AI</p>
+        </div>
+    </footer>
 
 </body>
 </html>
