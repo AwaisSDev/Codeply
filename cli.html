@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codeply CLI - Install</title>
+    <meta name="description" content="Install the Codeply CLI with one command. An autonomous coding agent for your terminal: it reads your code, edits it, runs commands, and checks its work.">
+    <link rel="canonical" href="https://codeply.app/cli">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Codeply">
+    <meta property="og:url" content="https://codeply.app/cli">
+    <meta property="og:title" content="Codeply CLI - Install">
+    <meta property="og:description" content="An autonomous coding agent for your terminal. One command to install.">
+    <meta property="og:image" content="https://codeply.app/Favicon-RBG.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Codeply CLI - Install">
+    <meta name="twitter:description" content="An autonomous coding agent for your terminal. One command to install.">
+    <meta name="twitter:image" content="https://codeply.app/Favicon-RBG.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --g-blue: #4285F4; --g-red: #ea4335; --g-yellow: #fbbc04; --g-green: #34a853;
+            --grad-brand: linear-gradient(90deg, var(--g-blue) 0 25%, var(--g-red) 25% 50%, var(--g-yellow) 50% 75%, var(--g-green) 75% 100%);
+            --sans: 'Inter', Arial, sans-serif; --mono: 'Fira Code', monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--sans);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+
+        .topline { height: 3px; background: var(--grad-brand); }
+
+        header {
+            display: flex; align-items: center; gap: 10px;
+            padding: 16px clamp(20px, 6vw, 72px);
+            position: sticky; top: 0; z-index: 100;
+        }
+        header img.logo { width: 32px; height: 32px; border-radius: 8px; }
+        header .brand { font-weight: 800; font-size: 1.15rem; }
+        header nav { margin-left: auto; display: flex; gap: 8px; }
+        header nav a {
+            font-size: .84rem; font-weight: 600;
+            padding: 7px 20px; border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.14);
+            transition: background .2s;
+        }
+        header nav a:hover { background: rgba(255,255,255,0.12); }
+
+        .hero {
+            text-align: center;
+            padding: clamp(64px, 10vw, 120px) 20px 16px;
+        }
+        .hero .eyebrow {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 999px;
+            padding: 5px 16px; font-size: .78rem; font-weight: 600; color: #9aa0a6;
+            margin-bottom: 24px; letter-spacing: .04em; text-transform: uppercase;
+            white-space: nowrap; font-family: var(--mono);
+        }
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800;
+            letter-spacing: -.04em; line-height: 1.15;
+            margin-bottom: 18px;
+        }
+        .hero h1 .grad-text {
+            background: var(--grad-brand); background-size: 300% 100%;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            animation: hue 7s linear infinite;
+        }
+        @keyframes hue { from { background-position: 0% 0; } to { background-position: 300% 0; } }
+        .hero p {
+            color: #9aa0a6; font-size: 1rem; line-height: 1.7;
+            max-width: 540px; margin: 0 auto 14px;
+        }
+
+        .cli-wrap { max-width: 560px; margin: 40px auto 8px; padding: 0 20px; }
+        .cli-card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 16px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+        .cli-tabs { display: flex; padding: 8px 8px 0; gap: 4px; }
+        .cli-tab {
+            padding: 8px 16px; background: none; border: none; cursor: pointer;
+            border-radius: 10px 10px 0 0;
+            font-family: var(--sans); font-weight: 600; font-size: .78rem; color: #9aa0a6;
+            transition: color .15s, background .15s;
+        }
+        .cli-tab.active { color: #f5f5f7; background: rgba(255,255,255,.08); }
+        .cli-tab:hover:not(.active) { color: #d6d8db; }
+        .cli-cmd {
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(255,255,255,.05); padding: 16px 18px; margin: 0 8px 8px; border-radius: 10px;
+        }
+        .cli-cmd .prompt { color: var(--g-green); font-family: var(--mono); font-weight: 700; flex-shrink: 0; }
+        .cli-cmd code {
+            flex: 1; font-family: var(--mono); font-size: .84rem; color: #7ba9ff;
+            overflow-x: auto; white-space: nowrap; scrollbar-width: none;
+        }
+        .cli-cmd code::-webkit-scrollbar { display: none; }
+        .cli-copy {
+            flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06);
+            color: #9aa0a6; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: background .15s, color .15s, border-color .15s;
+        }
+        .cli-copy:hover { background: rgba(255,255,255,.14); color: #f5f5f7; }
+        .cli-copy.copied { color: #5bc987; border-color: #34a853; }
+        .cli-note { text-align: center; font-size: .88rem; color: #9aa0a6; margin-top: 14px; line-height: 1.6; }
+        .cli-note code { font-family: var(--mono); background: rgba(255,255,255,.06); border-radius: 4px; padding: 1px 6px; color: #d6d8db; }
+
+        .npm-alt { text-align: center; margin-top: 18px; font-size: .85rem; color: #6b6f76; }
+        .npm-alt code { font-family: var(--mono); background: rgba(255,255,255,.06); border-radius: 4px; padding: 2px 8px; color: #d6d8db; }
+
+        .divider {
+            max-width: 760px; margin: 56px auto 0; padding: 0 20px 48px;
+            display: flex; align-items: center; gap: 16px;
+        }
+        .divider hr { flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.12); }
+        .divider span { font-size: .78rem; font-weight: 600; color: #9aa0a6; white-space: nowrap; }
+
+        .steps-wrap { max-width: 760px; margin: 0 auto 100px; padding: 0 20px; }
+        .steps-wrap h2 {
+            font-size: 2.2rem; font-weight: 800; color: #f5f5f7;
+            letter-spacing: -.02em; margin-bottom: 48px; text-align: center;
+        }
+        .steps-grid { display: flex; flex-direction: column; gap: 0; }
+        .step {
+            display: flex; gap: 18px; align-items: flex-start;
+            padding: 24px 24px;
+            background: rgba(255,255,255,0.04); backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: -1px;
+        }
+        .step:first-child { border-radius: 16px 16px 0 0; }
+        .step:last-child  { border-radius: 0 0 16px 16px; margin-bottom: 0; }
+        .step:hover { background: rgba(255,255,255,0.08); }
+        .step .n {
+            width: 50px; height: 50px; border-radius: 12px;
+            background: linear-gradient(135deg, #4285F4, #1a6ff0);
+            display: grid; place-items: center;
+            font-family: var(--mono); font-size: 1.5rem; font-weight: 800;
+            color: #fff; flex: none; box-shadow: 0 4px 12px rgba(66,133,244,.35);
+        }
+        .step-body { padding-top: 4px; }
+        .step-body strong { font-size: 1.1rem; color: #f5f5f7; display: block; margin-bottom: 8px; font-weight: 800; }
+        .step-body p { color: #9aa0a6; font-size: 0.95rem; line-height: 1.6; }
+        .step-body code {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,.16);
+            border-radius: 5px; padding: 1px 7px; font-family: var(--mono); font-size: .84rem; color: #f5f5f7;
+        }
+
+        .craft-cta {
+            max-width: 760px; margin: 0 auto 100px; padding: 0 20px;
+            text-align: center;
+        }
+        .craft-cta-card {
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px; padding: 32px 28px;
+        }
+        .craft-cta-card p { color: #9aa0a6; font-size: 0.95rem; margin-bottom: 18px; }
+        .craft-cta-card a {
+            display: inline-block; background: #fff; color: #0b0b0d; font-weight: 700;
+            padding: 12px 28px; border-radius: 999px; font-size: .92rem;
+        }
+
+        @media (max-width: 680px) {
+            .step { padding: 16px 18px; }
+        }
+    </style>
+
+    <!-- Shared design system. Loaded last so it settles the cascade. -->
+    <link rel="stylesheet" href="theme.css">
+    <script src="theme.js" defer></script>
+</head>
+
+<body class="page">
+    <div class="topline"></div>
+
+    <header>
+        <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+            <img class="logo" src="Favicon-RBG.png" alt="Codeply" />
+            <span class="brand">Codeply</span>
+        </a>
+        <nav>
+            <a href="/craft">Codeply Craft</a>
+            <a href="/">Home</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="eyebrow">$ npm i -g codeply</div>
+        <h1>Codeply <span class="grad-text">CLI</span></h1>
+        <p>One command to install. Give it a task in plain English and it reads your code, edits it, runs commands, and checks its work, right in your terminal.</p>
+    </section>
+
+    <section class="cli-wrap">
+        <div class="cli-card">
+            <div class="cli-tabs">
+                <button class="cli-tab" data-os="win" id="cli-tab-win">PowerShell</button>
+                <button class="cli-tab" data-os="unix" id="cli-tab-unix">macOS / Linux</button>
+            </div>
+            <div class="cli-cmd">
+                <span class="prompt">&gt;</span>
+                <code id="cli-cmd-text"></code>
+                <button class="cli-copy" id="cli-copy-btn" title="Copy">
+                    <svg id="cli-copy-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+            </div>
+        </div>
+        <p class="cli-note">Installs the <code>codeply</code> command. Shares one account and one daily usage cap with Codeply Craft.</p>
+        <div class="npm-alt">or via npm: <code>npm i -g codeply</code></div>
+    </section>
+
+    <div class="divider">
+        <hr><span>Get started in minutes</span><hr>
+    </div>
+
+    <section class="steps-wrap">
+        <h2>Up and running in 3 steps</h2>
+        <div class="steps-grid">
+            <div class="step">
+                <span class="n">1</span>
+                <div class="step-body">
+                    <strong>Install</strong>
+                    <p>Run the install command above, or <code>npm i -g codeply</code> if you already have Node.</p>
+                </div>
+            </div>
+            <div class="step">
+                <span class="n">2</span>
+                <div class="step-body">
+                    <strong>Sign in</strong>
+                    <p>Run <code>codeply login</code> and enter your email code. Same account and daily cap as Codeply Craft, sign in once and it works everywhere.</p>
+                </div>
+            </div>
+            <div class="step">
+                <span class="n">3</span>
+                <div class="step-body">
+                    <strong>Give it a task</strong>
+                    <p>Run <code>codeply</code> in any project and describe what you need in plain English. It reads the codebase, writes and edits files, and runs commands. Every change asks for approval by default; pass <code>--bypass</code> if you want it to just run.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="craft-cta">
+        <div class="craft-cta-card">
+            <p>Prefer a chat interface with a docked browser panel that verifies every change? Codeply Craft is the desktop app version, same account, same cap.</p>
+            <a href="/craft">Get Codeply Craft</a>
+        </div>
+    </section>
+
+    <script>
+        // CLI install tabs + copy-to-clipboard.
+        (function() {
+            const COMMANDS = {
+                win: 'irm https://codeply.online/install.ps1 | iex',
+                unix: 'curl -fsSL https://codeply.online/install.sh | sh',
+            };
+            const codeEl = document.getElementById('cli-cmd-text');
+            const copyBtn = document.getElementById('cli-copy-btn');
+            const copyIcon = document.getElementById('cli-copy-icon');
+            const tabs = {
+                win: document.getElementById('cli-tab-win'),
+                unix: document.getElementById('cli-tab-unix'),
+            };
+            if (!codeEl || !copyBtn) return;
+
+            function setOs(os) {
+                codeEl.textContent = COMMANDS[os];
+                Object.entries(tabs).forEach(([key, el]) => el.classList.toggle('active', key === os));
+            }
+
+            tabs.win.addEventListener('click', () => setOs('win'));
+            tabs.unix.addEventListener('click', () => setOs('unix'));
+
+            const isWindows = /win/i.test(navigator.platform || navigator.userAgent || '');
+            setOs(isWindows ? 'win' : 'unix');
+
+            const CHECK_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+            const COPY_ICON = copyIcon.outerHTML;
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(codeEl.textContent).then(() => {
+                    copyBtn.classList.add('copied');
+                    copyBtn.innerHTML = CHECK_ICON;
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = COPY_ICON;
+                    }, 1400);
+                });
+            });
+        })();
+    </script>
+
+    <footer class="site-footer">
+        <div class="site-footer-inner">
+            <nav aria-label="Footer">
+                <a href="/">Home</a>
+                <a href="/download">Download</a>
+                <a href="/docs">Docs</a>
+                <a href="/changelog">Changelog</a>
+                <a href="/blog">Blog</a>
+                <a href="/about">About</a>
+                <a href="/careers">Careers</a>
+                <a href="/privacy">Privacy</a>
+                <a href="/terms">Terms</a>
+            </nav>
+            <p>&copy; 2026 Codeply</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -7,6 +7,8 @@
     { "source": "/docs", "destination": "/docs.html" },
     { "source": "/blog", "destination": "/blog.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/terms", "destination": "/terms.html" }
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/craft", "destination": "/craft.html" },
+    { "source": "/drop", "destination": "/drop.html" }
   ]
 }

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codeply Drop - Download for Windows &amp; macOS</title>
+    <meta name="description" content="Download Codeply Drop, the lightweight system tray companion for surgical AI edits. No API keys, no model picking, just plug-and-play precision.">
+    <link rel="canonical" href="https://codeply.app/drop">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Codeply">
+    <meta property="og:url" content="https://codeply.app/drop">
+    <meta property="og:title" content="Codeply Drop - Download for Windows &amp; macOS">
+    <meta property="og:description" content="The lightweight system tray companion for surgical AI edits. Plug-and-play precision.">
+    <meta property="og:image" content="https://codeply.app/Favicon-RBG.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Codeply Drop - Download for Windows &amp; macOS">
+    <meta name="twitter:description" content="The lightweight system tray companion for surgical AI edits. Plug-and-play precision.">
+    <meta name="twitter:image" content="https://codeply.app/Favicon-RBG.png">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --g-blue: #4285F4; --g-red: #ea4335; --g-yellow: #fbbc04; --g-green: #34a853;
+            --grad-brand: linear-gradient(90deg, var(--g-blue) 0 25%, var(--g-red) 25% 50%, var(--g-yellow) 50% 75%, var(--g-green) 75% 100%);
+            --sans: 'Inter', Arial, sans-serif; --mono: 'Fira Code', monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--sans);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: inherit; text-decoration: none; }
+
+        .topline { height: 3px; background: var(--grad-brand); }
+
+        header {
+            display: flex; align-items: center; gap: 10px;
+            padding: 16px clamp(20px, 6vw, 72px);
+            position: sticky; top: 0; z-index: 100;
+        }
+        header img.logo { width: 32px; height: 32px; border-radius: 8px; }
+        header .brand { font-weight: 800; font-size: 1.15rem; }
+        header nav { margin-left: auto; display: flex; gap: 8px; }
+        header nav a {
+            font-size: .84rem; font-weight: 600;
+            padding: 7px 20px; border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.14);
+            transition: background .2s;
+        }
+        header nav a:hover { background: rgba(255,255,255,0.12); }
+
+        .hero {
+            text-align: center;
+            padding: clamp(64px, 10vw, 120px) 20px 16px;
+        }
+        .hero .eyebrow {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 999px;
+            padding: 5px 16px; font-size: .78rem; font-weight: 600; color: #9aa0a6;
+            margin-bottom: 24px; letter-spacing: .04em; text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .hero .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: #34a853; display: inline-block; flex-shrink: 0; }
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800;
+            letter-spacing: -.04em; line-height: 1.15;
+            margin-bottom: 18px;
+        }
+        .hero h1 .grad-text {
+            background: var(--grad-brand); background-size: 300% 100%;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            animation: hue 7s linear infinite;
+        }
+        @keyframes hue { from { background-position: 0% 0; } to { background-position: 300% 0; } }
+        .hero p {
+            color: #9aa0a6; font-size: 1rem; line-height: 1.7;
+            max-width: 540px; margin: 0 auto 14px;
+        }
+        .hero .version-badge {
+            display: inline-block; font-family: var(--mono); font-size: .72rem;
+            color: #9aa0a6; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 6px; padding: 3px 10px; margin-top: 8px;
+        }
+
+        .grid {
+            display: grid; grid-template-columns: repeat(2, minmax(280px, 400px));
+            gap: 24px; justify-content: center;
+            padding: 48px 20px 8px;
+        }
+        .card {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 40px 36px 32px; text-align: center;
+            box-shadow: 0 8px 40px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,0.06);
+            transition: transform .22s, box-shadow .22s;
+            position: relative; overflow: hidden;
+        }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(0,0,0,.4); }
+        .card .os-ic { width: 56px; height: 56px; object-fit: contain; margin-bottom: 4px; }
+        .card h3 { margin: 16px 0 28px; font-size: 1.2rem; font-weight: 800; color: #f5f5f7; letter-spacing: -.02em; }
+        .btn-dl {
+            display: inline-flex; align-items: center; gap: 9px;
+            font-weight: 700; font-size: .92rem; color: #ffffff !important;
+            padding: 14px 32px; border-radius: 999px; border: none; cursor: pointer;
+            transition: transform .2s, box-shadow .2s, filter .2s;
+            width: 100%; justify-content: center;
+        }
+        .btn-dl.blue  { background: linear-gradient(135deg, #4285F4, #1a6ff0); box-shadow: 0 4px 20px rgba(66,133,244,.4); }
+        .btn-dl.green { background: linear-gradient(135deg, #34a853, #1f8f43); box-shadow: 0 4px 20px rgba(52,168,83,.38); }
+        .btn-dl:hover { transform: translateY(-2px); filter: brightness(1.07); }
+        .btn-dl svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+        .cli-alt { text-align: center; margin: 8px 0 8px; font-size: .88rem; color: #6b6f76; }
+        .cli-alt a { color: #7ba9ff; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+        .divider {
+            max-width: 760px; margin: 40px auto 0; padding: 0 20px 48px;
+            display: flex; align-items: center; gap: 16px;
+        }
+        .divider hr { flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.12); }
+        .divider span { font-size: .78rem; font-weight: 600; color: #9aa0a6; white-space: nowrap; }
+
+        .steps-wrap { max-width: 760px; margin: 0 auto 100px; padding: 0 20px; }
+        .steps-wrap h2 {
+            font-size: 2.2rem; font-weight: 800; color: #f5f5f7;
+            letter-spacing: -.02em; margin-bottom: 48px; text-align: center;
+        }
+        .steps-grid { display: flex; flex-direction: column; gap: 0; }
+        .step {
+            display: flex; gap: 18px; align-items: flex-start;
+            padding: 24px 24px;
+            background: rgba(255,255,255,0.04); backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: -1px;
+        }
+        .step:first-child { border-radius: 16px 16px 0 0; }
+        .step:last-child  { border-radius: 0 0 16px 16px; margin-bottom: 0; }
+        .step:hover { background: rgba(255,255,255,0.08); }
+        .step .n {
+            width: 50px; height: 50px; border-radius: 12px;
+            background: linear-gradient(135deg, #4285F4, #1a6ff0);
+            display: grid; place-items: center;
+            font-family: var(--mono); font-size: 1.5rem; font-weight: 800;
+            color: #fff; flex: none; box-shadow: 0 4px 12px rgba(66,133,244,.35);
+        }
+        .step-body { padding-top: 4px; }
+        .step-body strong { font-size: 1.1rem; color: #f5f5f7; display: block; margin-bottom: 8px; font-weight: 800; }
+        .step-body p { color: #9aa0a6; font-size: 0.95rem; line-height: 1.6; }
+        .step-body code {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,.16);
+            border-radius: 5px; padding: 1px 7px; font-family: var(--mono); font-size: .84rem; color: #f5f5f7;
+        }
+
+        @media (max-width: 680px) {
+            .grid { grid-template-columns: 1fr; }
+            .step { padding: 16px 18px; }
+        }
+    </style>
+
+    <link rel="stylesheet" href="theme.css">
+    <script src="theme.js" defer></script>
+</head>
+
+<body class="page">
+    <div class="topline"></div>
+
+    <header>
+        <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+            <img class="logo" src="Favicon-RBG.png" alt="Codeply" />
+            <span class="brand">Codeply</span>
+        </a>
+        <nav>
+            <a href="/cli">Codeply CLI</a>
+            <a href="/">Home</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="eyebrow"><span class="dot"></span> <span id="version-eyebrow">Now available</span></div>
+        <h1>Get <span class="grad-text">Codeply Drop</span><br>on your desktop</h1>
+        <p>The lightweight system tray companion. Hit a hotkey, paste your request, and let Codeply apply surgical, verified diffs to your project regardless of your editor.</p>
+        <div class="version-badge" id="version-badge">Latest stable</div>
+    </section>
+
+    <section class="grid">
+        <div class="card">
+            <img class="os-ic" src="Windows.png" alt="Windows" />
+            <h3>Windows</h3>
+            <a class="btn-dl blue" href="https://github.com/AwaisSDev/Codeply-App/releases/latest/download/Codeply-Setup.exe" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download for Windows
+            </a>
+        </div>
+        <div class="card">
+            <img class="os-ic" src="Apple.png" alt="macOS" />
+            <h3>macOS</h3>
+            <a class="btn-dl green" href="https://github.com/AwaisSDev/Codeply-App/releases/latest/download/Codeply.dmg" download>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download for macOS
+            </a>
+        </div>
+    </section>
+
+    <div class="divider">
+        <hr>
+        <span>Quick Start</span>
+        <hr>
+    </div>
+
+    <section class="steps-wrap">
+        <h2>Plug-and-Play Precision</h2>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="n">1</div>
+                <div class="step-body">
+                    <strong>Install & Sign In</strong>
+                    <p>Download the installer and sign in with a simple email code. No API keys to manage, no complex configuration.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="n">2</div>
+                <div class="step-body">
+                    <strong>Trigger the Hotkey</strong>
+                    <p>Codeply sits quietly in your system tray. When you need a change, hit your hotkey and paste what you copied from your AI chat.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="n">3</div>
+                <div class="step-body">
+                    <strong>Surgical Application</strong>
+                    <p>Codeply identifies the right file and applies a verified diff. It changes only what's necessary, avoiding full-file rewrites.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
