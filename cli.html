@@ -165,19 +165,7 @@
             border-radius: 5px; padding: 1px 7px; font-family: var(--mono); font-size: .84rem; color: #f5f5f7;
         }
 
-        .craft-cta {
-            max-width: 760px; margin: 0 auto 100px; padding: 0 20px;
-            text-align: center;
-        }
-        .craft-cta-card {
-            background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px; padding: 32px 28px;
-        }
-        .craft-cta-card p { color: #9aa0a6; font-size: 0.95rem; margin-bottom: 18px; }
-        .craft-cta-card a {
-            display: inline-block; background: #fff; color: #0b0b0d; font-weight: 700;
-            padding: 12px 28px; border-radius: 999px; font-size: .92rem;
-        }
+
 
         @media (max-width: 680px) {
             .step { padding: 16px 18px; }
@@ -204,7 +192,6 @@
     </header>
 
     <section class="hero">
-        <div class="eyebrow">$ npm i -g codeply</div>
         <h1>Codeply <span class="grad-text">CLI</span></h1>
         <p>One command to install. Give it a task in plain English and it reads your code, edits it, runs commands, and checks its work, right in your terminal.</p>
     </section>
@@ -224,7 +211,7 @@
             </div>
         </div>
         <p class="cli-note">Installs the <code>codeply</code> command. Shares one account and one daily usage cap with Codeply Craft.</p>
-        <div class="npm-alt">or via npm: <code>npm i -g codeply</code></div>
+
     </section>
 
     <div class="divider">
@@ -238,7 +225,7 @@
                 <span class="n">1</span>
                 <div class="step-body">
                     <strong>Install</strong>
-                    <p>Run the install command above, or <code>npm i -g codeply</code> if you already have Node.</p>
+                    <p>Run the install command above to get started.</p>
                 </div>
             </div>
             <div class="step">
@@ -252,18 +239,13 @@
                 <span class="n">3</span>
                 <div class="step-body">
                     <strong>Give it a task</strong>
-                    <p>Run <code>codeply</code> in any project and describe what you need in plain English. It reads the codebase, writes and edits files, and runs commands. Every change asks for approval by default; pass <code>--bypass</code> if you want it to just run.</p>
+                    <p>Run <code>codeply</code> in any project and describe what you need in plain English. It reads the codebase, writes and edits files, and runs commands.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="craft-cta">
-        <div class="craft-cta-card">
-            <p>Prefer a chat interface with a docked browser panel that verifies every change? Codeply Craft is the desktop app version, same account, same cap.</p>
-            <a href="/craft">Get Codeply Craft</a>
-        </div>
-    </section>
+
 
     <script>
         // CLI install tabs + copy-to-clipboard.
