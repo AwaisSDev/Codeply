@@ -89,10 +89,12 @@
         }
 
         .choice-grid {
-            display: grid; grid-template-columns: repeat(2, minmax(280px, 420px));
+            display: grid; grid-template-columns: repeat(3, minmax(280px, 420px));
             gap: 24px; justify-content: center;
             padding: 56px 20px 100px;
         }
+
+
         .choice-card {
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
             border-radius: 24px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -124,8 +126,19 @@
             color: #6b6f76; font-size: .88rem; line-height: 1.6;
         }
 
+        @media (min-width: 681px) and (max-width: 1024px) {
+            .choice-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            .choice-card:last-child { 
+                grid-column: span 2; 
+                max-width: 420px; 
+                justify-self: center; 
+            }
+        }
         @media (max-width: 680px) {
             .choice-grid { grid-template-columns: 1fr; }
+            .choice-card:last-child { grid-column: auto; max-width: none; }
         }
     </style>
 
@@ -167,6 +180,15 @@
             <h3>Codeply Craft</h3>
             <p>The full desktop app: a chat interface, project and session management, and a real browser panel that verifies every change before it's done.</p>
             <a class="btn-go" href="/craft">Get Codeply Craft</a>
+        </div>
+
+        <div class="choice-card">
+            <div class="ic">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3>Codeply Drop</h3>
+            <p>Instantly deploy your projects with a simple drag and drop. No configuration needed, just pure speed.</p>
+            <a class="btn-go" href="drop.html">Try Drop</a>
         </div>
     </section>
 
