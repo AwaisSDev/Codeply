@@ -9,6 +9,12 @@
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" },
     { "source": "/craft", "destination": "/craft.html" },
-    { "source": "/drop", "destination": "/drop.html" }
+    { "source": "/drop", "destination": "/drop.html" },
+    { "source": "/cli", "destination": "/cli.html" }
+  ],
+  "cleanUrls": true,
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/.*", "status": 404, "dest": "/404.html" }
   ]
 }

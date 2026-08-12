@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Codeply</title>
+    <link rel="stylesheet" href="theme.css">
+    <style>
+        :root {
+            --code-bg: #0d0d11;
+            --code-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--surface-page);
+            overflow: hidden;
+            font-family: var(--sans);
+            color: var(--text-primary);
+        }
+
+        /* Atmospheric background glow */
+        .glow {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(26, 115, 232, 0.15) 0%, rgba(10, 10, 13, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 700px;
+            padding: 2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* IDE-style Code Window */
+        .code-window {
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 12px;
+            box-shadow: var(--elev-3);
+            text-align: left;
+            margin-bottom: 3rem;
+            overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .window-header {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px 16px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--code-border);
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .code-body {
+            padding: 24px;
+            font-family: var(--mono);
+            font-size: 14px;
+            line-height: 1.6;
+            color: #d4d4d4;
+        }
+
+        .token-keyword { color: #c678dd; }
+        .token-const { color: #e06c75; }
+        .token-func { color: #61afef; }
+        .token-string { color: #98c379; }
+        .token-comment { color: #5c6370; font-style: italic; }
+        .token-error { color: #e06c75; font-weight: bold; }
+
+        .error-title {
+            font-family: var(--font-display);
+            font-size: clamp(5rem, 15vw, 8rem);
+            font-weight: 800;
+            line-height: 1;
+            margin: 0;
+            background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.3) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.05em;
+        }
+
+        .error-msg {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 400px;
+            margin-inline: auto;
+            line-height: 1.5;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--google-blue);
+            color: white;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-family: var(--font-serif);
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+        }
+
+        .btn-home:hover {
+            background: #1b66c9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+        }
+
+        .btn-home svg {
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="glow"></div>
+    
+    <div class="content">
+
+
+        <h1 class="error-title">404</h1>
+        <p class="error-msg">The page you're looking for has been deleted or moved.</p>
+        
+        <a href="/" class="btn-home">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            Return Home
+        </a>
+    </div>
+</body>
+</html>
