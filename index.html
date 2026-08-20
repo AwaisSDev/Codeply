@@ -2452,6 +2452,26 @@
                     order: 2;
                 }
             }
+            .bwa-mock-box {
+                width: 560px;
+                max-width: 100%;
+                height: 440px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                background: #151519;
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 16px;
+                overflow: hidden;
+                font-family: var(--font-serif);
+                position: relative;
+                z-index: 1;
+            }
+            .bwa-mock-fill {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+            }
         </style>
         <section id="build-with-agent" style="background:#0a0a0d;">
             <div class="container" style="max-width:1100px;">
@@ -2467,7 +2487,7 @@
                     </div>
                     <div style="position:relative;">
                         <div style="position:absolute;inset:-22%;background:radial-gradient(ellipse at center, rgba(120,100,255,0.45), transparent 68%);filter:blur(85px);z-index:0;"></div>
-                        <div style="position:relative;z-index:1;width:min(560px,100%);margin:0 auto;background:#151519;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;font-family:var(--font-serif);">
+                        <div class="bwa-mock-box">
                             <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08);">
                                 <span style="color:#f5f5f7;font-size:0.85rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Custom Blogging Website...</span>
                                 <div style="display:flex;align-items:center;gap:6px;color:#6b6f76;flex-shrink:0;font-size:0.7rem;">
@@ -2475,7 +2495,7 @@
                                     Galvin Blogs
                                 </div>
                             </div>
-                            <div style="padding:18px 20px;font-size:0.78rem;line-height:1.85;">
+                            <div class="bwa-mock-fill" style="padding:18px 20px;font-size:0.78rem;line-height:1.85;justify-content:flex-end;">
                                 <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg> Downloaded <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">assets/post-typography.jpg</code></div>
                                 <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;margin-top:2px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg> Downloaded <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">assets/post-public.jpg</code></div>
                                 <div style="color:#d6d8db;margin:10px 0;">Now I will update <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">index.html</code> to use these local image paths instead of the dynamic URLs.</div>
@@ -2510,14 +2530,14 @@
                 <div class="bwa-row bwa-reverse">
                     <div style="position:relative;">
                         <div style="position:absolute;inset:-22%;background:radial-gradient(ellipse at center, rgba(120,100,255,0.45), transparent 68%);filter:blur(85px);z-index:0;"></div>
-                        <div style="position:relative;z-index:1;width:min(560px,100%);margin:0 auto;background:#151519;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;font-family:var(--font-serif);">
+                        <div class="bwa-mock-box">
                             <div style="display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08);">
                                 <img src="Favicon-RBG.png" alt="" style="width:18px;height:16px;border-radius:4px;">
                                 <span style="color:#f5f5f7;font-size:0.85rem;font-weight:600;">Codeply Craft</span>
                             </div>
-                            <div style="display:flex;">
-                                <div style="flex:1;padding:16px 18px;font-size:0.72rem;line-height:1.8;border-right:1px solid rgba(255,255,255,0.08);min-width:0;">
-                                    <div style="color:#d6d8db;margin-bottom:8px;">I'll now add the "Mastering the Craft of CSS" post to the grid.</div>
+                            <div class="bwa-mock-fill" style="flex-direction:row;">
+                                <div style="flex:1;padding:20px 22px;font-size:0.78rem;line-height:1.95;border-right:1px solid rgba(255,255,255,0.08);min-width:0;display:flex;flex-direction:column;justify-content:center;">
+                                    <div style="color:#d6d8db;margin-bottom:10px;">I'll now add the "Mastering the Craft of CSS" post to the grid.</div>
                                     <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Edited <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">index.html</code></div>
                                     <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;margin-top:6px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"/></svg> Checked <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">index.html</code></div>
                                     <div style="color:#d6d8db;margin:6px 0;">Verified in the browser. No console errors found.</div>
@@ -2527,14 +2547,17 @@
                                     <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"/></svg> Checked <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">blog-css-craft.html</code></div>
                                     <div style="color:#d6d8db;margin-top:6px;">Rendering perfectly, no console errors, typography consistent with the rest of your site.</div>
                                 </div>
-                                <div style="width:170px;flex-shrink:0;background:#fafafa;">
-                                    <div style="padding:16px 14px;">
-                                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-                                            <div style="font-weight:800;font-size:0.76rem;color:#111;">Minimalist.</div>
+                                <div style="width:190px;flex-shrink:0;background:#fafafa;display:flex;flex-direction:column;">
+                                    <div style="padding:20px 18px 0;">
+                                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:18px;">
+                                            <span style="width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#ff7a59,#7b3dff);flex-shrink:0;"></span>
+                                            <span style="font-weight:800;font-size:0.8rem;color:#111;letter-spacing:-0.01em;">Minimalist.</span>
                                         </div>
-                                        <div style="color:#9aa0a6;font-size:0.5rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px;">Design</div>
-                                        <div style="font-weight:800;font-size:0.86rem;color:#111;line-height:1.2;margin-bottom:12px;">Mastering the Craft of CSS</div>
-                                        <div style="height:64px;border-radius:8px;background:linear-gradient(135deg,#ff7a59,#ff3d81 45%,#7b3dff);"></div>
+                                        <div style="color:#b0b0b6;font-size:0.52rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:7px;">Design</div>
+                                        <div style="font-weight:800;font-size:0.95rem;color:#111;line-height:1.3;margin-bottom:18px;">Mastering the Craft of CSS</div>
+                                    </div>
+                                    <div style="flex:1;margin:0 18px 20px;border-radius:12px;box-shadow:0 10px 24px rgba(123,61,255,0.25);background:linear-gradient(150deg,#ff9a5a 0%,#ff3d81 48%,#7b3dff 100%);position:relative;overflow:hidden;">
+                                        <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 20%, rgba(255,255,255,0.35), transparent 55%);"></div>
                                     </div>
                                 </div>
                             </div>
@@ -2554,40 +2577,30 @@
                     </div>
                     <div style="position:relative;">
                         <div style="position:absolute;inset:-22%;background:radial-gradient(ellipse at center, rgba(120,100,255,0.45), transparent 68%);filter:blur(85px);z-index:0;"></div>
-                        <div style="position:relative;z-index:1;width:min(1000px,100%);margin:0 auto;background:#151519;border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;font-family:var(--font-serif);padding:28px 30px;">
+                        <div class="bwa-mock-box" style="padding:24px 22px;">
                             <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;">
                                 <div style="color:#f5f5f7;font-weight:700;font-size:1.3rem;">Skills</div>
                                 <span style="color:#6b6f76;font-size:1.1rem;">×</span>
                             </div>
                             <div style="color:#9aa0a6;font-size:0.82rem;line-height:1.5;margin-bottom:16px;max-width:560px;">Codeply already reaches for the right one automatically mid-task. Browse and drop one in yourself here.</div>
                             <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:9px 12px;color:#6b6f76;font-size:0.8rem;margin-bottom:18px;">Search skills…</div>
-                            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px;">
-                                    <div style="color:#d6d8db;font-weight:700;font-size:0.76rem;margin-bottom:4px;">agent-introspection-debugging</div>
-                                    <div style="color:#6b6f76;font-size:0.68rem;line-height:1.45;">Structured self-debugging workflow for AI agent failures using capture, diagnosis, contained recovery, and...</div>
+                            <div style="flex:1;display:grid;align-content:center;grid-template-columns:repeat(2,1fr);gap:16px;">
+                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 18px;">
+                                    <div style="color:#d6d8db;font-weight:700;font-size:0.82rem;margin-bottom:6px;">agent-introspection-debugging</div>
+                                    <div style="color:#6b6f76;font-size:0.74rem;line-height:1.6;">Structured self-debugging workflow for AI agent failures using capture, diagnosis, contained recovery, and...</div>
                                 </div>
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px;">
-                                    <div style="color:#d6d8db;font-weight:700;font-size:0.76rem;margin-bottom:4px;">agent-sort</div>
-                                    <div style="color:#6b6f76;font-size:0.68rem;line-height:1.45;">Build an evidence-backed ECC install plan for a specific repo by sorting skills, commands, rules, hooks, and...</div>
+                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 18px;">
+                                    <div style="color:#d6d8db;font-weight:700;font-size:0.82rem;margin-bottom:6px;">agent-sort</div>
+                                    <div style="color:#6b6f76;font-size:0.74rem;line-height:1.6;">Build an evidence-backed ECC install plan for a specific repo by sorting skills, commands, rules, hooks, and...</div>
                                 </div>
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px;">
-                                    <div style="color:#d6d8db;font-weight:700;font-size:0.76rem;margin-bottom:4px;">api-design</div>
-                                    <div style="color:#6b6f76;font-size:0.68rem;line-height:1.45;">REST API design patterns including resource naming, status codes, pagination, filtering, error responses...</div>
+                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 18px;">
+                                    <div style="color:#d6d8db;font-weight:700;font-size:0.82rem;margin-bottom:6px;">api-design</div>
+                                    <div style="color:#6b6f76;font-size:0.74rem;line-height:1.6;">REST API design patterns including resource naming, status codes, pagination, filtering, error responses...</div>
                                 </div>
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px;">
-                                    <div style="color:#d6d8db;font-weight:700;font-size:0.76rem;margin-bottom:4px;">article-writing</div>
-                                    <div style="color:#6b6f76;font-size:0.68rem;line-height:1.45;">Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive...</div>
+                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 18px;">
+                                    <div style="color:#d6d8db;font-weight:700;font-size:0.82rem;margin-bottom:6px;">article-writing</div>
+                                    <div style="color:#6b6f76;font-size:0.74rem;line-height:1.6;">Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive...</div>
                                 </div>
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px;">
-                                    <div style="color:#d6d8db;font-weight:700;font-size:0.76rem;margin-bottom:4px;">backend-patterns</div>
-                                    <div style="color:#6b6f76;font-size:0.68rem;line-height:1.45;">Backend architecture patterns, API design, database optimization, and server-side best practices for Node.j...</div>
-                                </div>
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:12px 14px;">
-                                    <div style="color:#d6d8db;font-weight:700;font-size:0.76rem;margin-bottom:4px;">benchmark-methodology</div>
-                                    <div style="color:#6b6f76;font-size:0.68rem;line-height:1.45;">Use after competitive-platform-analysis has produced a tiered competitor set. Scores each...</div>
-                                </div>
-
-                            </div>
                             </div>
                         </div>
                     </div>
