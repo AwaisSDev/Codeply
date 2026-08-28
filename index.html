@@ -2181,6 +2181,96 @@
                 font-size: 1.2rem !important;
             }
         }
+
+        /* ─── Mobile pass ───────────────────────────────────────────────────
+           Deliberately the LAST block in this stylesheet.
+
+           Several of the @media (max-width: 768px) rules further up are
+           silently defeated by unconditional rules that appear after them —
+           .hero h1 is declared five separate times in this file, and the last
+           declaration wins at every width, so the 2.2rem mobile size above
+           never actually reached a phone. Stating the mobile intent here, at
+           the end, lets source order settle it instead of specificity wars.
+           !important appears only where the thing being overridden is an
+           inline style attribute, which no stylesheet rule can outrank. */
+        @media (max-width: 768px) {
+
+            /* Type. 8.4vw keeps the headline proportional to the phone rather
+               than to a clamp floor that was written for a desktop. */
+            .hero h1 {
+                font-size: clamp(2rem, 8.4vw, 2.6rem);
+                letter-spacing: -1px;
+            }
+            .hero p {
+                font-size: 1.02rem;
+            }
+            .section-head h2 {
+                font-size: clamp(1.55rem, 6.4vw, 2.05rem);
+                line-height: 1.2;
+            }
+
+            /* The hero's app mockup ends where its content ends instead of
+               holding a fixed 520-640px box open below the fold. */
+            .mockup-window {
+                min-height: 0 !important;
+            }
+            .mockup-main {
+                padding: 1.75rem 1rem !important;
+            }
+
+            /* Product screenshots: full width of the column, and a much
+               cheaper bloom behind them — an 85px blur across a full-width
+               box is one of the most expensive things a phone GPU can be
+               asked to paint every frame. Kept off the horizontal axis so a
+               decorative glow can never widen the document. */
+            /* (The screenshots' own mobile rules live with the rest of the
+               .bwa-* styles further down the page — that <style> block sits
+               after this one, so it is the one that actually applies.) */
+
+            /* Tap targets. 44px is the floor a thumb can hit reliably; the
+               footer links were 26px tall and the social icons 36px square. */
+            footer a:not(.social-icon) {
+                min-height: 44px;
+                align-items: center;
+                justify-content: center;
+            }
+            footer a.social-icon {
+                width: 44px !important;
+                height: 44px !important;
+            }
+            .nav-links .btn {
+                min-height: 44px;
+            }
+            .modal-close {
+                width: 44px;
+                height: 44px;
+            }
+            /* The hero mockup's prompt box is really typeable, so it needs to
+               be really tappable. */
+            #ccPromptInput {
+                min-height: 44px;
+            }
+            /* Padding out, margin back in: grows the hit area to a thumb's
+               worth without moving anything around it. */
+            #ccApprovalBtn {
+                padding: 14px 8px !important;
+                margin: -14px -8px !important;
+            }
+
+            /* The hero's ambient video is 4.3MB of moving gradient and purely
+               decorative. Phones get this 4KB still of the same artwork
+               instead; the sources are withheld in markup so the video is
+               never fetched at all (see the gate script under the hero). */
+            .hero-bg-video {
+                display: none;
+            }
+            .hero {
+                background-image: url('background-mobile.webp');
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        }
     </style>
 </head>
 
@@ -2207,11 +2297,37 @@
     <main>
         <!-- Hero Section -->
         <section class="hero">
-            <video class="hero-bg-video" autoplay muted loop playsinline preload="metadata" poster="background.png">
-                <source src="/background.webm" type="video/webm">
-                <source src="/background.mp4" type="video/mp4">
+            <video class="hero-bg-video" autoplay muted loop playsinline preload="none">
+                <source data-src="/background.webm" type="video/webm">
+                <source data-src="/background.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+            <script>
+                // The hero video is ~4.3MB of ambient gradient — decorative, and
+                // on a phone easily the most expensive thing on the page. A
+                // <source> starts loading the moment the parser sees its src, so
+                // display:none in CSS cannot prevent the download; the URLs are
+                // held in data-src and only promoted to real src on viewports
+                // wide enough not to be a phone. Small screens get the 4KB WebP
+                // still of the same artwork, painted as the hero's background by
+                // the mobile pass in the stylesheet. The poster is attached the
+                // same way and for the same reason: a poster="" in the markup is
+                // fetched at parse time, so that 592KB PNG would already be on
+                // the wire before any script could say otherwise.
+                (function () {
+                    var v = document.querySelector('.hero-bg-video');
+                    if (!v) return;
+                    if (window.matchMedia('(min-width: 769px)').matches) {
+                        var sources = v.querySelectorAll('source[data-src]');
+                        for (var i = 0; i < sources.length; i++) {
+                            sources[i].src = sources[i].getAttribute('data-src');
+                        }
+                        v.poster = 'background.png';
+                        v.preload = 'metadata';
+                        v.load();
+                    }
+                })();
+            </script>
             <div class="hero-bg-overlay"></div>
             <div class="container">
                 <div class="hero-icon reveal">
@@ -2452,25 +2568,65 @@
                     order: 2;
                 }
             }
-            .bwa-mock-box {
-                width: 560px;
-                max-width: 100%;
-                height: 440px;
+            .bwa-shot-wrap {
+                position: relative;
+                min-width: 0;
+            }
+            /* The blue bloom behind each screenshot. Its own element (rather
+               than an inline style) so the blur radius can be cut right down
+               on phones, where an 85px blur over a full-width box is one of
+               the most expensive things a mobile GPU can be asked to paint. */
+            .bwa-glow {
+                position: absolute;
+                inset: -22%;
+                background: radial-gradient(ellipse at center, rgba(66,133,244,0.35), transparent 68%);
+                filter: blur(85px);
+                z-index: 0;
+                pointer-events: none;
+            }
+            /* All three screenshots are 1680x1050, and the intrinsic
+               width/height on the <img> reserves that ratio before the file
+               arrives — the row never jumps once the image decodes. */
+            .bwa-shot {
+                position: relative;
+                z-index: 1;
                 margin: 0 auto;
-                display: flex;
-                flex-direction: column;
-                background: #151519;
+                width: 100%;
+                max-width: 620px;
                 border: 1px solid rgba(255,255,255,0.1);
                 border-radius: 16px;
                 overflow: hidden;
-                font-family: var(--font-serif);
-                position: relative;
-                z-index: 1;
+                background: #151519;
+                line-height: 0;
             }
-            .bwa-mock-fill {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
+            .bwa-shot img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+            /* Each mobile crop has its own shape, while the width/height on the
+               <img> describes the full 1680x1050 desktop shot — so without
+               these the box would be reserved at the wrong ratio and the row
+               would jump the moment the crop decoded. */
+            @media (max-width: 640px) {
+                .bwa-shot--work img    { aspect-ratio: 840 / 462; }
+                .bwa-shot--browser img { aspect-ratio: 858 / 604; }
+                .bwa-shot--skills img  { aspect-ratio: 840 / 750; }
+            }
+            @media (max-width: 860px) {
+                .bwa-row {
+                    margin-top: 4rem;
+                    gap: 2rem;
+                }
+                .bwa-shot {
+                    max-width: 100%;
+                }
+                .bwa-glow {
+                    /* Vertical bleed only: a decorative blur must never be
+                       able to widen the document on a phone. */
+                    inset: -10% 0;
+                    filter: blur(40px);
+                }
             }
         </style>
         <section id="build-with-agent" style="background:#0a0a0d;">
@@ -2479,89 +2635,44 @@
                     <h2 style="color:#f5f5f7;">Build at the speed of thought</h2>
                 </div>
 
-                <!-- Full mockup 1: the chat log -->
+                <!-- Screenshot 1: the chat log -->
                 <div class="bwa-row" style="margin-top:4rem;">
                     <div class="bwa-text">
                         <h3>It shows its work</h3>
                         <p>Every download, edit, and command shows up in the chat as it happens, with a running list of every file it touched.</p>
                     </div>
-                    <div style="position:relative;">
-                        <div style="position:absolute;inset:-22%;background:radial-gradient(ellipse at center, rgba(120,100,255,0.45), transparent 68%);filter:blur(85px);z-index:0;"></div>
-                        <div class="bwa-mock-box">
-                            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08);">
-                                <span style="color:#f5f5f7;font-size:0.85rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Custom Blogging Website...</span>
-                                <div style="display:flex;align-items:center;gap:6px;color:#6b6f76;flex-shrink:0;font-size:0.7rem;">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2Z"/></svg>
-                                    Galvin Blogs
-                                </div>
-                            </div>
-                            <div class="bwa-mock-fill" style="padding:18px 20px;font-size:0.78rem;line-height:1.85;justify-content:flex-end;">
-                                <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg> Downloaded <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">assets/post-typography.jpg</code></div>
-                                <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;margin-top:2px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg> Downloaded <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">assets/post-public.jpg</code></div>
-                                <div style="color:#d6d8db;margin:10px 0;">Now I will update <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">index.html</code> to use these local image paths instead of the dynamic URLs.</div>
-                                <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Edited <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">index.html</code> <span style="color:#6b6f76;">×3</span></div>
-                                <div style="color:#d6d8db;margin:10px 0;">I have fixed the issue where images were changing on every reload. Now the images will remain consistent.</div>
-                                <div style="display:flex;justify-content:flex-end;margin:10px 0;">
-                                    <span style="background:rgba(255,255,255,0.07);color:#d6d8db;padding:7px 14px;border-radius:10px;font-size:0.76rem;">Nice do it for the blog pages too</span>
-                                </div>
-                                <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Read <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">blog-building-public.html</code> <span style="color:#6b6f76;">+2</span></div>
-                            </div>
-                            <!-- Input bar -->
-                            <div style="padding:0 20px 18px;">
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:11px 14px;">
-                                    <div style="color:#6b6f76;font-size:0.82rem;margin-bottom:10px;">Do anything</div>
-                                    <div style="display:flex;align-items:center;justify-content:space-between;">
-                                        <div style="display:flex;gap:8px;">
-                                            <span style="background:rgba(91,201,135,0.12);color:#5bc987;font-size:0.68rem;padding:4px 9px;border-radius:999px;display:flex;align-items:center;gap:4px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11Z"/></svg> Bypass mode</span>
-                                            <span style="background:rgba(255,255,255,0.06);color:#9aa0a6;font-size:0.68rem;padding:4px 9px;border-radius:999px;display:flex;align-items:center;gap:4px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M14.7 6.3a4 4 0 0 0-5 5L4 17v3h3l5.7-5.7a4 4 0 0 0 5-5l-2.8 2.8-2-2 2.8-2.8Z"/></svg> Build</span>
-                                        </div>
-                                        <div style="display:flex;align-items:center;gap:8px;">
-                                            <span style="color:#9aa0a6;font-size:0.7rem;">Auto</span>
-                                            <span style="width:22px;height:22px;border-radius:50%;background:#3a3a40;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.75rem;">↑</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="bwa-shot-wrap">
+                        <div class="bwa-glow" aria-hidden="true"></div>
+                        <figure class="bwa-shot bwa-shot--work">
+                            <picture>
+                                <!-- Art direction: a phone gets a crop tightened onto the
+                                     run of tool rows and the composer, so the steps stay
+                                     legible at ~340px instead of shrinking to texture. -->
+                                <source media="(max-width: 640px)" type="image/webp" srcset="mockup-work-mobile.webp">
+                                <source type="image/webp" srcset="mockup-work-840.webp 840w, mockup-work-1680.webp 1680w" sizes="(max-width: 860px) 92vw, 620px">
+                                <img src="Mockup-Work.png" width="1680" height="1050" loading="lazy" decoding="async"
+                                     alt="Codeply Craft chat: the agent searches the project for the image it needs to change, downloads a replacement, and says it is about to update index.html — each step shown as it happens.">
+                            </picture>
+                        </figure>
                     </div>
                 </div>
 
-                <!-- Full mockup 2: browser check -->
+                <!-- Screenshot 2: browser check -->
                 <div class="bwa-row bwa-reverse">
-                    <div style="position:relative;">
-                        <div style="position:absolute;inset:-22%;background:radial-gradient(ellipse at center, rgba(120,100,255,0.45), transparent 68%);filter:blur(85px);z-index:0;"></div>
-                        <div class="bwa-mock-box">
-                            <div style="display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.08);">
-                                <img src="Favicon-RBG.png" alt="" style="width:18px;height:16px;border-radius:4px;">
-                                <span style="color:#f5f5f7;font-size:0.85rem;font-weight:600;">Codeply Craft</span>
-                            </div>
-                            <div class="bwa-mock-fill" style="flex-direction:row;">
-                                <div style="flex:1;padding:20px 22px;font-size:0.78rem;line-height:1.95;border-right:1px solid rgba(255,255,255,0.08);min-width:0;display:flex;flex-direction:column;justify-content:center;">
-                                    <div style="color:#d6d8db;margin-bottom:10px;">I'll now add the "Mastering the Craft of CSS" post to the grid.</div>
-                                    <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg> Edited <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">index.html</code></div>
-                                    <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;margin-top:6px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"/></svg> Checked <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">index.html</code></div>
-                                    <div style="color:#d6d8db;margin:6px 0;">Verified in the browser. No console errors found.</div>
-                                    <div style="display:flex;justify-content:flex-end;margin-bottom:8px;">
-                                        <span style="background:rgba(255,255,255,0.07);color:#d6d8db;padding:5px 9px;border-radius:8px;font-size:0.66rem;">check the last blog u created</span>
-                                    </div>
-                                    <div style="color:#6b6f76;display:flex;align-items:center;gap:6px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20z"/></svg> Checked <code style="color:#9aa0a6;background:rgba(255,255,255,0.06);border-radius:4px;padding:1px 4px;">blog-css-craft.html</code></div>
-                                    <div style="color:#d6d8db;margin-top:6px;">Rendering perfectly, no console errors, typography consistent with the rest of your site.</div>
-                                </div>
-                                <div style="width:190px;flex-shrink:0;background:#fafafa;display:flex;flex-direction:column;">
-                                    <div style="padding:20px 18px 0;">
-                                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:18px;">
-                                            <span style="width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#ff7a59,#7b3dff);flex-shrink:0;"></span>
-                                            <span style="font-weight:800;font-size:0.8rem;color:#111;letter-spacing:-0.01em;">Minimalist.</span>
-                                        </div>
-                                        <div style="color:#b0b0b6;font-size:0.52rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:7px;">Design</div>
-                                        <div style="font-weight:800;font-size:0.95rem;color:#111;line-height:1.3;margin-bottom:18px;">Mastering the Craft of CSS</div>
-                                    </div>
-                                    <div style="flex:1;margin:0 18px 20px;border-radius:12px;box-shadow:0 10px 24px rgba(123,61,255,0.25);background:linear-gradient(150deg,#ff9a5a 0%,#ff3d81 48%,#7b3dff 100%);position:relative;overflow:hidden;">
-                                        <div style="position:absolute;inset:0;background:radial-gradient(circle at 30% 20%, rgba(255,255,255,0.35), transparent 55%);"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="bwa-shot-wrap">
+                        <div class="bwa-glow" aria-hidden="true"></div>
+                        <figure class="bwa-shot bwa-shot--browser">
+                            <picture>
+                                <!-- Art direction: a phone gets a crop with the app's
+                                     own sidebar and window chrome dropped, keeping just the
+                                     chat and the rendered page it's checking — both still
+                                     readable at ~340px instead of shrinking to a smudge. -->
+                                <source media="(max-width: 640px)" type="image/webp" srcset="mockup-browser-mobile.webp">
+                                <source type="image/webp" srcset="mockup-browser-840.webp 840w, mockup-browser-1680.webp 1680w" sizes="(max-width: 860px) 92vw, 620px">
+                                <img src="Mockup-Browser.png" width="1680" height="1050" loading="lazy" decoding="async"
+                                     alt="Codeply Craft with the built page open in its own browser pane next to the chat, so the agent can verify what it shipped.">
+                            </picture>
+                        </figure>
                     </div>
                     <div class="bwa-text">
                         <h3>It checks what it shipped</h3>
@@ -2569,40 +2680,26 @@
                     </div>
                 </div>
 
-                <!-- Full mockup 3: skills library -->
+                <!-- Screenshot 3: skills library -->
                 <div class="bwa-row">
                     <div class="bwa-text">
                         <h3>280+ skills it reaches for</h3>
                         <p>Codeply already reaches for the right one automatically mid-task. Browse and drop one in yourself here, too.</p>
                     </div>
-                    <div style="position:relative;">
-                        <div style="position:absolute;inset:-22%;background:radial-gradient(ellipse at center, rgba(120,100,255,0.45), transparent 68%);filter:blur(85px);z-index:0;"></div>
-                        <div class="bwa-mock-box" style="padding:24px 22px;">
-                            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;">
-                                <div style="color:#f5f5f7;font-weight:700;font-size:1.3rem;">Skills</div>
-                                <span style="color:#6b6f76;font-size:1.1rem;">×</span>
-                            </div>
-                            <div style="color:#9aa0a6;font-size:0.82rem;line-height:1.5;margin-bottom:16px;max-width:560px;">Codeply already reaches for the right one automatically mid-task. Browse and drop one in yourself here.</div>
-                            <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:9px;padding:9px 12px;color:#6b6f76;font-size:0.8rem;margin-bottom:18px;">Search skills…</div>
-                            <div style="flex:1;display:grid;align-content:center;grid-template-columns:repeat(2,1fr);gap:16px;">
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 18px;">
-                                    <div style="color:#d6d8db;font-weight:700;font-size:0.82rem;margin-bottom:6px;">agent-introspection-debugging</div>
-                                    <div style="color:#6b6f76;font-size:0.74rem;line-height:1.6;">Structured self-debugging workflow for AI agent failures using capture, diagnosis, contained recovery, and...</div>
-                                </div>
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 18px;">
-                                    <div style="color:#d6d8db;font-weight:700;font-size:0.82rem;margin-bottom:6px;">agent-sort</div>
-                                    <div style="color:#6b6f76;font-size:0.74rem;line-height:1.6;">Build an evidence-backed ECC install plan for a specific repo by sorting skills, commands, rules, hooks, and...</div>
-                                </div>
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 18px;">
-                                    <div style="color:#d6d8db;font-weight:700;font-size:0.82rem;margin-bottom:6px;">api-design</div>
-                                    <div style="color:#6b6f76;font-size:0.74rem;line-height:1.6;">REST API design patterns including resource naming, status codes, pagination, filtering, error responses...</div>
-                                </div>
-                                <div style="background:#1c1c21;border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:16px 18px;">
-                                    <div style="color:#d6d8db;font-weight:700;font-size:0.82rem;margin-bottom:6px;">article-writing</div>
-                                    <div style="color:#6b6f76;font-size:0.74rem;line-height:1.6;">Write articles, guides, blog posts, tutorials, newsletter issues, and other long-form content in a distinctive...</div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="bwa-shot-wrap">
+                        <div class="bwa-glow" aria-hidden="true"></div>
+                        <figure class="bwa-shot bwa-shot--skills">
+                            <picture>
+                                <!-- Art direction: a phone gets a crop that trims the
+                                     dimmed backdrop around the Skills modal, so the card
+                                     grid fills the frame instead of sitting in the middle
+                                     of a mostly-empty screenshot at ~340px wide. -->
+                                <source media="(max-width: 640px)" type="image/webp" srcset="mockup-skills-mobile.webp">
+                                <source type="image/webp" srcset="mockup-skills-840.webp 840w, mockup-skills-1680.webp 1680w" sizes="(max-width: 860px) 92vw, 620px">
+                                <img src="Mockup-Skills.png" width="1680" height="1050" loading="lazy" decoding="async"
+                                     alt="The Skills browser in Codeply Craft, showing a searchable grid of featured skills the agent can load mid-task.">
+                            </picture>
+                        </figure>
                     </div>
                 </div>
             </div>
@@ -2619,7 +2716,7 @@
 
                     <!-- Card 1: Codeply Craft -->
                     <div style="background:#111114;border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;">
-                        <div style="padding:1.75rem;background:radial-gradient(ellipse at top, rgba(120,100,255,0.28), transparent 65%);display:flex;align-items:center;justify-content:center;">
+                        <div style="padding:1.75rem;background:radial-gradient(ellipse at top, rgba(66,133,244,0.22), transparent 65%);display:flex;align-items:center;justify-content:center;">
                             <div style="width:100%;max-width:320px;height:250px;background:#0d0d10;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);">
                                 <div style="display:flex;align-items:center;padding:8px 12px;background:#111114;border-bottom:1px solid rgba(255,255,255,0.06);">
                                     <div style="display:flex;gap:5px;">
@@ -2649,7 +2746,7 @@
 
                     <!-- Card 2: Codeply Drop -->
                     <div style="background:#111114;border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;">
-                        <div style="padding:1.75rem;background:radial-gradient(ellipse at top, rgba(120,100,255,0.28), transparent 65%);display:flex;align-items:center;justify-content:center;">
+                        <div style="padding:1.75rem;background:radial-gradient(ellipse at top, rgba(66,133,244,0.22), transparent 65%);display:flex;align-items:center;justify-content:center;">
                             <div style="width:100%;max-width:320px;height:250px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.5);display:flex;flex-direction:column;justify-content:space-between;">
                                 <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:#f7f7f7;border-bottom:1px solid #ebebeb;flex-shrink:0;">
                                     <div style="display:flex;gap:5px;">
@@ -2684,7 +2781,7 @@
 
                     <!-- Card 3: Codeply CLI -->
                     <div style="background:#111114;border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;">
-                        <div style="padding:1.75rem;background:radial-gradient(ellipse at top, rgba(120,100,255,0.28), transparent 65%);">
+                        <div style="padding:1.75rem;background:radial-gradient(ellipse at top, rgba(66,133,244,0.22), transparent 65%);">
                             <div style="height:250px;background:#0b0b0d;border:1px solid rgba(255,255,255,0.1);border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.5);">
                                 <div style="display:flex;align-items:center;gap:7px;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.08);">
                                     <span style="width:9px;height:9px;border-radius:50%;background:#ff5f57;display:block;"></span>
