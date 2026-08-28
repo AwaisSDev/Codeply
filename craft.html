@@ -162,6 +162,57 @@
             transform: scale(0.98);
         }
 
+        /* ── Demo video ── */
+        .demo-section {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 clamp(12px, 3vw, 24px) clamp(4rem, 9vw, 7rem);
+            text-align: center;
+        }
+
+        .demo-heading {
+            font-size: clamp(1.5rem, 4vw, 2.1rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.6rem;
+        }
+
+        .demo-sub {
+            font-size: clamp(0.92rem, 2vw, 1.02rem);
+            color: var(--text-muted);
+            max-width: 32rem;
+            margin: 0 auto clamp(1.75rem, 4vw, 2.5rem);
+            line-height: 1.6;
+        }
+
+        /* Real width/height on the <video> reserves the 16:9 box before
+           anything downloads (preload="none" — nothing does, until the user
+           presses play), so this wrapper only needs to cap the max width and
+           round the corners; it never has to fight layout shift itself. */
+        .demo-video-wrap {
+            width: min(880px, 100%);
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #000;
+            line-height: 0;
+        }
+
+        .demo-video-wrap video {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .demo-section {
+                padding: 0 16px clamp(3rem, 8vw, 4rem);
+            }
+        }
+
         /* ── Mockup ── */
         .mockup-container {
             position: relative;
@@ -802,6 +853,20 @@
             </div>
         </div>
     </div>
+
+    <section class="demo-section">
+        <h2 class="demo-heading reveal">Introducing Codeply Craft</h2>
+        <p class="demo-sub reveal" style="transition-delay: 0.05s;">
+            The official launch video. See what Craft is and what it can build for you.
+        </p>
+        <div class="demo-video-wrap reveal" style="transition-delay: 0.1s;">
+            <video controls preload="none" poster="craft-demo-poster.jpg" width="1920" height="1080" playsinline>
+                <source src="craft-demo.webm" type="video/webm">
+                <source src="craft-demo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
 
     <footer class="site-footer">
         <div class="site-footer-inner">
