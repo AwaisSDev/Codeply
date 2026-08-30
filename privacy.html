@@ -21,59 +21,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
     <style>
-        :root {
-            --g-blue: #4285F4; --grad-brand: linear-gradient(90deg, #4285F4 0 25%, #ea4335 25% 50%, #fbbc04 50% 75%, #34a853 75% 100%);
-            --sans: 'Inter', Arial, sans-serif; --mono: 'Fira Code', monospace;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--sans);
-            background: linear-gradient(160deg, #5bb8f5 0%, #89c9f5 15%, #b8dff7 30%, #e8f4fb 45%, #f5e6d3 60%, #f0c9a0 75%, #e8a87c 88%, #d4956a 100%);
-            background-attachment: fixed;
-            color: #202124;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-        a { color: #1a6ff0; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .topline { height: 3px; background: var(--grad-brand); }
-
-        header {
-            display: flex; align-items: center; gap: 10px;
-            padding: 16px clamp(20px, 6vw, 72px);
-            border-bottom: 1px solid rgba(255,255,255,0.5);
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-            position: sticky; top: 0; z-index: 100;
-        }
-        header img.logo { width: 32px; height: 32px; border-radius: 8px; }
-        header .brand { font-weight: 800; font-size: 1.15rem; color: #202124; text-decoration: none; }
-        header nav { margin-left: auto; display: flex; gap: 8px; }
-        header nav a {
-            color: #202124; font-size: .84rem; font-weight: 600;
-            padding: 7px 20px; border-radius: 999px;
-            background: rgba(255,255,255,0.45);
-            border: 1px solid rgba(255,255,255,0.85);
-            transition: background .2s;
-        }
-        header nav a:hover { background: rgba(255,255,255,0.7); text-decoration: none; }
-
-        .doc-wrap { max-width: 700px; margin: 0 auto; padding: 56px 20px 100px; }
-        .doc-wrap h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: -.03em; margin-bottom: 6px; }
-        .doc-wrap .updated { color: #5f6368; font-size: 1rem; margin-bottom: 40px; }
-        .card {
-            background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.8);
-            border-radius: 20px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            padding: 36px clamp(24px, 5vw, 44px);
-            box-shadow: 0 8px 32px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,0.9);
-        }
-        .card h2 { font-size: 1.4rem; font-weight: 800; letter-spacing: -.01em; margin: 28px 0 10px; }
-        .card h2:first-child { margin-top: 0; }
-        .card p { color: #3c4043; font-size: 1.1rem; line-height: 1.75; margin-bottom: 10px; }
-        .card ul { margin: 8px 0 12px 20px; }
-        .card li { color: #3c4043; font-size: 1.1rem; line-height: 1.75; margin-bottom: 6px; }
-        .card li strong { color: #f5f5f7; }
+        .hero .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: #34a853; display: inline-block; flex-shrink: 0; }
+        .entry li strong { color: var(--text-primary); }
     </style>
 
     <!-- Shared design system. Loaded last so it settles the cascade. -->
@@ -85,9 +34,9 @@
     <div class="topline"></div>
 
     <header>
-        <a href="/" class="brand" style="display:flex;align-items:center;gap:10px;">
+        <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
             <img class="logo" src="Favicon-RBG.png" alt="Codeply" />
-            <span>Codeply</span>
+            <span class="brand">Codeply</span>
         </a>
         <nav>
             <a href="/">Home</a>
@@ -95,11 +44,14 @@
         </nav>
     </header>
 
-    <div class="doc-wrap">
+    <section class="hero">
+        <div class="eyebrow"><span class="dot"></span> Legal</div>
         <h1>Privacy Policy</h1>
-        <p class="updated">Last updated July 27, 2026</p>
+        <p>Last updated July 27, 2026</p>
+    </section>
 
-        <div class="card">
+    <div class="content-wrap">
+        <div class="entry">
             <p>This policy covers what Codeply (the desktop app, dashboard, and this website) collects, why, and who it's shared with. It doesn't cover third-party services you connect to on your own (like the AI providers or payment processor described below) beyond what Codeply itself sends them.</p>
 
             <h2>Information we collect</h2>
@@ -153,6 +105,7 @@
                 <a href="/careers">Careers</a>
                 <a href="/privacy">Privacy</a>
                 <a href="/terms">Terms</a>
+                <a href="/eula">EULA</a>
             </nav>
             <p>&copy; 2026 Codeply</p>
         </div>
