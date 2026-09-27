@@ -1,192 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - Page Not Found | Codeply</title>
-    <meta name="description" content="The page you are looking for has been deleted or moved. Return to Codeply to continue building.">
-    <link rel="canonical" href="https://codeply.app/404">
-    <meta name="robots" content="noindex, follow">
-
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Codeply">
-    <meta property="og:url" content="https://codeply.app/404">
-    <meta property="og:title" content="404 - Page Not Found | Codeply">
-    <meta property="og:description" content="The page you are looking for has been deleted or moved.">
-    <meta property="og:image" content="https://codeply.app/Favicon-RBG.png">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="404 - Page Not Found | Codeply">
-    <meta name="twitter:description" content="The page you are looking for has been deleted or moved.">
-    <meta name="twitter:image" content="https://codeply.app/Favicon-RBG.png">
-
-    <link rel="icon" type="image/png" sizes="16x16"  href="favicons/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32"  href="favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="48x48"  href="favicons/favicon-48x48.png">
-    <link rel="icon" type="image/png" sizes="64x64"  href="favicons/favicon-64x64.png">
-    <link rel="icon" type="image/png" sizes="128x128" href="favicons/favicon-128x128.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="favicons/favicon-192x192.png">
-    <link rel="icon" type="image/png" sizes="256x256" href="favicons/favicon-256x256.png">
-    <link rel="apple-touch-icon" sizes="180x180"      href="favicons/favicon-180x180.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="favicons/favicon-512x512.png">
-    <link rel="stylesheet" href="theme.css">
-    <style>
-        :root {
-            --code-bg: #0d0d11;
-            --code-border: rgba(255, 255, 255, 0.08);
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100dvh;
-            background: var(--surface-page);
-            overflow: hidden;
-            font-family: var(--sans);
-            color: var(--text-main);
-        }
-
-        /* Atmospheric background glow */
-        .glow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(66, 133, 244, 0.16) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 700px;
-            padding: 2rem;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* IDE-style Code Window */
-        .code-window {
-            background: var(--code-bg);
-            border: 1px solid var(--code-border);
-            border-radius: 12px;
-            box-shadow: var(--elev-3);
-            text-align: left;
-            margin-bottom: 3rem;
-            overflow: hidden;
-            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .window-header {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px 16px;
-            display: flex;
-            gap: 8px;
-            border-bottom: 1px solid var(--code-border);
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        .dot-red { background: #ff5f56; }
-        .dot-yellow { background: #ffbd2e; }
-        .dot-green { background: #27c93f; }
-
-        .code-body {
-            padding: 24px;
-            font-family: var(--mono);
-            font-size: 14px;
-            line-height: 1.6;
-            color: #d4d4d4;
-        }
-
-        .token-keyword { color: #c678dd; }
-        .token-const { color: #e06c75; }
-        .token-func { color: #61afef; }
-        .token-string { color: #98c379; }
-        .token-comment { color: #5c6370; font-style: italic; }
-        .token-error { color: #e06c75; font-weight: bold; }
-
-        .error-title {
-            font-family: var(--font-display);
-            font-size: clamp(5rem, 15vw, 8rem);
-            font-weight: 800;
-            line-height: 1;
-            margin: 0;
-            background: linear-gradient(180deg, #ffffff 30%, #a0a0a0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.05em;
-        }
-
-        .error-msg {
-            font-size: 1.25rem;
-            color: #b0b0b0;
-            margin-bottom: 2.5rem;
-            max-width: 400px;
-            margin-inline: auto;
-            line-height: 1.5;
-        }
-
-        .btn-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--google-blue);
-            color: white;
-            text-decoration: none;
-            padding: 14px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-family: var(--font-serif);
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
-        }
-
-        .btn-home:hover {
-            background: #1b66c9;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
-        }
-
-        .btn-home svg {
-            width: 18px;
-            height: 18px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found · Codeply</title>
+<meta name="description" content="This page does not exist.">
+<link rel="canonical" href="https://codeply.app/404">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Codeply">
+<meta property="og:url" content="https://codeply.app/404">
+<meta property="og:title" content="Page not found · Codeply">
+<meta property="og:description" content="This page does not exist.">
+<meta property="og:image" content="https://codeply.app/Favicon-RBG.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="manifest" href="/favicons/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/theme.css?v=39">
+<script src="/theme.js?v=39" defer></script>
 </head>
 <body>
-    <div class="glow"></div>
-    
-    <div class="content">
-
-
-        <h1 class="error-title">404</h1>
-        <p class="error-msg">The page you're looking for has been deleted or moved.</p>
-        
-        <a href="/" class="btn-home">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-            </svg>
-            Return Home
-        </a>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-wrap">
+    <div class="nav-left">
+      <a href="/" class="brand" aria-label="Codeply home"><img src="/assets/logo.webp" alt="" width="34" height="34"><span>Codeply</span></a>
+      <nav class="nav-links" aria-label="Main"><a href="/craft">Craft</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a></nav>
     </div>
+    <div class="nav-end">
+      <a class="btn btn-light btn-nav hide-sm" href="/docs">Docs</a>
+      <a class="btn btn-dark btn-nav" href="/download">Download</a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-menu" aria-label="Mobile"><a href="/craft">Craft</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a><a href="/docs">Docs</a><a href="/download">Download</a></nav>
+</header>
+<main id="main">
+
+<section class="nf">
+  <div class="wrap">
+    <h1>404</h1>
+    <p>The page you're looking for has been deleted or moved.</p>
+    <a class="btn btn-dark btn-lg" href="/">Return home</a>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="/" class="brand"><img src="/assets/logo.webp" alt="" width="28" height="28">Codeply</a><p>The coding agent that checks its own work.</p></div>
+      <div class="footer-col"><h4>Product</h4><a href="/craft">Codeply Craft</a><a href="/cli">Codeply CLI</a><a href="/drop">Codeply Drop</a><a href="/download">Download</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="/docs">Docs</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/careers">Careers</a><a href="mailto:hello@codeply.online">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/eula">EULA</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; <span data-year>2026</span> Codeply</span><div class="socials"><a href="https://twitter.com/codeplyai" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L2.092 2.25h6.962l4.265 5.638L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://github.com/codeplyai" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a><a href="https://discord.gg/codeply" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a></div></div>
+  </div>
+</footer>
 </body>
 </html>

@@ -1,302 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Codeply Drop - Download for Windows &amp; macOS</title>
-    <meta name="description" content="Download Codeply Drop, the lightweight system tray companion for surgical AI edits. No API keys, no model picking, just plug-and-play precision.">
-    <link rel="canonical" href="https://codeply.app/drop">
-    <meta name="robots" content="index, follow">
-
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Codeply">
-    <meta property="og:url" content="https://codeply.app/drop">
-    <meta property="og:title" content="Codeply Drop - Download for Windows &amp; macOS">
-    <meta property="og:description" content="The lightweight system tray companion for surgical AI edits. Plug-and-play precision.">
-    <meta property="og:image" content="https://codeply.app/Favicon-RBG.png">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Codeply Drop - Download for Windows &amp; macOS">
-    <meta name="twitter:description" content="The lightweight system tray companion for surgical AI edits. Plug-and-play precision.">
-    <meta name="twitter:image" content="https://codeply.app/Favicon-RBG.png">
-
-    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
-    <style>
-        :root {
-            --g-blue: #4285F4; --g-red: #ea4335; --g-yellow: #fbbc04; --g-green: #34a853;
-            --grad-brand: linear-gradient(90deg, var(--g-blue) 0 25%, var(--g-red) 25% 50%, var(--g-yellow) 50% 75%, var(--g-green) 75% 100%);
-            --sans: 'Inter', Arial, sans-serif; --mono: 'Fira Code', monospace;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--sans);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-        a { color: inherit; text-decoration: none; }
-
-        .topline { height: 3px; background: var(--grad-brand); }
-
-        header {
-            display: flex; align-items: center; gap: 10px;
-            padding: 16px clamp(20px, 6vw, 72px);
-            position: sticky; top: 0; z-index: 100;
-        }
-        header img.logo { width: 32px; height: 32px; border-radius: 8px; }
-        header .brand { font-weight: 800; font-size: 1.15rem; }
-        header nav { margin-left: auto; display: flex; gap: 8px; }
-        header nav a {
-            font-size: .84rem; font-weight: 600;
-            padding: 7px 20px; border-radius: 999px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.14);
-            transition: background .2s;
-        }
-        header nav a:hover { background: rgba(255,255,255,0.12); }
-
-        .hero {
-            text-align: center;
-            padding: clamp(64px, 10vw, 120px) 20px 16px;
-        }
-        .hero .eyebrow {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
-            border-radius: 999px;
-            padding: 5px 16px; font-size: .78rem; font-weight: 600; color: #9aa0a6;
-            margin-bottom: 24px; letter-spacing: .04em; text-transform: uppercase;
-            white-space: nowrap;
-        }
-        .hero .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: #34a853; display: inline-block; flex-shrink: 0; }
-        .hero h1 {
-            font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800;
-            letter-spacing: -.04em; line-height: 1.15;
-            margin-bottom: 18px;
-        }
-        .hero h1 .grad-text {
-            background: var(--grad-brand); background-size: 300% 100%;
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            animation: hue 7s linear infinite;
-        }
-        @keyframes hue { from { background-position: 0% 0; } to { background-position: 300% 0; } }
-        .hero p {
-            color: #9aa0a6; font-size: 1rem; line-height: 1.7;
-            max-width: 540px; margin: 0 auto 14px;
-        }
-        .hero .version-badge {
-            display: inline-block; font-family: var(--mono); font-size: .72rem;
-            color: #9aa0a6; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
-            border-radius: 6px; padding: 3px 10px; margin-top: 8px;
-        }
-
-        .grid {
-            display: grid; grid-template-columns: repeat(2, minmax(280px, 400px));
-            gap: 24px; justify-content: center;
-            padding: 48px 20px 8px;
-        }
-        .card {
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 24px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            padding: 40px 36px 32px; text-align: center;
-            box-shadow: 0 8px 40px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,0.06);
-            transition: transform .22s, box-shadow .22s;
-            position: relative; overflow: hidden;
-        }
-        .card:hover { transform: translateY(-6px); box-shadow: 0 20px 56px rgba(0,0,0,.4); }
-        .card .os-ic { width: 56px; height: 56px; object-fit: contain; margin-bottom: 4px; }
-        .card h3 { margin: 16px 0 28px; font-size: 1.2rem; font-weight: 800; color: #f5f5f7; letter-spacing: -.02em; }
-        .btn-dl {
-            display: inline-flex; align-items: center; gap: 9px;
-            font-weight: 700; font-size: .92rem; color: #ffffff !important;
-            padding: 14px 32px; border-radius: 999px; border: none; cursor: pointer;
-            transition: transform .2s, box-shadow .2s, filter .2s;
-            width: 100%; justify-content: center;
-        }
-        .btn-dl.blue  { background: linear-gradient(135deg, #4285F4, #1a6ff0); box-shadow: 0 4px 20px rgba(66,133,244,.4); }
-        .btn-dl.green { background: linear-gradient(135deg, #34a853, #1f8f43); box-shadow: 0 4px 20px rgba(52,168,83,.38); }
-        .btn-dl:hover { transform: translateY(-2px); filter: brightness(1.07); }
-        .btn-dl svg { width: 17px; height: 17px; flex-shrink: 0; }
-
-        .cli-alt { text-align: center; margin: 8px 0 8px; font-size: .88rem; color: #6b6f76; }
-        .cli-alt a { color: #7ba9ff; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-
-        .divider {
-            max-width: 760px; margin: 40px auto 0; padding: 0 20px 48px;
-            display: flex; align-items: center; gap: 16px;
-        }
-        .divider hr { flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.12); }
-        .divider span { font-size: .78rem; font-weight: 600; color: #9aa0a6; white-space: nowrap; }
-
-        .steps-wrap { max-width: 800px; margin: 0 auto 120px; padding: 0 20px; position: relative; }
-        .steps-wrap h2 {
-            font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 800; color: #f5f5f7;
-            letter-spacing: -.03em; margin-bottom: 64px; text-align: center;
-        }
-        .steps-grid { 
-            display: flex; flex-direction: column; gap: 48px; 
-            position: relative; 
-        }
-        .steps-grid::before {
-            content: ''; position: absolute; left: 25px; top: 0; bottom: 0;
-            width: 2px; background: linear-gradient(to bottom, transparent, rgba(66,133,244,0.5), rgba(66,133,244,0.2), transparent);
-            z-index: 0;
-        }
-        .step {
-            display: flex; gap: 24px; align-items: flex-start;
-            position: relative; z-index: 1;
-            opacity: 0; transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .step.is-visible { opacity: 1; transform: translateY(0); }
-        .step .n {
-            width: 52px; height: 52px; border-radius: 16px;
-            background: #000; border: 2px solid rgba(66,133,244,0.5);
-            display: grid; place-items: center;
-            font-family: var(--mono); font-size: 1.4rem; font-weight: 800;
-            color: #fff; flex: none; 
-            box-shadow: 0 0 20px rgba(66,133,244,0.3), inset 0 0 10px rgba(66,133,244,0.2);
-            position: relative;
-        }
-        .step .n::after {
-            content: ''; position: absolute; width: 100%; height: 100%; 
-            border-radius: 16px; background: rgba(66,133,244,0.4); 
-            filter: blur(12px); z-index: -1;
-        }
-        .step-content {
-            background: rgba(255,255,255,0.03); 
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 24px; padding: 28px;
-            transition: background 0.3s, border 0.3s, transform 0.3s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            flex: 1;
-        }
-        .step:hover .step-content { 
-            background: rgba(255,255,255,0.06); 
-            border-color: rgba(66,133,244,0.3);
-            transform: scale(1.02);
-        }
-        .step-body strong { 
-            font-size: 1.25rem; color: #f5f5f7; display: block; 
-            margin-bottom: 10px; font-weight: 800; letter-spacing: -.01em;
-        }
-        .step-body p { color: #9aa0a6; font-size: 1rem; line-height: 1.6; }
-        .step-body code {
-            background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,.1);
-            border-radius: 6px; padding: 2px 6px; font-family: var(--mono); 
-            font-size: .85rem; color: #7ba9ff;
-        }
-
-        @media (max-width: 680px) {
-            .grid { grid-template-columns: 1fr; }
-            .step { padding: 16px 18px; }
-        }
-    </style>
-
-    <link rel="stylesheet" href="theme.css">
-    <script src="theme.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codeply Drop: paste it, it lands in the right file</title>
+<meta name="description" content="Codeply Drop is a lightweight tray app. Hit a hotkey, paste your request, and it applies a verified diff to the right file in your project.">
+<link rel="canonical" href="https://codeply.app/drop">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Codeply">
+<meta property="og:url" content="https://codeply.app/drop">
+<meta property="og:title" content="Codeply Drop: paste it, it lands in the right file">
+<meta property="og:description" content="Codeply Drop is a lightweight tray app. Hit a hotkey, paste your request, and it applies a verified diff to the right file in your project.">
+<meta property="og:image" content="https://codeply.app/Favicon-RBG.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="manifest" href="/favicons/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/theme.css?v=39">
+<script src="/theme.js?v=39" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/craft-drop.css?v=39">
 </head>
-
-<body class="page">
-    <div class="topline"></div>
-
-    <header>
-        <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-            <img class="logo" src="Favicon-RBG.png" alt="Codeply" />
-            <span class="brand">Codeply</span>
-        </a>
-        <nav>
-            <a href="/cli">Codeply CLI</a>
-            <a href="/">Home</a>
-        </nav>
-    </header>
-
-    <section class="hero">
-
-        <h1>Get <span class="grad-text">Codeply Drop</span><br>on your desktop</h1>
-        <p>The lightweight system tray companion. Hit a hotkey, paste your request, and let Codeply apply surgical, verified diffs to your project regardless of your editor.</p>
-
-    </section>
-
-    <section class="grid">
-        <div class="card">
-            <img class="os-ic" src="Windows.png" alt="Windows" />
-            <h3>Windows</h3>
-            <a class="btn-dl blue" href="https://github.com/AwaisSDev/Codeply-App/releases/latest/download/Codeply-Setup.exe" download>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Download for Windows
-            </a>
-        </div>
-        <div class="card">
-            <img class="os-ic" src="Apple.png" alt="macOS" />
-            <h3>macOS</h3>
-            <a class="btn-dl green" href="https://github.com/AwaisSDev/Codeply-App/releases/latest/download/Codeply.dmg" download>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Download for macOS
-            </a>
-        </div>
-    </section>
-
-    <div class="divider">
-        <hr>
-        <span>Quick Start</span>
-        <hr>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-wrap">
+    <div class="nav-left">
+      <a href="/" class="brand" aria-label="Codeply home"><img src="/assets/logo.webp" alt="" width="34" height="34"><span>Codeply</span></a>
+      <nav class="nav-links" aria-label="Main"><a href="/craft">Craft</a><a href="/cli">CLI</a><a href="/drop" aria-current="page">Drop</a><a href="/changelog">Changelog</a></nav>
     </div>
+    <div class="nav-end">
+      <a class="btn btn-light btn-nav hide-sm" href="/docs">Docs</a>
+      <a class="btn btn-dark btn-nav" href="/download">Download</a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-menu" aria-label="Mobile"><a href="/craft">Craft</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a><a href="/docs">Docs</a><a href="/download">Download</a></nav>
+</header>
+<main id="main">
 
-    <section class="steps-wrap">
-        <h2>Plug-and-Play Precision</h2>
-        <div class="steps-grid">
-            <div class="step">
-                <div class="n">1</div>
-                <div class="step-content">
-                    <div class="step-body">
-                        <strong>Install & Sign In</strong>
-                        <p>Download the installer and sign in with a simple email code. No API keys to manage, no complex configuration.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="step">
-                <div class="n">2</div>
-                <div class="step-content">
-                    <div class="step-body">
-                        <strong>Trigger the Hotkey</strong>
-                        <p>Codeply sits quietly in your system tray. When you need a change, hit your hotkey and paste what you copied from your AI chat.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="step">
-                <div class="n">3</div>
-                <div class="step-content">
-                    <div class="step-body">
-                        <strong>Surgical Application</strong>
-                        <p>Codeply identifies the right file and applies a verified diff. It changes only what's necessary, avoiding full-file rewrites.</p>
-                    </div>
-                </div>
-            </div>
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <h1>Paste it. It lands<br>in the right file.</h1>
+      <p class="lede">Codeply Drop is a lightweight tray app. Hit a hotkey, paste your request, and it applies a surgical, verified diff to your project, whatever editor you use.</p>
+      <div class="hero-actions">
+        <a class="btn btn-dark btn-lg" href="https://github.com/AwaisSDev/Codeply-App/releases/latest/download/Codeply-Setup.exe" download><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>Windows</a>
+        <a class="btn btn-light btn-lg btn-bordered" href="https://github.com/AwaisSDev/Codeply-App/releases/latest/download/Codeply.dmg" download><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.6 1.2-.1 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.5.9-1.4 1.3-2.8 1.3-2.8s-2.5-1-2.5-4.2ZM13.9 5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg>macOS</a>
+      </div>
+    </div>
+    <div class="shot drop-shot"><div class="cdrop" role="img" aria-label="The Codeply Drop write box"><div class="popup" style="position:relative">
+    <header class="header">
+      <div class="dots">
+        <button class="dot red" type="button"></button>
+        <button class="dot yellow" type="button"></button>
+        <button class="dot green" type="button"></button>
+      </div>
+      <div class="brand">
+        <img src="/assets/logo.webp" style="border-radius:7px" alt="Codeply" width="26" height="26">
+        <div class="brand-text">
+          <span class="brand-name">Codeply</span>
         </div>
-    </section>
-    <script>
-        // Scroll reveal for steps
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.step').forEach(step => {
-            observer.observe(step);
-        });
-    </script>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+    <div class="file-bar">
+      <span class="auto-dot live"></span>
+      <span class="fw-badge" style="display:none"></span>
+      <div class="file-path-display">Colva</div>
+      <button class="browse-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        Watch
+      </button>
+      <button class="browse-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        File
+      </button>
+    </div>
+    <div class="preview-wrap">
+      <div class="line-numbers" style="display:none"></div>
+      <pre style="display:none"></pre>
+      <textarea class="write-input" spellcheck="false"
+        placeholder='Paste code you copied, or type what you want done, then hit Apply. Shift+Enter for a new line.'></textarea>
+      <button class="paste-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M9 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3"/></svg>
+        Paste
+      </button>
+    </div>
+    <div class="status-box">
+      <div class="status-row">
+        <div class="status-icon idle">◈</div>
+        <div class="status-text">
+          <div class="status-action">Write your request</div>
+          <div class="status-reason">Describe what you want, or hit Paste to bring in copied code, then hit Apply (or press Enter).</div>
+        </div>
+      </div>
+      <div class="confidence-bar" style="display:none">
+        <div class="confidence-fill"></div>
+      </div>
+      <div style="margin-top:5px;display:flex;align-items:center;justify-content:flex-end;gap:6px">
+        <span class="cache-badge" style="display:none">⚡ cached</span>
+        <div style="display:none;font-size:0.62rem;font-family:var(--mono);color:var(--ink-3);opacity:0.65"></div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-analyze" style="flex:1">Apply</button>
+    </div>
+  </div></div></div>
+  </div>
+</section>
+<section class="section" style="padding-top:clamp(24px,4vw,48px)">
+  <div class="wrap"><div class="grid-3"><div class="mini" data-reveal><span class="tag">Step 1</span><h4 style="margin-top:0">Install and sign in</h4><p>Download the installer and sign in with an email code. No API keys to manage.</p></div><div class="mini" data-reveal><span class="tag">Step 2</span><h4 style="margin-top:0">Hit the hotkey</h4><p>Drop sits quietly in your system tray. Hit your hotkey and paste what you copied from an AI chat, or type what you want.</p></div><div class="mini" data-reveal><span class="tag">Step 3</span><h4 style="margin-top:0">It lands in the right file</h4><p>Drop finds the right file and applies a small verified diff. It changes only what is needed, never a full-file rewrite.</p></div></div></div>
+</section>
+<section class="cta">
+  <div class="wrap">
+    <h2>Want an agent that does the whole task?</h2><p>Codeply Craft reads, edits, runs and verifies until the job is actually done.</p>
+    <div class="hero-actions" style="justify-content:center"><a class="btn btn-dark btn-xl" href="/download">Download</a></div>
+    <div class="cta-agents" aria-label="The eight Craft role agents"><span class="site-mascot m-general " title="General"><img class="ball" src="/assets/agents/general.webp" alt="General" width="40" height="40"><img class="eyes" src="/assets/agents/eyes.webp" alt=""></span><span class="site-mascot m-frontend " title="Frontend"><img class="ball" src="/assets/agents/frontend.webp" alt="Frontend" width="40" height="40" style="animation-delay:-0.7s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-0.7s"></span><span class="site-mascot m-backend " title="Backend"><img class="ball" src="/assets/agents/backend.webp" alt="Backend" width="40" height="40" style="animation-delay:-1.4s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-1.4s"></span><span class="site-mascot m-database " title="Database"><img class="ball" src="/assets/agents/database.webp" alt="Database" width="40" height="40" style="animation-delay:-2.1s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-2.1s"></span><span class="site-mascot m-testing " title="Testing"><img class="ball" src="/assets/agents/testing.webp" alt="Testing" width="40" height="40" style="animation-delay:-2.8s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-2.8s"></span><span class="site-mascot m-security " title="Security"><img class="ball" src="/assets/agents/security.webp" alt="Security" width="40" height="40" style="animation-delay:-3.5s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-3.5s"></span><span class="site-mascot m-devops " title="DevOps"><img class="ball" src="/assets/agents/devops.webp" alt="DevOps" width="40" height="40" style="animation-delay:-4.2s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-4.2s"></span><span class="site-mascot m-docs " title="Docs"><img class="ball" src="/assets/agents/docs.webp" alt="Docs" width="40" height="40" style="animation-delay:-4.9s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-4.9s"></span></div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="/" class="brand"><img src="/assets/logo.webp" alt="" width="28" height="28">Codeply</a><p>The coding agent that checks its own work.</p></div>
+      <div class="footer-col"><h4>Product</h4><a href="/craft">Codeply Craft</a><a href="/cli">Codeply CLI</a><a href="/drop">Codeply Drop</a><a href="/download">Download</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="/docs">Docs</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/careers">Careers</a><a href="mailto:hello@codeply.online">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/eula">EULA</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; <span data-year>2026</span> Codeply</span><div class="socials"><a href="https://twitter.com/codeplyai" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L2.092 2.25h6.962l4.265 5.638L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://github.com/codeplyai" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a><a href="https://discord.gg/codeply" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a></div></div>
+  </div>
+</footer>
 </body>
 </html>

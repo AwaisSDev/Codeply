@@ -1,310 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Codeply CLI - Install</title>
-    <meta name="description" content="Install the Codeply CLI with one command. An autonomous coding agent for your terminal: it reads your code, edits it, runs commands, and checks its work.">
-    <link rel="canonical" href="https://codeply.app/cli">
-    <meta name="robots" content="index, follow">
-
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Codeply">
-    <meta property="og:url" content="https://codeply.app/cli">
-    <meta property="og:title" content="Codeply CLI - Install">
-    <meta property="og:description" content="An autonomous coding agent for your terminal. One command to install.">
-    <meta property="og:image" content="https://codeply.app/Favicon-RBG.png">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Codeply CLI - Install">
-    <meta name="twitter:description" content="An autonomous coding agent for your terminal. One command to install.">
-    <meta name="twitter:image" content="https://codeply.app/Favicon-RBG.png">
-
-    <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
-    <style>
-        :root {
-            --g-blue: #4285F4; --g-red: #ea4335; --g-yellow: #fbbc04; --g-green: #34a853;
-            --grad-brand: linear-gradient(90deg, var(--g-blue) 0 25%, var(--g-red) 25% 50%, var(--g-yellow) 50% 75%, var(--g-green) 75% 100%);
-            --sans: 'Inter', Arial, sans-serif; --mono: 'Fira Code', monospace;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: var(--sans);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-        a { color: inherit; text-decoration: none; }
-
-        .topline { height: 3px; background: var(--grad-brand); }
-
-        header {
-            display: flex; align-items: center; gap: 10px;
-            padding: 16px clamp(20px, 6vw, 72px);
-            position: sticky; top: 0; z-index: 100;
-        }
-        header img.logo { width: 32px; height: 32px; border-radius: 8px; }
-        header .brand { font-weight: 800; font-size: 1.15rem; }
-        header nav { margin-left: auto; display: flex; gap: 8px; }
-        header nav a {
-            font-size: .84rem; font-weight: 600;
-            padding: 7px 20px; border-radius: 999px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.14);
-            transition: background .2s;
-        }
-        header nav a:hover { background: rgba(255,255,255,0.12); }
-
-        .hero {
-            text-align: center;
-            padding: clamp(64px, 10vw, 120px) 20px 16px;
-        }
-        .hero .eyebrow {
-            display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
-            border-radius: 999px;
-            padding: 5px 16px; font-size: .78rem; font-weight: 600; color: #9aa0a6;
-            margin-bottom: 24px; letter-spacing: .04em; text-transform: uppercase;
-            white-space: nowrap; font-family: var(--mono);
-        }
-        .hero h1 {
-            font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800;
-            letter-spacing: -.04em; line-height: 1.15;
-            margin-bottom: 18px;
-        }
-        .hero h1 .grad-text {
-            background: var(--grad-brand); background-size: 300% 100%;
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            animation: hue 7s linear infinite;
-        }
-        @keyframes hue { from { background-position: 0% 0; } to { background-position: 300% 0; } }
-        .hero p {
-            color: #9aa0a6; font-size: 1rem; line-height: 1.7;
-            max-width: 540px; margin: 0 auto 14px;
-        }
-
-        .cli-wrap { max-width: 560px; margin: 40px auto 8px; padding: 0 20px; }
-        .cli-card {
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 16px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            overflow: hidden;
-            box-shadow: 0 8px 40px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,0.06);
-        }
-        .cli-tabs { display: flex; padding: 8px 8px 0; gap: 4px; }
-        .cli-tab {
-            padding: 8px 16px; background: none; border: none; cursor: pointer;
-            border-radius: 10px 10px 0 0;
-            font-family: var(--sans); font-weight: 600; font-size: .78rem; color: #9aa0a6;
-            transition: color .15s, background .15s;
-        }
-        .cli-tab.active { color: #f5f5f7; background: rgba(255,255,255,.08); }
-        .cli-tab:hover:not(.active) { color: #d6d8db; }
-        .cli-cmd {
-            display: flex; align-items: center; gap: 12px;
-            background: rgba(255,255,255,.05); padding: 16px 18px; margin: 0 8px 8px; border-radius: 10px;
-        }
-        .cli-cmd .prompt { color: var(--g-green); font-family: var(--mono); font-weight: 700; flex-shrink: 0; }
-        .cli-cmd code {
-            flex: 1; font-family: var(--mono); font-size: .84rem; color: #7ba9ff;
-            overflow-x: auto; white-space: nowrap; scrollbar-width: none;
-        }
-        .cli-cmd code::-webkit-scrollbar { display: none; }
-        .cli-copy {
-            flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
-            border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06);
-            color: #9aa0a6; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: background .15s, color .15s, border-color .15s;
-        }
-        .cli-copy:hover { background: rgba(255,255,255,.14); color: #f5f5f7; }
-        .cli-copy.copied { color: #5bc987; border-color: #34a853; }
-        .cli-note { text-align: center; font-size: .88rem; color: #9aa0a6; margin-top: 14px; line-height: 1.6; }
-        .cli-note code { font-family: var(--mono); background: rgba(255,255,255,.06); border-radius: 4px; padding: 1px 6px; color: #d6d8db; }
-
-        .npm-alt { text-align: center; margin-top: 18px; font-size: .85rem; color: #6b6f76; }
-        .npm-alt code { font-family: var(--mono); background: rgba(255,255,255,.06); border-radius: 4px; padding: 2px 8px; color: #d6d8db; }
-
-        .divider {
-            max-width: 760px; margin: 56px auto 0; padding: 0 20px 48px;
-            display: flex; align-items: center; gap: 16px;
-        }
-        .divider hr { flex: 1; border: none; border-top: 1px solid rgba(255,255,255,0.12); }
-        .divider span { font-size: .78rem; font-weight: 600; color: #9aa0a6; white-space: nowrap; }
-
-        .steps-wrap { max-width: 760px; margin: 0 auto 100px; padding: 0 20px; }
-        .steps-wrap h2 {
-            font-size: 2.2rem; font-weight: 800; color: #f5f5f7;
-            letter-spacing: -.02em; margin-bottom: 48px; text-align: center;
-        }
-        .steps-grid { display: flex; flex-direction: column; gap: 0; }
-        .step {
-            display: flex; gap: 18px; align-items: flex-start;
-            padding: 24px 24px;
-            background: rgba(255,255,255,0.04); backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.1);
-            margin-bottom: -1px;
-        }
-        .step:first-child { border-radius: 16px 16px 0 0; }
-        .step:last-child  { border-radius: 0 0 16px 16px; margin-bottom: 0; }
-        .step:hover { background: rgba(255,255,255,0.08); }
-        .step .n {
-            width: 50px; height: 50px; border-radius: 12px;
-            background: linear-gradient(135deg, #4285F4, #1a6ff0);
-            display: grid; place-items: center;
-            font-family: var(--mono); font-size: 1.5rem; font-weight: 800;
-            color: #fff; flex: none; box-shadow: 0 4px 12px rgba(66,133,244,.35);
-        }
-        .step-body { padding-top: 4px; }
-        .step-body strong { font-size: 1.1rem; color: #f5f5f7; display: block; margin-bottom: 8px; font-weight: 800; }
-        .step-body p { color: #9aa0a6; font-size: 0.95rem; line-height: 1.6; }
-        .step-body code {
-            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,.16);
-            border-radius: 5px; padding: 1px 7px; font-family: var(--mono); font-size: .84rem; color: #f5f5f7;
-        }
-
-
-
-        @media (max-width: 680px) {
-            .step { padding: 16px 18px; }
-        }
-    </style>
-
-    <!-- Shared design system. Loaded last so it settles the cascade. -->
-    <link rel="stylesheet" href="theme.css">
-    <script src="theme.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codeply CLI: a coding agent in your terminal</title>
+<meta name="description" content="Install the Codeply CLI with one command. It reads your code, edits it, runs commands, and checks its work, right in your terminal.">
+<link rel="canonical" href="https://codeply.app/cli">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Codeply">
+<meta property="og:url" content="https://codeply.app/cli">
+<meta property="og:title" content="Codeply CLI: a coding agent in your terminal">
+<meta property="og:description" content="Install the Codeply CLI with one command. It reads your code, edits it, runs commands, and checks its work, right in your terminal.">
+<meta property="og:image" content="https://codeply.app/Favicon-RBG.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="manifest" href="/favicons/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/theme.css?v=39">
+<script src="/theme.js?v=39" defer></script>
 </head>
-
-<body class="page">
-    <div class="topline"></div>
-
-    <header>
-        <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-            <img class="logo" src="Favicon-RBG.png" alt="Codeply" />
-            <span class="brand">Codeply</span>
-        </a>
-        <nav>
-            <a href="/craft">Codeply Craft</a>
-            <a href="/">Home</a>
-        </nav>
-    </header>
-
-    <section class="hero">
-        <h1>Codeply <span class="grad-text">CLI</span></h1>
-        <p>One command to install. Give it a task in plain English and it reads your code, edits it, runs commands, and checks its work, right in your terminal.</p>
-    </section>
-
-    <section class="cli-wrap">
-        <div class="cli-card">
-            <div class="cli-tabs">
-                <button class="cli-tab" data-os="win" id="cli-tab-win">PowerShell</button>
-                <button class="cli-tab" data-os="unix" id="cli-tab-unix">macOS / Linux</button>
-            </div>
-            <div class="cli-cmd">
-                <span class="prompt">&gt;</span>
-                <code id="cli-cmd-text"></code>
-                <button class="cli-copy" id="cli-copy-btn" title="Copy">
-                    <svg id="cli-copy-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                </button>
-            </div>
-        </div>
-        <p class="cli-note">Installs the <code>codeply</code> command. Shares one account and one daily usage cap with Codeply Craft.</p>
-
-    </section>
-
-    <div class="divider">
-        <hr><span>Get started in minutes</span><hr>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-wrap">
+    <div class="nav-left">
+      <a href="/" class="brand" aria-label="Codeply home"><img src="/assets/logo.webp" alt="" width="34" height="34"><span>Codeply</span></a>
+      <nav class="nav-links" aria-label="Main"><a href="/craft">Craft</a><a href="/cli" aria-current="page">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a></nav>
     </div>
+    <div class="nav-end">
+      <a class="btn btn-light btn-nav hide-sm" href="/docs">Docs</a>
+      <a class="btn btn-dark btn-nav" href="/download">Download</a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-menu" aria-label="Mobile"><a href="/craft">Craft</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a><a href="/docs">Docs</a><a href="/download">Download</a></nav>
+</header>
+<main id="main">
 
-    <section class="steps-wrap">
-        <h2>Up and running in 3 steps</h2>
-        <div class="steps-grid">
-            <div class="step">
-                <span class="n">1</span>
-                <div class="step-body">
-                    <strong>Install</strong>
-                    <p>Run the install command above to get started.</p>
-                </div>
-            </div>
-            <div class="step">
-                <span class="n">2</span>
-                <div class="step-body">
-                    <strong>Sign in</strong>
-                    <p>Run <code>codeply login</code> and enter your email code. Same account and daily cap as Codeply Craft, sign in once and it works everywhere.</p>
-                </div>
-            </div>
-            <div class="step">
-                <span class="n">3</span>
-                <div class="step-body">
-                    <strong>Give it a task</strong>
-                    <p>Run <code>codeply</code> in any project and describe what you need in plain English. It reads the codebase, writes and edits files, and runs commands.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <h1>A coding agent in your terminal.</h1>
+      <p class="lede">Give it a task in plain English and it reads your code, edits it, runs commands, and checks its work.</p>
+      <div class="hero-cmd">
+  <div class="os-tabs" role="tablist" data-os-tabs data-target="cli-cmd-text">
+    <button type="button" role="tab" data-os="win" data-cmd="irm https://codeply.online/install.ps1 | iex">Windows</button>
+    <button type="button" role="tab" data-os="unix" data-cmd="curl -fsSL https://codeply.online/install.sh | sh">macOS / Linux</button>
+  </div>
+  <div class="cmd"><span class="prompt">$</span><code id="cli-cmd-text">irm https://codeply.online/install.ps1 | iex</code><button class="copy-btn" type="button" data-copy="#cli-cmd-text" aria-label="Copy command"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></div>
+</div>
+      <p class="hero-note">Shares one account and one daily usage cap with Codeply Craft.</p>
+    </div>
+    <div class="shot "><div class="cli" role="img" aria-label="The Codeply CLI in a terminal">
+  <i class="st y" style="left:28%;top:3%">✧</i><i class="st g" style="left:63%;top:1.5%">✦</i><i class="st y" style="left:72%;top:3%">✧</i><i class="st g" style="left:67%;top:10.5%">✦</i><i class="st g" style="left:64%;top:23%">✦</i><i class="st g" style="left:80.5%;top:27%">✦</i><i class="st g" style="left:75%;top:26.5%">·</i><i class="st y" style="left:89%;top:21%">·</i><i class="st g" style="left:84%;top:59%">✦</i><i class="st g" style="left:65.5%;top:68%">✧</i><i class="st y" style="left:50.5%;top:70%">✦</i><i class="st g" style="left:61.5%;top:79%">·</i><i class="st g" style="left:78.5%;top:84.5%">✧</i><i class="st y" style="left:75.5%;top:93.5%">✧</i><i class="st y" style="left:95.5%;top:93.5%">✦</i><i class="st g" style="left:12%;top:44%">·</i><i class="st g" style="left:8%;top:72%">✧</i>
+  <div class="cli-center">
+    <pre class="cli-logo"><span style="color:#4285F4"> ██████╗ </span><span style="color:#EA4335"> ██████╗ </span><span style="color:#FBBC05">██████╗  </span><span style="color:#34A853">███████╗ </span><span style="color:#4285F4">██████╗  </span><span style="color:#EA4335">██╗      </span><span style="color:#FBBC05">██╗   ██╗</span>
+<span style="color:#4285F4">██╔════╝ </span><span style="color:#EA4335">██╔═══██╗</span><span style="color:#FBBC05">██╔══██╗ </span><span style="color:#34A853">██╔════╝ </span><span style="color:#4285F4">██╔══██╗ </span><span style="color:#EA4335">██║      </span><span style="color:#FBBC05">╚██╗ ██╔╝</span>
+<span style="color:#4285F4">██║      </span><span style="color:#EA4335">██║   ██║</span><span style="color:#FBBC05">██║  ██║ </span><span style="color:#34A853">█████╗   </span><span style="color:#4285F4">██████╔╝ </span><span style="color:#EA4335">██║      </span><span style="color:#FBBC05"> ╚████╔╝ </span>
+<span style="color:#4285F4">██║      </span><span style="color:#EA4335">██║   ██║</span><span style="color:#FBBC05">██║  ██║ </span><span style="color:#34A853">██╔══╝   </span><span style="color:#4285F4">██╔═══╝  </span><span style="color:#EA4335">██║      </span><span style="color:#FBBC05">  ╚██╔╝  </span>
+<span style="color:#4285F4">╚██████╗ </span><span style="color:#EA4335">╚██████╔╝</span><span style="color:#FBBC05">██████╔╝ </span><span style="color:#34A853">███████╗ </span><span style="color:#4285F4">██║      </span><span style="color:#EA4335">███████╗ </span><span style="color:#FBBC05">   ██║   </span>
+<span style="color:#4285F4"> ╚═════╝ </span><span style="color:#EA4335"> ╚═════╝ </span><span style="color:#FBBC05">╚═════╝  </span><span style="color:#34A853">╚══════╝ </span><span style="color:#4285F4">╚═╝      </span><span style="color:#EA4335">╚══════╝ </span><span style="color:#FBBC05">   ╚═╝   </span></pre>
+    <div class="cli-tag"><span class="t-sec">An agent that reads your code, edits it, and checks its work.</span></div>
+    <div class="cli-tag"><span class="t-muted">interactive shell</span><span class="t-faint">  ·  </span><span class="t-muted">v0.2.0</span></div>
+    <div class="cli-input">
+      <div><span class="t-cursor">A</span><span class="t-sec">sk for a change, a fix, or an explanation…  (/ for commands)</span></div>
+      <div><b class="t-accent">Build</b><span class="t-faint">  ·  </span><span class="t-muted">reads, edits and verifies files</span><span class="t-faint">  ·  </span><span class="t-text">Awais</span></div>
+    </div>
+    <div class="cli-hints"><span><b class="t-accent">tab</b> <span class="t-muted">mode</span></span><span><b class="t-red">ctrl+j</b> <span class="t-muted">newline</span></span><span><b class="t-yellow">/</b> <span class="t-muted">commands</span></span><span><b class="t-green">esc</b> <span class="t-muted">interrupt</span></span><span class="t-muted push">enter to send</span></div>
+    <div class="cli-tip"><span class="t-yellow">•</span> <span class="t-sec">ctrl+j</span> <span class="t-muted">inserts a new line - or end a line with &#92; and press enter</span></div>
+  </div>
+  <div class="cli-foot"><span class="t-muted">~</span><span class="t-muted">codeply 0.2.0</span></div>
+</div></div>
+  </div>
+</section>
 
+<section class="section" style="padding-top:clamp(40px,6vw,80px)">
+  <div class="wrap">
+    <div class="section-head"><h2>Up and running in three steps</h2></div>
+    <div class="grid-3"><div class="mini" data-reveal><span class="tag">Step 1</span><h4 style="margin-top:0">Install</h4><p>Run the install command. It adds the <code>codeply</code> command.</p></div><div class="mini" data-reveal><span class="tag">Step 2</span><h4 style="margin-top:0">Sign in</h4><p>Run <code>codeply login</code> and enter your email code. Same account and daily cap as Craft.</p></div><div class="mini" data-reveal><span class="tag">Step 3</span><h4 style="margin-top:0">Give it a task</h4><p>Run <code>codeply</code> in any project and describe what you need in plain English.</p></div></div>
+  </div>
+</section>
 
+<section class="section">
+  <div class="wrap-mid">
+    <div class="tour-item"><h3>Bring your own model</h3>
+      <p><code class="inline">codeply provider ollama</code> switches to a local or cloud Ollama model with no Codeply cap. <code class="inline">codeply apply "&lt;instruction&gt;" --file path</code> runs one scripted edit without an interactive session.</p>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // CLI install tabs + copy-to-clipboard.
-        (function() {
-            const COMMANDS = {
-                win: 'irm https://codeply.online/install.ps1 | iex',
-                unix: 'curl -fsSL https://codeply.online/install.sh | sh',
-            };
-            const codeEl = document.getElementById('cli-cmd-text');
-            const copyBtn = document.getElementById('cli-copy-btn');
-            const copyIcon = document.getElementById('cli-copy-icon');
-            const tabs = {
-                win: document.getElementById('cli-tab-win'),
-                unix: document.getElementById('cli-tab-unix'),
-            };
-            if (!codeEl || !copyBtn) return;
-
-            function setOs(os) {
-                codeEl.textContent = COMMANDS[os];
-                Object.entries(tabs).forEach(([key, el]) => el.classList.toggle('active', key === os));
-            }
-
-            tabs.win.addEventListener('click', () => setOs('win'));
-            tabs.unix.addEventListener('click', () => setOs('unix'));
-
-            const isWindows = /win/i.test(navigator.platform || navigator.userAgent || '');
-            setOs(isWindows ? 'win' : 'unix');
-
-            const CHECK_ICON = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-            const COPY_ICON = copyIcon.outerHTML;
-            copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(codeEl.textContent).then(() => {
-                    copyBtn.classList.add('copied');
-                    copyBtn.innerHTML = CHECK_ICON;
-                    setTimeout(() => {
-                        copyBtn.classList.remove('copied');
-                        copyBtn.innerHTML = COPY_ICON;
-                    }, 1400);
-                });
-            });
-        })();
-    </script>
-
-    <footer class="site-footer">
-        <div class="site-footer-inner">
-            <nav aria-label="Footer">
-                <a href="/">Home</a>
-                <a href="/download">Download</a>
-                <a href="/docs">Docs</a>
-                <a href="/changelog">Changelog</a>
-                <a href="/blog">Blog</a>
-                <a href="/about">About</a>
-                <a href="/careers">Careers</a>
-                <a href="/privacy">Privacy</a>
-                <a href="/terms">Terms</a>
-            </nav>
-            <p>&copy; 2026 Codeply</p>
-        </div>
-    </footer>
-
+<section class="cta">
+  <div class="wrap">
+    <h2>Want the full desktop app?</h2><p>Codeply Craft adds a chat UI, projects, and a browser panel that verifies every change.</p>
+    <div class="hero-actions" style="justify-content:center"><a class="btn btn-dark btn-xl" href="/download">Download</a></div>
+    <div class="cta-agents" aria-label="The eight Craft role agents"><span class="site-mascot m-general " title="General"><img class="ball" src="/assets/agents/general.webp" alt="General" width="40" height="40"><img class="eyes" src="/assets/agents/eyes.webp" alt=""></span><span class="site-mascot m-frontend " title="Frontend"><img class="ball" src="/assets/agents/frontend.webp" alt="Frontend" width="40" height="40" style="animation-delay:-0.7s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-0.7s"></span><span class="site-mascot m-backend " title="Backend"><img class="ball" src="/assets/agents/backend.webp" alt="Backend" width="40" height="40" style="animation-delay:-1.4s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-1.4s"></span><span class="site-mascot m-database " title="Database"><img class="ball" src="/assets/agents/database.webp" alt="Database" width="40" height="40" style="animation-delay:-2.1s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-2.1s"></span><span class="site-mascot m-testing " title="Testing"><img class="ball" src="/assets/agents/testing.webp" alt="Testing" width="40" height="40" style="animation-delay:-2.8s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-2.8s"></span><span class="site-mascot m-security " title="Security"><img class="ball" src="/assets/agents/security.webp" alt="Security" width="40" height="40" style="animation-delay:-3.5s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-3.5s"></span><span class="site-mascot m-devops " title="DevOps"><img class="ball" src="/assets/agents/devops.webp" alt="DevOps" width="40" height="40" style="animation-delay:-4.2s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-4.2s"></span><span class="site-mascot m-docs " title="Docs"><img class="ball" src="/assets/agents/docs.webp" alt="Docs" width="40" height="40" style="animation-delay:-4.9s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-4.9s"></span></div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="/" class="brand"><img src="/assets/logo.webp" alt="" width="28" height="28">Codeply</a><p>The coding agent that checks its own work.</p></div>
+      <div class="footer-col"><h4>Product</h4><a href="/craft">Codeply Craft</a><a href="/cli">Codeply CLI</a><a href="/drop">Codeply Drop</a><a href="/download">Download</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="/docs">Docs</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/careers">Careers</a><a href="mailto:hello@codeply.online">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/eula">EULA</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; <span data-year>2026</span> Codeply</span><div class="socials"><a href="https://twitter.com/codeplyai" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L2.092 2.25h6.962l4.265 5.638L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://github.com/codeplyai" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a><a href="https://discord.gg/codeply" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a></div></div>
+  </div>
+</footer>
 </body>
 </html>

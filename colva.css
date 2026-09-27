@@ -1,0 +1,234 @@
+.colva { container: colva / inline-size; }
+.colva {
+  --ink:#0e1512;
+  --pine:#152a21;
+  --pine-2:#1d3a2d;
+  --cream:#f4efe4;
+  --paper:#fbf8f1;
+  --brass:#b98a3d;
+  --brass-2:#d3ab61;
+  --sage:#8a9789;
+  --line:rgba(14,21,18,.14);
+  --new:#2e6b4f;
+  --open:#a97a24;
+  --reduced:#a63a2b;
+  --sold:#5a5f5b;
+  --shadow:0 24px 60px -24px rgba(14,21,18,.35);
+  --display:"Fraunces",Georgia,serif;
+  --body:"Outfit",system-ui,sans-serif;
+}
+.colva *, .colva {margin:0;padding:0;box-sizing:border-box}
+.colva {scroll-behavior:smooth}
+.colva {font-family:var(--body);background:var(--paper);color:var(--ink);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.colva img {display:block;max-width:100%}
+.colva a {color:inherit;text-decoration:none}
+.colva .wrap {width:min(1180px,92%);margin:0 auto}
+.colva h1, .colva h2, .colva h3, .colva .display {font-family:var(--display);font-weight:500;line-height:1.08;letter-spacing:-.01em}
+.colva .eyebrow {display:inline-flex;align-items:center;gap:.7em;font-size:.72rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brass)}
+.colva .eyebrow::before {content:"";width:34px;height:1px;background:var(--brass)}
+.colva section {padding:104px 0}
+.colva header {position:absolute;inset:0 0 auto 0;z-index:50;transition:background .35s ease,box-shadow .35s ease,padding .35s ease;padding:22px 0}
+.colva header.scrolled {background:rgba(251,248,241,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line);padding:12px 0}
+.colva .nav {display:flex;align-items:center;justify-content:space-between;gap:24px}
+.colva .logo {display:flex;align-items:center;gap:12px;color:var(--cream);transition:color .35s}
+.colva header.scrolled .logo {color:var(--ink)}
+.colva .logo-mark {width:38px;height:38px;border:1px solid currentColor;display:grid;place-items:center;font-family:var(--display);font-size:1.05rem;font-style:italic}
+.colva .logo b {font-family:var(--display);font-weight:600;font-size:1.25rem;letter-spacing:.02em}
+.colva .logo small {display:block;font-size:.62rem;letter-spacing:.34em;text-transform:uppercase;opacity:.75;font-weight:500}
+.colva nav.links {display:flex;gap:30px;font-size:.86rem;font-weight:500;letter-spacing:.06em;color:var(--cream)}
+.colva header.scrolled nav.links {color:var(--ink)}
+.colva nav.links a {position:relative;padding:4px 0;opacity:.85}
+.colva nav.links a::after {content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--brass);transition:width .3s}
+.colva nav.links a:hover {opacity:1}
+.colva nav.links a:hover::after {width:100%}
+.colva .nav-cta {border:1px solid var(--brass);color:var(--brass-2);padding:10px 22px;font-size:.8rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:background .3s,color .3s}
+.colva .nav-cta:hover {background:var(--brass);color:var(--ink)}
+.colva header.scrolled .nav-cta {color:var(--brass)}
+.colva header.scrolled .nav-cta:hover {color:var(--paper)}
+@container colva (max-width: 900px) {
+.colva nav.links {display:none}
+}
+.colva .hero {position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:0;color:var(--cream);overflow:hidden}
+.colva .hero-bg {position:absolute;inset:0;background:url("/mockups/colva/hero-estate.jpg") center 62%/cover no-repeat;transform:scale(1.06);animation:colva-kenburns 14s ease-out forwards}
+@keyframes colva-kenburns {to{transform:scale(1)}}
+.colva .hero::after {content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,21,18,.74) 0%,rgba(14,21,18,.45) 38%,rgba(14,21,18,.5) 62%,rgba(14,21,18,.92) 100%),linear-gradient(100deg,rgba(14,21,18,.6) 0%,rgba(14,21,18,.25) 55%,rgba(14,21,18,0) 100%)}
+.colva .hero-inner {position:relative;z-index:2;width:min(1180px,92%);margin:0 auto;padding:150px 0 84px}
+.colva .hero .eyebrow {color:var(--brass-2)}
+.colva .hero .eyebrow::before {background:var(--brass-2)}
+.colva .hero h1 {font-size:clamp(2.9rem,7.0cqw,5.6rem);font-weight:400;max-width:14ch;margin:22px 0 18px;text-shadow:0 2px 24px rgba(10,15,12,.55);line-height:1.2;letter-spacing:-0.02em}
+.colva .hero h1 em {font-style:italic;color:var(--brass-2)}
+.colva .hero p.lede {max-width:46ch;font-size:1.06rem;font-weight:300;color:rgba(244,239,228,.92);text-shadow:0 1px 14px rgba(10,15,12,.6)}
+.colva .searchbar {margin-top:40px;background:rgba(251,248,241,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--ink);display:grid;grid-template-columns:1.3fr 1fr 1fr auto;border-radius:4px;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.3)}
+.colva .searchbar label {display:flex;flex-direction:column;gap:2px;padding:16px 22px;border-right:1px solid var(--line)}
+.colva .searchbar label span {font-size:.64rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--sage)}
+.colva .searchbar select {border:0;background:transparent;font:500 .95rem var(--body);color:var(--ink);outline:none;cursor:pointer}
+.colva .searchbar button {border:0;background:var(--pine);color:var(--cream);font:600 .82rem var(--body);letter-spacing:.18em;text-transform:uppercase;padding:0 38px;cursor:pointer;transition:background .3s}
+.colva .searchbar button:hover {background:var(--brass);color:var(--ink)}
+.colva .trust {display:flex;flex-wrap:wrap;gap:14px 40px;margin-top:34px;font-size:.86rem;font-weight:400;color:rgba(244,239,228,.85)}
+.colva .trust div {display:flex;align-items:baseline;gap:10px}
+.colva .trust b {font-family:var(--display);font-size:1.35rem;font-weight:600;color:var(--brass-2)}
+.colva .trust .stars {color:var(--brass-2);letter-spacing:.12em}
+@container colva (max-width: 820px) {
+.colva .searchbar {grid-template-columns:1fr}
+.colva .searchbar label {border-right:0;border-bottom:1px solid var(--line)}
+.colva .searchbar button {padding:18px}
+}
+.colva .sec-head {display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:52px}
+.colva .sec-head h2 {font-size:clamp(2rem,4.0cqw,3.1rem);max-width:20ch;margin-top:14px}
+.colva .sec-head .note {font-size:.85rem;color:var(--sage);max-width:26ch;text-align:right}
+.colva .grid-listings {display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@container colva (max-width: 980px) {
+.colva .grid-listings {grid-template-columns:repeat(2,1fr)}
+}
+@container colva (max-width: 640px) {
+.colva .grid-listings {grid-template-columns:1fr}
+}
+.colva .card {background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s}
+.colva .card:hover {transform:translateY(-8px);box-shadow:var(--shadow)}
+.colva .card-img {position:relative;aspect-ratio:4/3;overflow:hidden}
+.colva .card-img img {width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.colva .card:hover .card-img img {transform:scale(1.06)}
+.colva .badge {position:absolute;top:14px;left:14px;padding:6px 12px;font-size:.64rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;border-radius:3px}
+.colva .badge.new {background:var(--new)}
+.colva .badge.open {background:var(--open)}
+.colva .badge.reduced {background:var(--reduced)}
+.colva .badge.sold {background:var(--sold)}
+.colva .card-body {padding:22px 22px 24px}
+.colva .price {font-family:var(--display);font-size:1.5rem;font-weight:600}
+.colva .price s {font-size:.95rem;color:var(--sage);font-weight:400;margin-left:10px}
+.colva .price .arrow {color:var(--reduced);margin:0 6px}
+.colva .addr {font-size:.9rem;color:var(--sage);margin:4px 0 16px}
+.colva .specs {display:flex;align-items:center;gap:14px;font-size:.85rem;font-weight:500;color:var(--ink);border-top:1px solid var(--line);padding-top:14px}
+.colva .specs span+span {border-left:1px solid var(--line);padding-left:14px}
+.colva .specs i {font-style:normal;color:var(--sage);font-weight:400}
+.colva .week {background:var(--pine);color:var(--cream)}
+.colva .week .eyebrow {color:var(--brass-2)}
+.colva .week .eyebrow::before {background:var(--brass-2)}
+.colva .week .sec-head .note {color:rgba(244,239,228,.55)}
+.colva .alerts {display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@container colva (max-width: 900px) {
+.colva .alerts {grid-template-columns:1fr}
+}
+.colva .alert {background:var(--pine-2);border:1px solid rgba(244,239,228,.12);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s}
+.colva .alert:hover {transform:translateY(-6px);box-shadow:0 24px 50px -20px rgba(0,0,0,.5)}
+.colva .alert img {width:100%;aspect-ratio:16/9;object-fit:cover;order:-1}
+.colva .alert-txt {padding:22px 22px 24px}
+.colva .alert-kind {display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:5px 10px;border-radius:3px;margin-bottom:12px}
+.colva .k-open {background:var(--open);color:#fff}
+.colva .k-reduced {background:var(--reduced);color:#fff}
+.colva .k-new {background:var(--new);color:#fff}
+.colva .alert h3 {font-size:1.35rem;font-weight:500;margin-bottom:6px}
+.colva .alert h3 .arrow {color:var(--brass-2)}
+.colva .alert-meta {font-size:.84rem;color:rgba(244,239,228,.7)}
+.colva .alert-addr {font-size:.84rem;color:var(--brass-2);margin-top:4px}
+.colva .standard {display:grid;grid-template-columns:5fr 6fr;gap:72px;align-items:center}
+@container colva (max-width: 900px) {
+.colva .standard {grid-template-columns:1fr;gap:44px}
+}
+.colva .standard-img {position:relative}
+.colva .standard-img img {border-radius:6px;box-shadow:var(--shadow);width:100%;aspect-ratio:5/6;object-fit:cover}
+.colva .standard-img figcaption {position:absolute;left:24px;right:24px;bottom:20px;font-size:.8rem;color:var(--cream);background:rgba(14,21,18,.72);backdrop-filter:blur(6px);padding:12px 16px;border-radius:4px;font-style:italic;font-family:var(--display)}
+.colva .standard-copy .eyebrow {margin-bottom:14px}
+.colva .standard-copy h2 {font-size:clamp(1.9rem,3.4cqw,2.7rem);margin-bottom:22px}
+.colva .standard-copy p {color:rgba(14,21,18,.78);margin-bottom:16px;max-width:52ch}
+.colva .stats {display:grid;grid-template-columns:repeat(2,1fr);gap:26px 34px;margin-top:38px;border-top:1px solid var(--line);padding-top:32px}
+.colva .stats b {font-family:var(--display);font-size:2.3rem;font-weight:600;color:var(--pine);display:block;line-height:1}
+.colva .stats span {font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sage);font-weight:500}
+.colva .services {background:var(--cream)}
+.colva .svc-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@container colva (max-width: 900px) {
+.colva .svc-grid {grid-template-columns:1fr}
+}
+.colva .svc {background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:36px 32px;position:relative;overflow:hidden;transition:transform .45s cubic-bezier(.2,.7,.2,1),box-shadow .45s}
+.colva .svc:hover {transform:translateY(-6px);box-shadow:var(--shadow)}
+.colva .svc::before {content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--brass);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.colva .svc:hover::before {transform:scaleX(1)}
+.colva .svc-num {font-family:var(--display);font-size:.9rem;font-style:italic;color:var(--brass);letter-spacing:.06em}
+.colva .svc h3 {font-size:1.5rem;margin:12px 0 12px}
+.colva .svc p {font-size:.92rem;color:rgba(14,21,18,.75)}
+.colva .testimonials {background:var(--cream);padding:clamp(4rem,10.0cqw,8rem) 0}
+.colva .broker {display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center}
+@container colva (max-width: 900px) {
+.colva .broker {grid-template-columns:1fr;gap:44px;text-align:center}
+}
+.colva .broker-img {position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:6px;box-shadow:var(--shadow)}
+.colva .broker-img img {width:100%;height:100%;object-fit:cover}
+.colva .broker-copy h2 {font-size:clamp(2rem,4.0cqw,3.1rem);margin-bottom:24px}
+.colva .broker-copy p {color:rgba(14,21,18,.78);margin-bottom:20px;max-width:52ch}
+.colva .broker-copy .sig {margin-top:32px;display:flex;flex-direction:column;gap:4px}
+.colva .broker-copy .sig span {font-family:var(--display);font-style:italic;font-size:1.4rem;color:var(--pine)}
+.colva .broker-copy .sig small {font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;color:var(--sage);font-weight:600}
+.colva .private-list {background:var(--pine);color:var(--cream);text-align:center;position:relative;overflow:hidden}
+.colva .private-list::after {content:"";position:absolute;inset:0;background:url("/mockups/colva/about-craft.jpg") center/cover no-repeat;opacity:.15;mix-blend-mode:overlay}
+.colva .private-list-inner {position:relative;z-index:2;max-width:60ch;margin:0 auto}
+.colva .private-list h2 {font-size:clamp(2rem,4.0cqw,3.1rem);margin-bottom:16px}
+.colva .private-list p {opacity:.85;margin-bottom:40px;font-weight:300}
+.colva .private-form {display:flex;gap:12px;max-width:450px;margin:0 auto}
+@container colva (max-width: 500px) {
+.colva .private-form {flex-direction:column}
+}
+.colva .private-form input {flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);padding:16px 20px;border-radius:4px;color:#fff;font-family:var(--body);outline:none;transition:border .3s}
+.colva .private-form input:focus {border-color:var(--brass-2)}
+.colva .private-form button {background:var(--brass);color:var(--ink);border:0;padding:0 32px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;border-radius:4px;cursor:pointer;transition:background .3s}
+.colva .private-form button:hover {background:var(--brass-2)}
+.colva footer {background:var(--paper);border-top:1px solid var(--line);padding:80px 0 40px}
+.colva .footer-grid {display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
+@container colva (max-width: 900px) {
+.colva .footer-grid {grid-template-columns:1fr 1fr;gap:40px}
+}
+@container colva (max-width: 500px) {
+.colva .footer-grid {grid-template-columns:1fr}
+}
+.colva .footer-brand {display:flex;flex-direction:column;gap:24px}
+.colva .footer-brand p {color:var(--sage);font-size:.9rem;max-width:300px}
+.colva .footer-links h4 {font-size:.8rem;text-transform:uppercase;letter-spacing:.15em;color:var(--ink);margin-bottom:20px}
+.colva .footer-links ul {list-style:none}
+.colva .footer-links li {margin-bottom:12px}
+.colva .footer-links a {font-size:.9rem;color:var(--sage);transition:color .3s}
+.colva .footer-links a:hover {color:var(--brass)}
+.colva .footer-bottom {margin-top:60px;padding-top:30px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:var(--sage)}
+@container colva (max-width: 500px) {
+.colva .footer-bottom {flex-direction:column;gap:16px;text-align:center}
+}
+.colva 0;color:var(--ink)}
+.testi-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:60px}
+@container colva (max-width: 900px) {
+.colva .testi-grid {grid-template-columns:1fr}
+}
+.colva .testi-card {position:relative;padding:40px;background:rgba(255,255,255,0.5);border:1px solid rgba(0,0,0,0.05);backdrop-filter:blur(10px);transition:all .4s cubic-bezier(.16,1,.3,1)}
+.colva .testi-card:hover {background:#fff;transform:translateY(-10px);box-shadow:0 20px 40px rgba(0,0,0,0.05)}
+.colva .testi-card::before {content:'“';position:absolute;top:20px;left:30px;font-family:var(--display);font-size:5rem;color:var(--brass);opacity:0.3;line-height:1}
+.colva .testi-card p {font-family:var(--display);font-size:1.25rem;line-height:1.6;font-style:italic;margin-bottom:24px;position:relative;z-index:1}
+.colva .testi-author {display:flex;align-items:center;gap:12px}
+.colva .testi-author .avatar {width:40px;height:40px;border-radius:50%;background:var(--sage);object-fit:cover}
+.colva .testi-author div b {display:block;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase}
+.colva .testi-author div span {font-size:.75rem;color:var(--sage);font-weight:500}
+.colva .contact {background:var(--pine);color:var(--cream);text-align:center}
+.colva .contact .eyebrow {justify-content:center;color:var(--brass-2)}
+.colva .contact .eyebrow::before {background:var(--brass-2)}
+.colva .contact h2 {font-size:clamp(2rem,4.4cqw,3.2rem);margin:18px auto 16px;max-width:18ch}
+.colva .contact p {max-width:52ch;margin:0 auto;color:rgba(244,239,228,.82);font-weight:300}
+.colva .contact-actions {display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.colva .btn-solid, .colva .btn-ghost {padding:15px 34px;font-size:.82rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;border-radius:3px;transition:background .3s,color .3s,border-color .3s}
+.colva .btn-solid {background:var(--brass);color:var(--ink)}
+.colva .btn-solid:hover {background:var(--brass-2)}
+.colva .btn-ghost {border:1px solid rgba(244,239,228,.4);color:var(--cream)}
+.colva .btn-ghost:hover {border-color:var(--brass-2);color:var(--brass-2)}
+.colva footer {background:var(--ink);color:rgba(244,239,228,.72);padding:72px 0 40px}
+.colva .foot {text-align:center}
+.colva .foot-brand {font-size:1.8rem;color:var(--cream);margin-bottom:10px}
+.colva .foot-line {font-size:.9rem;font-style:italic;font-family:var(--display);color:rgba(244,239,228,.6);max-width:46ch;margin:0 auto 44px}
+.colva .foot-cols {display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:760px;margin:0 auto;border-top:1px solid rgba(244,239,228,.12);padding-top:40px}
+@container colva (max-width: 700px) {
+.colva .foot-cols {grid-template-columns:1fr}
+}
+.colva .foot-cols h4 {font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--brass-2);margin-bottom:10px;font-weight:600}
+.colva .foot-cols p {font-size:.86rem;line-height:1.7}
+.colva .fine {margin-top:44px;font-size:.72rem;color:rgba(244,239,228,.4);letter-spacing:.04em}
+.colva [data-reveal] {opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.colva [data-reveal].in {opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce) {
+.colva {scroll-behavior:auto}
+.colva *, .colva, .colva *::before, .colva *::after {animation:none!important;transition:none!important}
+.colva [data-reveal] {opacity:1;transform:none}
+}
