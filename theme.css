@@ -660,3 +660,7 @@ header.site-header .nav-wrap { display: flex; justify-content: space-between; }
 .founder-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
 .prose .founder-links a.btn { text-decoration: none; }
 .prose .founder-links a.btn-dark { color: #fff; }
+.inline-link { color: var(--fg); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 3px; }
+.inline-link:hover { text-decoration-color: var(--fg); }
+.inline-link.small { font-size: 13.5px; color: var(--fg-2); margin-top: 10px; }
+.card-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
