@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Documentation · Codeply</title>
-<meta name="description" content="How to install, sign in, and use Codeply: the hotkey, the write box, file detection, and daily usage limits.">
+<meta name="description" content="How to install, sign in, and use Codeply: the hotkey, the write box, and file detection.">
 <link rel="canonical" href="https://codeply.app/docs">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#ffffff">
@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="Codeply">
 <meta property="og:url" content="https://codeply.app/docs">
 <meta property="og:title" content="Documentation · Codeply">
-<meta property="og:description" content="How to install, sign in, and use Codeply: the hotkey, the write box, file detection, and daily usage limits.">
+<meta property="og:description" content="How to install, sign in, and use Codeply: the hotkey, the write box, and file detection.">
 <meta property="og:image" content="https://codeply.app/assets/logo-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -23,8 +23,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/theme.css?v=41">
-<script src="/theme.js?v=41" defer></script>
+<link rel="stylesheet" href="/theme.css?v=42">
+<script src="/theme.js?v=42" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -81,13 +81,7 @@
         </div>
 
         <div class="entry">
-            <span class="tag">04 · Limits</span>
-            <h2>Daily usage</h2>
-            <p>Every account gets a daily allowance of AI requests and applied edits. You can see exactly where you stand in the dashboard's Subscription tab as a usage bar. Limits reset at midnight UTC.</p>
-        </div>
-
-        <div class="entry">
-            <span class="tag">05 · The CLI</span>
+            <span class="tag">04 · The CLI</span>
             <h2>Codeply from the terminal</h2>
             <p>A real coding agent in your shell: it reads your codebase, edits and creates files, searches for patterns, and runs commands, checking its own work along the way. Same job as tools like Claude Code, just built into Codeply.</p>
             <ul>
@@ -95,9 +89,9 @@
                     <br><code>irm https://codeply.online/install.ps1 | iex</code> (Windows)
                     <br><code>curl -fsSL https://codeply.online/install.sh | sh</code> (macOS / Linux / WSL)
                 </li>
-                <li><strong>Sign in</strong> with <code>codeply login</code>, same account as the desktop app, sharing the same daily limit.</li>
+                <li><strong>Sign in</strong> with <code>codeply login</code>, same account as the desktop app.</li>
                 <li>Run <code>codeply</code> with no arguments for the full interactive agent, or <code>codeply apply "&lt;instruction&gt;" --file path/to/file</code> for a single one-shot edit.</li>
-                <li>Prefer your own model? <code>codeply provider ollama</code> switches to a local or cloud Ollama model, no Codeply daily cap at all.</li>
+                <li>Prefer your own model? <code>codeply provider ollama</code> switches to a local or cloud Ollama model.</li>
             </ul>
         </div>
     
