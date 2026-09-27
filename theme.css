@@ -652,3 +652,11 @@ header.site-header .nav-wrap { display: flex; justify-content: space-between; }
 .drop-shot { display: flex; align-items: center; justify-content: center; padding-top: clamp(40px, 6vw, 72px); padding-bottom: clamp(40px, 6vw, 72px); }
 .drop-shot .cdrop { zoom: 1.08; }
 @media (max-width: 560px) { .drop-shot .cdrop { zoom: .82; } }
+/* About: founder */
+.founder-head { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+.founder-head h2 { margin: 0 !important; }
+.founder-avatar { width: 64px; height: 64px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; background: var(--fg); color: #fff; font-weight: 600; font-size: 20px; letter-spacing: .02em; }
+.founder-role { margin-top: 2px !important; color: var(--fg-3) !important; font-size: 15px !important; }
+.founder-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.prose .founder-links a.btn { text-decoration: none; }
+.prose .founder-links a.btn-dark { color: #fff; }
