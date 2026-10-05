@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codeply Studio: the AI code editor</title>
+<meta name="description" content="Codeply Studio is an AI code editor built on VS Code with the Codeply engine inside: an agent in the side panel, Ctrl+K edits in place, Tab autocomplete and the models you choose.">
+<link rel="canonical" href="https://codeply.app/studio">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Codeply">
+<meta property="og:url" content="https://codeply.app/studio">
+<meta property="og:title" content="Codeply Studio: the AI code editor">
+<meta property="og:description" content="VS Code with the Codeply agent built in. Agent, Plan and Ask modes, Ctrl+K edits in place, Tab autocomplete and your own models.">
+<meta property="og:image" content="https://codeply.app/assets/products/studio-approve-1680.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+<link rel="manifest" href="/favicons/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/theme.css?v=42">
+<link rel="stylesheet" href="/products.css?v=2">
+<script src="/theme.js?v=42" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-wrap">
+    <div class="nav-left">
+      <a href="/" class="brand" aria-label="Codeply home"><img src="/assets/logo.webp" alt="" width="34" height="34"><span>Codeply</span></a>
+      <nav class="nav-links" aria-label="Main"><a href="/craft">Craft</a><a href="/studio" aria-current="page">Studio</a><a href="/crew">Crew</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a></nav>
+    </div>
+    <div class="nav-end">
+      <a class="btn btn-light btn-nav hide-sm" href="/docs">Docs</a>
+      <a class="btn btn-dark btn-nav" href="/download">Download</a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-menu" aria-label="Mobile"><a href="/craft">Craft</a><a href="/studio">Studio</a><a href="/crew">Crew</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a><a href="/docs">Docs</a><a href="/download">Download</a></nav>
+</header>
+<main id="main">
+
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <img class="product-mark" src="/assets/products/tile-ide-128.webp" srcset="/assets/products/tile-ide-128.webp 1x, /assets/products/tile-ide-256.webp 2x" alt="" width="64" height="64">
+      <h1>Codeply Studio</h1>
+      <p class="lede">The AI code editor. Everything you know from VS Code, with the Codeply agent built into the side panel.</p>
+      <div class="hero-actions">
+        <a class="btn btn-dark btn-lg" href="/download#studio">Download</a>
+        <a class="btn btn-light btn-lg btn-bordered" href="#agent">See how it works</a>
+      </div>
+      <p class="hero-note">Also known as Codeply IDE. A VS Code fork with the Codeply engine inside.</p>
+    </div>
+    <div class="shot"><picture>
+      <source media="(max-width: 560px)" srcset="/assets/products/studio-approve-mobile.webp" width="840" height="1120">
+      <img class="shot-img" src="/assets/products/studio-approve-840.webp" srcset="/assets/products/studio-approve-840.webp 840w, /assets/products/studio-approve-1680.webp 1680w" sizes="(max-width: 900px) 92vw, 720px" width="1680" height="1050" fetchpriority="high" decoding="async" alt="Codeply Studio in the dark theme, with an edit to users.js waiting for Accept or Reject in the agent panel">
+    </picture></div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:clamp(40px,6vw,80px)">
+  <div class="wrap-mid">
+    <article class="tour-item" id="agent"><h3>An agent in the side panel</h3><p>Chat in Agent, Plan or Ask mode. It reads your code, edits files and runs commands, and each step waits for your approval. When it is done you see every changed file with its diff, then choose Undo all or Keep.</p><div class="visual"><div class="shot" data-reveal><picture>
+      <source media="(max-width: 560px)" srcset="/assets/products/studio-agent-mobile.webp" width="840" height="1120">
+      <img class="shot-img" src="/assets/products/studio-agent-840.webp" srcset="/assets/products/studio-agent-840.webp 840w, /assets/products/studio-agent-1680.webp 1680w" sizes="(max-width: 1040px) 92vw, 980px" width="1680" height="1050" loading="lazy" decoding="async" alt="The agent's summary with two changed files, View diff links and the Undo all and Keep buttons">
+    </picture></div></div></article>
+
+    <article class="tour-item" id="ctrlk"><h3>Ctrl+K, edit in place</h3><p>Select some code, press Ctrl+K and say what should change. The edit lands right in the file as an inline diff you can Accept or Reject.</p><div class="visual"><div class="shot" data-reveal><div class="steps">
+      <div><span class="step-label"><b>1</b>Press <kbd>Ctrl+K</kbd> and describe the change</span><picture>
+        <source media="(max-width: 560px)" srcset="/assets/products/studio-ctrlk-mobile.webp" width="840" height="532">
+        <img class="shot-img light" src="/assets/products/studio-ctrlk-840.webp" srcset="/assets/products/studio-ctrlk-840.webp 840w, /assets/products/studio-ctrlk-1680.webp 1680w" sizes="(max-width: 1040px) 92vw, 980px" width="1680" height="672" loading="lazy" decoding="async" alt="The Edit with Codeply box over users.js, asking to validate the email before saving">
+      </picture></div>
+      <div><span class="step-label"><b>2</b>Accept or Reject the inline diff</span><picture>
+        <source media="(max-width: 560px)" srcset="/assets/products/studio-inline-mobile.webp" width="840" height="532">
+        <img class="shot-img light" src="/assets/products/studio-inline-840.webp" srcset="/assets/products/studio-inline-840.webp 840w, /assets/products/studio-inline-1680.webp 1680w" sizes="(max-width: 1040px) 92vw, 980px" width="1680" height="672" loading="lazy" decoding="async" alt="The new email check shown inline in green, with Accept and Reject above it">
+      </picture></div>
+    </div></div></div></article>
+
+    <article class="tour-item" id="themes"><h3>Codeply Dark and Codeply Light</h3><p>Two built-in themes. Pick the one that suits the room.</p><div class="visual"><div class="shot" data-reveal><picture>
+      <source media="(max-width: 560px)" srcset="/assets/products/studio-themes-mobile.webp" width="840" height="540">
+      <img class="shot-img" src="/assets/products/studio-themes-840.webp" srcset="/assets/products/studio-themes-840.webp 840w, /assets/products/studio-themes-1680.webp 1680w" sizes="(max-width: 1040px) 92vw, 980px" width="1680" height="1050" loading="lazy" decoding="async" alt="Codeply Studio split down the middle, the dark theme on the left and the light theme on the right">
+    </picture></div></div></article>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature-copy">
+        <h3>Use your own models</h3>
+        <p>Start with Auto, or point Studio at the model you already use.</p>
+      </div>
+      <ul class="opt-list">
+        <li><b>Auto</b><span>The hosted Codeply model</span></li>
+        <li><b>OpenAI-compatible</b><span>Any API that speaks the OpenAI format</span></li>
+        <li><b>Ollama</b><span>Models running on your own machine</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="grid-3">
+      <div class="mini"><svg class="mini-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="10" rx="2"/><path d="M7 12h6M15 10l2 2-2 2"/></svg><h4>Tab autocomplete</h4><p>Suggestions appear as you type. Press Tab to take one.</p></div>
+      <div class="mini"><svg class="mini-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9.5 13h.01M14.5 13h.01"/></svg><h4>Your Crew, in the editor</h4><p>The bots you built in <a class="inline-link" href="/crew">Codeply Crew</a> are right there in the agent panel.</p></div>
+      <div class="mini"><svg class="mini-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h7v7H4zM13 13h7v7h-7zM4 13h7v7H4z"/><path d="M16.5 4v6M13.5 7h6"/></svg><h4>Open VSX extensions</h4><p>Install the extensions you rely on from the Open VSX registry.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>Open your project in Studio</h2>
+    <p>The editor you know, with an agent that asks before it acts.</p>
+    <div class="hero-actions" style="justify-content:center"><a class="btn btn-dark btn-xl" href="/download#studio">Download</a></div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="/" class="brand"><img src="/assets/logo.webp" alt="" width="28" height="28">Codeply</a><p>The coding agent that checks its own work.</p></div>
+      <div class="footer-col"><h4>Product</h4><a href="/craft">Codeply Craft</a><a href="/studio">Codeply Studio</a><a href="/crew">Codeply Crew</a><a href="/cli">Codeply CLI</a><a href="/drop">Codeply Drop</a><a href="/download">Download</a></div>
+      <div class="footer-col"><h4>Resources</h4><a href="/docs">Docs</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/careers">Careers</a><a href="mailto:hello@codeply.online">Contact</a></div>
+      <div class="footer-col"><h4>Legal</h4><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/eula">EULA</a></div>
+    </div>
+    <div class="footer-bottom"><span>&copy; <span data-year>2026</span> Codeply</span><div class="socials"><a href="https://twitter.com/codeplyai" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L2.092 2.25h6.962l4.265 5.638L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://github.com/codeplyai" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a><a href="https://discord.gg/codeply" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a></div></div>
+  </div>
+</footer>
+</body>
+</html>

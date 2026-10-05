@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="/craft.css?v=42">
 <link rel="stylesheet" href="/colva.css?v=42">
 <link rel="stylesheet" href="/craft-mobile.css?v=42">
+<link rel="stylesheet" href="/products.css?v=2">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -36,7 +37,7 @@
   <div class="nav-wrap">
     <div class="nav-left">
       <a href="/" class="brand" aria-label="Codeply home"><img src="/assets/logo.webp" alt="" width="34" height="34"><span>Codeply</span></a>
-      <nav class="nav-links" aria-label="Main"><a href="/craft">Craft</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a></nav>
+      <nav class="nav-links" aria-label="Main"><a href="/craft">Craft</a><a href="/studio">Studio</a><a href="/crew">Crew</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a></nav>
     </div>
     <div class="nav-end">
       <a class="btn btn-light btn-nav hide-sm" href="/docs">Docs</a>
@@ -44,7 +45,7 @@
       <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
-  <nav class="mobile-menu" aria-label="Mobile"><a href="/craft">Craft</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a><a href="/docs">Docs</a><a href="/download">Download</a></nav>
+  <nav class="mobile-menu" aria-label="Mobile"><a href="/craft">Craft</a><a href="/studio">Studio</a><a href="/crew">Crew</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a><a href="/docs">Docs</a><a href="/download">Download</a></nav>
 </header>
 <main id="main">
 
@@ -1278,6 +1279,39 @@ file:///H:/Code2026/Testr/Colva/index.html
   </div>
 </section>
 
+<section class="section" id="cloud">
+  <div class="wrap">
+    <div class="feature">
+      <div class="feature-copy">
+        <span class="kicker">Codeply Cloud</span>
+        <h2>Close the laptop. The run keeps going.</h2>
+        <p>Turn on the Cloud chip and the run moves to Codeply Cloud, so it keeps going when your PC is off.</p>
+        <ul class="points">
+          <li>Works on a new branch in your own GitHub</li>
+          <li>Runs the tests, opens a pull request and merges it into main</li>
+          <li>Start a run from your phone and check back later</li>
+        </ul>
+        <div class="run-status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 8.5a4.8 4.8 0 0 1-.5 9.5z"/></svg>Ran in the cloud · Merged into <code>main</code></div>
+      </div>
+      <div class="shot" data-reveal>
+        <img class="shot-img light" src="/assets/products/cloud-focus-840.webp" srcset="/assets/products/cloud-focus-840.webp 840w, /assets/products/cloud-focus-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 620px" width="1600" height="1013" loading="lazy" decoding="async" alt="A finished cloud run in Codeply Craft: files read and edited, npm test passed, pull request 128 opened, then Ran in the cloud and Merged into main">
+        <img class="shot-img light shot-detail" src="/assets/products/cloud-chip-840.webp" srcset="/assets/products/cloud-chip-840.webp 840w, /assets/products/cloud-chip-1520.webp 1520w" sizes="(max-width: 900px) 92vw, 620px" width="1520" height="230" loading="lazy" decoding="async" alt="The Craft composer with the Cloud on chip turned on">
+      </div>
+    </div>
+    <div class="feature flip">
+      <div class="feature-copy">
+        <h3>Start it from your phone</h3>
+        <p>Send a task from the Codeply phone app and it runs in the cloud. Cloud runs lists every run with what changed, so you can check in from any device.</p>
+        <a class="link-arrow" href="/craft">See Codeply Craft</a>
+      </div>
+      <div class="shot" data-reveal><div class="cloud-duo">
+        <img class="shot-img light" src="/assets/products/cloud-runs-560.webp" srcset="/assets/products/cloud-runs-560.webp 560w, /assets/products/cloud-runs-1120.webp 1112w" sizes="(max-width: 900px) 60vw, 420px" width="1112" height="1178" loading="lazy" decoding="async" alt="The Cloud runs panel in Codeply Craft: send new messages to the cloud, the GitHub repo it works in, and recent runs merged into main">
+        <img class="phone" src="/assets/products/phone-cloud-300.webp" srcset="/assets/products/phone-cloud-300.webp 300w, /assets/products/phone-cloud-600.webp 600w" sizes="(max-width: 900px) 30vw, 210px" width="600" height="1212" loading="lazy" decoding="async" alt="The Codeply phone app showing a run that finished in the cloud and was merged into main">
+      </div></div>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="wrap">
     <div class="section-head"><h2>One agent, three ways to run it</h2><p>The same account everywhere.</p></div>
@@ -1285,6 +1319,16 @@ file:///H:/Code2026/Testr/Colva/index.html
       <a class="card" href="/craft"><h3>Codeply Craft</h3><p>The desktop app. Chat, projects, a built-in terminal, and the browser panel that verifies every change.</p><span class="link-arrow">Get Craft</span></a>
       <a class="card" href="/cli"><h3>Codeply CLI</h3><p>The same agent in your terminal. One line to install, then describe what you need.</p><span class="link-arrow">Install the CLI</span></a>
       <a class="card" href="/drop"><h3>Codeply Drop</h3><p>A tray app for quick edits. Hit a hotkey, paste a snippet, and it lands in the right file.</p><span class="link-arrow">Try Drop</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>More from Codeply</h2><p>An editor with the agent built in, and a crew of bots for everything else.</p></div>
+    <div class="cards two">
+      <a class="card" href="/studio"><img class="card-tile" src="/assets/products/tile-ide-128.webp" srcset="/assets/products/tile-ide-128.webp 1x, /assets/products/tile-ide-256.webp 2x" alt="" width="44" height="44" loading="lazy" decoding="async"><h3>Codeply Studio</h3><p>The AI code editor. VS Code with the Codeply agent in the side panel, Ctrl+K edits in place and Tab autocomplete.</p><span class="link-arrow">Explore Studio</span></a>
+      <a class="card" href="/crew"><img class="card-tile" src="/assets/products/tile-crew-128.webp" srcset="/assets/products/tile-crew-128.webp 1x, /assets/products/tile-crew-256.webp 2x" alt="" width="44" height="44" loading="lazy" decoding="async"><h3>Codeply Crew</h3><p>Build AI bots from a plain-language prompt. They chat together, call your phone and keep working when your PC is off.</p><span class="link-arrow">Meet Crew</span></a>
     </div>
   </div>
 </section>
@@ -1307,7 +1351,7 @@ file:///H:/Code2026/Testr/Colva/index.html
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand"><a href="/" class="brand"><img src="/assets/logo.webp" alt="" width="28" height="28">Codeply</a><p>The coding agent that checks its own work.</p></div>
-      <div class="footer-col"><h4>Product</h4><a href="/craft">Codeply Craft</a><a href="/cli">Codeply CLI</a><a href="/drop">Codeply Drop</a><a href="/download">Download</a></div>
+      <div class="footer-col"><h4>Product</h4><a href="/craft">Codeply Craft</a><a href="/studio">Codeply Studio</a><a href="/crew">Codeply Crew</a><a href="/cli">Codeply CLI</a><a href="/drop">Codeply Drop</a><a href="/download">Download</a></div>
       <div class="footer-col"><h4>Resources</h4><a href="/docs">Docs</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a></div>
       <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/careers">Careers</a><a href="mailto:hello@codeply.online">Contact</a></div>
       <div class="footer-col"><h4>Legal</h4><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/eula">EULA</a></div>
