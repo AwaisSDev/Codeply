@@ -69,7 +69,17 @@
   .switch-stage { aspect-ratio: 4 / 3.4; }
   .also { grid-template-columns: minmax(0, 1fr); }
 }
-.switch-stage { aspect-ratio: 16 / 9; }
-.switch-stage .shot.vfill { padding: 0; border-radius: 20px; overflow: hidden; }
-.switch-stage .shot.vfill video { display: block; width: 100%; height: 100%; object-fit: cover; }
-@media (max-width: 560px) { .switch-stage { aspect-ratio: 16 / 9; } }
+.switch-stage { aspect-ratio: 16 / 10; }
+.switch-stage .shot.vfill { padding: clamp(10px, 2.2vw, 28px); border-radius: 20px; overflow: hidden; }
+.switch-stage .shot.vfill video { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
+.switch-stage .shot.vfill:not([data-k="mobile"]) video { box-shadow: 0 24px 50px -18px rgba(0, 0, 0, .45); background: #fff; }
+/* Spotlights: copy on top, the live loop full width below so it can be read */
+.feature.spot:not(.side) { grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 4vw, 40px); }
+.feature.spot:not(.side) .feature-copy { order: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(24px, 5vw, 64px); align-items: start; }
+.feature.spot:not(.side) .sc-r > p:first-child { margin-top: 0; }
+.feature.spot.side { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+@media (max-width: 900px) {
+  .feature.spot:not(.side) .feature-copy { grid-template-columns: minmax(0, 1fr); }
+  .feature.spot:not(.side) .sc-r > p:first-child { margin-top: 14px; }
+}
+
