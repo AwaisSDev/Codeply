@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Download Codeply: Craft, CLI or Drop</title>
-<meta name="description" content="Download Codeply Craft for the desktop, install the Codeply CLI with one command, or get Codeply Drop. One account across all three.">
+<title>Download Codeply: every app, one account</title>
+<meta name="description" content="Download Codeply: Craft for Windows and macOS with Cloud and Crew built in, Codeply Mobile for your phone, Studio, the CLI and Drop. One account across every app.">
 <link rel="canonical" href="https://codeply.app/download">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Codeply">
 <meta property="og:url" content="https://codeply.app/download">
-<meta property="og:title" content="Download Codeply: Craft, CLI or Drop">
-<meta property="og:description" content="Download Codeply Craft for the desktop, install the Codeply CLI with one command, or get Codeply Drop. One account across all three.">
+<meta property="og:title" content="Download Codeply: every app, one account">
+<meta property="og:description" content="Download Codeply: Craft for Windows and macOS with Cloud and Crew built in, Codeply Mobile for your phone, Studio, the CLI and Drop. One account across every app.">
 <meta property="og:image" content="https://codeply.app/assets/logo-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -25,6 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/theme.css?v=42">
 <link rel="stylesheet" href="/products.css?v=2">
+<link rel="stylesheet" href="/download.css?v=2">
 <script src="/theme.js?v=42" defer></script>
 </head>
 <body>
@@ -45,36 +46,236 @@
 </header>
 <main id="main">
 
-<section class="page-hero">
+<section class="dl-hero">
   <div class="wrap">
+    <nav class="dock" aria-label="Codeply apps">
+      <a href="#craft" data-name="Craft"><img src="/assets/products/tile-craft-128.webp" srcset="/assets/products/tile-craft-256.webp 2x" alt="Codeply Craft" width="60" height="60"></a>
+      <a href="#cloud" data-name="Cloud"><img src="/assets/products/tile-cloud-128.webp" srcset="/assets/products/tile-cloud-256.webp 2x" alt="Codeply Cloud" width="60" height="60"></a>
+      <a href="#crew" data-name="Crew"><img src="/assets/products/tile-crew-128.webp" srcset="/assets/products/tile-crew-256.webp 2x" alt="Codeply Crew" width="60" height="60"></a>
+      <a href="#mobile" data-name="Mobile"><img src="/assets/products/tile-mobile-128.webp" srcset="/assets/products/tile-mobile-256.webp 2x" alt="Codeply Mobile" width="60" height="60"></a>
+      <a href="#studio" data-name="Studio"><img src="/assets/products/tile-ide-128.webp" srcset="/assets/products/tile-ide-256.webp 2x" alt="Codeply Studio" width="60" height="60"></a>
+      <span class="sep" aria-hidden="true"></span>
+      <a href="#cli" data-name="CLI"><img src="/assets/products/tile-cli-128.webp" srcset="/assets/products/tile-cli-256.webp 2x" alt="Codeply CLI" width="60" height="60"></a>
+      <a href="#drop" data-name="Drop"><img src="/assets/products/tile-drop-128.webp" srcset="/assets/products/tile-drop-256.webp 2x" alt="Codeply Drop" width="60" height="60"></a>
+    </nav>
     <h1>Download Codeply</h1>
-    <p>One agent, three ways to run it. They share one account.</p>
+    <p>Your agents on every screen you own. Build on your PC, keep going in the cloud, and check in from your phone.</p>
+    <div class="dl-cta">
+      <a class="btn btn-dark" id="heroDl" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-Setup.exe" download><svg id="heroDlIcon" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg><span id="heroDlText">Download Craft for Windows</span></a>
+      <a class="btn btn-light btn-bordered" href="#all">All downloads</a>
+    </div>
+    <p class="dl-note">Free. Craft includes Cloud and Crew. On your <a href="#mobile">phone</a> and in your <a href="#cli">terminal</a> too.</p>
+    <div class="shot dl-shot" data-reveal>
+      <picture><source media="(max-width: 600px)" srcset="/mockup-work-mobile.webp"><img src="/mockup-work-1680.webp" srcset="/mockup-work-840.webp 840w, /mockup-work-1680.webp 1680w" sizes="(max-width: 1120px) 100vw, 1040px" alt="Codeply Craft working on a project" width="1680" height="1050" fetchpriority="high"></picture>
+    </div>
   </div>
 </section>
-<section style="padding-bottom:clamp(80px,10vw,120px)">
-  <div class="wrap">
-    <div class="cards">
-      <div class="card"><h3>Codeply Craft</h3><p>The full desktop app: chat, projects and sessions, a built-in terminal, and a real browser panel that verifies every change.</p><span class="meta">Windows · macOS</span><div class="card-actions"><a class="btn btn-dark" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-Setup.exe" download><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>Windows</a><a class="btn btn-light btn-bordered" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-arm64.dmg" download><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.6 1.2-.1 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.5.9-1.4 1.3-2.8 1.3-2.8s-2.5-1-2.5-4.2ZM13.9 5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg>macOS</a></div><a class="inline-link small" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-x64.dmg" download>Intel Mac? Get the x64 build</a></div>
-      <div class="card"><h3>Codeply CLI</h3><p>For people who live in a terminal. Install with one command, then give it a task in plain English.</p><span class="meta">Windows · macOS · Linux</span><a class="btn btn-light btn-bordered" href="/cli" style="margin-top:12px;align-self:flex-start">Get the CLI</a></div>
-      <div class="card"><h3>Codeply Drop</h3><p>A tray companion for quick edits. Hit a hotkey, paste, and it applies a verified diff.</p><span class="meta">Windows · macOS</span><a class="btn btn-light btn-bordered" href="/drop" style="margin-top:12px;align-self:flex-start">Try Drop</a></div>
-    </div>
-    <div class="cards two" style="margin-top:16px">
-      <div class="card" id="studio"><img class="card-tile" src="/assets/products/tile-ide-128.webp" srcset="/assets/products/tile-ide-128.webp 1x, /assets/products/tile-ide-256.webp 2x" alt="" width="44" height="44"><h3>Codeply Studio</h3><p>The AI code editor: VS Code with the Codeply agent in the side panel, Ctrl+K edits in place and Tab autocomplete.</p><a class="btn btn-light btn-bordered" href="/studio" style="margin-top:12px;align-self:flex-start">About Studio</a></div>
-      <div class="card" id="crew"><img class="card-tile" src="/assets/products/tile-crew-128.webp" srcset="/assets/products/tile-crew-128.webp 1x, /assets/products/tile-crew-256.webp 2x" alt="" width="44" height="44"><h3>Codeply Crew</h3><p>Build AI bots that work for you. Desktop app, with the same crew on your phone.</p><a class="btn btn-light btn-bordered" href="/crew" style="margin-top:12px;align-self:flex-start">About Crew</a></div>
-    </div>
-    <div style="margin-top:56px">
-      <p style="color:var(--fg-2);font-size:15px;margin-bottom:12px">Or install the CLI right now</p>
-      <div class="hero-cmd">
-  <div class="os-tabs" role="tablist" data-os-tabs data-target="dl-cmd-text">
-    <button type="button" role="tab" data-os="win" data-cmd="irm https://codeply.online/install.ps1 | iex">Windows</button>
-    <button type="button" role="tab" data-os="unix" data-cmd="curl -fsSL https://codeply.online/install.sh | sh">macOS / Linux</button>
-  </div>
-  <div class="cmd"><span class="prompt">$</span><code id="dl-cmd-text">irm https://codeply.online/install.ps1 | iex</code><button class="copy-btn" type="button" data-copy="#dl-cmd-text" aria-label="Copy command"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></div>
+
+<div class="dl-index" id="all">
+  <nav aria-label="Products">
+    <a href="#craft"><img src="/assets/products/tile-craft-128.webp" alt="">Craft</a>
+    <a href="#cloud"><img src="/assets/products/tile-cloud-128.webp" alt="">Cloud</a>
+    <a href="#crew"><img src="/assets/products/tile-crew-128.webp" alt="">Crew</a>
+    <a href="#mobile"><img src="/assets/products/tile-mobile-128.webp" alt="">Mobile</a>
+    <a href="#studio"><img src="/assets/products/tile-ide-128.webp" alt="">Studio</a>
+    <a href="#cli"><img src="/assets/products/tile-cli-128.webp" alt="">CLI</a>
+    <a href="#drop"><img src="/assets/products/tile-drop-128.webp" alt="">Drop</a>
+  </nav>
 </div>
+
+<section class="dl-list">
+  <div class="wrap">
+
+    <article class="dl-prod" id="craft" data-reveal>
+      <div>
+        <img class="tile" src="/assets/products/tile-craft-128.webp" srcset="/assets/products/tile-craft-256.webp 2x" alt="" width="64" height="64">
+        <h2>Codeply Craft</h2>
+        <p class="lede">The desktop app. Chat, projects, a built-in terminal and a real browser panel that checks every change before you keep it.</p>
+        <div class="chips"><span>Cloud built in</span><span>Crew built in</span><span>Codeply Away</span><span>Updates itself</span></div>
+        <a class="more" href="/craft">About Craft</a>
+      </div>
+      <div class="plat">
+        <div class="plat-row" data-os="win">
+          <span class="plat-ico"><svg viewBox="0 0 24 24"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg></span>
+          <span><b>Windows</b><small>Windows 10 and 11, 64-bit</small></span>
+          <a class="btn btn-dark" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-Setup.exe" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>Download</a>
+        </div>
+        <div class="plat-row" data-os="mac">
+          <span class="plat-ico"><svg viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.6 1.2-.1 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.5.9-1.4 1.3-2.8 1.3-2.8s-2.5-1-2.5-4.2ZM13.9 5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg></span>
+          <span><b>macOS, Apple silicon</b><small>M1 and newer</small></span>
+          <a class="btn btn-light btn-bordered" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-arm64.dmg" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>Download</a>
+        </div>
+        <div class="plat-row">
+          <span class="plat-ico"><svg viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.6 1.2-.1 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.5.9-1.4 1.3-2.8 1.3-2.8s-2.5-1-2.5-4.2ZM13.9 5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg></span>
+          <span><b>macOS, Intel</b><small>Older Macs</small></span>
+          <a class="btn btn-light btn-bordered" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-x64.dmg" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>Download</a>
+        </div>
+        <div class="plat-foot">Updates install themselves. <a class="inline-link" href="https://github.com/AwaisSDev/Codeply-Craft/releases" target="_blank" rel="noopener">Release notes</a></div>
+      </div>
+    </article>
+
+    <article class="dl-prod" id="cloud" data-reveal>
+      <div>
+        <span class="dl-tag"><img src="/assets/products/tile-craft-128.webp" alt="">Built into Craft</span>
+        <img class="tile" src="/assets/products/tile-cloud-128.webp" srcset="/assets/products/tile-cloud-256.webp 2x" alt="" width="64" height="64">
+        <h2>Codeply Cloud</h2>
+        <p class="lede">Hand a task to the cloud and close your laptop. It keeps working when your PC is off, then opens a pull request for you to review.</p>
+        <a class="more" href="/#cloud">About Cloud</a>
+      </div>
+      <div class="inside">
+        <div class="shot"><img src="/assets/products/cloud-runs-1120.webp" srcset="/assets/products/cloud-runs-560.webp 560w, /assets/products/cloud-runs-1120.webp 1120w" sizes="(max-width: 900px) 100vw, 560px" alt="Cloud runs in Codeply Craft" loading="lazy"></div>
+        <div class="howto"><img src="/assets/products/tile-craft-128.webp" alt=""><span>In Craft, switch <b>Cloud</b> on under the message box.</span><a class="btn btn-light btn-bordered" href="#craft">Get Craft</a></div>
+      </div>
+    </article>
+
+    <article class="dl-prod" id="crew" data-reveal>
+      <div>
+        <span class="dl-tag"><img src="/assets/products/tile-craft-128.webp" alt="">Built into Craft</span>
+        <img class="tile" src="/assets/products/tile-crew-128.webp" srcset="/assets/products/tile-crew-256.webp 2x" alt="" width="64" height="64">
+        <h2>Codeply Crew</h2>
+        <p class="lede">Bots that work for you around the clock. Chat with them, put them in a group, or call them. They learn on the job and can even call you.</p>
+        <div class="chips"><span>Group chats</span><span>Voice calls</span><span>On your phone too</span></div>
+        <a class="more" href="/crew">About Crew</a>
+      </div>
+      <div class="inside">
+        <div class="shot"><picture><source media="(max-width: 600px)" srcset="/assets/products/crew-shella-mobile.webp"><img src="/assets/products/crew-shella-1680.webp" srcset="/assets/products/crew-shella-840.webp 840w, /assets/products/crew-shella-1680.webp 1680w" sizes="(max-width: 900px) 100vw, 600px" alt="A bot in Codeply Crew" loading="lazy"></picture></div>
+        <div class="howto"><img src="/assets/products/tile-crew-128.webp" alt=""><span>In Craft, click <b>Crew</b> in the sidebar. It opens in its own window.</span><a class="btn btn-light btn-bordered" href="#craft">Get Craft</a></div>
+      </div>
+    </article>
+
+    <article class="dl-prod" id="mobile" data-reveal>
+      <div>
+        <span class="dl-tag live">Works on any phone</span>
+        <img class="tile" src="/assets/products/tile-mobile-128.webp" srcset="/assets/products/tile-mobile-256.webp 2x" alt="" width="64" height="64">
+        <h2>Codeply Mobile</h2>
+        <p class="lede">Start work from your phone, on your PC or in the cloud. Check a run, review the result, merge it, and take calls from your bots.</p>
+        <a class="more" href="/#phone">About Mobile</a>
+      </div>
+      <div>
+        <div class="phone-card">
+          <ol class="phone-steps">
+            <li><span>On your phone, open <b>mobile.codeply.app</b> and sign in with your Codeply account.</span></li>
+            <li><span>iPhone: tap <b>Share</b>, then <b>Add to Home Screen</b>. Android: tap the menu, then <b>Install app</b>.</span></li>
+            <li><span>Open it from your home screen like any other app.</span></li>
+          </ol>
+          <a class="btn btn-dark" href="https://mobile.codeply.app" target="_blank" rel="noopener">Open Codeply Mobile</a>
+        </div>
+        <div class="phone-pics">
+          <img src="/assets/products/phone-cloud-300.webp" srcset="/assets/products/phone-cloud-600.webp 2x" alt="A cloud run on Codeply Mobile" loading="lazy">
+          <img src="/assets/products/phone-incoming-300.webp" srcset="/assets/products/phone-incoming-600.webp 2x" alt="A bot calling on Codeply Mobile" loading="lazy">
+        </div>
+      </div>
+    </article>
+
+    <article class="dl-prod" id="studio" data-reveal>
+      <div>
+        <span class="dl-tag">Early access</span>
+        <img class="tile" src="/assets/products/tile-ide-128.webp" srcset="/assets/products/tile-ide-256.webp 2x" alt="" width="64" height="64">
+        <h2>Codeply Studio</h2>
+        <p class="lede">The AI code editor. VS Code with the Codeply agent in the side panel, Ctrl+K edits in place and Tab autocomplete. You review every change before you keep it.</p>
+        <div class="chips"><span>Agent panel</span><span>Ctrl+K</span><span>Tab complete</span></div>
+        <a class="more" href="/studio">About Studio</a>
+      </div>
+      <div class="inside">
+        <div class="shot"><picture><source media="(max-width: 600px)" srcset="/assets/products/studio-agent-mobile.webp"><img src="/assets/products/studio-agent-1680.webp" srcset="/assets/products/studio-agent-840.webp 840w, /assets/products/studio-agent-1680.webp 1680w" sizes="(max-width: 900px) 100vw, 600px" alt="The agent in Codeply Studio" loading="lazy"></picture></div>
+      </div>
+    </article>
+
+    <article class="dl-prod" id="cli" data-reveal>
+      <div>
+        <img class="tile" src="/assets/products/tile-cli-128.webp" srcset="/assets/products/tile-cli-256.webp 2x" alt="" width="64" height="64">
+        <h2>Codeply CLI</h2>
+        <p class="lede">For people who live in a terminal. One command to install, then give it a task in plain English.</p>
+        <div class="chips"><span>Windows</span><span>macOS</span><span>Linux</span></div>
+        <a class="more" href="/cli">About the CLI</a>
+      </div>
+      <div class="term">
+        <div class="term-bar"><i></i><i></i><i></i>
+          <div class="os-tabs" role="tablist" data-os-tabs data-target="dl-cmd-text">
+            <button type="button" role="tab" data-os="win" data-cmd="irm https://codeply.online/install.ps1 | iex">Windows</button>
+            <button type="button" role="tab" data-os="unix" data-cmd="curl -fsSL https://codeply.online/install.sh | sh">macOS / Linux</button>
+          </div>
+        </div>
+        <div class="term-body">
+          <div class="term-line"><span class="p">$</span><code id="dl-cmd-text">irm https://codeply.online/install.ps1 | iex</code><button class="copy-btn" type="button" data-copy="#dl-cmd-text" aria-label="Copy command"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button></div>
+          <div class="term-out"><span class="ok">&#10003;</span> Codeply installed</div>
+          <div class="term-line" style="margin-top:10px"><span class="p">$</span><code>codeply "add a dark mode toggle"</code></div>
+          <div class="term-out">Reading your project<span class="caret"></span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="dl-prod" id="drop" data-reveal>
+      <div>
+        <img class="tile" src="/assets/products/tile-drop-128.webp" srcset="/assets/products/tile-drop-256.webp 2x" alt="" width="64" height="64">
+        <h2>Codeply Drop</h2>
+        <p class="lede">A tray companion for quick edits. Hit a hotkey, paste your request, and it lands in the right file as a checked diff.</p>
+        <a class="more" href="/drop">About Drop</a>
+      </div>
+      <div class="plat">
+        <div class="plat-row" data-os="win">
+          <span class="plat-ico"><svg viewBox="0 0 24 24"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg></span>
+          <span><b>Windows</b><small>Lives in your tray</small></span>
+          <a class="btn btn-light btn-bordered" href="https://github.com/AwaisSDev/Codeply-App/releases/latest/download/Codeply-Setup.exe" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>Download</a>
+        </div>
+        <div class="plat-row" data-os="mac">
+          <span class="plat-ico"><svg viewBox="0 0 24 24"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.6 1.2-.1 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.5.9-1.4 1.3-2.8 1.3-2.8s-2.5-1-2.5-4.2ZM13.9 5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg></span>
+          <span><b>macOS</b><small>Lives in your menu bar</small></span>
+          <a class="btn btn-light btn-bordered" href="https://github.com/AwaisSDev/Codeply-App/releases/latest/download/Codeply.dmg" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12M7 11l5 5 5-5M5 20h14"/></svg>Download</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="dl-one" data-reveal>
+      <h2>One account. Every app.</h2>
+      <p>Sign in once. Your projects, models and bots follow you from Craft to the cloud to your phone.</p>
+      <div class="ring" aria-hidden="true">
+        <img src="/assets/products/tile-craft-128.webp" alt=""><img src="/assets/products/tile-cloud-128.webp" alt=""><img src="/assets/products/tile-crew-128.webp" alt=""><img src="/assets/products/tile-mobile-128.webp" alt=""><img src="/assets/products/tile-ide-128.webp" alt=""><img src="/assets/products/tile-cli-128.webp" alt=""><img src="/assets/products/tile-drop-128.webp" alt="">
+      </div>
+      <a class="btn" href="#craft">Start with Craft</a>
     </div>
   </div>
 </section>
 </main>
+<script>
+// The hero button offers the build for this computer, and the index follows the scroll.
+(function () {
+  var ua = navigator.userAgent || '', plat = navigator.platform || '';
+  var mac = /Mac/i.test(plat) || /Macintosh/i.test(ua);
+  var phone = /Android|iPhone|iPad|iPod/i.test(ua);
+  var btn = document.getElementById('heroDl'), txt = document.getElementById('heroDlText'), ico = document.getElementById('heroDlIcon');
+  if (phone) {
+    btn.href = 'https://mobile.codeply.app'; btn.removeAttribute('download'); btn.target = '_blank'; btn.rel = 'noopener';
+    txt.textContent = 'Open Codeply Mobile';
+    ico.innerHTML = '<rect x="7" y="2" width="10" height="20" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 18h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>';
+  } else if (mac) {
+    btn.href = 'https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-arm64.dmg';
+    txt.textContent = 'Download Craft for macOS';
+    ico.innerHTML = document.querySelector('.plat-row[data-os="mac"] .plat-ico svg').innerHTML;
+  }
+  var me = phone ? null : (mac ? 'mac' : 'win');
+  if (me) document.querySelectorAll('.plat-row[data-os="' + me + '"]').forEach(function (r) { r.classList.add('me'); });
+
+  var links = document.querySelectorAll('.dl-index a');
+  if (!('IntersectionObserver' in window)) return;
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) {
+        var on = a.getAttribute('href') === '#' + e.target.id;
+        a.classList.toggle('active', on);
+        if (on && window.innerWidth < 900) a.parentNode.scrollTo({ left: a.offsetLeft - 40, behavior: 'smooth' });
+      });
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('.dl-prod').forEach(function (s) { spy.observe(s); });
+})();
+</script>
 <footer class="site-footer">
   <div class="wrap">
     <div class="footer-grid">
