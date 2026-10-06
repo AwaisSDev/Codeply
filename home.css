@@ -72,6 +72,8 @@
 .switch-stage { aspect-ratio: 16 / 10; }
 .switch-stage .shot.vfill { padding: clamp(10px, 2.2vw, 28px); border-radius: 20px; overflow: hidden; }
 .switch-stage .shot.vfill video { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 10px; }
+.switch-stage .shot.vfill[data-k="mobile"] { padding: 0; }
+.switch-stage .shot.vfill[data-k="mobile"] video { object-fit: cover; border-radius: 0; }
 .switch-stage .shot.vfill:not([data-k="mobile"]) video { box-shadow: 0 24px 50px -18px rgba(0, 0, 0, .45); background: #fff; }
 /* Spotlights: copy on top, the live loop full width below so it can be read */
 .feature.spot:not(.side) { grid-template-columns: minmax(0, 1fr); gap: clamp(24px, 4vw, 40px); }

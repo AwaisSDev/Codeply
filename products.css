@@ -99,8 +99,8 @@
 /* Live product loops (real app captures, animated, cropped to where the action is) */
 .vshot { position: relative; border-radius: 20px; overflow: hidden; padding: clamp(10px, 2.2vw, 28px); background: #1f5a45 url('/assets/wallpaper.webp') center / cover no-repeat; box-shadow: 0 20px 40px -24px rgba(0, 0, 0, .25); }
 .vshot video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; border-radius: 10px; background: #fff; box-shadow: 0 24px 50px -18px rgba(0, 0, 0, .45); }
-.vshot.tall { display: flex; justify-content: center; padding-block: clamp(18px, 3vw, 36px); }
-.vshot.tall video { width: auto; height: min(640px, 72vh); aspect-ratio: 52 / 100; border-radius: 0; background: transparent; box-shadow: none; }
+.vshot.tall { padding: 0; background: #1f5a45; max-width: 560px; margin-inline: auto; }
+.vshot.tall video { width: 100%; aspect-ratio: 750 / 900; border-radius: 0; background: transparent; box-shadow: none; }
 /* Product heroes and download rows: the loop gets the full width under the text */
 .hero-grid:has(> .vshot) { grid-template-columns: minmax(0, 1fr); }
 .hero-grid > .vshot { width: 100%; max-width: 1120px; margin-inline: auto; }
