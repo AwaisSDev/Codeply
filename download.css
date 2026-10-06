@@ -21,9 +21,8 @@
 .dock .sep { width: 1px; align-self: stretch; margin: 6px 2px; background: var(--line-strong); }
 @keyframes dock-in { from { opacity: 0; transform: translateY(18px) scale(.86); } to { opacity: 1; transform: none; } }
 .dock a { animation: dock-in .6s cubic-bezier(.22, 1, .36, 1) both; }
-.dock a:nth-child(1) { animation-delay: .04s; } .dock a:nth-child(2) { animation-delay: .09s; } .dock a:nth-child(3) { animation-delay: .14s; }
-.dock a:nth-child(4) { animation-delay: .19s; } .dock a:nth-child(5) { animation-delay: .24s; } .dock a:nth-child(7) { animation-delay: .29s; }
-.dock a:nth-child(8) { animation-delay: .34s; }
+.dock a:nth-child(1) { animation-delay: .04s; } .dock a:nth-child(2) { animation-delay: .1s; } .dock a:nth-child(3) { animation-delay: .16s; }
+.dock a:nth-child(4) { animation-delay: .22s; } .dock a:nth-child(6) { animation-delay: .28s; } .dock a:nth-child(7) { animation-delay: .34s; }
 
 /* Big product shot under the hero */
 .dl-shot { margin-top: clamp(36px, 5vw, 56px); }
@@ -52,6 +51,8 @@
 .dl-tag img { width: 18px; height: 18px; border-radius: 5px; }
 .dl-tag.live::before { content: ""; width: 7px; height: 7px; margin-left: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(22, 163, 74, .15); }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.feature-note { margin-top: 18px; max-width: 30rem; padding-left: 14px; border-left: 2px solid var(--line-strong); font-size: 14.5px; color: var(--fg-2); scroll-margin-top: 140px; }
+.feature-note b { color: var(--fg); font-weight: 550; }
 .chips span { padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line); font-size: 13px; color: var(--fg-2); }
 
 /* Platform rows, like a download list */
@@ -113,7 +114,7 @@
 .dl-one .ring img { width: 44px; height: 44px; border-radius: 11px; box-shadow: 0 0 0 1px rgba(255, 255, 255, .16); animation: bob 4s ease-in-out infinite; }
 .dl-one .ring img:nth-child(2) { animation-delay: -.6s; } .dl-one .ring img:nth-child(3) { animation-delay: -1.2s; }
 .dl-one .ring img:nth-child(4) { animation-delay: -1.8s; } .dl-one .ring img:nth-child(5) { animation-delay: -2.4s; }
-.dl-one .ring img:nth-child(6) { animation-delay: -3s; } .dl-one .ring img:nth-child(7) { animation-delay: -3.6s; }
+.dl-one .ring img:nth-child(6) { animation-delay: -3s; }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 .dl-one .btn { margin-top: 28px; background: #fff; color: #111; }
 
