@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="/craft.css?v=42">
 <link rel="stylesheet" href="/colva.css?v=42">
 <link rel="stylesheet" href="/craft-mobile.css?v=42">
-<link rel="stylesheet" href="/products.css?v=2">
+<link rel="stylesheet" href="/products.css?v=3">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -1283,9 +1283,9 @@ file:///H:/Code2026/Testr/Colva/index.html
   <div class="wrap">
     <div class="feature">
       <div class="feature-copy">
-        <span class="kicker">Codeply Cloud</span>
+        <span class="kicker">Cloud runs in Craft</span>
         <h2>Close the laptop. The run keeps going.</h2>
-        <p>Turn on the Cloud chip and the run moves to Codeply Cloud, so it keeps going when your PC is off.</p>
+        <p>Turn on the Cloud chip in Craft and the run moves to the cloud, so it keeps going when your PC is off.</p>
         <ul class="points">
           <li>Works on a new branch in your own GitHub</li>
           <li>Runs the tests, opens a pull request and merges it into main</li>
@@ -1312,23 +1312,53 @@ file:///H:/Code2026/Testr/Colva/index.html
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="apps">
   <div class="wrap">
-    <div class="section-head"><h2>One agent, three ways to run it</h2><p>The same account everywhere.</p></div>
-    <div class="cards">
-      <a class="card" href="/craft"><h3>Codeply Craft</h3><p>The desktop app. Chat, projects, a built-in terminal, and the browser panel that verifies every change.</p><span class="link-arrow">Get Craft</span></a>
-      <a class="card" href="/cli"><h3>Codeply CLI</h3><p>The same agent in your terminal. One line to install, then describe what you need.</p><span class="link-arrow">Install the CLI</span></a>
-      <a class="card" href="/drop"><h3>Codeply Drop</h3><p>A tray app for quick edits. Hit a hotkey, paste a snippet, and it lands in the right file.</p><span class="link-arrow">Try Drop</span></a>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="section-head"><h2>More from Codeply</h2><p>An editor with the agent built in, and a crew of bots for everything else.</p></div>
-    <div class="cards two">
-      <a class="card" href="/studio"><img class="card-tile" src="/assets/products/tile-ide-128.webp" srcset="/assets/products/tile-ide-128.webp 1x, /assets/products/tile-ide-256.webp 2x" alt="" width="44" height="44" loading="lazy" decoding="async"><h3>Codeply Studio</h3><p>The AI code editor. VS Code with the Codeply agent in the side panel, Ctrl+K edits in place and Tab autocomplete.</p><span class="link-arrow">Explore Studio</span></a>
-      <a class="card" href="/crew"><img class="card-tile" src="/assets/products/tile-crew-128.webp" srcset="/assets/products/tile-crew-128.webp 1x, /assets/products/tile-crew-256.webp 2x" alt="" width="44" height="44" loading="lazy" decoding="async"><h3>Codeply Crew</h3><p>Build AI bots from a plain-language prompt. They chat together, call your phone and keep working when your PC is off.</p><span class="link-arrow">Meet Crew</span></a>
+    <div class="section-head"><h2>The Codeply family</h2><p>One account across every app. Build on your PC, keep going in the cloud, and check in from your phone.</p></div>
+    <div class="family">
+      <a class="fam fam-craft" href="/craft">
+        <div class="fam-top"><img class="fam-tile" src="/assets/products/tile-craft-128.webp" srcset="/assets/products/tile-craft-256.webp 2x" alt="" width="52" height="52" loading="lazy"><span class="fam-badge">Start here</span></div>
+        <h3>Codeply Craft</h3>
+        <p>The desktop app. Chat, projects, a built-in terminal and a real browser panel that checks every change. Cloud runs and Crew are built in.</p>
+        <span class="link-arrow">Get Craft</span>
+        <div class="fam-shot"><img src="/mockup-work-840.webp" srcset="/mockup-work-840.webp 840w, /mockup-work-1680.webp 1680w" sizes="(max-width: 900px) 92vw, 620px" alt="Codeply Craft working on a project" loading="lazy" decoding="async"></div>
+      </a>
+      <a class="fam" href="/crew">
+        <div class="fam-top"><img class="fam-tile" src="/assets/products/tile-crew-128.webp" srcset="/assets/products/tile-crew-256.webp 2x" alt="" width="52" height="52" loading="lazy"><span class="fam-badge">In Craft</span></div>
+        <h3>Codeply Crew</h3>
+        <p>Bots that work for you around the clock. Group chats, voice calls, and they can even call you.</p>
+        <span class="link-arrow">Meet Crew</span>
+      </a>
+      <a class="fam" href="/download#mobile">
+        <div class="fam-top"><img class="fam-tile" src="/assets/products/tile-mobile-128.webp" srcset="/assets/products/tile-mobile-256.webp 2x" alt="" width="52" height="52" loading="lazy"><span class="fam-badge">Any phone</span></div>
+        <h3>Codeply Mobile</h3>
+        <p>Start work from your phone, on your PC or in the cloud. Review the result and merge it from anywhere.</p>
+        <span class="link-arrow">Open on your phone</span>
+      </a>
+      <a class="fam" href="/studio">
+        <div class="fam-top"><img class="fam-tile" src="/assets/products/tile-ide-128.webp" srcset="/assets/products/tile-ide-256.webp 2x" alt="" width="52" height="52" loading="lazy"><span class="fam-badge">Early access</span></div>
+        <h3>Codeply Studio</h3>
+        <p>The AI code editor. VS Code with the agent in the side panel, Ctrl+K edits and Tab autocomplete.</p>
+        <span class="link-arrow">Explore Studio</span>
+      </a>
+      <a class="fam" href="/cli">
+        <div class="fam-top"><img class="fam-tile" src="/assets/products/tile-cli-128.webp" srcset="/assets/products/tile-cli-256.webp 2x" alt="" width="52" height="52" loading="lazy"></div>
+        <h3>Codeply CLI</h3>
+        <p>The same agent in your terminal. One line to install, then describe what you need.</p>
+        <span class="link-arrow">Install the CLI</span>
+      </a>
+      <a class="fam" href="/drop">
+        <div class="fam-top"><img class="fam-tile" src="/assets/products/tile-drop-128.webp" srcset="/assets/products/tile-drop-256.webp 2x" alt="" width="52" height="52" loading="lazy"></div>
+        <h3>Codeply Drop</h3>
+        <p>A tray app for quick edits. Hit a hotkey, paste your request, and it lands in the right file.</p>
+        <span class="link-arrow">Try Drop</span>
+      </a>
+      <a class="fam fam-all" href="/download">
+        <div class="fam-dock" aria-hidden="true"><img src="/assets/products/tile-craft-128.webp" alt=""><img src="/assets/products/tile-crew-128.webp" alt=""><img src="/assets/products/tile-mobile-128.webp" alt=""><img src="/assets/products/tile-ide-128.webp" alt=""><img src="/assets/products/tile-cli-128.webp" alt=""><img src="/assets/products/tile-drop-128.webp" alt=""></div>
+        <h3>Get them all</h3>
+        <p>Every download in one place, for Windows, macOS, Linux and your phone.</p>
+        <span class="link-arrow">See all downloads</span>
+      </a>
     </div>
   </div>
 </section>
