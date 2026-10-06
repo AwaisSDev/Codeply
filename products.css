@@ -95,3 +95,7 @@
   .fam-dock { gap: 6px; }
   .fam-dock img { width: 38px; height: 38px; }
 }
+
+/* Live product loops (real app captures, animated) */
+.vshot { position: relative; border-radius: 20px; overflow: hidden; background: #1f5a45 url('/assets/wallpaper.webp') center / cover no-repeat; aspect-ratio: 16 / 9; box-shadow: 0 20px 40px -24px rgba(0, 0, 0, .25); }
+.vshot video { display: block; width: 100%; height: 100%; object-fit: cover; }

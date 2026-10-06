@@ -24,9 +24,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/theme.css?v=42">
-<link rel="stylesheet" href="/products.css?v=2">
+<link rel="stylesheet" href="/products.css?v=4">
 <link rel="stylesheet" href="/download.css?v=3">
 <script src="/theme.js?v=42" defer></script>
+<script src="/loops.js?v=2" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -64,9 +65,7 @@
       <a class="btn btn-light btn-bordered" href="#all">All downloads</a>
     </div>
     <p class="dl-note">Free. Craft includes Cloud runs and Crew. On your <a href="#mobile">phone</a> and in your <a href="#cli">terminal</a> too.</p>
-    <div class="shot dl-shot" data-reveal>
-      <picture><source media="(max-width: 600px)" srcset="/mockup-work-mobile.webp"><img src="/mockup-work-1680.webp" srcset="/mockup-work-840.webp 840w, /mockup-work-1680.webp 1680w" sizes="(max-width: 1120px) 100vw, 1040px" alt="Codeply Craft working on a project" width="1680" height="1050" fetchpriority="high"></picture>
-    </div>
+    <div class="vshot dl-shot" data-reveal><video data-loop muted loop playsinline preload="none" poster="/assets/loops/craft-poster.webp" aria-label="Codeply Craft running a task" width="1280" height="720"><source data-src="/assets/loops/craft.mp4" type="video/mp4"></video></div>
   </div>
 </section>
 
@@ -123,7 +122,7 @@
         <a class="more" href="/crew">About Crew</a>
       </div>
       <div class="inside">
-        <div class="shot"><picture><source media="(max-width: 600px)" srcset="/assets/products/crew-shella-mobile.webp"><img src="/assets/products/crew-shella-1680.webp" srcset="/assets/products/crew-shella-840.webp 840w, /assets/products/crew-shella-1680.webp 1680w" sizes="(max-width: 900px) 100vw, 600px" alt="A bot in Codeply Crew" loading="lazy"></picture></div>
+        <div class="vshot"><video data-loop muted loop playsinline preload="none" poster="/assets/loops/crew-poster.webp" aria-label="Codeply Crew replying in a chat" width="1280" height="720"><source data-src="/assets/loops/crew.mp4" type="video/mp4"></video></div>
         <div class="howto"><img src="/assets/products/tile-crew-128.webp" alt=""><span>In Craft, click <b>Crew</b> in the sidebar. It opens in its own window.</span><a class="btn btn-light btn-bordered" href="#craft">Get Craft</a></div>
       </div>
     </article>
@@ -162,7 +161,7 @@
         <a class="more" href="/studio">About Studio</a>
       </div>
       <div class="inside">
-        <div class="shot"><picture><source media="(max-width: 600px)" srcset="/assets/products/studio-agent-mobile.webp"><img src="/assets/products/studio-agent-1680.webp" srcset="/assets/products/studio-agent-840.webp 840w, /assets/products/studio-agent-1680.webp 1680w" sizes="(max-width: 900px) 100vw, 600px" alt="The agent in Codeply Studio" loading="lazy"></picture></div>
+        <div class="vshot"><video data-loop muted loop playsinline preload="none" poster="/assets/loops/studio-poster.webp" aria-label="The agent in Codeply Studio" width="1280" height="720"><source data-src="/assets/loops/studio.mp4" type="video/mp4"></video></div>
       </div>
     </article>
 

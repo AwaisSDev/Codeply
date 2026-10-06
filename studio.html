@@ -24,8 +24,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/theme.css?v=42">
-<link rel="stylesheet" href="/products.css?v=2">
+<link rel="stylesheet" href="/products.css?v=4">
 <script src="/theme.js?v=42" defer></script>
+<script src="/loops.js?v=2" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -57,10 +58,7 @@
       </div>
       <p class="hero-note">Also known as Codeply IDE. A VS Code fork with the Codeply engine inside.</p>
     </div>
-    <div class="shot"><picture>
-      <source media="(max-width: 560px)" srcset="/assets/products/studio-approve-mobile.webp" width="840" height="1120">
-      <img class="shot-img" src="/assets/products/studio-approve-840.webp" srcset="/assets/products/studio-approve-840.webp 840w, /assets/products/studio-approve-1680.webp 1680w" sizes="(max-width: 900px) 92vw, 720px" width="1680" height="1050" fetchpriority="high" decoding="async" alt="Codeply Studio in the dark theme, with an edit to users.js waiting for Accept or Reject in the agent panel">
-    </picture></div>
+    <div class="vshot"><video data-loop muted loop playsinline preload="none" poster="/assets/loops/studio-poster.webp" aria-label="Codeply Studio: the agent edits code and waits for approval" width="1280" height="720"><source data-src="/assets/loops/studio.mp4" type="video/mp4"></video></div>
   </div>
 </section>
 

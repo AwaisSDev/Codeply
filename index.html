@@ -25,9 +25,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/theme.css?v=42">
 <script src="/theme.js?v=42" defer></script>
+<script src="/loops.js?v=2" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/products.css?v=3">
-<link rel="stylesheet" href="/home.css?v=1">
+<link rel="stylesheet" href="/products.css?v=4">
+<link rel="stylesheet" href="/home.css?v=3">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -63,10 +64,10 @@
       </div>
       <p class="switch-cap" aria-live="polite">Craft builds it, runs it, and checks it in a real browser.</p>
       <div class="switch-stage">
-        <div class="shot on" data-k="craft" data-cap="Craft builds it, runs it, and checks it in a real browser."><picture><source media="(max-width: 600px)" srcset="/mockup-work-mobile.webp"><img class="win" src="/mockup-work-1680.webp" srcset="/mockup-work-840.webp 840w, /mockup-work-1680.webp 1680w" sizes="(max-width: 1120px) 92vw, 1040px" width="1680" height="1050" alt="Codeply Craft working on a project" fetchpriority="high"></picture></div>
-        <div class="shot" data-k="crew" data-cap="Crew bots take care of the inbox, the calendar and the follow-ups."><picture><source media="(max-width: 600px)" srcset="/assets/products/crew-shella-mobile.webp"><img class="win" src="/assets/products/crew-shella-1680.webp" srcset="/assets/products/crew-shella-840.webp 840w, /assets/products/crew-shella-1680.webp 1680w" sizes="(max-width: 1120px) 92vw, 1040px" width="1680" height="1050" alt="A bot in Codeply Crew" loading="lazy"></picture></div>
-        <div class="shot" data-k="mobile" data-cap="Start work from your phone, and your bots can call you."><div class="phones"><img src="/assets/products/phone-cloud-600.webp" width="600" height="1212" alt="A cloud run on Codeply Mobile" loading="lazy"><img src="/assets/products/phone-incoming-600.webp" width="600" height="1213" alt="A bot calling on Codeply Mobile" loading="lazy"></div></div>
-        <div class="shot" data-k="studio" data-cap="Studio is VS Code with the Codeply agent built in."><picture><source media="(max-width: 600px)" srcset="/assets/products/studio-agent-mobile.webp"><img class="win" src="/assets/products/studio-agent-1680.webp" srcset="/assets/products/studio-agent-840.webp 840w, /assets/products/studio-agent-1680.webp 1680w" sizes="(max-width: 1120px) 92vw, 1040px" width="1680" height="1050" alt="The agent in Codeply Studio" loading="lazy"></picture></div>
+        <div class="shot vfill on" data-k="craft" data-cap="Craft builds it, runs it, and checks it in a real browser."><video data-loop muted loop playsinline preload="none" poster="/assets/loops/craft-poster.webp" aria-label="Codeply Craft running a task" width="1280" height="720"><source data-src="/assets/loops/craft.mp4" type="video/mp4"></video></div>
+        <div class="shot vfill" data-k="crew" data-cap="Crew bots take care of the inbox, the calendar and the follow-ups."><video data-loop muted loop playsinline preload="none" poster="/assets/loops/crew-poster.webp" aria-label="Codeply Crew replying in a chat" width="1280" height="720"><source data-src="/assets/loops/crew.mp4" type="video/mp4"></video></div>
+        <div class="shot vfill" data-k="mobile" data-cap="Start work from your phone, and your bots can call you."><video data-loop muted loop playsinline preload="none" poster="/assets/loops/mobile-poster.webp" aria-label="Codeply Mobile starting and checking a run" width="1280" height="720"><source data-src="/assets/loops/mobile.mp4" type="video/mp4"></video></div>
+        <div class="shot vfill" data-k="studio" data-cap="Studio is VS Code with the Codeply agent built in."><video data-loop muted loop playsinline preload="none" poster="/assets/loops/studio-poster.webp" aria-label="The agent in Codeply Studio" width="1280" height="720"><source data-src="/assets/loops/studio.mp4" type="video/mp4"></video></div>
       </div>
     </div>
   </div>
@@ -115,7 +116,7 @@
         <ul class="points"><li>They learn from every job</li><li>Talk to them on a call, or let them call you</li><li>Same bots on your PC and your phone</li></ul>
         <a class="link-arrow" href="/crew">Meet Crew</a>
       </div>
-      <div class="shot" data-reveal><picture><source media="(max-width: 560px)" srcset="/assets/products/crew-group-mobile.webp"><img class="win" src="/assets/products/crew-group-840.webp" srcset="/assets/products/crew-group-840.webp 840w, /assets/products/crew-group-1680.webp 1680w" sizes="(max-width: 900px) 92vw, 640px" width="1680" height="1050" alt="A group chat of bots in Codeply Crew" loading="lazy" decoding="async"></picture></div>
+      <div class="vshot" data-reveal><video data-loop muted loop playsinline preload="none" poster="/assets/loops/crew-poster.webp" aria-label="Codeply Crew replying in a chat" width="1280" height="720"><source data-src="/assets/loops/crew.mp4" type="video/mp4"></video></div>
     </div>
 
     <div class="feature flip spot" id="mobile-spot">
@@ -125,7 +126,7 @@
         <p>Kick off a run on your PC or in the cloud, check the result and merge it, wherever you are. And when a bot needs you, it calls.</p>
         <a class="link-arrow" href="/download#mobile">Open on your phone</a>
       </div>
-      <div class="shot" data-reveal><div class="phones"><img src="/assets/products/phone-cloud-300.webp" srcset="/assets/products/phone-cloud-300.webp 300w, /assets/products/phone-cloud-600.webp 600w" sizes="220px" width="600" height="1212" alt="A cloud run on Codeply Mobile" loading="lazy" decoding="async"><img src="/assets/products/phone-calls-300.webp" srcset="/assets/products/phone-calls-300.webp 300w, /assets/products/phone-calls-600.webp 600w" sizes="220px" width="600" height="1212" alt="Calling a bot on Codeply Mobile" loading="lazy" decoding="async"></div></div>
+      <div class="vshot" data-reveal><video data-loop muted loop playsinline preload="none" poster="/assets/loops/mobile-poster.webp" aria-label="Codeply Mobile starting and checking a run" width="1280" height="720"><source data-src="/assets/loops/mobile.mp4" type="video/mp4"></video></div>
     </div>
 
     <div class="feature spot" id="studio-spot">
@@ -136,7 +137,7 @@
         <ul class="points"><li>Ctrl+K edits in place</li><li>Tab autocomplete</li><li>Review every change before you keep it</li></ul>
         <a class="link-arrow" href="/studio">Explore Studio</a>
       </div>
-      <div class="shot" data-reveal><picture><source media="(max-width: 560px)" srcset="/assets/products/studio-agent-mobile.webp"><img class="win" src="/assets/products/studio-agent-840.webp" srcset="/assets/products/studio-agent-840.webp 840w, /assets/products/studio-agent-1680.webp 1680w" sizes="(max-width: 900px) 92vw, 640px" width="1680" height="1050" alt="The agent in Codeply Studio" loading="lazy" decoding="async"></picture></div>
+      <div class="vshot" data-reveal><video data-loop muted loop playsinline preload="none" poster="/assets/loops/studio-poster.webp" aria-label="The agent in Codeply Studio" width="1280" height="720"><source data-src="/assets/loops/studio.mp4" type="video/mp4"></video></div>
     </div>
 
     <div class="feature flip spot" id="craft-spot">
@@ -146,7 +147,7 @@
         <p>The desktop app that edits your project, runs it and checks the result in a real browser before it says it is done. Turn on Cloud and it keeps going when your PC is off.</p>
         <a class="link-arrow" href="/craft">See Codeply Craft</a>
       </div>
-      <div class="shot" data-reveal><img class="win" src="/assets/products/cloud-focus-840.webp" srcset="/assets/products/cloud-focus-840.webp 840w, /assets/products/cloud-focus-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 640px" width="1600" height="1013" alt="A finished cloud run in Codeply Craft, merged into main" loading="lazy" decoding="async"></div>
+      <div class="vshot" data-reveal><video data-loop muted loop playsinline preload="none" poster="/assets/loops/cloud-poster.webp" aria-label="Craft sends a run to the cloud" width="1280" height="720"><source data-src="/assets/loops/cloud.mp4" type="video/mp4"></video></div>
     </div>
   </div>
 </section>
@@ -206,6 +207,7 @@
     shots.forEach(function (s) { s.classList.toggle('on', s.getAttribute('data-k') === k); });
     var on = shots.filter(function (s) { return s.getAttribute('data-k') === k; })[0];
     if (cap && on) cap.textContent = on.getAttribute('data-cap');
+    if (on) on.dispatchEvent(new CustomEvent('loops:show', { bubbles: true }));
     if (fromUser) auto = false;
     clearTimeout(timer);
     if (auto) { void tabs[i].offsetWidth; tabs[i].style.setProperty('--dur', DUR + 'ms'); tabs[i].classList.add('run'); timer = setTimeout(function () { show(i + 1); }, DUR); }
