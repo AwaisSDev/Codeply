@@ -1,0 +1,71 @@
+/* Home: Codeply as a whole (every app), not one product.
+   Builds on theme.css (tokens, buttons, .shot, .feature) and products.css. */
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+.h-hero { padding: clamp(48px, 8vw, 96px) 0 clamp(40px, 6vw, 64px); text-align: center; }
+.h-hero h1 { font-size: clamp(2.8rem, 7vw, 5.4rem); line-height: 1; letter-spacing: -.04em; font-weight: 500; text-wrap: balance; }
+.h-hero h1 em { font-style: normal; color: #2f6bff; }
+.h-hero .lede { margin: 20px auto 0; max-width: 36rem; font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: var(--fg-2); text-wrap: balance; }
+.h-hero .hero-actions { justify-content: center; margin-top: 30px; }
+.h-hero .eyebrow { margin-bottom: 26px; }
+.h-hero .eyebrow .mini { display: inline-flex; }
+.h-hero .eyebrow .mini img { width: 20px; height: 20px; border-radius: 5px; margin-left: -5px; box-shadow: 0 0 0 2px var(--bg-soft); }
+.h-hero .eyebrow .mini img:first-child { margin-left: 0; }
+
+/* Product switcher: tabs with a progress bar, one real screen per app */
+.switch { margin-top: clamp(40px, 6vw, 64px); }
+.switch-tabs { display: inline-flex; gap: 4px; padding: 5px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--line); max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.switch-tabs::-webkit-scrollbar { display: none; }
+.switch-tabs button { position: relative; display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px 8px 9px; border-radius: 999px; font-size: 14.5px; font-weight: 500; color: var(--fg-2); white-space: nowrap; overflow: hidden; transition: color .2s ease, background .2s ease, box-shadow .2s ease; }
+.switch-tabs button img { width: 22px; height: 22px; border-radius: 6px; }
+.switch-tabs button:hover { color: var(--fg); }
+.switch-tabs button[aria-selected="true"] { background: var(--bg); color: var(--fg); box-shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 0 0 1px var(--line); }
+.switch-tabs button i { position: absolute; left: 14px; right: 14px; bottom: 3px; height: 2px; border-radius: 2px; background: var(--fg); transform: scaleX(0); transform-origin: left; opacity: 0; }
+.switch-tabs button[aria-selected="true"] i { opacity: .8; }
+.switch-tabs button[aria-selected="true"].run i { animation: fill var(--dur, 6s) linear forwards; }
+@keyframes fill { to { transform: scaleX(1); } }
+.switch-cap { margin-top: 16px; min-height: 1.6em; font-size: 15px; color: var(--fg-2); }
+.switch-stage { position: relative; margin-top: 22px; aspect-ratio: 16 / 10.4; }
+.switch-stage .shot { position: absolute; inset: 0; display: grid; place-items: center; opacity: 0; transform: scale(.985); transition: opacity .5s ease, transform .7s cubic-bezier(.22, 1, .36, 1); pointer-events: none; }
+.switch-stage .shot.on { opacity: 1; transform: none; pointer-events: auto; }
+.switch-stage .shot img.win { display: block; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .45); }
+.switch-stage .phones { display: flex; justify-content: center; align-items: center; gap: clamp(12px, 4vw, 48px); height: 100%; }
+.switch-stage .phones img { height: 92%; width: auto; filter: drop-shadow(0 24px 30px rgba(0, 0, 0, .35)); }
+.switch-stage .phones img:nth-child(2) { transform: translateY(4%); }
+
+/* ── Three ways your agents work ──────────────────────────────────────── */
+.ways { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.way { padding: 28px; border-radius: 20px; background: var(--bg-soft); border: 1px solid var(--line); }
+.way-ico { display: flex; gap: 6px; margin-bottom: 22px; }
+.way-ico img { width: 40px; height: 40px; filter: drop-shadow(0 6px 10px rgba(17, 17, 17, .14)); }
+.way h3 { font-size: 20px; letter-spacing: -.015em; font-weight: 500; }
+.way p { margin-top: 10px; font-size: 15px; color: var(--fg-2); }
+.way small { display: block; margin-top: 16px; font-size: 13px; color: var(--fg-3); font-family: var(--mono); }
+
+/* ── Product spotlights ───────────────────────────────────────────────── */
+.spot-kicker { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; font-size: 15px; font-weight: 550; color: var(--fg); }
+.spot-kicker img { width: 34px; height: 34px; filter: drop-shadow(0 6px 10px rgba(17, 17, 17, .16)); }
+.spot-kicker span { font-size: 12px; font-weight: 500; color: var(--fg-3); padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); }
+.feature-copy h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); line-height: 1.08; letter-spacing: -.028em; font-weight: 500; text-wrap: balance; }
+.spot .shot img.win { display: block; width: 100%; height: auto; border-radius: 9px; box-shadow: 0 24px 50px -18px rgba(0, 0, 0, .45); }
+.spot .phones { display: flex; justify-content: center; gap: clamp(12px, 3vw, 32px); padding: clamp(10px, 2vw, 24px) 0; }
+.spot .phones img { width: min(220px, 44%); height: auto; filter: drop-shadow(0 22px 28px rgba(0, 0, 0, .35)); }
+
+/* ── Also from Codeply ────────────────────────────────────────────────── */
+.also { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 1.3fr); gap: 16px; }
+.also .fam-all { grid-column: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .switch-stage .shot { transition: none; }
+  .switch-tabs button i { display: none; }
+}
+@media (max-width: 900px) {
+  .ways { grid-template-columns: minmax(0, 1fr); }
+  .also { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .also .fam-all { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .switch-tabs button { padding: 7px 12px 7px 7px; font-size: 13.5px; }
+  .switch-stage { aspect-ratio: 4 / 3.4; }
+  .also { grid-template-columns: minmax(0, 1fr); }
+}
