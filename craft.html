@@ -1,865 +1,294 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Codeply Craft: the desktop coding agent</title>
-<meta name="description" content="Codeply Craft is a desktop coding agent that builds features, opens them in a real browser panel, and fixes what is broken before it hands them back.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codeply Craft · your coding agent on the desktop</title>
+<meta name="description" content="Codeply Craft builds the feature, opens it in a real browser, and fixes what's broken before it hands it back. Windows and macOS.">
 <link rel="canonical" href="https://codeply.app/craft">
-<meta name="robots" content="index, follow">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#FAFAF7">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Codeply">
 <meta property="og:url" content="https://codeply.app/craft">
-<meta property="og:title" content="Codeply Craft: the desktop coding agent">
-<meta property="og:description" content="Codeply Craft is a desktop coding agent that builds features, opens them in a real browser panel, and fixes what is broken before it hands them back.">
+<meta property="og:title" content="Codeply Craft · your coding agent on the desktop">
+<meta property="og:description" content="Codeply Craft builds the feature, opens it in a real browser, and fixes what's broken before it hands it back. Windows and macOS.">
 <meta property="og:image" content="https://codeply.app/assets/logo-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-<link rel="manifest" href="/favicons/site.webmanifest">
+<link rel="icon" id="favicon" href="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/theme.css?v=42">
-<script src="/theme.js?v=42" defer></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/craft.css?v=42">
-<link rel="stylesheet" href="/colva.css?v=42">
-<link rel="stylesheet" href="/craft-mobile.css?v=42">
-<style>
-/* Product mark above the page title (same as the Studio hero) */
-.hero .product-mark { display: block; width: 64px; height: 64px; margin-bottom: 22px; border-radius: 15px; }
-@media (max-width: 560px) { .hero .product-mark { width: 56px; height: 56px; margin-bottom: 18px; } }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site/site.css?v=1">
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header">
-  <div class="nav-wrap">
-    <div class="nav-left">
-      <a href="/" class="brand" aria-label="Codeply home"><img src="/assets/logo.webp" alt="" width="34" height="34"><span>Codeply</span></a>
-      <nav class="nav-links" aria-label="Main"><a href="/craft" aria-current="page">Craft</a><a href="/studio">Studio</a><a href="/crew">Crew</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a></nav>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="knot" viewBox="0 0 4295 4295"><path transform="translate(446.2 415.6)" fill-rule="evenodd" d="M 1678.618 161.001 C 1513.270 173.860, 1361.809 346.904, 1279.057 617.500 C 1274.011 634, 1267.620 654.925, 1264.855 664 C 1249.516 714.339, 1229.366 737.485, 1195.500 743.667 C 1176.163 747.196, 1162.631 743.554, 1110.552 720.802 C 1022.739 682.440, 971.671 664, 888.500 640.621 C 862.965 633.443, 796.420 619.707, 772 616.573 C 713.658 609.085, 593.780 610.737, 551.641 619.609 C 332.720 665.703, 243.351 832.965, 314.976 1062.546 C 353.997 1187.622, 433.071 1316.880, 553.531 1452.500 C 623.139 1530.869, 661.709 1532.912, 733.080 1462.011 C 772.514 1422.836, 780.747 1391.220, 761.479 1352.958 C 754.288 1338.678, 740.993 1320.496, 698.991 1267.500 C 608.528 1153.357, 538.933 1033.300, 526.096 969.244 C 508.440 881.134, 552.031 833.575, 650.500 833.517 C 684.922 833.497, 695.220 834.936, 769.390 850.128 C 888.325 874.489, 1086.233 953.898, 1267.500 1049.990 C 1344.206 1090.653, 1372.719 1106.795, 1461.500 1159.816 C 1608.121 1247.380, 1755.866 1358.262, 1861.500 1460.014 C 1921.219 1517.539, 1951.774 1524.352, 1997.213 1490.277 C 2057.039 1445.413, 2074.206 1391.642, 2043.179 1346.309 C 2033.397 1332.016, 2001.765 1301.543, 1934.541 1241.650 C 1874.053 1187.757, 1792.899 1122.849, 1720.500 1070.456 C 1642.140 1013.750, 1607.593 990.197, 1545.770 951.333 C 1444.460 887.645, 1440.775 876.828, 1477.514 751 C 1554.913 485.915, 1639.597 355.942, 1721.242 376.924 C 1792.586 395.260, 1843.427 482.519, 1903.944 690.500 C 1922.645 754.772, 1931.223 772.623, 1951.366 789.193 C 1979.980 812.729, 2004.596 813.361, 2073.962 792.338 C 2129.084 775.633, 2151.559 737.105, 2138.619 681.500 C 2096.957 502.479, 2034.714 369.918, 1948.588 276.785 C 1867.542 189.146, 1782.992 152.884, 1678.618 161.001 M 2651 826.525 C 2636.425 827.220, 2610.775 828.309, 2594 828.947 C 2547.771 830.703, 2538.279 831.726, 2500.500 839.021 C 2486.750 841.676, 2465.600 845.252, 2453.500 846.968 C 2317.824 866.210, 2285.604 904.119, 2316.087 1008.641 C 2337.385 1081.667, 2374.061 1095.532, 2487.753 1073.537 C 2517.351 1067.811, 2526.614 1066.506, 2555.451 1064.003 C 2580.486 1061.831, 2593.838 1060.071, 2623 1055.100 C 2674.441 1046.332, 2761.094 1044.363, 2803.500 1050.999 C 2919.711 1069.183, 2946.817 1114.190, 2903.478 1217 C 2845.944 1353.482, 2724.242 1482.607, 2533 1610.074 C 2379.093 1712.656, 2141.479 1829.058, 1924.625 1908.104 C 1912.456 1912.540, 1890.432 1920.651, 1875.682 1926.128 C 1850.956 1935.310, 1816.781 1947.333, 1750.760 1970.078 C 1695.022 1989.279, 1679.399 1999.437, 1665.959 2025.213 C 1653.383 2049.332, 1654.682 2087.531, 1669.522 2129.971 C 1691.542 2192.948, 1730.404 2209.667, 1804.386 2187.990 C 1976.971 2137.422, 2183.921 2052.417, 2353.500 1962.440 C 2455.001 1908.585, 2473.561 1910.724, 2546.003 1984.625 C 2709.559 2151.475, 2793.184 2302.385, 2762.458 2375.239 C 2737.105 2435.354, 2659.411 2458.576, 2547.500 2439.488 C 2533.200 2437.049, 2512.157 2433.680, 2500.739 2432.002 C 2470.016 2427.486, 2429.336 2418.321, 2378.085 2404.369 C 2283.654 2378.663, 2250.338 2399.382, 2224.311 2500 C 2211.121 2550.990, 2228.931 2586.687, 2278.053 2607.714 C 2311.029 2621.830, 2394.875 2642.821, 2446.688 2649.932 C 2455.042 2651.079, 2473.042 2654.046, 2486.688 2656.526 C 2531.128 2664.603, 2529.166 2664.462, 2597 2664.482 C 2666.633 2664.503, 2661.731 2664.930, 2712.968 2654.375 C 2793.081 2637.871, 2839.358 2618.554, 2885 2582.566 C 2975.643 2511.096, 3006.471 2421.809, 2989.432 2280.095 C 2981.902 2217.467, 2941.621 2124.094, 2886.934 2042.500 C 2844.667 1979.438, 2814.783 1942.700, 2753.527 1878.500 C 2711.108 1834.043, 2701.792 1818.416, 2701.664 1791.500 C 2701.509 1759.031, 2716.582 1739.248, 2771 1700.491 C 2877.964 1624.312, 2979.014 1528.767, 3039.190 1446.911 C 3127.138 1327.276, 3159.569 1234.123, 3154.045 1117 C 3148.683 1003.324, 3072.370 911.830, 2942.369 863.217 C 2915.206 853.060, 2857.026 837.930, 2824.500 832.566 C 2791.651 827.148, 2702.834 824.056, 2651 826.525 M 1221 1480.554 C 1185.814 1488.106, 1164.806 1513.094, 1153.370 1561 C 1151.466 1568.975, 1147.468 1585.625, 1144.487 1598 C 1141.505 1610.375, 1137.227 1630.850, 1134.980 1643.500 C 1132.732 1656.150, 1128.698 1676.850, 1126.013 1689.500 C 1123.329 1702.150, 1119.707 1721.950, 1117.965 1733.500 C 1114.579 1755.950, 1113.091 1764.073, 1107.617 1790 C 1103.206 1810.891, 1101.591 1822.086, 1099.032 1849.500 C 1096.638 1875.144, 1094.993 1887.946, 1091 1912 C 1084.635 1950.349, 1083.594 1961.542, 1081.521 2014 C 1079.670 2060.833, 1078.662 2076.859, 1075.451 2110.500 C 1073.097 2135.166, 1072.499 2143.857, 1069.981 2190 C 1065.137 2278.770, 1046.459 2294.011, 902.500 2326.667 C 853.941 2337.682, 844.423 2339.535, 818.775 2342.971 C 805.974 2344.686, 786.275 2347.628, 775 2349.510 C 670.265 2366.986, 578.382 2357.052, 530.217 2323.044 C 447.360 2264.540, 489.788 2150.492, 658.069 1979.376 C 701.290 1935.427, 713.158 1921.198, 720.567 1904.445 C 737.226 1866.775, 725.209 1831.984, 679.971 1786.916 C 643.652 1750.733, 611.184 1740.532, 576.802 1754.502 C 536.975 1770.685, 432.342 1880.046, 374.269 1966.185 C 291.116 2089.526, 261.131 2183.962, 268.924 2297.971 C 278.346 2435.833, 391.245 2541.176, 563 2572.366 C 627.602 2584.098, 785.970 2581.139, 852.500 2566.957 C 865.150 2564.261, 884.050 2560.457, 894.500 2558.504 C 904.950 2556.552, 927 2551.636, 943.500 2547.581 C 984.354 2537.540, 984.644 2537.493, 1005.500 2537.543 C 1045.793 2537.641, 1071.124 2557.231, 1081.535 2596.347 C 1085.400 2610.867, 1095.186 2680.902, 1098.534 2718 C 1100.530 2740.113, 1102.307 2752.129, 1106.001 2768.500 C 1107.614 2775.650, 1110.055 2786.450, 1111.425 2792.500 C 1112.796 2798.550, 1115.526 2812.275, 1117.492 2823 C 1135.496 2921.202, 1182.799 3041.222, 1234.744 3120.500 C 1322.370 3254.236, 1425.576 3311.227, 1556.500 3298.177 C 1716.141 3282.265, 1881.913 3095.902, 1981.844 2820 C 2021.370 2710.873, 2024.915 2690.720, 2009.872 2660.701 C 1995.846 2632.714, 1981.433 2623.761, 1914.032 2601.170 C 1837.474 2575.509, 1827.569 2579.467, 1803.046 2645.514 C 1695.736 2934.533, 1604.354 3080.592, 1534.615 3074.557 C 1458.122 3067.937, 1353.237 2893.564, 1315.637 2710.500 C 1313.152 2698.400, 1309.321 2680.400, 1307.124 2670.500 C 1301.618 2645.694, 1300.423 2638.161, 1297.523 2610 C 1294.774 2583.293, 1294.324 2579.619, 1289.992 2548.500 C 1277.686 2460.097, 1277.946 2268.554, 1290.509 2168 C 1294.349 2137.262, 1295.857 2120.182, 1297.501 2088.762 C 1299.997 2041.094, 1300.894 2033.182, 1308.473 1992 C 1312.545 1969.874, 1314.372 1955.875, 1316.500 1930.500 C 1318.625 1905.160, 1320.210 1894.149, 1326.002 1864.500 C 1328.688 1850.750, 1332.488 1827.980, 1334.447 1813.899 C 1336.406 1799.819, 1340.451 1776.194, 1343.436 1761.399 C 1346.420 1746.605, 1350.031 1726.625, 1351.459 1717 C 1355.384 1690.557, 1355.798 1688.343, 1361.654 1662.583 C 1384.615 1561.577, 1376.855 1524.810, 1327.368 1500.125 C 1296.022 1484.489, 1245.756 1475.241, 1221 1480.554"/></symbol>
+    <linearGradient id="gNavyTile" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1D3D7A"/><stop offset=".55" stop-color="#0A1D4A"/><stop offset="1" stop-color="#020A26"/></linearGradient>
+    <linearGradient id="gNavyMark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C9D8FF"/></linearGradient>
+  </defs>
+</svg>
+
+<template id="tpl-phone">
+  <div class="pv-dev"><div class="pv">
+    <div class="pv-island"></div>
+    <div class="pv-status"><span>9:41</span><span class="pv-ind"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M2 20h2M7 20v-4M12 20v-8M17 20V8M22 20V4" stroke-width="2.4"/></svg><svg viewBox="0 0 24 24" width="17" height="17"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0" stroke-width="2.2"/><circle cx="12" cy="19.5" r=".8" stroke-width="2.4"/></svg><span class="pv-batt"><i></i></span></span></div>
+    <div class="pv-top"><span class="pv-ib"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 7h16M4 12h10M4 17h16"/></svg></span><b>Fix checkout total</b><span class="pv-ib"><svg viewBox="0 0 24 24" width="21" height="21"><path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><path d="M17.5 3.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg></span></div>
+    <div class="pv-scroll">
+      <div class="pv-msg user">The checkout total is wrong, fix it</div>
+      <div class="pv-steps">
+        <div class="pv-step"><svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg><span class="v">Read</span><span class="l">src/cart.ts</span></div>
+        <div class="pv-step"><svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg><span class="v">Edited</span><span class="l">src/cart.ts</span><span class="st"><span class="add">+6</span><span class="del">-2</span></span></div>
+        <div class="pv-step"><svg class="chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg><span class="v">Ran</span><span class="l">npm test</span></div>
+      </div>
+      <div class="pv-msg">Fixed. <code>cartTotal</code> was adding the tax twice. All 24 tests pass.</div>
+      <div class="pv-card"><div class="h">Files changed</div><div class="f"><span>src/cart.ts</span></div><div class="h">Checks</div><div class="c">✓ npm test <span>exit 0</span></div></div>
     </div>
+    <div class="pv-comp">
+      <div class="pv-ctx"><span class="pv-chip"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>shop-web</span><span class="pv-chip">Build</span><span class="pv-pc"><i></i>PC online</span></div>
+      <div class="pv-box"><div class="p">Ask Codeply anything</div>
+        <div class="pv-row"><span class="pv-round"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span><span class="pv-sw"><span>Chat</span><span class="on">Code</span></span><span class="sp"></span><span class="pv-model">Auto</span><span class="pv-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></div>
+      </div>
+    </div>
+    <div class="pv-home"></div>
+  </div></div>
+</template>
+
+<template id="tpl-mark">
+  <svg class="m-navy" viewBox="0 0 4295 4295" aria-hidden="true"><rect width="4295" height="4295" rx="945" fill="url(#gNavyTile)"/><use href="#knot" fill="url(#gNavyMark)"/></svg>
+  <svg class="m-dark" viewBox="0 0 4295 4295" aria-hidden="true"><rect width="4295" height="4295" rx="945" fill="#0D0D0F"/><use href="#knot" fill="#FFFFFF"/></svg>
+  <svg class="m-light" viewBox="0 0 4295 4295" aria-hidden="true"><rect width="4295" height="4295" rx="945" fill="#FFFFFF"/><use href="#knot" fill="#111113"/></svg>
+</template>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Codeply home"><span class="mark" data-mark></span>Codeply</a>
+    <nav class="links" aria-label="Main">
+      <a href="/craft">Craft</a>
+      <a href="/crew">Crew</a>
+      <a href="/studio">Studio</a>
+      <a href="/mobile">Mobile</a>
+      <a href="/cli">CLI</a>
+      <a href="/drop">Drop</a>
+      <a href="/changelog">Changelog</a>
+    </nav>
     <div class="nav-end">
-      <a class="btn btn-light btn-nav hide-sm" href="/docs">Docs</a>
-      <a class="btn btn-dark btn-nav" href="/download">Download</a>
-      <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <a class="btn btn-ghost btn-sm dl" href="/docs">Docs</a><a class="btn btn-primary btn-sm dl" href="/download">Download</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
     </div>
   </div>
-  <nav class="mobile-menu" aria-label="Mobile"><a href="/craft">Craft</a><a href="/studio">Studio</a><a href="/crew">Crew</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a><a href="/docs">Docs</a><a href="/download">Download</a></nav>
+  <nav class="mnav" id="mnav" aria-label="Mobile">
+    <a href="/craft">Craft</a><a href="/crew">Crew</a><a href="/studio">Studio</a><a href="/mobile">Mobile</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a><a href="/docs">Docs</a>
+    <a class="btn btn-primary" href="/download">Download</a>
+  </nav>
 </header>
-<main id="main">
 
-<section class="hero">
-  <div class="hero-grid">
-    <div class="hero-copy">
-      <img class="product-mark" src="/assets/products/tile-craft-128.webp" srcset="/assets/products/tile-craft-128.webp 1x, /assets/products/tile-craft-256.webp 2x" alt="" width="64" height="64">
-      <h1>Codeply Craft</h1>
-      <p class="lede">Your coding agent on the desktop. It builds the feature, opens it in a real browser, and fixes what's broken before it hands it back.</p>
-      <div class="hero-actions">
-        <a class="btn btn-dark btn-lg" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-Setup.exe" download><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M3 5.5l7.5-1v7H3zM11.5 4.3L21 3v8.5h-9.5zM3 12.5h7.5v7L3 18.5zM11.5 12.5H21V21l-9.5-1.3z"/></svg>Windows</a>
-        <a class="btn btn-light btn-lg btn-bordered" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-arm64.dmg" download><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.8 1.2 1.8 2.6 3.1 2.6 1.2-.1 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.5.9-1.4 1.3-2.8 1.3-2.8s-2.5-1-2.5-4.2ZM13.9 5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1 .1 2.1-.6 2.8-1.4Z"/></svg>macOS</a>
+<main id="top">
+  <section class="hero phero">
+    <div class="sky" aria-hidden="true">
+      <div class="s-navy"><div class="stars"></div>
+        <svg class="ridge" viewBox="0 0 1440 400" preserveAspectRatio="none"><path d="M0 260 L120 210 L210 240 L330 150 L430 220 L540 170 L650 230 L760 120 L880 210 L990 160 L1100 230 L1210 140 L1330 210 L1440 180 L1440 400 L0 400Z" fill="#0B1B45" opacity=".9"/><path d="M0 310 L150 270 L280 300 L420 250 L560 300 L700 240 L840 300 L980 260 L1120 310 L1260 260 L1440 300 L1440 400 L0 400Z" fill="#071334"/></svg>
       </div>
-      <p class="hero-note">macOS build is for Apple Silicon (M1 to M4). <a class="inline-link" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-x64.dmg" download>Intel Mac? Get the x64 build</a></p>
-    </div>
-    <div class="shot "><div class="app-frame" style="--w:1000;--h:660" role="img" aria-label="Codeply Craft changing an image on a website and checking it in the built-in browser"><div class="craft" style="width:1000px;height:660px;--browser-panel-width:450px;"><header class="titlebar">
-  <button class="tb-icon-btn">
-    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="9.5" y1="4" x2="9.5" y2="20"></line></svg>
-  </button>
-  <div class="titlebar-drag"></div>
-  <div class="titlebar-right">
-    <button class="win-btn">
-      <svg viewBox="0 0 12 12"><line x1="2" y1="6" x2="10" y2="6"></line></svg>
-    </button>
-    <button class="win-btn"><svg viewBox="0 0 12 12"><rect x="2" y="3.5" width="6.5" height="6.5" rx="1"></rect><path d="M4 3.5V2.5h5.5V8H8.5"></path></svg></button>
-    <button class="win-btn win-close">
-      <svg viewBox="0 0 12 12"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5"></line><line x1="9.5" y1="2.5" x2="2.5" y2="9.5"></line></svg>
-    </button>
-  </div>
-</header>
-<div class="browser-chrome">
-  <button class="bc-btn" disabled=""><svg viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"></path></svg></button>
-  <button class="bc-btn" disabled=""><svg viewBox="0 0 24 24"><path d="M10 6l6 6-6 6"></path></svg></button>
-  <button class="bc-btn"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"></path><path d="M18 3v5h-5"></path><path d="M6 21v-5h5"></path></svg></button>
-  <input class="bc-url" type="text" value="file:///H:/Code2026/Testr/Colva/index.html" placeholder="No page checked yet" spellcheck="false" autocomplete="off">
-  <button class="bc-btn"><svg viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
-</div>
-<div class="app browser-panel-open">
-  <aside class="sidebar collapsed">
-    <div class="sb-header">
-      <button class="sb-brand"><img class="brand-logo" src="/mockups/craft/logo.png" alt=""> Codeply Craft</button>
-      <button class="tb-icon-btn">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="9.5" y1="4" x2="9.5" y2="20"></line></svg>
-      </button>
-    </div>
-    <nav class="sb-nav">
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
-        New chat
-      </button>
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
-        Open project
-      </button>
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M8 9h.01M16 9h.01M9 14h6"></path></svg>
-        Use from phone
-      </button>
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-        Tasks
-        <span class="sb-item-badge hidden">0</span>
-      </button>
-    </nav>
-    <div class="sb-scroll">
-      <div class="sb-section">
-        <div class="sb-section-title">Projects</div>
-        <div><div class="sb-project-row"><button class="sb-project selected"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path></svg><span class="sb-project-name">Colva</span></button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div></div>
-      </div>
-      <div class="sb-section">
-        <div class="sb-section-title">Recents</div>
-        <div><div class="sb-chat-row" data-id="cmtilxbxojnxb"><button class="sb-chat">in this app can u make the friend req thing wo…</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div><div class="sb-chat-row" data-id="cmtily2lxy27u"><button class="sb-chat">Implement a complete "friend request" feature …</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div><div class="sb-chat-row" data-id="cmtfou5wce7ye"><button class="sb-chat">Hey</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div><div class="sb-chat-row" data-id="cmtcsgpk7pniq"><button class="sb-chat selected">Changing house image</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div></div>
+      <div class="s-dark"><div class="grid"></div></div>
+      <div class="s-light">
+        <svg class="ridge" viewBox="0 0 1440 400" preserveAspectRatio="none"><path d="M0 250 L130 200 L240 235 L350 140 L460 215 L570 165 L690 225 L800 115 L910 205 L1030 150 L1140 225 L1250 135 L1360 205 L1440 175 L1440 400 L0 400Z" fill="#C9D9F7" opacity=".7"/><path d="M0 300 L160 260 L290 295 L430 245 L570 295 L710 235 L850 295 L990 255 L1130 305 L1270 255 L1440 295 L1440 400 L0 400Z" fill="#E4ECFB"/></svg>
       </div>
     </div>
-    <div class="sb-footer">
-      <button class="update-pill hidden" type="button">
-        <span class="update-pill-dot"></span>
-        <span>Update ready</span>
-      </button>
-      <button class="sb-user">
-        <div class="sb-user-left">
-          <div class="avatar">AW</div>
-          <span class="sb-user-name">Awais</span>
-        </div>
-        <svg class="sb-user-caret" viewBox="0 0 24 24"><path d="M8 9l4 4 4-4"></path></svg>
-      </button>
+    <div class="wrap hero-in">
+      <span class="pk rv"><svg viewBox="0 0 4295 4295"><rect width="4295" height="4295" rx="945" fill="#2F6BFF"/><use href="#knot" fill="#FFFFFF"/></svg>Codeply Craft</span>
+      <h1 class="rv d1">Your coding agent<br><span class="dim">on the desktop.</span></h1>
+      <p class="lede rv d2">It builds the feature, opens it in a real browser, and fixes what's broken before it hands it back.</p>
+      <div class="ctas rv d3"><a class="btn btn-primary" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-Setup.exe" data-mac-href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-arm64.dmg" data-mac-label="Download for Mac" id="dl-hero"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg><span>Download for Windows</span></a><a class="btn btn-ghost" href="/download">All downloads</a></div>
+      <p class="meta rv d3">Windows 10 and 11 · macOS on Apple silicon and Intel · Updates install themselves</p>
     </div>
-  </aside>
-  <main class="main">
-    <section class="view view-chat">
-      <div class="chat-topbar">
-        <div class="chat-title-group">
-          <span class="chat-title">Changing house image</span>
-        </div>
-        <div class="topbar-icons">
-          <button class="sb-icon-btn browser-toggle-btn active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18"></path><path d="M12 3a14 14 0 0 0 0 18"></path></svg></button>
-          <button class="sb-icon-btn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l4 3-4 3"></path><line x1="13" y1="15" x2="17" y2="15"></line></svg></button>
-          <button class="sb-icon-btn"><svg viewBox="0 0 24 24"><path d="M4 7h16"></path><path d="M10 11v6M14 11v6"></path><path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"></path><path d="M9 7V4h6v3"></path></svg></button>
-          <button class="sb-icon-btn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="14.5" y1="4" x2="14.5" y2="20"></line></svg></button>
-        </div>
-      </div>
-      <div class="chat-body">
-        <div class="chat-scroll">
-          <div class="chat-column">
-<div class="msg user"><div class="bubble">can you change the image of 77 Marlowe Lane, Old Town</div><div class="user-msg-actions"><button class="user-msg-action" data-action="restart">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
-    </button>
-    <button class="user-msg-action" data-action="revert">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
-    </button></div></div>
-<div class="msg assistant"><p>I need to find where the image for "77 Marlowe Lane, Old Town" is defined in the code to change it.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg><span class="tool-verb">Searched</span><span class="tool-label">77 Marlowe Lane</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;glob&gt;
-**/*.html
-&lt;/glob&gt;
-&lt;pattern&gt;
-77 Marlowe Lane
-&lt;/pattern&gt;</pre></div>
-<div class="msg assistant"><p>I've found that "77 Marlowe Lane, Old Town" currently uses <code>assets/prop-3.jpg</code>. I'll fetch a new high-end estate image to replace it.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"></rect><circle cx="9" cy="10" r="1.6"></circle><path d="M3 15l5-4 4 3 4-4 5 5"></path></svg><span class="tool-verb">Downloaded</span><span class="tool-label">assets/prop-3-new.jpg</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;url&gt;
-https://loremflickr.com/800/600/luxury,mansion,estate
-&lt;/url&gt;
-&lt;path&gt;
-assets/prop-3-new.jpg
-&lt;/path&gt;</pre></div>
-<div class="msg assistant"><p>I'll now update the image references for 77 Marlowe Lane in <code>index.html</code> to use the new image.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg><span class="tool-verb">Edited</span><span class="tool-label">index.html</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;path&gt;
-index.html
-&lt;/path&gt;
-&lt;search&gt;
-&lt;div class="card-img"&gt;&lt;span class="badge reduced"&gt;Price Reduced&lt;/span&gt;&lt;img src="assets/prop-3.jpg" alt="Heritage home at 77 Marlowe Lane"&gt;&lt;/div&gt;
-&lt;/search&gt;
-&lt;replace&gt;
-&lt;div class="card-img"&gt;&lt;span class="badge reduced"&gt;Price Reduced&lt;/span&gt;&lt;img src="assets/prop-3-new.jpg" alt="Heritage home at 77 Marlowe Lane"&gt;&lt;/div&gt;
-&lt;/replace&gt;</pre></div>
-<div class="msg assistant"><p>I'll update the second reference to the image in the alert section of <code>index.html</code>.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg><span class="tool-verb">Edited</span><span class="tool-label">index.html</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;path&gt;
-index.html
-&lt;/path&gt;
-&lt;search&gt;
-&lt;img src="assets/prop-3.jpg" alt="77 Marlowe Lane, Old Town"&gt;
-&lt;/search&gt;
-&lt;replace&gt;
-&lt;img src="assets/prop-3-new.jpg" alt="77 Marlowe Lane, Old Town"&gt;
-&lt;/replace&gt;</pre></div>
-<div class="msg assistant"><p>I'll now verify the changes by checking the main page.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18"></path><path d="M12 3a14 14 0 0 0 0 18"></path></svg><span class="tool-verb">Checked</span><span class="tool-label">file:///H:/Code2026/Testr/Colva/index.html</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;url&gt;
-file:///H:/Code2026/Testr/Colva/index.html
-&lt;/url&gt;</pre></div>
-<div class="msg assistant"><p>I have updated the image for 77 Marlowe Lane, Old Town to a new luxury estate photo (<code>assets/prop-3-new.jpg</code>) in both the featured listings and the "This Week in Colva" section. I verified the change via a browser check.</p></div>
-</div>
-        </div>
-        <button class="scroll-down hidden"><svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></button>
-        <aside class="side-panel hidden">
-          <div class="sp-section">
-            <div class="sp-head">Project</div>
-            <button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path></svg><span>Colva</span></button>
-          </div>
-          <div class="sp-section">
-            <div class="sp-head">Outputs</div>
-            <div><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/prop-3-new.jpg</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>index.html</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/testi-1.jpg</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/testi-2.jpg</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/testi-3.jpg</span></button></div>
-          </div>
-          <div class="sp-section">
-            <div class="sp-head">Sources</div>
-            <div><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>index.html</span></button></div>
-          </div>
-        </aside>
-      </div>
-      <div class="composer-wrap chat-composer">
-        <div class="composer" data-composer="chat">
-          <div class="composer-image-previews hidden" data-role="image-previews"></div>
-          <textarea class="composer-input" rows="1" placeholder="Ask Codeply to build, fix or explain anything  ·  /goal keeps it going until done"></textarea>
-          <div class="composer-bottom">
-            <div class="composer-bottom-left">
-              <button class="approve-toggle" data-role="bypass">
-                <svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5Z"></path><path d="M9 12l2 2 4-4"></path></svg>
-                <span data-role="bypass-label">Approve manually</span>
-              </button>
-              <button class="chip" data-role="mode-chip">
-                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4.5 4.5 0 0 0-6 6L3 18v3h3l5.7-5.7a4.5 4.5 0 0 0 6-6L15 12l-3-3Z"></path></svg>
-                <span data-role="mode-name">Build</span>
-              </button>
+    <div class="wrap">      <div class="stage rv">
+        <div class="window cx" id="win" aria-hidden="true">
+          <div class="cx-title" aria-hidden="true"><span><svg viewBox="0 0 10 10"><path d="M1 5h8"/></svg></span><span><svg viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7"/></svg></span><span><svg viewBox="0 0 10 10"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7"/></svg></span></div>
+          <div class="cx-body">
+            <aside class="cx-side">
+              <div class="cx-brand">Codeply Craft<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></div>
+              <div class="cx-nav"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>New chat</div>
+              <div class="cx-nav"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M12 10v6M9 13h6"/></svg>Open project</div>
+              <div class="cx-nav"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 12l2 2 4-4"/></svg>Tasks</div>
+              <div class="cx-nav"><span class="cx-mascot"><img class="ball" src="/assets/site/frontend.png" alt=""><img class="eyes" src="/assets/site/eyes.png" alt=""></span>Bots</div>
+              <div class="cx-nav"><img src="/assets/site/crew-icon.svg" alt="">Crew</div>
+              <div class="cx-lab">Projects</div>
+              <div class="cx-nav on"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>lumen-site</div>
+              <div class="cx-nav"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>landing-page</div>
+              <div class="cx-nav"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>api-server</div>
+              <div class="cx-lab">Recents<svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/></svg></div>
+              <div class="cx-rec on">Change Pro price to $24</div>
+              <div class="cx-rec">Landing page hero</div>
+              <div class="cx-rec">Dark mode on settings</div>
+              <div class="cx-foot">
+                <div class="cx-rm">Research Mode (Local)<span class="cx-tog"></span></div>
+                <div class="cx-acct"><span class="cx-av">YO</span>you@yourmail.com<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
+              </div>
+            </aside>
+            <div class="cx-main">
+              <div class="cx-head"><b>Change Pro price to $24</b><span class="cx-pub">Publish</span><span class="cx-ib on"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg></span><span class="cx-ib"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M12 15h4"/></svg></span><span class="cx-ib"><svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></span><span class="cx-ib"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/></svg></span></div>
+              <div class="cx-feed" id="feed">
+                <div class="cx-bubble">Change the Pro plan price from $19 to $24 a seat on the pricing page.</div>
+              </div>
+              <div class="cx-comp">
+                <div class="cx-box">
+                  <div class="cx-ph">Ask Codeply anything, or type / for commands</div>
+                  <div class="cx-row">
+                    <span><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6Z"/></svg>Approve<i class="opt" style="font-style:normal">&nbsp;manually</i></span>
+                    <span><svg viewBox="0 0 24 24"><path d="M14 6l4 4M4 20l9-9M12 4l8 8-3 3-8-8Z"/></svg>Build</span>
+                    <span class="opt2"><svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 1 0 6 16.5h11.5"/></svg>Cloud</span>
+                    <span class="sp"></span>
+                    <span class="opt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M10 10v.01M14 10v.01"/></svg>Craft</span>
+                    <span class="cx-model">Auto<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+                    <span class="cx-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="composer-bottom-right">
-              <button class="model-btn" data-role="model-chip">
-                <span class="model-btn-dot" data-role="model-dot"></span>
-                <span data-role="model-name">Auto</span>
-                <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"></path></svg>
-              </button>
-              <button class="send-btn" data-role="send"><svg class="ic-send" viewBox="0 0 24 24"><path d="M12 19V5"></path><path d="M6 11l6-6 6 6"></path></svg><svg class="ic-stop hidden" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"></rect></svg></button>
+            <div class="cx-br">
+              <div class="cx-chrome">
+                <svg viewBox="0 0 24 24"><path d="M14 6l-6 6 6 6"/></svg><svg viewBox="0 0 24 24"><path d="M10 6l6 6-6 6"/></svg><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v5h-5M6 21v-5h5"/></svg>
+                <span class="cx-url" id="bcUrl">No page checked yet</span>
+                <span class="cx-seg"><i class="on"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></i><i><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/></svg></i><i><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/></svg></i></span>
+                <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+              </div>
+              <div class="cx-site">
+                <div class="scan" id="scan"></div>
+                <div class="ls-nav"><span class="ls-logo"><i></i>Lumen</span><span class="ls-links"><span>Product</span><span>Pricing</span><span>Docs</span></span><span class="ls-nav-r"><span>Sign in</span><span class="ls-cta">Start free</span></span></div>
+                <div class="ls-hero">
+                  <span class="ls-pill"><b>New</b>Lumen 2.0 is here<span>→</span></span>
+                  <div class="ls-h">Know what your<br><span>users actually do.</span></div>
+                  <p class="ls-p">Product analytics that answers questions in seconds, not sprints.</p>
+                  <div class="ls-btns"><span class="ls-b1">Start free</span><span class="ls-b2">Book a demo</span></div>
+                </div>
+                <div class="ls-grid">
+                  <div class="ls-dash">
+                    <div class="ls-dh"><b>Weekly active users</b><span>+18.4%</span></div>
+                    <div class="ls-num">24,812</div>
+                    <svg class="ls-chart" viewBox="0 0 200 64" preserveAspectRatio="none"><path d="M0 50 C20 46 30 40 45 42 C60 44 70 30 85 31 C100 32 110 24 125 22 C140 20 150 26 165 16 C180 8 190 10 200 6 L200 64 L0 64Z" fill="#6d5dfc" fill-opacity=".12"/><path d="M0 50 C20 46 30 40 45 42 C60 44 70 30 85 31 C100 32 110 24 125 22 C140 20 150 26 165 16 C180 8 190 10 200 6" fill="none" stroke="#6d5dfc" stroke-width="2"/></svg>
+                  </div>
+                  <div class="ls-price">
+                    <div class="ls-ph"><b>Pro</b><span>Save 20%</span></div>
+                    <div class="result" id="res">$19.00</div>
+                    <small>per seat / month, billed yearly</small>
+                    <span class="ls-b1 full">Choose Pro</span>
+                  </div>
+                </div>
+                <div class="ls-logos"><span>Northwind</span><span>Acme</span><span>Globex</span><span>Initech</span></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </main>
 </div>
-<div class="update-gate hidden" role="dialog" aria-modal="true" aria-labelledby="updateGateTitle">
-  <div class="update-gate-card">
-    <img class="update-gate-logo" src="/mockups/craft/logo.png" alt="">
-    <h2>Update required</h2>
-    <p>A new version of Codeply Craft is needed to keep going.</p>
-    <div class="update-gate-notes hidden"></div>
-    <div class="update-gate-track"><div class="update-gate-bar"></div></div>
-    <div class="update-gate-status">Downloading…</div>
-    <button class="btn-primary update-gate-btn hidden" type="button">Restart and update</button>
-  </div>
-</div>
-<div class="mock-browserview"><div class="colva"><header>
-  <div class="wrap nav">
-    <a class="logo" href="#top" aria-label="Colva Estates home">
-      <span class="logo-mark">C</span>
-      <span><b>Colva</b><small>Estates</small></span>
-    </a>
-    <nav class="links" aria-label="Primary">
-      <a href="#listings">Listings</a>
-      <a href="#week">This Week</a>
-      <a href="#about">The House Standard</a>
-      <a href="#services">Services</a>
-      <a href="#stories">Stories</a>
-    </nav>
-    <a class="nav-cta" href="#contact">Book a viewing</a>
-  </div>
-</header><section class="hero" aria-label="Introduction">
-    <div class="hero-bg" role="img" aria-label="A Colva Estates residence at dusk"></div>
-    <div class="hero-inner">
-      <span class="eyebrow">Private brokerage · Est. 1998</span>
-      <h1>Homes worth <em>coming home</em> to.</h1>
-      <p class="lede">Colva Estates places a small number of exceptional homes with the right people each season — quietly, carefully, and at a price that respects both sides of the table.</p>
+  </section>
 
-      <form class="searchbar" aria-label="Search homes">
-        <label><span>Neighbourhood</span>
-          <select><option>Anywhere in Colva</option><option>Colva Heights</option><option>Riverside</option><option>Old Town</option><option>Garden District</option><option>Coastal Bluff</option></select>
-        </label>
-        <label><span>Home type</span>
-          <select><option>Any type</option><option>House</option><option>Villa</option><option>Penthouse</option><option>Cottage</option></select>
-        </label>
-        <label><span>Budget</span>
-          <select><option>Up to $4M</option><option>Up to $1.5M</option><option>Up to $2.5M</option><option>$2.5M +</option></select>
-        </label>
-        <button type="submit">Search homes</button>
-      </form>
+    <div class="models wrap">
+    <p class="rv">Works with the models you already use</p>
+    <div class="mrow rv d1"><span><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/openai.svg" alt="" width="26" height="26">OpenAI</span><span><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/claude.svg" alt="" width="26" height="26">Claude</span><span><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/gemini.svg" alt="" width="26" height="26">Gemini</span><span><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/openrouter.svg" alt="" width="26" height="26">OpenRouter</span><span><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/groq.svg" alt="" width="26" height="26">Groq</span><span><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/deepseek.svg" alt="" width="26" height="26">DeepSeek</span><span><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/ollama.svg" alt="" width="26" height="26">Ollama</span></div>
+  </div>
 
-      <div class="trust">
-        <div><b>$2.4B</b> closed volume</div>
-        <div><b>480+</b> homes placed</div>
-        <div><b>4.9</b><span class="stars" aria-hidden="true">★★★★★</span> from 1,200+ clients</div>
+  <section class="sec" id="how">
+    <div class="wrap">
+      <div class="center"><div class="kicker rv">How it works</div><h2 class="rv d1">Describe it. <span class="serif">Craft does the rest.</span></h2><p class="sub rv d2">One agent plans the work, writes the code, runs it and checks it, then hands you every change to keep or undo.</p></div>
+      <div class="steps">
+        <article class="f rv"><h3>Describe it</h3><p>Type what you want in plain English. Pick a project, or let Craft find it, and it plans the work before it starts.</p></article>
+        <article class="f rv"><h3>It builds and checks</h3><p>It edits files, runs commands and tests, then opens the page in a real browser panel and reads back console errors, failed requests and broken images.</p></article>
+        <article class="f rv"><h3>You keep what you like</h3><p>Every write, edit and command asks first, with a visible diff. Undo a whole message with one click, or turn on bypass and let it run.</p></article>
       </div>
     </div>
-  </section></div></div></div></div></div>
-  </div>
-</section>
+  </section>
 
-<section class="section" style="padding-top:clamp(40px,6vw,80px)">
-  <div class="wrap-mid"><article class="tour-item"><h3>It shows its work</h3><p>Every search, download, edit, and browser check shows up in the chat as it happens, so you always know what it touched.</p><div class="visual"><div class="shot " data-reveal><div class="app-frame" style="--w:1000;--h:660" role="img" aria-label="Codeply Craft working through a change step by step"><div class="craft" style="width:1000px;height:660px;"><header class="titlebar">
-  <button class="tb-icon-btn hidden">
-    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="9.5" y1="4" x2="9.5" y2="20"></line></svg>
-  </button>
-  <div class="titlebar-drag"></div>
-  <div class="titlebar-right">
-    <button class="win-btn">
-      <svg viewBox="0 0 12 12"><line x1="2" y1="6" x2="10" y2="6"></line></svg>
-    </button>
-    <button class="win-btn"><svg viewBox="0 0 12 12"><rect x="2" y="3.5" width="6.5" height="6.5" rx="1"></rect><path d="M4 3.5V2.5h5.5V8H8.5"></path></svg></button>
-    <button class="win-btn win-close">
-      <svg viewBox="0 0 12 12"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5"></line><line x1="9.5" y1="2.5" x2="2.5" y2="9.5"></line></svg>
-    </button>
-  </div>
-</header>
-<div class="app">
-  <aside class="sidebar">
-    <div class="sb-header">
-      <button class="sb-brand"><img class="brand-logo" src="/mockups/craft/logo.png" alt=""> Codeply Craft</button>
-      <button class="tb-icon-btn">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="9.5" y1="4" x2="9.5" y2="20"></line></svg>
-      </button>
-    </div>
-    <nav class="sb-nav">
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
-        New chat
-      </button>
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
-        Open project
-      </button>
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M8 9h.01M16 9h.01M9 14h6"></path></svg>
-        Use from phone
-      </button>
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-        Tasks
-        <span class="sb-item-badge hidden">0</span>
-      </button>
-    </nav>
-    <div class="sb-scroll">
-      <div class="sb-section">
-        <div class="sb-section-title">Projects</div>
-        <div><div class="sb-project-row"><button class="sb-project selected"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path></svg><span class="sb-project-name">Colva</span></button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div></div>
+  <section class="sec" id="proof">
+    <div class="wrap split">
+      <div>
+        <div class="kicker rv">The proof</div>
+        <h2 class="rv d1">The proof behind every <span class="serif">change.</span></h2>
+        <p class="sub rv d2">Craft opens the page it just changed in a real browser panel and reads back real signal. Not a screenshot, not a guess.</p>
+        <ul class="checks rv d3">
+          <li><span class="ci">✓</span><span><b>Console errors</b> are read back and fixed before it stops.</span></li>
+          <li><span class="ci">✓</span><span><b>Failed network requests</b> and <b>broken images</b> get caught too.</span></li>
+          <li><span class="ci">✓</span><span><b>Nothing touches disk without you.</b> Every write, edit and command asks first, with a visible diff.</span></li>
+        </ul>
       </div>
-      <div class="sb-section">
-        <div class="sb-section-title">Recents</div>
-        <div><div class="sb-chat-row" data-id="cmtilxbxojnxb"><button class="sb-chat">in this app can u make the friend req thing wo…</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div><div class="sb-chat-row" data-id="cmtily2lxy27u"><button class="sb-chat">Implement a complete "friend request" feature …</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div><div class="sb-chat-row" data-id="cmtfou5wce7ye"><button class="sb-chat">Hey</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div><div class="sb-chat-row" data-id="cmtcsgpk7pniq"><button class="sb-chat selected">Changing house image</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div></div>
+      <div class="proof cx rv d1" id="proofCard" style="border-color:#2f2f2f" aria-hidden="true">
+        <div class="cx-head"><b>Checkout page shows the wrong total</b><span class="cx-ib on"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg></span></div>
+        <div style="padding:6px 22px 8px">
+          <div class="cx-bubble" style="margin-left:auto;width:fit-content">The checkout page is broken, fix it</div>
+          <div id="pfeed" style="min-height:330px"></div>
+        </div>
       </div>
     </div>
-    <div class="sb-footer">
-      <button class="update-pill hidden" type="button">
-        <span class="update-pill-dot"></span>
-        <span>Update ready</span>
-      </button>
-      <button class="sb-user">
-        <div class="sb-user-left">
-          <div class="avatar">AW</div>
-          <span class="sb-user-name">Awais</span>
-        </div>
-        <svg class="sb-user-caret" viewBox="0 0 24 24"><path d="M8 9l4 4 4-4"></path></svg>
-      </button>
-    </div>
-  </aside>
-  <main class="main">
-    <section class="view view-chat">
-      <div class="chat-topbar">
-        <div class="chat-title-group">
-          <span class="chat-title">Changing house image</span>
-        </div>
-        <div class="topbar-icons">
-          <button class="sb-icon-btn browser-toggle-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18"></path><path d="M12 3a14 14 0 0 0 0 18"></path></svg></button>
-          <button class="sb-icon-btn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l4 3-4 3"></path><line x1="13" y1="15" x2="17" y2="15"></line></svg></button>
-          <button class="sb-icon-btn"><svg viewBox="0 0 24 24"><path d="M4 7h16"></path><path d="M10 11v6M14 11v6"></path><path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"></path><path d="M9 7V4h6v3"></path></svg></button>
-          <button class="sb-icon-btn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="14.5" y1="4" x2="14.5" y2="20"></line></svg></button>
-        </div>
-      </div>
-      <div class="chat-body">
-        <div class="chat-scroll">
-          <div class="chat-column">
-<div class="msg user"><div class="bubble">can you change the image of 77 Marlowe Lane, Old Town</div><div class="user-msg-actions"><button class="user-msg-action" data-action="restart">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
-    </button>
-    <button class="user-msg-action" data-action="revert">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
-    </button></div></div>
-<div class="msg assistant"><p>I need to find where the image for "77 Marlowe Lane, Old Town" is defined in the code to change it.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg><span class="tool-verb">Searched</span><span class="tool-label">77 Marlowe Lane</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;glob&gt;
-**/*.html
-&lt;/glob&gt;
-&lt;pattern&gt;
-77 Marlowe Lane
-&lt;/pattern&gt;</pre></div>
-<div class="msg assistant"><p>I've found that "77 Marlowe Lane, Old Town" currently uses <code>assets/prop-3.jpg</code>. I'll fetch a new high-end estate image to replace it.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"></rect><circle cx="9" cy="10" r="1.6"></circle><path d="M3 15l5-4 4 3 4-4 5 5"></path></svg><span class="tool-verb">Downloaded</span><span class="tool-label">assets/prop-3-new.jpg</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;url&gt;
-https://loremflickr.com/800/600/luxury,mansion,estate
-&lt;/url&gt;
-&lt;path&gt;
-assets/prop-3-new.jpg
-&lt;/path&gt;</pre></div>
-<div class="msg assistant"><p>I'll now update the image references for 77 Marlowe Lane in <code>index.html</code> to use the new image.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg><span class="tool-verb">Edited</span><span class="tool-label">index.html</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;path&gt;
-index.html
-&lt;/path&gt;
-&lt;search&gt;
-&lt;div class="card-img"&gt;&lt;span class="badge reduced"&gt;Price Reduced&lt;/span&gt;&lt;img src="assets/prop-3.jpg" alt="Heritage home at 77 Marlowe Lane"&gt;&lt;/div&gt;
-&lt;/search&gt;
-&lt;replace&gt;
-&lt;div class="card-img"&gt;&lt;span class="badge reduced"&gt;Price Reduced&lt;/span&gt;&lt;img src="assets/prop-3-new.jpg" alt="Heritage home at 77 Marlowe Lane"&gt;&lt;/div&gt;
-&lt;/replace&gt;</pre></div>
-<div class="msg assistant"><p>I'll update the second reference to the image in the alert section of <code>index.html</code>.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg><span class="tool-verb">Edited</span><span class="tool-label">index.html</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;path&gt;
-index.html
-&lt;/path&gt;
-&lt;search&gt;
-&lt;img src="assets/prop-3.jpg" alt="77 Marlowe Lane, Old Town"&gt;
-&lt;/search&gt;
-&lt;replace&gt;
-&lt;img src="assets/prop-3-new.jpg" alt="77 Marlowe Lane, Old Town"&gt;
-&lt;/replace&gt;</pre></div>
-<div class="msg assistant"><p>I'll now verify the changes by checking the main page.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18"></path><path d="M12 3a14 14 0 0 0 0 18"></path></svg><span class="tool-verb">Checked</span><span class="tool-label">file:///H:/Code2026/Testr/Colva/index.html</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;url&gt;
-file:///H:/Code2026/Testr/Colva/index.html
-&lt;/url&gt;</pre></div>
-<div class="msg assistant"><p>I have updated the image for 77 Marlowe Lane, Old Town to a new luxury estate photo (<code>assets/prop-3-new.jpg</code>) in both the featured listings and the "This Week in Colva" section. I verified the change via a browser check.</p></div>
-</div>
-        </div>
-        <button class="scroll-down hidden"><svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></button>
-        <aside class="side-panel hidden">
-          <div class="sp-section">
-            <div class="sp-head">Project</div>
-            <button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path></svg><span>Colva</span></button>
-          </div>
-          <div class="sp-section">
-            <div class="sp-head">Outputs</div>
-            <div><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/prop-3-new.jpg</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>index.html</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/testi-1.jpg</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/testi-2.jpg</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/testi-3.jpg</span></button></div>
-          </div>
-          <div class="sp-section">
-            <div class="sp-head">Sources</div>
-            <div><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>index.html</span></button></div>
-          </div>
-        </aside>
-      </div>
-      <div class="composer-wrap chat-composer">
-        <div class="composer" data-composer="chat">
-          <div class="composer-image-previews hidden" data-role="image-previews"></div>
-          <textarea class="composer-input" rows="1" placeholder="Ask Codeply to build, fix or explain anything  ·  /goal keeps it going until done"></textarea>
-          <div class="composer-bottom">
-            <div class="composer-bottom-left">
-              <button class="approve-toggle" data-role="bypass">
-                <svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5Z"></path><path d="M9 12l2 2 4-4"></path></svg>
-                <span data-role="bypass-label">Approve manually</span>
-              </button>
-              <button class="chip" data-role="mode-chip">
-                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4.5 4.5 0 0 0-6 6L3 18v3h3l5.7-5.7a4.5 4.5 0 0 0 6-6L15 12l-3-3Z"></path></svg>
-                <span data-role="mode-name">Build</span>
-              </button>
-            </div>
-            <div class="composer-bottom-right">
-              <button class="model-btn" data-role="model-chip">
-                <span class="model-btn-dot" data-role="model-dot"></span>
-                <span data-role="model-name">Auto</span>
-                <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"></path></svg>
-              </button>
-              <button class="send-btn" data-role="send"><svg class="ic-send" viewBox="0 0 24 24"><path d="M12 19V5"></path><path d="M6 11l6-6 6 6"></path></svg><svg class="ic-stop hidden" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"></rect></svg></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
-<div class="update-gate hidden" role="dialog" aria-modal="true" aria-labelledby="updateGateTitle">
-  <div class="update-gate-card">
-    <img class="update-gate-logo" src="/mockups/craft/logo.png" alt="">
-    <h2>Update required</h2>
-    <p>A new version of Codeply Craft is needed to keep going.</p>
-    <div class="update-gate-notes hidden"></div>
-    <div class="update-gate-track"><div class="update-gate-bar"></div></div>
-    <div class="update-gate-status">Downloading…</div>
-    <button class="btn-primary update-gate-btn hidden" type="button">Restart and update</button>
-  </div>
-</div></div></div></div></div></article><article class="tour-item"><h3>Every edit, in the open</h3><p>Open any step to see exactly what it changed. Writes, edits, and commands wait for your approval unless you turn on bypass mode.</p><div class="visual"><div class="shot " data-reveal><div class="app-frame" style="--w:1000;--h:660" role="img" aria-label="An expanded edit in Codeply Craft"><div class="craft" style="width:1000px;height:660px;"><header class="titlebar">
-  <button class="tb-icon-btn hidden">
-    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="9.5" y1="4" x2="9.5" y2="20"></line></svg>
-  </button>
-  <div class="titlebar-drag"></div>
-  <div class="titlebar-right">
-    <button class="win-btn">
-      <svg viewBox="0 0 12 12"><line x1="2" y1="6" x2="10" y2="6"></line></svg>
-    </button>
-    <button class="win-btn"><svg viewBox="0 0 12 12"><rect x="2" y="3.5" width="6.5" height="6.5" rx="1"></rect><path d="M4 3.5V2.5h5.5V8H8.5"></path></svg></button>
-    <button class="win-btn win-close">
-      <svg viewBox="0 0 12 12"><line x1="2.5" y1="2.5" x2="9.5" y2="9.5"></line><line x1="9.5" y1="2.5" x2="2.5" y2="9.5"></line></svg>
-    </button>
-  </div>
-</header>
-<div class="app">
-  <aside class="sidebar">
-    <div class="sb-header">
-      <button class="sb-brand"><img class="brand-logo" src="/mockups/craft/logo.png" alt=""> Codeply Craft</button>
-      <button class="tb-icon-btn">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="9.5" y1="4" x2="9.5" y2="20"></line></svg>
-      </button>
-    </div>
-    <nav class="sb-nav">
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
-        New chat
-      </button>
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>
-        Open project
-      </button>
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"></rect><path d="M8 9h.01M16 9h.01M9 14h6"></path></svg>
-        Use from phone
-      </button>
-      <button class="sb-item">
-        <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-        Tasks
-        <span class="sb-item-badge hidden">0</span>
-      </button>
-    </nav>
-    <div class="sb-scroll">
-      <div class="sb-section">
-        <div class="sb-section-title">Projects</div>
-        <div><div class="sb-project-row"><button class="sb-project selected"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path></svg><span class="sb-project-name">Colva</span></button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div></div>
-      </div>
-      <div class="sb-section">
-        <div class="sb-section-title">Recents</div>
-        <div><div class="sb-chat-row" data-id="cmtilxbxojnxb"><button class="sb-chat">in this app can u make the friend req thing wo…</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div><div class="sb-chat-row" data-id="cmtily2lxy27u"><button class="sb-chat">Implement a complete "friend request" feature …</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div><div class="sb-chat-row" data-id="cmtfou5wce7ye"><button class="sb-chat">Hey</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div><div class="sb-chat-row" data-id="cmtcsgpk7pniq"><button class="sb-chat selected">Changing house image</button><button class="sb-chat-menu-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="12" cy="19" r="1.6"></circle></svg></button></div></div>
-      </div>
-    </div>
-    <div class="sb-footer">
-      <button class="update-pill hidden" type="button">
-        <span class="update-pill-dot"></span>
-        <span>Update ready</span>
-      </button>
-      <button class="sb-user">
-        <div class="sb-user-left">
-          <div class="avatar">AW</div>
-          <span class="sb-user-name">Awais</span>
-        </div>
-        <svg class="sb-user-caret" viewBox="0 0 24 24"><path d="M8 9l4 4 4-4"></path></svg>
-      </button>
-    </div>
-  </aside>
-  <main class="main">
-    <section class="view view-chat">
-      <div class="chat-topbar">
-        <div class="chat-title-group">
-          <span class="chat-title">Changing house image</span>
-        </div>
-        <div class="topbar-icons">
-          <button class="sb-icon-btn browser-toggle-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18"></path><path d="M12 3a14 14 0 0 0 0 18"></path></svg></button>
-          <button class="sb-icon-btn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 9l4 3-4 3"></path><line x1="13" y1="15" x2="17" y2="15"></line></svg></button>
-          <button class="sb-icon-btn"><svg viewBox="0 0 24 24"><path d="M4 7h16"></path><path d="M10 11v6M14 11v6"></path><path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"></path><path d="M9 7V4h6v3"></path></svg></button>
-          <button class="sb-icon-btn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"></rect><line x1="14.5" y1="4" x2="14.5" y2="20"></line></svg></button>
-        </div>
-      </div>
-      <div class="chat-body">
-        <div class="chat-scroll">
-          <div class="chat-column">
-<div class="msg user"><div class="bubble">can you change the image of 77 Marlowe Lane, Old Town</div><div class="user-msg-actions"><button class="user-msg-action" data-action="restart">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path></svg>
-    </button>
-    <button class="user-msg-action" data-action="revert">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
-    </button></div></div>
-<div class="msg assistant"><p>I need to find where the image for "77 Marlowe Lane, Old Town" is defined in the code to change it.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><line x1="16.5" y1="16.5" x2="21" y2="21"></line></svg><span class="tool-verb">Searched</span><span class="tool-label">77 Marlowe Lane</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;glob&gt;
-**/*.html
-&lt;/glob&gt;
-&lt;pattern&gt;
-77 Marlowe Lane
-&lt;/pattern&gt;</pre></div>
-<div class="msg assistant"><p>I've found that "77 Marlowe Lane, Old Town" currently uses <code>assets/prop-3.jpg</code>. I'll fetch a new high-end estate image to replace it.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"></rect><circle cx="9" cy="10" r="1.6"></circle><path d="M3 15l5-4 4 3 4-4 5 5"></path></svg><span class="tool-verb">Downloaded</span><span class="tool-label">assets/prop-3-new.jpg</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;url&gt;
-https://loremflickr.com/800/600/luxury,mansion,estate
-&lt;/url&gt;
-&lt;path&gt;
-assets/prop-3-new.jpg
-&lt;/path&gt;</pre></div>
-<div class="msg assistant"><p>I'll now update the image references for 77 Marlowe Lane in <code>index.html</code> to use the new image.</p></div>
-<div class="tool-row expandable expanded"><div class="tool-row-head"><svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg><span class="tool-verb">Edited</span><span class="tool-label">index.html</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail">&lt;path&gt;
-index.html
-&lt;/path&gt;
-&lt;search&gt;
-&lt;div class="card-img"&gt;&lt;span class="badge reduced"&gt;Price Reduced&lt;/span&gt;&lt;img src="assets/prop-3.jpg" alt="Heritage home at 77 Marlowe Lane"&gt;&lt;/div&gt;
-&lt;/search&gt;
-&lt;replace&gt;
-&lt;div class="card-img"&gt;&lt;span class="badge reduced"&gt;Price Reduced&lt;/span&gt;&lt;img src="assets/prop-3-new.jpg" alt="Heritage home at 77 Marlowe Lane"&gt;&lt;/div&gt;
-&lt;/replace&gt;</pre></div>
-<div class="msg assistant"><p>I'll update the second reference to the image in the alert section of <code>index.html</code>.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg><span class="tool-verb">Edited</span><span class="tool-label">index.html</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;path&gt;
-index.html
-&lt;/path&gt;
-&lt;search&gt;
-&lt;img src="assets/prop-3.jpg" alt="77 Marlowe Lane, Old Town"&gt;
-&lt;/search&gt;
-&lt;replace&gt;
-&lt;img src="assets/prop-3-new.jpg" alt="77 Marlowe Lane, Old Town"&gt;
-&lt;/replace&gt;</pre></div>
-<div class="msg assistant"><p>I'll now verify the changes by checking the main page.</p></div>
-<div class="tool-row expandable"><div class="tool-row-head"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><path d="M12 3a14 14 0 0 1 0 18"></path><path d="M12 3a14 14 0 0 0 0 18"></path></svg><span class="tool-verb">Checked</span><span class="tool-label">file:///H:/Code2026/Testr/Colva/index.html</span><svg class="tool-chevron" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"></path></svg></div><pre class="tool-detail hidden">&lt;url&gt;
-file:///H:/Code2026/Testr/Colva/index.html
-&lt;/url&gt;</pre></div>
-<div class="msg assistant"><p>I have updated the image for 77 Marlowe Lane, Old Town to a new luxury estate photo (<code>assets/prop-3-new.jpg</code>) in both the featured listings and the "This Week in Colva" section. I verified the change via a browser check.</p></div>
-</div>
-        </div>
-        <button class="scroll-down hidden"><svg viewBox="0 0 24 24"><path d="M12 5v14"></path><path d="M6 13l6 6 6-6"></path></svg></button>
-        <aside class="side-panel hidden">
-          <div class="sp-section">
-            <div class="sp-head">Project</div>
-            <button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"></path></svg><span>Colva</span></button>
-          </div>
-          <div class="sp-section">
-            <div class="sp-head">Outputs</div>
-            <div><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/prop-3-new.jpg</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>index.html</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/testi-1.jpg</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/testi-2.jpg</span></button><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>assets/testi-3.jpg</span></button></div>
-          </div>
-          <div class="sp-section">
-            <div class="sp-head">Sources</div>
-            <div><button class="sp-row"><svg class="sp-ico" viewBox="0 0 24 24"><path d="M9 18l-5-6 5-6"></path><path d="M15 6l5 6-5 6"></path></svg><span>index.html</span></button></div>
-          </div>
-        </aside>
-      </div>
-      <div class="composer-wrap chat-composer">
-        <div class="composer" data-composer="chat">
-          <div class="composer-image-previews hidden" data-role="image-previews"></div>
-          <textarea class="composer-input" rows="1" placeholder="Ask Codeply to build, fix or explain anything  ·  /goal keeps it going until done"></textarea>
-          <div class="composer-bottom">
-            <div class="composer-bottom-left">
-              <button class="approve-toggle" data-role="bypass">
-                <svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5Z"></path><path d="M9 12l2 2 4-4"></path></svg>
-                <span data-role="bypass-label">Approve manually</span>
-              </button>
-              <button class="chip" data-role="mode-chip">
-                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a4.5 4.5 0 0 0-6 6L3 18v3h3l5.7-5.7a4.5 4.5 0 0 0 6-6L15 12l-3-3Z"></path></svg>
-                <span data-role="mode-name">Build</span>
-              </button>
-            </div>
-            <div class="composer-bottom-right">
-              <button class="model-btn" data-role="model-chip">
-                <span class="model-btn-dot" data-role="model-dot"></span>
-                <span data-role="model-name">Auto</span>
-                <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5"></path></svg>
-              </button>
-              <button class="send-btn" data-role="send"><svg class="ic-send" viewBox="0 0 24 24"><path d="M12 19V5"></path><path d="M6 11l6-6 6 6"></path></svg><svg class="ic-stop hidden" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"></rect></svg></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
-<div class="update-gate hidden" role="dialog" aria-modal="true" aria-labelledby="updateGateTitle">
-  <div class="update-gate-card">
-    <img class="update-gate-logo" src="/mockups/craft/logo.png" alt="">
-    <h2>Update required</h2>
-    <p>A new version of Codeply Craft is needed to keep going.</p>
-    <div class="update-gate-notes hidden"></div>
-    <div class="update-gate-track"><div class="update-gate-bar"></div></div>
-    <div class="update-gate-status">Downloading…</div>
-    <button class="btn-primary update-gate-btn hidden" type="button">Restart and update</button>
-  </div>
-</div></div></div></div></div></article><article class="tour-item"><h3>Use Craft from your phone</h3><p>Sign in on your phone with the same account and drive your PC from anywhere. No codes, no QR, any network.</p><div class="visual"><div class="shot phones" data-reveal><div class="phone-frame"><div class="app-frame" style="--w:390;--h:844" role="img" aria-label="The Codeply Craft phone app connected to your PC, with the Colva folder picked"><div class="craftm"><div class="bg-ambience">
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
-  </div>
-  <main class="app-shell">
-    <section class="workspace">
-      <header class="topbar">
-        <button class="icon-btn" aria-label="Open menu">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="14" y2="17"/></svg>
-        </button>
-        <div class="topbar-title">
-          <span class="status-dot"></span>
-          <span>Your PC</span>
-        </div>
-        <div class="topbar-folder-btn" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-          <span>Colva</span>
-        </div>
-      </header>
-      <main class="main-scroll">
-        <section class="tab-panel">
-          <div class="starter-view">
-            <div class="starter-hero">
-              <h2>What would you like Craft to build?</h2>
-              <p>Your task will be executed locally on your PC with full agent tool capabilities.</p>
-            </div>
-            <div class="action-grid">
-              <button class="action-card" data-prompt="Explore this project structure and summarize key components.">
-                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-                <div class="card-text">
-                  <strong>Explore Codebase</strong>
-                  <span>Understand structure & architecture</span>
-                </div>
-              </button>
-              <button class="action-card" data-prompt="Review this project code for bugs, performance, and UI improvements.">
-                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                <div class="card-text">
-                  <strong>Code Review</strong>
-                  <span>Find bugs and suggest fixes</span>
-                </div>
-              </button>
-              <button class="action-card" data-prompt="Fix issues in this project and verify everything works cleanly.">
-                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5 5L4 17v3h3l5.7-5.7a4 4 0 0 0 5-5l-2.8 2.8-2-2 2.8-2.8Z"/></svg></div>
-                <div class="card-text">
-                  <strong>Fix & Refactor</strong>
-                  <span>Resolve errors automatically</span>
-                </div>
-              </button>
-            </div>
-          </div>
-          <div class="chat-feed hidden" aria-live="polite"></div>
-        </section>
-      </main>
-      <form class="composer">
-        <div class="composer-inner">
-          <textarea rows="1" placeholder="Message Craft…  (/goal to keep going until done)"></textarea>
-          <button class="send-btn" type="submit" aria-label="Send task">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-            <svg class="hidden" viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
-          </button>
-        </div>
-      </form>
-    </section>
-  </main>
-  <section class="approval-sheet hidden" data-approval role="dialog" aria-modal="true">
-    <div class="sheet-backdrop"></div>
-    <div class="sheet-container">
-      <div class="sheet-handle"></div>
-      <div class="sheet-header">
-        <div class="approval-badge">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ff8275" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        </div>
-        <div>
-          <span class="sheet-overline">DESKTOP ACTION REQUIRED</span>
-          <h2>Craft needs approval</h2>
-        </div>
-      </div>
-      <p class="sheet-detail"></p>
-      <div class="sheet-actions">
-        <button class="btn btn-quiet">Reject</button>
-        <button class="btn btn-primary">Approve Once</button>
-      </div>
-    </div>
-  </section></div></div></div><div class="phone-frame"><div class="app-frame" style="--w:390;--h:844" role="img" aria-label="An edit waiting for approval on the phone"><div class="craftm"><div class="bg-ambience">
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
-  </div>
-  <main class="app-shell">
-    <section class="workspace">
-      <header class="topbar">
-        <button class="icon-btn" aria-label="Open menu">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="14" y2="17"/></svg>
-        </button>
-        <div class="topbar-title">
-          <span class="status-dot"></span>
-          <span>Your PC</span>
-        </div>
-        <div class="topbar-folder-btn" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-          <span>Colva</span>
-        </div>
-      </header>
-      <main class="main-scroll">
-        <section class="tab-panel">
-          <div class="starter-view hidden">
-            <div class="starter-hero">
-              <h2>What would you like Craft to build?</h2>
-              <p>Your task will be executed locally on your PC with full agent tool capabilities.</p>
-            </div>
-            <div class="action-grid">
-              <button class="action-card" data-prompt="Explore this project structure and summarize key components.">
-                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
-                <div class="card-text">
-                  <strong>Explore Codebase</strong>
-                  <span>Understand structure & architecture</span>
-                </div>
-              </button>
-              <button class="action-card" data-prompt="Review this project code for bugs, performance, and UI improvements.">
-                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-                <div class="card-text">
-                  <strong>Code Review</strong>
-                  <span>Find bugs and suggest fixes</span>
-                </div>
-              </button>
-              <button class="action-card" data-prompt="Fix issues in this project and verify everything works cleanly.">
-                <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5 5L4 17v3h3l5.7-5.7a4 4 0 0 0 5-5l-2.8 2.8-2-2 2.8-2.8Z"/></svg></div>
-                <div class="card-text">
-                  <strong>Fix & Refactor</strong>
-                  <span>Resolve errors automatically</span>
-                </div>
-              </button>
-            </div>
-          </div>
-          <div class="chat-feed" aria-live="polite"><article class="message-bubble user">add a testimonials section before the footer</article><div class="subagent-badge"><span class="mascot"><img class="mascot-ball" src="/assets/agents/frontend.webp" alt="Frontend"><img class="mascot-eyes" src="/assets/agents/eyes.webp" alt=""></span><span class="subagent-badge-text">Working as <strong>Frontend</strong></span></div><article class="message-bubble agent">I'll start by reading <strong>index.html</strong> to find the insertion point before the footer.</article><article class="message-bubble tool"><span class="tool-name">read_file</span> <span>index.html</span></article><article class="message-bubble tool"><span class="tool-name">use_skill</span> <span>premium-web-design</span></article><article class="message-bubble agent">Adding a testimonials section with three client stories, styled to match the rest of Colva Estates.</article><article class="message-bubble tool"><span class="tool-name">fetch_image</span> <span>assets/testi-1.jpg</span></article><article class="message-bubble tool"><span class="tool-name">fetch_image</span> <span>assets/testi-2.jpg</span></article><article class="message-bubble tool"><span class="tool-name">fetch_image</span> <span>assets/testi-3.jpg</span></article></div>
-        </section>
-      </main>
-      <form class="composer">
-        <div class="composer-inner">
-          <textarea rows="1" placeholder="Message Craft…  (/goal to keep going until done)"></textarea>
-          <button class="send-btn" type="submit" aria-label="Send task">
-            <svg class="hidden" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
-          </button>
-        </div>
-      </form>
-    </section>
-  </main>
-  <section class="approval-sheet" data-approval role="dialog" aria-modal="true">
-    <div class="sheet-backdrop"></div>
-    <div class="sheet-container">
-      <div class="sheet-handle"></div>
-      <div class="sheet-header">
-        <div class="approval-badge">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#ff8275" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        </div>
-        <div>
-          <span class="sheet-overline">DESKTOP ACTION REQUIRED</span>
-          <h2>Edit index.html</h2>
-        </div>
-      </div>
-      <p class="sheet-detail">-18 +37 lines</p>
-      <div class="sheet-actions">
-        <button class="btn btn-quiet">Reject</button>
-        <button class="btn btn-primary">Approve Once</button>
-      </div>
-    </div>
-  </section></div></div></div></div></div></article></div>
-</section>
+  </section>
 
-
-<section class="cta">
-  <div class="wrap">
-    <h2>Try Craft on your next task</h2>
-    <div class="hero-actions" style="justify-content:center"><a class="btn btn-dark btn-xl" href="/download">Download</a></div>
-    <div class="cta-agents" aria-label="The eight Craft role agents"><span class="site-mascot m-general " title="General"><img class="ball" src="/assets/agents/general.webp" alt="General" width="40" height="40"><img class="eyes" src="/assets/agents/eyes.webp" alt=""></span><span class="site-mascot m-frontend " title="Frontend"><img class="ball" src="/assets/agents/frontend.webp" alt="Frontend" width="40" height="40" style="animation-delay:-0.7s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-0.7s"></span><span class="site-mascot m-backend " title="Backend"><img class="ball" src="/assets/agents/backend.webp" alt="Backend" width="40" height="40" style="animation-delay:-1.4s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-1.4s"></span><span class="site-mascot m-database " title="Database"><img class="ball" src="/assets/agents/database.webp" alt="Database" width="40" height="40" style="animation-delay:-2.1s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-2.1s"></span><span class="site-mascot m-testing " title="Testing"><img class="ball" src="/assets/agents/testing.webp" alt="Testing" width="40" height="40" style="animation-delay:-2.8s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-2.8s"></span><span class="site-mascot m-security " title="Security"><img class="ball" src="/assets/agents/security.webp" alt="Security" width="40" height="40" style="animation-delay:-3.5s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-3.5s"></span><span class="site-mascot m-devops " title="DevOps"><img class="ball" src="/assets/agents/devops.webp" alt="DevOps" width="40" height="40" style="animation-delay:-4.2s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-4.2s"></span><span class="site-mascot m-docs " title="Docs"><img class="ball" src="/assets/agents/docs.webp" alt="Docs" width="40" height="40" style="animation-delay:-4.9s"><img class="eyes" src="/assets/agents/eyes.webp" alt="" style="animation-delay:-4.9s"></span></div>
+  <section class="sec" style="padding-top:40px">
+    <div class="wrap">
+      <div class="center"><div class="kicker rv">Built in</div><h2 class="rv d1">Everything in <span class="serif">one app.</span></h2><p class="sub rv d2">Chat, projects, a built-in terminal and a real browser panel, with Cloud and Crew right there in the sidebar.</p></div>
+      <div class="fgrid">
+        <article class="f rv"><div class="fi"><svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 1 0 6 16.5h11.5"/></svg></div><h3>Cloud runs</h3><p>Switch Cloud on under the message box and Craft keeps working when your PC is off, then opens a pull request for you to review.</p><div class="shot dk"><div class="cx mini-comp" aria-hidden="true"><div class="cx-box"><div class="cx-ph">Ask Codeply anything, or type / for commands</div><div class="cx-row"><span><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6Z"/></svg>Approve manually</span><span><svg viewBox="0 0 24 24"><path d="M14 6l4 4M4 20l9-9M12 4l8 8-3 3-8-8Z"/></svg>Build</span><span class="cloudon"><svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 1 0 6 16.5h11.5"/></svg>Cloud on</span><span class="sp"></span><span class="cx-model">Auto</span><span class="cx-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></div></div></div></div></article>
+        <article class="f rv"><div class="fi"><svg viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="11" rx="4"/><path d="M12 4v4M9.5 13h.01M14.5 13h.01"/></svg></div><h3>Crew built in</h3><p>Click Crew in the sidebar and it opens in its own window. Your bots work for you around the clock.</p><div class="shot dk"><div class="gc cw" aria-hidden="true">
+  <div class="gc-h"><span class="gc-avs"><i data-avatar="shella"></i><i data-avatar="george"></i><i data-avatar="felipe"></i></span><div><b>Launch week</b><small>Shella, George, Felipe</small></div></div>
+  <div class="gc-b">
+    <div class="gc-u">Plan my launch week. Keep it light.</div>
+    <div class="gc-m"><i data-avatar="shella"></i><div><b>Shella</b><p>Three emails need you today. I drafted replies to <strong>Sam</strong> and the <strong>Figma</strong> team for you to check.</p></div></div>
+    <div class="gc-m"><i data-avatar="george"></i><div><b>George</b><p>Launch posts are scheduled for <strong>Tuesday at 9:00</strong>. I will ping you if anything fails.</p></div></div>
+    <div class="gc-m"><i data-avatar="felipe"></i><div><b>Felipe</b><p>I wrote outreach to <strong>12 creators</strong>. Want me to send them once you approve?</p></div></div>
   </div>
-</section>
+  <div class="gc-in">Message Launch week, @ to pick a bot<span><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></div>
+</div></div></article>
+        <article class="f rv"><div class="fi"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8Z"/></svg></div><h3>The right role for the job</h3><p>It switches between roles like Frontend, Backend and Testing, and reaches for the right one of 280+ skills on its own.</p></article>
+        <article class="f rv"><div class="fi"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></div><h3>Your models</h3><p>Start with Auto, or bring OpenAI, Claude, Gemini, OpenRouter, Groq, DeepSeek or a local Ollama model.</p></article>
+        <article class="f rv"><div class="fi"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M12 15h5"/></svg></div><h3>A built-in terminal</h3><p>Run anything yourself, right next to the chat, in the project the agent is working on.</p></article>
+        <article class="f rv"><div class="fi"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7"/><path d="M20 4v5h-5"/></svg></div><h3>Updates itself</h3><p>New versions download in the background and install on restart. Nothing to manage.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:40px">
+    <div class="wrap media-split">
+      <div>
+        <div class=""><div class="kicker rv">Cloud runs</div><h2 class="rv d1">Close the laptop. <span class="serif">It keeps going.</span></h2><p class="sub rv d2">Your run moves to the cloud, finishes the job, and opens a pull request. Check it or merge it from your phone.</p></div>
+      </div>
+      <div class="frame rv d1"><img src="/assets/products/cloud-focus-840.webp" alt="A Craft cloud run that edited files, ran tests and opened a pull request" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="download" style="padding-top:40px">
+    <div class="wrap" style="max-width:760px">
+      <div class="center"><div class="kicker rv">Download</div><h2 class="rv d1">Get Codeply <span class="serif">Craft.</span></h2><p class="sub rv d2">Free. Craft includes Cloud runs and Crew.</p></div>
+      <div class="dl-card rv" style="margin-top:36px">
+        <div class="top"><svg viewBox="0 0 4295 4295"><rect width="4295" height="4295" rx="945" fill="#2F6BFF"/><use href="#knot" fill="#FFFFFF"/></svg><div><h3>Codeply Craft</h3><small style="color:var(--muted)">The desktop app</small></div></div>
+        <div class="dl-list">
+          <div class="dl-row"><div><b>Windows</b><small>Windows 10 and 11, 64-bit</small></div><a class="btn btn-primary" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-Setup.exe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg><span>Download</span></a></div>
+          <div class="dl-row"><div><b>macOS, Apple silicon</b><small>M1 and newer</small></div><a class="btn btn-primary" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-arm64.dmg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg><span>Download</span></a></div>
+          <div class="dl-row"><div><b>macOS, Intel</b><small>Older Macs</small></div><a class="btn btn-primary" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-x64.dmg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg><span>Download</span></a></div>
+        </div>
+        <p style="margin-top:14px;font-size:14px;color:var(--muted)">Updates install themselves. <a href="https://github.com/AwaisSDev/Codeply-Craft/releases" style="color:#1f6bff">Release notes</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <span class="mark rv" data-mark></span>
+      <h2 class="rv d1">The proof behind <span class="serif">every change.</span></h2>
+      <div class="ctas rv d2"><a class="btn btn-primary" href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-Setup.exe" data-mac-href="https://github.com/AwaisSDev/Codeply-Craft/releases/latest/download/Codeply-Craft-arm64.dmg" data-mac-label="Download for Mac"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg><span>Download Craft</span></a><a class="btn btn-ghost" href="/docs">Read the docs</a></div>
+    </div>
+  </section>
 </main>
-<footer class="site-footer">
+
+<footer>
   <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-brand"><a href="/" class="brand"><img src="/assets/logo.webp" alt="" width="28" height="28">Codeply</a><p>The coding agent that checks its own work.</p></div>
-      <div class="footer-col"><h4>Product</h4><a href="/craft">Codeply Craft</a><a href="/studio">Codeply Studio</a><a href="/crew">Codeply Crew</a><a href="/cli">Codeply CLI</a><a href="/drop">Codeply Drop</a><a href="/download">Download</a></div>
-      <div class="footer-col"><h4>Resources</h4><a href="/docs">Docs</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a></div>
-      <div class="footer-col"><h4>Company</h4><a href="/about">About</a><a href="/careers">Careers</a><a href="mailto:hello@codeply.online">Contact</a></div>
-      <div class="footer-col"><h4>Legal</h4><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/eula">EULA</a></div>
-    </div>
-    <div class="footer-bottom"><span>&copy; <span data-year>2026</span> Codeply</span><div class="socials"><a href="https://twitter.com/codeplyai" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L2.092 2.25h6.962l4.265 5.638L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a><a href="https://github.com/codeplyai" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg></a><a href="https://discord.gg/codeply" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a></div></div>
+    <a class="brand" href="/"><span class="mark" data-mark></span>Codeply</a>
+    <span>© <span data-year>2026</span> Codeply</span>
+    <nav aria-label="Footer"><a href="/download">Download</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a><a href="/about">About</a><a href="/careers">Careers</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/eula">EULA</a></nav>
   </div>
 </footer>
+<script src="/assets/site/bot-avatar.js?v=1"></script>
+<script src="/assets/site/site.js?v=1"></script>
 </body>
 </html>
