@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site/site.css?v=1">
+<link rel="stylesheet" href="/assets/site/site.css?v=2">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="textpage">
@@ -99,11 +99,99 @@
   <div class="wrap-narrow">
     <span class="eyebrow plain">Changelog</span>
     <h1>What's new in Codeply</h1>
-    <p>The overlay keeps getting sharper. Here's what's shipped recently, and what's coming next.</p>
+    <p>Everything we've shipped, newest first.</p>
   </div>
 </section>
 <section class="prose">
   <div class="wrap-narrow">
+
+        <div class="entry">
+            <span class="tag new">New · Oct 8, 2026</span>
+            <h2>A new look, a new logo</h2>
+            <ul>
+                <li><strong>A brand new codeply.app.</strong> Every page is redesigned around what Codeply actually does today, with live mockups taken straight from the apps: Craft, Crew, Studio, CLI, Drop and the phone app.</li>
+                <li><strong>The Codeply knot.</strong> One logo for the whole platform. Craft and the phone app now carry the blue knot, and the Crew logo marks your bots.</li>
+                <li><strong>A home for Codeply Mobile.</strong> The phone app has its own page, with how to add it to your home screen.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 7, 2026</span>
+            <h2>Always-on bots and one-click publishing</h2>
+            <ul>
+                <li><strong>Bots that keep watching.</strong> Always-on bots run in the background, watch your Gmail without spending tokens, and notify you when something needs you, on your PC and by email on your phone.</li>
+                <li><strong>Publish from the chat.</strong> Hit Publish and Craft takes the project live on your own Vercel, sets up Supabase, pushes to GitHub and connects a domain. Your account, your code, nothing locked in.</li>
+                <li><strong>Your models on your phone.</strong> Switch on Use on my phone and the models you set up in Craft show up in the phone app, even when your PC is off.</li>
+                <li><strong>Edit and retry.</strong> Change a message you already sent and run it again, right where it is.</li>
+                <li><strong>A cleaner Craft.</strong> A new design system across the app: calmer controls, clearer dialogs, better contrast.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 6, 2026</span>
+            <h2>Your ChatGPT plan, local models, and open source</h2>
+            <ul>
+                <li><strong>Sign in with ChatGPT.</strong> Use the models in your ChatGPT plan straight from the Craft model menu. Sign in once in your browser and they appear in the picker.</li>
+                <li><strong>Research Mode.</strong> Point Craft at Ollama, local or cloud, and every request runs on your own models, with clear errors when Ollama is not running.</li>
+                <li><strong>Open source.</strong> Codeply Craft and the Codeply engine are now MIT licensed.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 5, 2026</span>
+            <h2>Crew moves into Craft</h2>
+            <ul>
+                <li><strong>One click away.</strong> Click Crew in the Craft sidebar and your bots open in their own window. The same bots work in Crew, in Craft and on your phone.</li>
+                <li><strong>Better reasoning models.</strong> DeepSeek thinking mode now passes its reasoning back between turns.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 2 to 3, 2026</span>
+            <h2>Call your bots</h2>
+            <ul>
+                <li><strong>Voice calls.</strong> Call a bot from your phone or from Crew on your PC, or let it call you. Each bot has its own natural voice, with live captions that follow the audio, mute, transcript and speaker controls, and a history of recent calls.</li>
+                <li><strong>Calls that get things done.</strong> On a call a bot can check your Gmail, look things up and draft replies, and it still asks before it sends anything.</li>
+                <li><strong>Help with the everyday.</strong> Reminders, plan my day, Gmail drafts you edit before they go out, and Google Calendar so plans fit around what is booked.</li>
+                <li><strong>Bots that learn.</strong> Each bot remembers what you told it and gets better on the job. When your PC is off, your bots keep working in Codeply Cloud.</li>
+                <li><strong>Make a bot your way.</strong> Describe it in one line, start from a template (Orchestrator, Research, Outreach, Analysis, Reporting, Execution, Monitoring) or build it from scratch, then design its sticker avatar: shapes, eyes, glasses, accessories and colors, or hit Surprise me.</li>
+                <li><strong>Bots that work together.</strong> Put several bots in one group chat and @ the one you want. An orchestrator can hand work to specialists, one at a time, and you set what each bot must ask before doing: editing files, running commands, sending anything or deploying.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Sep 30 to Oct 1, 2026</span>
+            <h2>Craft Cloud: close the laptop, it keeps going</h2>
+            <ul>
+                <li><strong>Runs in the cloud.</strong> Switch Cloud on under the message box and the agent keeps working on GitHub while your PC is off, on its own branch, then opens a pull request for you to review.</li>
+                <li><strong>Checks its own work there too.</strong> Cloud runs take screenshots to verify their fixes, and you can watch and merge them from your phone.</li>
+                <li><strong>Cloud chats look like normal chats.</strong> On the PC and on the phone, with clear reasons when a run fails and one click to switch it off.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Sep 30, 2026</span>
+            <h2>The CLI grows up</h2>
+            <ul>
+                <li><strong>Plugins and custom commands.</strong> Install plugins from GitHub or a folder, and add your own slash commands.</li>
+                <li><strong>MCP and the web.</strong> Connect MCP servers, and let the agent fetch pages and search the web.</li>
+                <li><strong>Safer by default.</strong> Permission rules for commands, workspace snapshots you can roll back to, and a verification gate: the agent has to check its changes before it says it is done.</li>
+                <li><strong>Chats that stay.</strong> Searchable chat history, and share a chat as Markdown, a web page or a gist.</li>
+                <li><strong>Run it anywhere.</strong> <code>codeply serve</code> exposes a local API, and the GitHub agent answers <code>/codeply</code> comments in your own Actions runner.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Sep 27, 2026</span>
+            <h2>Codeply Craft 1.1</h2>
+            <ul>
+                <li><strong>One agent, the right role.</strong> Craft switches roles as it works (Frontend, Backend, Testing and more) and reaches for the right one of 280+ skills on its own.</li>
+                <li><strong>It checks before it stops.</strong> Every task ends with a check in the real browser panel, now at desktop, tablet and phone sizes, and screenshots work even while Craft is hidden.</li>
+                <li><strong>Bring your own models.</strong> Auto, or OpenRouter with hundreds of models, or your own keys.</li>
+                <li><strong>Your phone, from anywhere.</strong> Start work and follow it from your phone, signed in with the same account.</li>
+                <li><strong>Quiet updates.</strong> Updates install in the background, with separate builds for Apple silicon and Intel Macs.</li>
+            </ul>
+        </div>
 
         <div class="entry">
             <span class="tag new">Just launched</span>
@@ -150,7 +238,7 @@
     <nav aria-label="Footer"><a href="/download">Download</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a><a href="/about">About</a><a href="/careers">Careers</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/eula">EULA</a></nav>
   </div>
 </footer>
-<script src="/assets/site/bot-avatar.js?v=1"></script>
-<script src="/assets/site/site.js?v=1"></script>
+<script src="/assets/site/bot-avatar.js?v=2"></script>
+<script src="/assets/site/site.js?v=2"></script>
 </body>
 </html>

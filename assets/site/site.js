@@ -17,7 +17,7 @@
   function favicon(t){
     var c = FAV[t];
     var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4295 4295"><rect width="4295" height="4295" rx="945" fill="'+c[0]+'"/><path transform="'+knotT+'" fill-rule="evenodd" fill="'+c[1]+'" d="'+knotD+'"/></svg>';
-    document.getElementById('favicon').href = 'data:image/svg+xml,' + encodeURIComponent(s);
+    var fav = document.getElementById('favicon'); if (fav) fav.href = 'data:image/svg+xml,' + encodeURIComponent(s);
   }
   function setTheme(t, save){
     root.dataset.theme = t;
