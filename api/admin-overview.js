@@ -105,6 +105,8 @@ export default async function handler(req, res) {
     // a file applied in Drop: activity without tokens (the AI call may have used the person's own key)
     ...applyRows.map((r) => ({ user: r.user_id, product: 'drop', kind: 'apply', model: '', provider: '', tin: 0, tout: 0, at: r.created_at, added: r.lines_added || 0, removed: r.lines_removed || 0 })),
   ];
+  const imported = appRows.filter((r) => r.version === 'manual-import').length;
+  if (imported) notes.push(`Includes ${imported} AI calls added by hand from a provider's own usage page (DeepSeek), marked manual-import. Their per-day split is read off that page's chart.`);
   if (!appRows.length) notes.push('Craft, Crew and CLI usage is recorded from Craft 1.1.14 on (and the CLI from its next update). Until people update, those products show little or nothing.');
   notes.push('Drop tokens count AI calls made through the Codeply proxy; files applied in Drop count as activity even when the person used their own key. Phone counts voice calls with bots; its tokens are estimates.');
 
