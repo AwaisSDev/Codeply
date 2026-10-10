@@ -297,6 +297,10 @@
   .search input{border:0;outline:0;background:none;font:inherit;font-size:13px;width:100%;min-width:0;color:var(--text)}
   .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-ring)}
   @media(max-width:700px){.search{width:100%}}
+  .utools{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .utools .seg .cnt{font-size:11px;color:var(--faint);margin-left:3px;font-variant-numeric:tabular-nums}
+  .utools .seg button[aria-pressed="true"] .cnt{color:var(--muted)}
+  @media(max-width:700px){.utools{width:100%}.utools .seg{overflow-x:auto;max-width:100%}}
   .users-tbl tbody tr{cursor:pointer;transition:background .12s}
   .users-tbl tbody tr:hover td{background:var(--hover)}
   .users-tbl td:first-child{border-radius:0}
@@ -600,7 +604,12 @@
   <section id="users" class="panel-first" data-panel="users">
     <div class="sec-head">
       <div><h2>Users</h2><p>Tokens per user in this range, and the apps they used them in. Click a row for details.</p></div>
-      <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="userSearch" type="search" placeholder="Filter by email or name" autocomplete="off"></label>
+      <div class="utools"><div class="seg" id="userFilter" role="group" aria-label="Show">
+        <button type="button" data-f="all" aria-pressed="true">All <span class="cnt" id="ufAll"></span></button>
+        <button type="button" data-f="active" aria-pressed="false">Active <span class="cnt" id="ufActive"></span></button>
+        <button type="button" data-f="new" aria-pressed="false" title="Signed up in the last 7 days">Joined recently <span class="cnt" id="ufNew"></span></button>
+        <button type="button" data-f="idle" aria-pressed="false">No usage <span class="cnt" id="ufIdle"></span></button>
+      </div><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="userSearch" type="search" placeholder="Filter by email or name" autocomplete="off"></label></div>
     </div>
     <div class="card card-pad">
       <table class="tbl users-tbl">
@@ -611,7 +620,7 @@
           <th class="r sortable hide-sm" data-sort="tokens_in">In<span class="arr"></span></th>
           <th class="r sortable hide-sm" data-sort="tokens_out">Out<span class="arr"></span></th>
           <th class="r sortable hide-sm" data-sort="calls">Calls<span class="arr"></span></th>
-          <th class="r sortable" data-sort="last_seen">Last seen<span class="arr"></span></th>
+          <th class="r sortable" data-sort="last_seen"><span id="lastSeenTh">Last seen</span><span class="arr"></span></th>
         </tr></thead>
         <tbody id="usersBody"></tbody>
       </table>
@@ -1229,7 +1238,7 @@ function drawHours(d){
 }
 
 /* ============================ RENDER: Users ================================ */
-let usersCache = [], userSort = { key:'tokens', dir:-1 }, usersShowAll = false;
+let usersCache = [], userSort = { key:'tokens', dir:-1 }, usersShowAll = false, userFilter = 'all';
 const USERS_PAGE = 25;
 
 function avatarHtml(u){
@@ -1243,9 +1252,17 @@ function renderUsers(list){
 }
 function drawUsers(){
   const q = ($('userSearch').value||'').trim().toLowerCase();
-  let rows = usersCache.filter(u=> !q || (u.email||'').toLowerCase().includes(q) || (u.full_name||'').toLowerCase().includes(q));
+  const NEW_MS = 7*864e5, now = Date.now();
+  const isNew = (u)=> u.joined_at && now - +new Date(u.joined_at) <= NEW_MS;
+  const FILTERS = { all:()=>true, active:isActive, new:isNew, idle:(u)=>!isActive(u) };
+  $('ufAll').textContent = usersCache.length; $('ufActive').textContent = usersCache.filter(isActive).length;
+  $('ufNew').textContent = usersCache.filter(isNew).length; $('ufIdle').textContent = usersCache.filter(u=>!isActive(u)).length;
+  let rows = usersCache.filter(FILTERS[userFilter]||FILTERS.all).filter(u=> !q || (u.email||'').toLowerCase().includes(q) || (u.full_name||'').toLowerCase().includes(q));
+  // "Joined recently" reads best newest first
+  .textContent = userFilter==='new' ? 'Joined' : 'Last seen';
+  if(userFilter==='new') rows.sort((a,b)=> +new Date(b.joined_at||0) - +new Date(a.joined_at||0));
   const k = userSort.key, dir = userSort.dir;
-  rows.sort((a,b)=>{
+  if(userFilter!=='new') rows.sort((a,b)=>{
     const va = k==='last_seen' ? +new Date(a.last_seen||0) : (Number(a[k])||0);
     const vb = k==='last_seen' ? +new Date(b.last_seen||0) : (Number(b[k])||0);
     return (va-vb)*dir || (isActive(b)-isActive(a)) || (+new Date(b.last_seen||0) - +new Date(a.last_seen||0)) || (+new Date(b.joined_at||0) - +new Date(a.joined_at||0));
@@ -1275,11 +1292,14 @@ function drawUsers(){
       '<td class="r hide-sm" title="'+fmtFull(u.tokens_in)+'">'+fmt(u.tokens_in)+'</td>'+
       '<td class="r hide-sm" title="'+fmtFull(u.tokens_out)+'">'+fmt(u.tokens_out)+'</td>'+
       '<td class="r hide-sm" title="'+fmtFull(u.calls)+'">'+fmt(u.calls)+'</td>'+
-      (u.last_seen ? '<td class="r t-time" title="'+esc(new Date(u.last_seen).toLocaleString())+'">'+relTime(u.last_seen)+'</td></tr>'
-        : '<td class="r t-time idle-l" title="'+esc(u.joined_at?'Joined '+new Date(u.joined_at).toLocaleString():'')+'">'+(u.joined_at?'Joined '+dayLabel(String(u.joined_at).slice(0,10)):'-')+'</td></tr>');
-  }).join('') : '<tr><td colspan="7"><div class="empty" style="min-height:80px">No users match "'+esc(q)+'"</div></td></tr>';
+      (u.last_seen && userFilter!=='new' ? '<td class="r t-time" title="'+esc(new Date(u.last_seen).toLocaleString())+'">'+relTime(u.last_seen)+'</td></tr>'
+        : '<td class="r t-time'+(userFilter==='new'?'':' idle-l')+'" title="'+esc(u.joined_at?'Joined '+new Date(u.joined_at).toLocaleString():'')+'">'+(u.joined_at?(userFilter==='new'?'Joined '+relTime(u.joined_at):'Joined '+dayLabel(String(u.joined_at).slice(0,10))):'-')+'</td></tr>');
+  }).join('') : '<tr><td colspan="7"><div class="empty" style="min-height:80px">'+(q ? 'No users match "'+esc(q)+'"' : userFilter==='new' ? 'Nobody joined in the last 7 days' : 'No users here')+'</div></td></tr>';
   const activeN = usersCache.filter(isActive).length;
-  $('usersCountSub').textContent = 'Showing '+shown.length+' of '+rows.length+' users. '+activeN+' were active in this range; the rest are listed by when they joined.';
+  $('usersCountSub').textContent = userFilter==='new' ? 'Showing '+shown.length+' of '+rows.length+' people who joined in the last 7 days, newest first.'
+    : userFilter==='active' ? 'Showing '+shown.length+' of '+rows.length+' users active in this range.'
+    : userFilter==='idle' ? 'Showing '+shown.length+' of '+rows.length+' users with no usage in this range, newest signups first.'
+    : 'Showing '+shown.length+' of '+rows.length+' users. '+activeN+' were active in this range; the rest are listed by when they joined.';
   const more = !q && rows.length>USERS_PAGE;
   $('usersMore').style.display = more ? '' : 'none';
   $('usersMore').textContent = usersShowAll ? 'Show fewer' : 'Show all '+rows.length;
@@ -1792,6 +1812,12 @@ function initDashboardUi(){
   });
   // users table
   $('userSearch').addEventListener('input', drawUsers);
+  $('userFilter').addEventListener('click', (e)=>{
+    const b = e.target.closest('button[data-f]'); if(!b) return;
+    userFilter = b.dataset.f; usersShowAll = false;
+    $('userFilter').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed', String(x===b)));
+    drawUsers();
+  });
   $('usersMore').addEventListener('click', ()=>{ usersShowAll = !usersShowAll; drawUsers(); });
   document.querySelectorAll('.users-tbl th.sortable').forEach(th=>th.addEventListener('click', ()=>{
     const k = th.dataset.sort;
