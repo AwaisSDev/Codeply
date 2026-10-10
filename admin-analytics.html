@@ -1259,7 +1259,7 @@ function drawUsers(){
   $('ufNew').textContent = usersCache.filter(isNew).length; $('ufIdle').textContent = usersCache.filter(u=>!isActive(u)).length;
   let rows = usersCache.filter(FILTERS[userFilter]||FILTERS.all).filter(u=> !q || (u.email||'').toLowerCase().includes(q) || (u.full_name||'').toLowerCase().includes(q));
   // "Joined recently" reads best newest first
-  .textContent = userFilter==='new' ? 'Joined' : 'Last seen';
+  document.getElementById('lastSeenTh').textContent = userFilter==='new' ? 'Joined' : 'Last seen';
   if(userFilter==='new') rows.sort((a,b)=> +new Date(b.joined_at||0) - +new Date(a.joined_at||0));
   const k = userSort.key, dir = userSort.dir;
   if(userFilter!=='new') rows.sort((a,b)=>{
