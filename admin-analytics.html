@@ -99,6 +99,43 @@
 
   /* ---------- Sections ---------- */
   section{padding-top:40px;scroll-margin-top:110px}
+  /* tabs: one panel at a time */
+  [data-panel]:not(.on){display:none}
+  .panel-first{padding-top:20px}
+  .secnav button{flex:none;display:inline-flex;align-items:center;gap:7px;height:44px;padding:0 14px;font-size:13.5px;font-weight:500;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s var(--ease),border-color .15s var(--ease)}
+  .secnav button:hover{color:var(--text)}
+  .secnav button.on{color:var(--text);border-color:var(--text)}
+  .secnav button .cnt{font-size:11.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+  /* token split bar (per user and per app) */
+  .split{display:flex;height:6px;border-radius:99px;overflow:hidden;background:var(--panel-2);min-width:90px}
+  .split i{display:block;height:100%}
+  .split-l{margin-top:6px;font-size:11.5px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}
+  .split-l span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+  .split-l b{width:7px;height:7px;border-radius:2px;display:inline-block}
+  .approw{display:grid;grid-template-columns:110px 1fr 80px;align-items:center;gap:14px;padding:11px 0;border-top:1px solid var(--line)}
+  .approw:first-child{border-top:0}
+  .approw .nm{display:flex;align-items:center;gap:8px;font-weight:500}
+  .approw .nm i{width:8px;height:8px;border-radius:2px;display:inline-block}
+  .approw .bar{height:8px;border-radius:99px;background:var(--panel-2);overflow:hidden}
+  .approw .bar i{display:block;height:100%;border-radius:99px}
+  .approw .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
+  .approw .v small{display:block;font-size:11.5px;color:var(--faint);font-weight:400}
+  .io{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+  .io b{color:var(--text);font-weight:600;font-variant-numeric:tabular-nums;margin-right:4px}
+  .mini-u{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
+  .mini-u:first-child{border-top:0}
+  .mini-u:hover .u-name{color:var(--accent)}
+  .mini-u .u-av{width:28px;height:28px;font-size:12px}
+  .mini-u .split{margin-top:5px;max-width:220px}
+  .mini-u .t{text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
+  .mini-u .t small{display:block;font-size:11.5px;color:var(--faint);font-weight:400}
+  .linkbtn{font-size:12.5px;color:var(--accent);font-weight:500}
+  .g-1-1{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:900px){.g-1-1{grid-template-columns:1fr}}
+  .apps-tbl td,.apps-tbl th{white-space:nowrap}
+  .apps-tbl .sub{display:block;font-size:11.5px;color:var(--faint)}
+  .uapps{margin:18px 0 26px}
+  .uapps .approw{grid-template-columns:90px 1fr 90px}
   .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap}
   .sec-head h2{font-size:17px;font-weight:600;letter-spacing:-.015em}
   .sec-head p{font-size:13px;color:var(--muted);margin-top:3px}
@@ -329,6 +366,7 @@
   .umodal-close{margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid var(--line-2);display:grid;place-items:center;color:var(--muted);flex:none}
   .umodal-close:hover{color:var(--text);background:var(--hover)}
   .umodal .u-av{display:flex;width:44px;height:44px;font-size:16px}
+  #topMini .u-av{display:flex;width:28px;height:28px;font-size:12px}
   .umodal-name{font-size:17px;font-weight:600;letter-spacing:-.015em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .umodal-mail{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .umodal-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:22px}
@@ -428,27 +466,39 @@
     <button class="btn" type="button" id="alertRetry">Try again</button>
   </div>
 
-  <nav class="secnav" aria-label="Sections">
+  <nav class="secnav" aria-label="Sections" role="tablist">
     <div class="secnav-inner" id="secnav">
-      <a href="#overview" class="on">Overview</a>
-      <a href="#products">Products</a>
-      <a href="#models">Models</a>
-      <a href="#activity">Activity</a>
-      <a href="#users">Users</a>
-      <a href="#features">Features</a>
-      <a href="#audience">Audience</a>
+      <button type="button" role="tab" data-tab="overview" class="on">Overview</button>
+      <button type="button" role="tab" data-tab="users">Users <span class="cnt" id="tabUsersCnt"></span></button>
+      <button type="button" role="tab" data-tab="apps">Apps</button>
+      <button type="button" role="tab" data-tab="models">Models</button>
+      <button type="button" role="tab" data-tab="features">Features</button>
+      <button type="button" role="tab" data-tab="audience">Audience</button>
     </div>
   </nav>
 
   <!-- Overview KPIs -->
-  <section id="overview" style="padding-top:8px">
-    <div class="card kpis" id="kpis"></div>
+  <section id="overview" class="panel-first" data-panel="overview">
+    <div class="card kpis" id="kpis" style="margin-top:0"></div>
+  </section>
+
+  <section data-panel="overview" style="padding-top:16px">
+    <div class="g-1-1">
+      <div class="card card-pad">
+        <div class="card-head"><div><div class="card-title">Tokens by app</div><div class="card-sub">Where tokens were used this month</div></div></div>
+        <div id="appSplit"></div>
+      </div>
+      <div class="card card-pad">
+        <div class="card-head"><div><div class="card-title">Top users by tokens</div><div class="card-sub">This month</div></div><button class="linkbtn" type="button" data-goto="users">All users</button></div>
+        <div id="topMini"></div>
+      </div>
+    </div>
   </section>
 
   <!-- Products -->
-  <section id="products">
+  <section id="products" class="panel-first" data-panel="apps">
     <div class="sec-head">
-      <div><h2>Products</h2><p>Active users, AI calls and tokens per product this month. Lines show the daily trend.</p></div>
+      <div><h2>Apps</h2><p>Users, AI calls and tokens in each Codeply app this month.</p></div>
     </div>
     <div class="prod-grid" id="prodGrid"></div>
 
@@ -456,18 +506,23 @@
       <div class="card-head">
         <div><div class="card-title" id="pcTitle">Daily active users by product</div><div class="card-sub">Click a product below to hide or show it</div></div>
         <div class="seg" id="pcSeg" role="group" aria-label="Metric">
-          <button type="button" data-m="users" aria-pressed="true">Users</button>
+          <button type="button" data-m="users" aria-pressed="false">Users</button>
           <button type="button" data-m="calls" aria-pressed="false">Calls</button>
-          <button type="button" data-m="tokens" aria-pressed="false">Tokens</button>
+          <button type="button" data-m="tokens" aria-pressed="true">Tokens</button>
         </div>
       </div>
       <div class="legend" id="pcLegend"></div>
       <div class="chart" id="pcBox"><canvas id="productChart"></canvas></div>
     </div>
+
+    <div class="card card-pad" style="margin-top:16px">
+      <div class="card-head"><div><div class="card-title">Tokens per app</div><div class="card-sub">Input and output tokens, the model used most, and the heaviest user in each app</div></div></div>
+      <div id="appsTable"></div>
+    </div>
   </section>
 
   <!-- Models -->
-  <section id="models">
+  <section id="models" class="panel-first" data-panel="models">
     <div class="sec-head">
       <div><h2>Models</h2><p>Which models people run, and who pays for the tokens.</p></div>
     </div>
@@ -484,10 +539,7 @@
   </section>
 
   <!-- Activity -->
-  <section id="activity">
-    <div class="sec-head">
-      <div><h2>Activity</h2><p>Daily volume across every product, and when people use Codeply.</p></div>
-    </div>
+  <section id="activity" data-panel="overview" style="padding-top:16px">
     <div class="grid g-2-1">
       <div class="card card-pad">
         <div class="card-head">
@@ -508,19 +560,20 @@
   </section>
 
   <!-- Users -->
-  <section id="users">
+  <section id="users" class="panel-first" data-panel="users">
     <div class="sec-head">
-      <div><h2>Top users</h2><p>Heaviest users this month. Click a row for their usage history.</p></div>
+      <div><h2>Users</h2><p>Tokens per user this month, and the apps they used them in. Click a row for details.</p></div>
       <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="userSearch" type="search" placeholder="Filter by email or name" autocomplete="off"></label>
     </div>
     <div class="card card-pad">
       <table class="tbl users-tbl">
-        <colgroup><col class="c-user"><col class="c-prod"><col class="c-num"><col class="c-num hide-sm"><col class="c-seen"></colgroup>
         <thead><tr>
-          <th>User</th>
-          <th>Products</th>
-          <th class="r sortable" data-sort="calls">Calls<span class="arr"></span></th>
-          <th class="r sortable hide-sm" data-sort="tokens">Tokens<span class="arr"></span></th>
+          <th style="width:30%">User</th>
+          <th class="hide-sm" style="width:22%">Tokens by app</th>
+          <th class="r sortable" data-sort="tokens">Tokens<span class="arr"></span></th>
+          <th class="r sortable hide-sm" data-sort="tokens_in">In<span class="arr"></span></th>
+          <th class="r sortable hide-sm" data-sort="tokens_out">Out<span class="arr"></span></th>
+          <th class="r sortable hide-sm" data-sort="calls">Calls<span class="arr"></span></th>
           <th class="r sortable" data-sort="last_seen">Last seen<span class="arr"></span></th>
         </tr></thead>
         <tbody id="usersBody"></tbody>
@@ -530,7 +583,7 @@
   </section>
 
   <!-- Features -->
-  <section id="features">
+  <section id="features" class="panel-first" data-panel="features">
     <div class="sec-head">
       <div><h2>Features</h2><p>Usage of the assistant features this month.</p></div>
     </div>
@@ -538,7 +591,7 @@
   </section>
 
   <!-- Audience -->
-  <section id="audience">
+  <section id="audience" class="panel-first" data-panel="audience">
     <div class="sec-head">
       <div><h2>Audience</h2><p>App versions, platforms and where users are.</p></div>
     </div>
@@ -558,7 +611,7 @@
     </div>
   </section>
 
-  <div class="notes" id="notesBox" style="display:none">
+  <div class="notes" id="notesBox" data-panel="overview" style="display:none">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
     <div><b>About this data</b><ul id="notesList"></ul></div>
   </div>
@@ -809,8 +862,9 @@ function mockOverview(){
       return {date,users,calls,tokens};
     });
     const avg7 = sum(trend.slice(-7),'users')/7, avg30 = sum(trend,'users')/N;
+    const tok = sum(trend,'tokens');
     return { key:p.key, label:p.label, users_week:Math.round(avg7*2.2), users_month:Math.round(avg30*3.9),
-      calls_month:sum(trend,'calls'), tokens_month:sum(trend,'tokens'), trend };
+      calls_month:sum(trend,'calls'), tokens_month:tok, tokens_in_month:Math.round(tok*.71), tokens_out_month:Math.round(tok*.29), trend };
   });
   const daily = dates.map((date,i)=>({
     date,
@@ -845,8 +899,16 @@ function mockOverview(){
   const top_users = people.map((p,i)=>{
     base = Math.round(base*rnd(.8,.95));
     const nm = p.split('.').map(s=>s[0].toUpperCase()+s.slice(1)).join(' ');
-    return { id:'mock-'+(i+1), email:p+'@'+doms[i%3], name: i%4===3 ? '' : nm, products:combos[ri(0,combos.length-1)],
-      calls:base, tokens:Math.round(base*rnd(2500,6500)), last_seen:new Date(Date.now()-rnd(.02,1)*Math.pow(i+1,1.6)*3600e3).toISOString() };
+    const prods = combos[ri(0,combos.length-1)], tok = Math.round(base*rnd(2500,6500));
+    let left = tok; const by_product = prods.map((k,j)=>{ const t = j===prods.length-1 ? left : Math.round(left*rnd(.45,.8)); left -= t; return { key:k, tokens:t, calls:Math.max(1,Math.round(base*t/tok)) }; }).sort((a,b)=>b.tokens-a.tokens);
+    return { id:'mock-'+(i+1), email:p+'@'+doms[i%3], name: i%4===3 ? '' : nm, products:prods, by_product,
+      calls:base, tokens:tok, tokens_in:Math.round(tok*rnd(.62,.8)), tokens_out:0, top_model:modelDefs[ri(0,5)][0],
+      last_seen:new Date(Date.now()-rnd(.02,1)*Math.pow(i+1,1.6)*3600e3).toISOString() };
+  });
+  top_users.forEach(u=>{ u.tokens_out = u.tokens - u.tokens_in; });
+  products.forEach(p=>{
+    p.top_models = models.slice(0,3).map(m=>({ model:m.model, calls:Math.round(m.calls*.3), tokens:Math.round(m.tokens*.3) }));
+    p.top_users = top_users.map(u=>({ id:u.id, email:u.email, name:u.name, tokens:(u.by_product.find(x=>x.key===p.key)||{}).tokens||0 })).filter(u=>u.tokens>0).sort((a,b)=>b.tokens-a.tokens).slice(0,3);
   });
   const totalUsers = 1186;
   return {
@@ -856,6 +918,7 @@ function mockOverview(){
       users: totalUsers, signups_today: daily[N-1].signups, signups_week: sum(daily.slice(-7),'signups'),
       active_today: daily[N-1].active_users, active_week: Math.round(sum(daily.slice(-7),'active_users')/7*2.1),
       active_month: Math.round(sum(daily,'active_users')/N*3.4), ai_calls_month: calls, tokens_month: tokens,
+      tokens_in_month: Math.round(tokens*.71), tokens_out_month: tokens - Math.round(tokens*.71),
       mrr: 0, revenue_month: 0, currency: 'USD'
     },
     products, daily, models,
@@ -934,7 +997,7 @@ function renderProducts(d){
   drawProductChart();
 }
 
-let pcMetric = 'users';
+let pcMetric = 'tokens';
 const pcHidden = new Set();
 const METRIC_LBL = { users:'Daily active users by product', calls:'AI calls per day by product', tokens:'Tokens per day by product' };
 
@@ -1075,8 +1138,8 @@ function drawHours(d){
 }
 
 /* ============================ RENDER: Users ================================ */
-let usersCache = [], userSort = { key:'calls', dir:-1 }, usersShowAll = false;
-const USERS_PAGE = 15;
+let usersCache = [], userSort = { key:'tokens', dir:-1 }, usersShowAll = false;
+const USERS_PAGE = 25;
 
 function avatarHtml(u){
   if(u.avatar_url) return '<img class="u-av" src="'+esc(u.avatar_url)+'" alt="">';
@@ -1103,7 +1166,7 @@ function drawUsers(){
   });
   const shown = usersShowAll || q ? rows : rows.slice(0,USERS_PAGE);
   if(!usersCache.length){
-    $('usersBody').innerHTML = '<tr><td colspan="5">'+emptyHtml('No users with activity yet')+'</td></tr>';
+    $('usersBody').innerHTML = '<tr><td colspan="7">'+emptyHtml('No users with activity yet')+'</td></tr>';
     $('usersCountSub').textContent=''; $('usersMore').style.display='none'; return;
   }
   $('usersBody').innerHTML = shown.length ? shown.map(u=>{
@@ -1113,16 +1176,67 @@ function drawUsers(){
         (u.full_name ? '<div class="u-name">'+esc(u.full_name)+'</div><div class="u-mail">'+esc(u.email||'')+'</div>'
                      : '<div class="u-name">'+esc(u.email||'Unknown')+'</div>')+
       '</div></div></td>'+
-      '<td><div class="pchips hide-sm">'+prods.map(p=>'<span class="pchip" style="--pc:'+prodColor(p)+'"><i></i>'+esc(prodLabel(p))+'</span>').join('')+'</div>'+
-        '<div class="pdots show-sm" title="'+esc(prods.map(prodLabel).join(', '))+'">'+prods.map(p=>'<i style="--pc:'+prodColor(p)+'"></i>').join('')+'</div></td>'+
-      '<td class="r" title="'+fmtFull(u.calls)+'">'+fmt(u.calls)+'</td>'+
-      '<td class="r hide-sm" title="'+fmtFull(u.tokens)+'">'+fmt(u.tokens)+'</td>'+
+      '<td class="hide-sm">'+splitHtml(userApps(u), u.tokens, true)+'</td>'+
+      '<td class="r" title="'+fmtFull(u.tokens)+'"><b style="font-weight:600">'+fmt(u.tokens)+'</b></td>'+
+      '<td class="r hide-sm" title="'+fmtFull(u.tokens_in)+'">'+fmt(u.tokens_in)+'</td>'+
+      '<td class="r hide-sm" title="'+fmtFull(u.tokens_out)+'">'+fmt(u.tokens_out)+'</td>'+
+      '<td class="r hide-sm" title="'+fmtFull(u.calls)+'">'+fmt(u.calls)+'</td>'+
       '<td class="r t-time" title="'+esc(u.last_seen?new Date(u.last_seen).toLocaleString():'')+'">'+relTime(u.last_seen)+'</td></tr>';
-  }).join('') : '<tr><td colspan="5"><div class="empty" style="min-height:80px">No users match "'+esc(q)+'"</div></td></tr>';
-  $('usersCountSub').textContent = 'Showing '+shown.length+' of '+rows.length+' users';
+  }).join('') : '<tr><td colspan="7"><div class="empty" style="min-height:80px">No users match "'+esc(q)+'"</div></td></tr>';
+  $('usersCountSub').textContent = 'Showing '+shown.length+' of '+rows.length+' users, ranked by tokens this month';
   const more = !q && rows.length>USERS_PAGE;
   $('usersMore').style.display = more ? '' : 'none';
   $('usersMore').textContent = usersShowAll ? 'Show fewer' : 'Show all '+rows.length;
+}
+
+/* ============================ Token splits ================================= */
+// A user's tokens per app (by_product from the API); without it, just the apps they opened.
+function userApps(u){
+  if(Array.isArray(u.by_product) && u.by_product.length) return u.by_product;
+  return (u.products||[]).map(k=>({ key:k, tokens:0 }));
+}
+function splitHtml(apps, total, legend){
+  total = total || sum(apps,'tokens');
+  const bar = '<div class="split">'+(total ? apps.filter(a=>a.tokens>0).map(a=>'<i style="width:'+pct(a.tokens,total).toFixed(2)+'%;background:'+prodColor(a.key)+'" title="'+esc(prodLabel(a.key))+': '+fmtFull(a.tokens)+' tokens"></i>').join('') : '')+'</div>';
+  if(!legend) return bar;
+  return bar+'<div class="split-l">'+apps.slice(0,3).map(a=>'<span><b style="background:'+prodColor(a.key)+'"></b>'+esc(prodLabel(a.key))+(total&&a.tokens?' '+pctTxt(pct(a.tokens,total)):'')+'</span>').join('')+'</div>';
+}
+function appRows(list, key, total, sub){
+  return list.map(p=>'<div class="approw"><span class="nm"><i style="background:'+prodColor(p.key)+'"></i>'+esc(p.label||prodLabel(p.key))+'</span>'+
+    '<div class="bar"><i style="width:'+Math.max(p[key]?1:0, pct(p[key],total)).toFixed(1)+'%;background:'+prodColor(p.key)+'"></i></div>'+
+    '<div class="v" title="'+fmtFull(p[key])+'">'+fmt(p[key])+'<small>'+(sub?sub(p):pctTxt(pct(p[key],total)))+'</small></div></div>').join('');
+}
+function renderAppSplit(d){
+  const list = normProducts(d).slice().sort((a,b)=>(b.tokens_month||0)-(a.tokens_month||0));
+  const total = sum(list,'tokens_month'), t = d.totals||{};
+  if(!total){ $('appSplit').innerHTML = emptyHtml('No tokens used yet'); return; }
+  $('appSplit').innerHTML = appRows(list,'tokens_month',total)+
+    '<div class="io"><span><b>'+fmt(total)+'</b>tokens</span>'+
+    (t.tokens_in_month!=null ? '<span><b>'+fmt(t.tokens_in_month)+'</b>in</span><span><b>'+fmt(t.tokens_out_month)+'</b>out</span>' : '')+
+    '<span><b>'+fmt(t.active_month ? total/t.active_month : 0)+'</b>per active user</span></div>';
+}
+function renderTopMini(d){
+  const list = (d.top_users||[]).slice().sort((a,b)=>(b.tokens||0)-(a.tokens||0)).slice(0,6);
+  if(!list.length){ $('topMini').innerHTML = emptyHtml('No users with activity yet'); return; }
+  $('topMini').innerHTML = list.map(u=>{ u = Object.assign({}, u, { full_name: u.full_name||u.name||'' });
+    return '<div class="mini-u" data-uid="'+esc(u.id)+'" tabindex="0">'+avatarHtml(u)+
+      '<div class="u-txt" style="min-width:0"><div class="u-name" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(displayName(u))+'</div>'+splitHtml(userApps(u), u.tokens, false)+'</div>'+
+      '<div class="t">'+fmt(u.tokens)+'<small>tokens</small></div></div>'; }).join('');
+}
+function renderAppsTable(d){
+  const list = normProducts(d).slice().sort((a,b)=>(b.tokens_month||0)-(a.tokens_month||0));
+  const total = sum(list,'tokens_month');
+  const dash = '<span style="color:var(--faint)">-</span>';
+  $('appsTable').innerHTML = '<table class="tbl apps-tbl"><thead><tr><th>App</th><th class="r">Users</th><th class="r">Calls</th><th class="r">Tokens</th><th class="r hide-sm">In</th><th class="r hide-sm">Out</th><th class="r hide-sm">Per user</th><th class="hide-sm">Top model</th><th class="hide-sm">Top user</th></tr></thead><tbody>'+
+    list.map(p=>{ const tm = (p.top_models||[])[0], tu = (p.top_users||[])[0];
+      return '<tr><td><span style="display:inline-flex;align-items:center;gap:8px;font-weight:500"><i style="width:8px;height:8px;border-radius:2px;display:inline-block;background:'+prodColor(p.key)+'"></i>'+esc(p.label||prodLabel(p.key))+'</span><span class="sub">'+pctTxt(pct(p.tokens_month,total))+' of tokens</span></td>'+
+        '<td class="r">'+fmt(p.users_month)+'</td><td class="r" title="'+fmtFull(p.calls_month)+'">'+fmt(p.calls_month)+'</td>'+
+        '<td class="r" title="'+fmtFull(p.tokens_month)+'"><b style="font-weight:600">'+fmt(p.tokens_month)+'</b></td>'+
+        '<td class="r hide-sm">'+(p.tokens_in_month!=null?fmt(p.tokens_in_month):dash)+'</td><td class="r hide-sm">'+(p.tokens_out_month!=null?fmt(p.tokens_out_month):dash)+'</td>'+
+        '<td class="r hide-sm">'+fmt(p.users_month ? p.tokens_month/p.users_month : 0)+'</td>'+
+        '<td class="hide-sm">'+(tm?'<span class="mono" style="font-size:12px">'+esc(tm.model)+'</span><span class="sub">'+fmt(tm.tokens)+' tokens</span>':dash)+'</td>'+
+        '<td class="hide-sm">'+(tu?esc(tu.name||tu.email||'Unknown')+'<span class="sub">'+fmt(tu.tokens)+' tokens</span>':dash)+'</td></tr>'; }).join('')+
+    '</tbody></table>';
 }
 
 /* ============================ USER DETAIL (drill-down) ===================== */
@@ -1204,13 +1318,19 @@ function renderUserDetail(d){
       '<div class="uact-time">'+when+'</div></div>';
   }).join('');
 
+  const lu = umUser || {}; const apps = userApps(lu).filter(a=>a.tokens>0);
+  const appsBlock = apps.length ? '<div class="uapps"><div class="uactivity-title">Tokens by app this month</div>'+
+    appRows(apps.map(a=>Object.assign({label:prodLabel(a.key)},a)),'tokens',sum(apps,'tokens'),(a)=>fmt(a.calls||0)+' calls')+
+    '<div class="io">'+(lu.top_model?'<span><b class="mono" style="font-size:12px">'+esc(lu.top_model)+'</b>used most</span>':'')+'<span><b>'+fmt(lu.tokens_in)+'</b>in</span><span><b>'+fmt(lu.tokens_out)+'</b>out</span></div></div>' : '';
   $('umBody').innerHTML =
-    '<div class="umodal-stats">'+stats+'</div>'+
+    '<div class="umodal-stats">'+stats+'</div>'+appsBlock+
     '<div class="uactivity-title">Recent activity</div>'+
     '<div class="uactivity">'+(rows || '<div style="color:var(--faint);padding:8px 0">No activity yet.</div>')+'</div>';
 }
 
+let umUser = null;
 async function openUserDetail(u){
+  umUser = u;
   $('userModal').classList.add('show');
   $('umHeadAvatar').innerHTML = avatarHtml(u);
   $('umName').textContent = displayName(u);
@@ -1354,6 +1474,10 @@ function render(d){
   safe('daily', ()=>drawDaily(DATA));
   safe('hours', ()=>drawHours(DATA));
   safe('users', ()=>renderUsers(DATA.top_users||[]));
+  safe('appSplit', ()=>renderAppSplit(DATA));
+  safe('topMini', ()=>renderTopMini(DATA));
+  safe('appsTable', ()=>renderAppsTable(DATA));
+  $('tabUsersCnt').textContent = (DATA.top_users||[]).length ? fmt((DATA.top_users||[]).length) : '';
   safe('features', ()=>renderFeatures(DATA));
   safe('versions', ()=>renderVersions(DATA));
   safe('platforms', ()=>renderPlatforms(DATA));
@@ -1584,19 +1708,21 @@ function initDashboardUi(){
   $('usersBody').addEventListener('keydown', (e)=>{ if(e.key!=='Enter') return; const tr = e.target.closest('tr[data-uid]'); if(tr) openRow(tr); });
   $('alertRetry').addEventListener('click', refresh);
 
-  // section nav highlight
-  const links = [...document.querySelectorAll('#secnav a')];
-  const secs = links.map(a=>document.querySelector(a.getAttribute('href')));
-  const onScroll = ()=>{
-    let cur = 0;
-    secs.forEach((s,i)=>{ if(s && s.getBoundingClientRect().top < 140) cur = i; });
-    if(innerHeight + scrollY >= document.documentElement.scrollHeight - 4) cur = secs.length-1;
-    links.forEach((a,i)=>a.classList.toggle('on', i===cur));
-    const on = links[cur]; const nav = $('secnav');
-    if(on && (on.offsetLeft < nav.scrollLeft || on.offsetLeft+on.offsetWidth > nav.scrollLeft+nav.clientWidth)) nav.scrollLeft = on.offsetLeft - 16;
+  // tabs: one panel at a time, remembered in the URL hash
+  const TABS = ['overview','users','apps','models','features','audience'];
+  const showTab = (name, push)=>{
+    if(!TABS.includes(name)) name = 'overview';
+    document.querySelectorAll('#secnav button').forEach(b=>{ const on = b.dataset.tab===name; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+    document.querySelectorAll('[data-panel]').forEach(p=>p.classList.toggle('on', p.dataset.panel===name));
+    if(push) history.replaceState(null,'',location.pathname+location.search+'#'+name);
+    // charts drawn while hidden have no size; fit them now
+    requestAnimationFrame(()=>Object.values(charts).forEach(c=>{ try{ c.resize(); }catch(e){} }));
+    window.scrollTo({top:0});
   };
-  addEventListener('scroll', onScroll, {passive:true});
-  setTimeout(onScroll, 0);
+  $('secnav').addEventListener('click', (e)=>{ const b = e.target.closest('button[data-tab]'); if(b) showTab(b.dataset.tab, true); });
+  document.addEventListener('click', (e)=>{ const g = e.target.closest('[data-goto]'); if(g) showTab(g.dataset.goto, true); });
+  $('topMini').addEventListener('click', (e)=>{ const r = e.target.closest('[data-uid]'); if(!r) return; const u = usersCache.find(x=>String(x.id)===r.dataset.uid); if(u) openUserDetail(u); });
+  showTab(location.hash.slice(1), false);
 }
 
 async function init(){

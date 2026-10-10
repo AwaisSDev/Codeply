@@ -96,12 +96,17 @@ export default async function handler(req, res) {
       if (e.user) b.users.add(e.user);
       if (e.kind === 'ai') { b.calls++; b.tokens += tokens(e); }
     }
+    const pm = new Map();
+    for (const e of mineAi) { if (!e.model) continue; const m = pm.get(e.model) || { model: e.model, calls: 0, tokens: 0 }; m.calls++; m.tokens += tokens(e); pm.set(e.model, m); }
     return {
       key: p.key, label: p.label,
       users_week: distinct(mine.filter((e) => Date.parse(e.at) >= weekAgo)),
       users_month: distinct(mine),
       calls_month: mineAi.length,
       tokens_month: mineAi.reduce((n, e) => n + tokens(e), 0),
+      tokens_in_month: mineAi.reduce((n, e) => n + e.tin, 0),
+      tokens_out_month: mineAi.reduce((n, e) => n + e.tout, 0),
+      top_models: [...pm.values()].sort((a, b) => b.tokens - a.tokens).slice(0, 3),
       trend: days.map((d) => ({ date: d, users: byDay[d].users.size, calls: byDay[d].calls, tokens: byDay[d].tokens })),
     };
   });
@@ -138,18 +143,32 @@ export default async function handler(req, res) {
   const userMap = new Map();
   for (const e of events) {
     if (!e.user) continue;
-    const u = userMap.get(e.user) || { id: e.user, products: new Set(), calls: 0, tokens: 0, last_seen: e.at };
+    const u = userMap.get(e.user) || { id: e.user, products: new Set(), calls: 0, tokens: 0, tin: 0, tout: 0, apps: {}, models: {}, last_seen: e.at };
     u.products.add(e.product);
-    if (e.kind === 'ai') { u.calls++; u.tokens += tokens(e); }
+    if (e.kind === 'ai') {
+      u.calls++; u.tokens += tokens(e); u.tin += e.tin; u.tout += e.tout;
+      const a = u.apps[e.product] || (u.apps[e.product] = { key: e.product, calls: 0, tokens: 0 }); a.calls++; a.tokens += tokens(e);
+      if (e.model) u.models[e.model] = (u.models[e.model] || 0) + tokens(e);
+    }
     if (e.at > u.last_seen) u.last_seen = e.at;
     userMap.set(e.user, u);
   }
-  const top = [...userMap.values()].sort((a, b) => b.tokens - a.tokens || b.calls - a.calls).slice(0, 25);
+  const top = [...userMap.values()].sort((a, b) => b.tokens - a.tokens || b.calls - a.calls).slice(0, 100);
   const { data: topProfiles } = top.length
     ? await supabase.from('profiles').select('id,email,full_name').in('id', top.map((u) => u.id))
     : { data: [] };
   const prof = Object.fromEntries((topProfiles || []).map((p) => [p.id, p]));
-  const top_users = top.map((u) => ({ id: u.id, email: prof[u.id]?.email || '', name: prof[u.id]?.full_name || '', products: [...u.products], calls: u.calls, tokens: u.tokens, last_seen: u.last_seen }));
+  const top_users = top.map((u) => ({
+    id: u.id, email: prof[u.id]?.email || '', name: prof[u.id]?.full_name || '', products: [...u.products],
+    calls: u.calls, tokens: u.tokens, tokens_in: u.tin, tokens_out: u.tout, last_seen: u.last_seen,
+    by_product: Object.values(u.apps).sort((a, b) => b.tokens - a.tokens),
+    top_model: Object.entries(u.models).sort((a, b) => b[1] - a[1])[0]?.[0] || '',
+  }));
+  // each app's heaviest users, from the same ranking
+  for (const p of products) {
+    p.top_users = top_users.map((u) => ({ id: u.id, email: u.email, name: u.name, tokens: (u.by_product.find((x) => x.key === p.key) || {}).tokens || 0 }))
+      .filter((u) => u.tokens > 0).sort((a, b) => b.tokens - a.tokens).slice(0, 3);
+  }
 
   // ── Versions and platforms (from the apps that report them) ─────────────
   const latest = new Map();
@@ -200,6 +219,8 @@ export default async function handler(req, res) {
       active_month: distinct(events),
       ai_calls_month: ai.length,
       tokens_month: ai.reduce((n, e) => n + tokens(e), 0),
+      tokens_in_month: ai.reduce((n, e) => n + e.tin, 0),
+      tokens_out_month: ai.reduce((n, e) => n + e.tout, 0),
       mrr,
       revenue_month: mrr,
       currency: 'USD',
