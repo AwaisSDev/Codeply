@@ -90,9 +90,10 @@ export default async function handler(req, res) {
   const weekAgo = Date.parse(until) - 7 * DAY;
 
   // ── Usage rows from every app, in one shape ──────────────────────────────
-  const [appRows, histRows] = await Promise.all([
+  const [appRows, histRows, applyRows] = await Promise.all([
     fetchAll(() => supabase.from('app_events').select('user_id,product,kind,model,provider,tokens_in,tokens_out,version,platform,created_at').gte('created_at', since).lte('created_at', until).order('created_at', { ascending: true })),
     fetchAll(() => supabase.from('usage_history').select('user_id,model,tokens_in,tokens_out,tokens_total,prompt_text,created_at').gte('created_at', since).lte('created_at', until).order('created_at', { ascending: true })),
+    fetchAll(() => supabase.from('apply_history').select('user_id,lines_added,lines_removed,created_at').gte('created_at', since).lte('created_at', until).order('created_at', { ascending: true })),
   ]);
   const events = [
     ...appRows.map((r) => ({ user: r.user_id, product: r.product, kind: r.kind, model: r.model || '', provider: r.provider || '', tin: r.tokens_in || 0, tout: r.tokens_out || 0, at: r.created_at, version: r.version, platform: r.platform })),
@@ -101,9 +102,11 @@ export default async function handler(req, res) {
       const tin = r.tokens_in || 0; const tout = r.tokens_out || 0;
       return { user: r.user_id, product: phone ? 'phone' : 'drop', kind: 'ai', model: r.model || '', provider: phone ? 'phone' : 'proxy', tin: tin || (tout ? 0 : r.tokens_total || 0), tout, at: r.created_at };
     }),
+    // a file applied in Drop: activity without tokens (the AI call may have used the person's own key)
+    ...applyRows.map((r) => ({ user: r.user_id, product: 'drop', kind: 'apply', model: '', provider: '', tin: 0, tout: 0, at: r.created_at, added: r.lines_added || 0, removed: r.lines_removed || 0 })),
   ];
   if (!appRows.length) notes.push('Craft, Crew and CLI usage is recorded from Craft 1.1.14 on (and the CLI from its next update). Until people update, those products show little or nothing.');
-  notes.push('Drop counts AI calls made through the Codeply proxy; phone counts voice calls with bots. Tokens for phone calls are estimates.');
+  notes.push('Drop tokens count AI calls made through the Codeply proxy; files applied in Drop count as activity even when the person used their own key. Phone counts voice calls with bots; its tokens are estimates.');
 
   const ai = events.filter((e) => e.kind === 'ai');
   const tokens = (e) => e.tin + e.tout;
@@ -167,13 +170,14 @@ export default async function handler(req, res) {
   const userMap = new Map();
   for (const e of events) {
     if (!e.user) continue;
-    const u = userMap.get(e.user) || { id: e.user, products: new Set(), calls: 0, tokens: 0, tin: 0, tout: 0, apps: {}, models: {}, last_seen: e.at };
+    const u = userMap.get(e.user) || { id: e.user, products: new Set(), calls: 0, tokens: 0, tin: 0, tout: 0, applies: 0, lines: 0, apps: {}, models: {}, last_seen: e.at };
     u.products.add(e.product);
     if (e.kind === 'ai') {
       u.calls++; u.tokens += tokens(e); u.tin += e.tin; u.tout += e.tout;
       const a = u.apps[e.product] || (u.apps[e.product] = { key: e.product, calls: 0, tokens: 0 }); a.calls++; a.tokens += tokens(e);
       if (e.model) u.models[e.model] = (u.models[e.model] || 0) + tokens(e);
     }
+    if (e.kind === 'apply') { u.applies++; u.lines += (e.added || 0) + (e.removed || 0); }
     if (e.at > u.last_seen) u.last_seen = e.at;
     userMap.set(e.user, u);
   }
@@ -187,18 +191,18 @@ export default async function handler(req, res) {
     const { data: extra } = await supabase.from('profiles').select('id,email,full_name,created_at,country').in('id', missing.slice(0, 1000));
     for (const p of extra || []) prof[p.id] = p;
   }
-  const active = [...userMap.values()].sort((a, b) => b.tokens - a.tokens || b.calls - a.calls);
+  const active = [...userMap.values()].sort((a, b) => b.tokens - a.tokens || b.calls - a.calls || b.applies - a.applies || (b.last_seen > a.last_seen ? 1 : -1));
   const idle = allProfiles.filter((p) => !userMap.has(p.id));
   const top_users = [
     ...active.map((u) => ({
       id: u.id, email: prof[u.id]?.email || '', name: prof[u.id]?.full_name || '', joined_at: prof[u.id]?.created_at || null, country: prof[u.id]?.country || '',
-      products: [...u.products], calls: u.calls, tokens: u.tokens, tokens_in: u.tin, tokens_out: u.tout, last_seen: u.last_seen,
+      products: [...u.products], calls: u.calls, tokens: u.tokens, tokens_in: u.tin, tokens_out: u.tout, applies: u.applies, lines_changed: u.lines, last_seen: u.last_seen,
       by_product: Object.values(u.apps).sort((a, b) => b.tokens - a.tokens),
       top_model: Object.entries(u.models).sort((a, b) => b[1] - a[1])[0]?.[0] || '',
     })),
     ...idle.map((p) => ({
       id: p.id, email: p.email || '', name: p.full_name || '', joined_at: p.created_at || null, country: p.country || '',
-      products: [], calls: 0, tokens: 0, tokens_in: 0, tokens_out: 0, last_seen: null, by_product: [], top_model: '',
+      products: [], calls: 0, tokens: 0, tokens_in: 0, tokens_out: 0, applies: 0, lines_changed: 0, last_seen: null, by_product: [], top_model: '',
     })),
   ];
   const users_active_count = active.length;

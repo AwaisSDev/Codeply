@@ -79,9 +79,7 @@
   .avatar-btn img{width:100%;height:100%;object-fit:cover;display:block}
   .avatar-btn .ph{font-size:13px;font-weight:600;color:var(--muted)}
   .avatar-btn input{display:none}
-  .avatar-edit{position:absolute;bottom:-2px;right:-2px;width:14px;height:14px;border-radius:50%;background:var(--accent);
     color:#fff;display:grid;place-items:center;border:2px solid var(--bg);pointer-events:none}
-  .avatar-edit svg{width:7px;height:7px}
 
   /* ---------- Page head ---------- */
   .pagehead{padding:36px 0 8px;display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
@@ -154,6 +152,8 @@
   .apps-tbl .sub{display:block;font-size:11.5px;color:var(--faint)}
   .uapps{margin:18px 0 26px}
   .idle-l{font-size:12.5px;color:var(--faint)}
+  .noai{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--muted);line-height:1.35}
+  .noai .split-l{margin-top:0}
   .users-tbl tr.idle .u-name{color:var(--muted)}
   .users-tbl tr.idle td.r, .users-tbl tr.idle td.r b{color:var(--faint);font-weight:400}
   .uapps .approw{grid-template-columns:90px 1fr 90px}
@@ -464,7 +464,6 @@
         <img id="avatarImg" style="display:none" alt="">
         <input type="file" id="avatarInput" accept="image/*">
       </label>
-      <div class="avatar-edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg></div>
     </div>
     <button class="btn" id="signoutBtn" type="button" style="display:none" title="Sign out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg><span class="hide-sm">Sign out</span></button>
   </div>
@@ -990,6 +989,8 @@ function mockOverview(){
       last_seen:new Date(Date.now()-rnd(.02,1)*Math.pow(i+1,1.6)*3600e3).toISOString() };
   });
   top_users.forEach(u=>{ u.tokens_out = u.tokens - u.tokens_in; u.joined_at = new Date(Date.now()-rnd(20,200)*864e5).toISOString(); });
+  top_users.push({ id:'mock-apply', email:'ch.oasis@example.com', name:'Ch', products:['drop'], by_product:[], calls:0, tokens:0, tokens_in:0, tokens_out:0, applies:4, lines_changed:950, top_model:'',
+    last_seen:new Date(Date.now()-13*864e5).toISOString(), joined_at:new Date(Date.now()-13*864e5).toISOString() });
   ['kamal.hasan','olivia.brown','sana.iqbal','marco.rossi','aisha.bello','james.carter'].forEach((p,i)=>top_users.push({ id:'mock-idle-'+i, email:p+'@'+doms[i%3],
     name:p.split('.').map(x=>x[0].toUpperCase()+x.slice(1)).join(' '), products:[], by_product:[], calls:0, tokens:0, tokens_in:0, tokens_out:0, top_model:'',
     last_seen:null, joined_at:new Date(Date.now()-(i*3+1)*864e5).toISOString() }));
@@ -1245,7 +1246,7 @@ function drawUsers(){
   rows.sort((a,b)=>{
     const va = k==='last_seen' ? +new Date(a.last_seen||0) : (Number(a[k])||0);
     const vb = k==='last_seen' ? +new Date(b.last_seen||0) : (Number(b[k])||0);
-    return (va-vb)*dir || (+new Date(b.joined_at||0) - +new Date(a.joined_at||0));
+    return (va-vb)*dir || (isActive(b)-isActive(a)) || (+new Date(b.last_seen||0) - +new Date(a.last_seen||0)) || (+new Date(b.joined_at||0) - +new Date(a.joined_at||0));
   });
   document.querySelectorAll('.users-tbl th.sortable').forEach(th=>{
     const on = th.dataset.sort===k;
@@ -1259,12 +1260,15 @@ function drawUsers(){
   }
   $('usersBody').innerHTML = shown.length ? shown.map(u=>{
     const prods = (u.products||[]);
-    return '<tr data-uid="'+esc(u.id)+'" tabindex="0"'+((u.tokens||u.calls)?'':' class="idle"')+'>'+
+    return '<tr data-uid="'+esc(u.id)+'" tabindex="0"'+(isActive(u)?'':' class="idle"')+'>'+
       '<td><div class="u-cell">'+avatarHtml(u)+'<div class="u-txt">'+
         (u.full_name ? '<div class="u-name">'+esc(u.full_name)+'</div><div class="u-mail">'+esc(u.email||'')+'</div>'
                      : '<div class="u-name">'+esc(u.email||'Unknown')+'</div>')+
       '</div></div></td>'+
-      '<td class="hide-sm">'+(u.tokens ? splitHtml(userApps(u), u.tokens, true) : '<span class="idle-l">No usage in this range</span>')+'</td>'+
+      '<td class="hide-sm">'+(u.tokens ? splitHtml(userApps(u), u.tokens, true)
+        : u.applies ? '<span class="noai"><span class="split-l"><span><b style="background:'+prodColor('drop')+'"></b>Drop</span></span>'+fmt(u.applies)+' file'+(u.applies===1?'':'s')+' applied, own key (no tokens recorded)</span>'
+        : (u.products||[]).length ? '<span class="noai">Opened '+esc((u.products||[]).map(prodLabel).join(', '))+', no AI tokens recorded</span>'
+        : '<span class="idle-l">No usage in this range</span>')+'</td>'+
       '<td class="r" title="'+fmtFull(u.tokens)+'"><b style="font-weight:600">'+fmt(u.tokens)+'</b></td>'+
       '<td class="r hide-sm" title="'+fmtFull(u.tokens_in)+'">'+fmt(u.tokens_in)+'</td>'+
       '<td class="r hide-sm" title="'+fmtFull(u.tokens_out)+'">'+fmt(u.tokens_out)+'</td>'+
@@ -1272,8 +1276,8 @@ function drawUsers(){
       (u.last_seen ? '<td class="r t-time" title="'+esc(new Date(u.last_seen).toLocaleString())+'">'+relTime(u.last_seen)+'</td></tr>'
         : '<td class="r t-time idle-l" title="'+esc(u.joined_at?'Joined '+new Date(u.joined_at).toLocaleString():'')+'">'+(u.joined_at?'Joined '+dayLabel(String(u.joined_at).slice(0,10)):'-')+'</td></tr>');
   }).join('') : '<tr><td colspan="7"><div class="empty" style="min-height:80px">No users match "'+esc(q)+'"</div></td></tr>';
-  const activeN = usersCache.filter(u=>(u.tokens||0)>0||(u.calls||0)>0).length;
-  $('usersCountSub').textContent = 'Showing '+shown.length+' of '+rows.length+' users. '+activeN+' used AI in this range; the rest are listed by when they joined.';
+  const activeN = usersCache.filter(isActive).length;
+  $('usersCountSub').textContent = 'Showing '+shown.length+' of '+rows.length+' users. '+activeN+' were active in this range; the rest are listed by when they joined.';
   const more = !q && rows.length>USERS_PAGE;
   $('usersMore').style.display = more ? '' : 'none';
   $('usersMore').textContent = usersShowAll ? 'Show fewer' : 'Show all '+rows.length;
@@ -1281,6 +1285,8 @@ function drawUsers(){
 
 /* ============================ Token splits ================================= */
 // A user's tokens per app (by_product from the API); without it, just the apps they opened.
+// Active in the range: AI tokens or calls, files applied, or any app opened.
+const isActive = (u)=> !!((u.tokens||0) || (u.calls||0) || (u.applies||0) || u.last_seen);
 function userApps(u){
   if(Array.isArray(u.by_product) && u.by_product.length) return u.by_product;
   return (u.products||[]).map(k=>({ key:k, tokens:0 }));
