@@ -202,16 +202,9 @@
   .spark{display:block;width:100%;height:100%;overflow:visible}
 
   /* ---------- Products ---------- */
-  .prod-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-  @media(max-width:1100px){
-    .prod-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
-    .prod-grid>.prod{grid-column:span 2}
-    .prod-grid>.prod:nth-child(n+4){grid-column:span 3}
-  }
+  .prod-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
   @media(max-width:700px){
     .prod-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .prod-grid>.prod,.prod-grid>.prod:nth-child(n+4){grid-column:span 1}
-    .prod-grid>.prod:last-child{grid-column:span 2}
   }
   .prod{padding:16px 16px 12px;display:flex;flex-direction:column;position:relative}
   .prod::before{content:"";position:absolute;left:16px;right:16px;top:0;height:2px;border-radius:0 0 2px 2px;background:var(--pc)}
@@ -777,6 +770,7 @@ const PRODUCTS = [
   { key:'cli',   label:'CLI',   color:'#111827' },
   { key:'drop',  label:'Drop',  color:'#10B981' },
   { key:'phone', label:'Phone', color:'#F59E0B' },
+  { key:'cloud', label:'Cloud', color:'#8B5CF6' },
 ];
 const PROD = Object.fromEntries(PRODUCTS.map(p=>[p.key,p]));
 const prodColor = (k)=> (PROD[k] && PROD[k].color) || '#9A9BA1';
@@ -942,6 +936,7 @@ function mockOverview(){
     cli:  {base:16,g:.026,cpu:24,tpc:7800,wk:.62},
     drop: {base:11,g:.012,cpu:4, tpc:1100,wk:.85},
     phone:{base:33,g:.022,cpu:7, tpc:1900,wk:.97},
+    cloud:{base:4,g:.05,cpu:9, tpc:9800,wk:.9},
   };
   const products = PRODUCTS.map(p=>{
     const c = P[p.key];

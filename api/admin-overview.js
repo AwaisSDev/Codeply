@@ -20,6 +20,7 @@ const PRODUCTS = [
   { key: 'cli', label: 'CLI' },
   { key: 'drop', label: 'Drop' },
   { key: 'phone', label: 'Phone' },
+  { key: 'cloud', label: 'Cloud' },
 ];
 
 const isoDaysAgo = (n) => new Date(Date.now() - n * DAY).toISOString();
