@@ -90,6 +90,22 @@
   .pagehead .meta .chip{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 9px;border-radius:999px;
     background:var(--panel);border:1px solid var(--line);font-weight:500;color:var(--text);font-size:12px}
   .pagehead .meta .chip svg{width:13px;height:13px;color:var(--muted)}
+  .range{position:relative}
+  .range-btn{cursor:pointer;transition:border-color .15s var(--ease),background .15s var(--ease)}
+  .range-btn:hover{border-color:var(--line-2);background:var(--panel)}
+  .range-btn .chev{width:12px;height:12px;margin-left:1px}
+  .range-pop{position:absolute;top:calc(100% + 6px);left:0;z-index:40;width:280px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px}
+  .range-pop[hidden]{display:none}
+  .range-presets{display:flex;flex-direction:column;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  .range-presets button{text-align:left;padding:8px 10px;border-radius:8px;font-size:13px;color:var(--text)}
+  .range-presets button:hover{background:var(--hover)}
+  .range-presets button.on{background:var(--accent-soft);color:var(--accent);font-weight:500}
+  .range-custom{padding:10px 6px 4px}
+  .range-lbl{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .range-dates{display:flex;align-items:center;gap:6px;margin-bottom:10px}
+  .range-dates span{font-size:12px;color:var(--faint)}
+  .range-dates input{flex:1;min-width:0;height:32px;border:1px solid var(--line-2);border-radius:8px;padding:0 8px;font:inherit;font-size:12.5px;color:var(--text);background:var(--panel)}
+  .range-custom .btn{width:100%;justify-content:center}
   .secnav{position:sticky;top:60px;z-index:20;background:rgba(250,250,249,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
     margin:20px 0 8px;border-bottom:1px solid var(--line)}
   .secnav-inner{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
@@ -137,6 +153,9 @@
   .apps-tbl td,.apps-tbl th{white-space:nowrap}
   .apps-tbl .sub{display:block;font-size:11.5px;color:var(--faint)}
   .uapps{margin:18px 0 26px}
+  .idle-l{font-size:12.5px;color:var(--faint)}
+  .users-tbl tr.idle .u-name{color:var(--muted)}
+  .users-tbl tr.idle td.r, .users-tbl tr.idle td.r b{color:var(--faint);font-weight:400}
   .uapps .approw{grid-template-columns:90px 1fr 90px}
   .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px;flex-wrap:wrap}
   .sec-head h2{font-size:17px;font-weight:600;letter-spacing:-.015em}
@@ -456,7 +475,23 @@
     <div>
       <h1>Analytics</h1>
       <div class="meta">
-        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span id="rangeTxt">Last 30 days</span></span>
+        <div class="range" id="rangeWrap">
+          <button type="button" class="chip range-btn" id="rangeBtn" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span id="rangeTxt">Last 30 days</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+          <div class="range-pop" id="rangePop" hidden>
+            <div class="range-presets" id="rangePresets">
+              <button type="button" data-days="1">Today</button>
+              <button type="button" data-days="7">Last 7 days</button>
+              <button type="button" data-days="30">Last 30 days</button>
+              <button type="button" data-days="90">Last 90 days</button>
+              <button type="button" data-days="365">Last 12 months</button>
+            </div>
+            <div class="range-custom">
+              <div class="range-lbl">Custom range</div>
+              <div class="range-dates"><input type="date" id="rFrom" aria-label="From"><span>to</span><input type="date" id="rTo" aria-label="To"></div>
+              <button type="button" class="btn primary" id="rApply">Apply</button>
+            </div>
+          </div>
+        </div>
         <span id="updTxt">Loading</span>
         <span class="pill show-sm" id="modePillSm" style="height:24px"><span class="dot"></span><span id="modeTxtSm">Connecting</span></span>
       </div>
@@ -488,11 +523,11 @@
   <section data-panel="overview" style="padding-top:16px">
     <div class="g-1-1">
       <div class="card card-pad">
-        <div class="card-head"><div><div class="card-title">Tokens by app</div><div class="card-sub">Where tokens were used this month</div></div></div>
+        <div class="card-head"><div><div class="card-title">Tokens by app</div><div class="card-sub">Where tokens were used in this range</div></div></div>
         <div id="appSplit"></div>
       </div>
       <div class="card card-pad">
-        <div class="card-head"><div><div class="card-title">Top users by tokens</div><div class="card-sub">This month</div></div><button class="linkbtn" type="button" data-goto="users">All users</button></div>
+        <div class="card-head"><div><div class="card-title">Top users by tokens</div><div class="card-sub">In this range</div></div><button class="linkbtn" type="button" data-goto="users">All users</button></div>
         <div id="topMini"></div>
       </div>
     </div>
@@ -501,7 +536,7 @@
   <!-- Products -->
   <section id="products" class="panel-first" data-panel="apps">
     <div class="sec-head">
-      <div><h2>Apps</h2><p>Users, AI calls and tokens in each Codeply app this month.</p></div>
+      <div><h2>Apps</h2><p>Users, AI calls and tokens in each Codeply app in this range.</p></div>
     </div>
     <div class="prod-grid" id="prodGrid"></div>
 
@@ -531,7 +566,7 @@
     </div>
     <div class="grid g-2-1">
       <div class="card card-pad">
-        <div class="card-head"><div><div class="card-title">Top models</div><div class="card-sub">By AI calls this month</div></div></div>
+        <div class="card-head"><div><div class="card-title">Top models</div><div class="card-sub">By AI calls in this range</div></div></div>
         <div id="modelsBox"></div>
       </div>
       <div class="card card-pad">
@@ -546,7 +581,7 @@
     <div class="grid g-2-1">
       <div class="card card-pad">
         <div class="card-head">
-          <div><div class="card-title">AI calls and tokens</div><div class="card-sub">Per day, last 30 days</div></div>
+          <div><div class="card-title">AI calls and tokens</div><div class="card-sub">Per day in this range</div></div>
           <div class="legend" style="margin:0">
             <span class="legend-static" style="display:inline-flex;align-items:center;gap:7px;font-size:12.5px"><i style="width:10px;height:10px;border-radius:3px;background:#2F6BFF;display:inline-block"></i>Calls</span>
             <span class="legend-static" style="display:inline-flex;align-items:center;gap:7px;font-size:12.5px"><i style="width:12px;height:2px;border-radius:2px;background:#111827;display:inline-block"></i>Tokens</span>
@@ -565,7 +600,7 @@
   <!-- Users -->
   <section id="users" class="panel-first" data-panel="users">
     <div class="sec-head">
-      <div><h2>Users</h2><p>Tokens per user this month, and the apps they used them in. Click a row for details.</p></div>
+      <div><h2>Users</h2><p>Tokens per user in this range, and the apps they used them in. Click a row for details.</p></div>
       <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="userSearch" type="search" placeholder="Filter by email or name" autocomplete="off"></label>
     </div>
     <div class="card card-pad">
@@ -588,7 +623,7 @@
   <!-- Features -->
   <section id="features" class="panel-first" data-panel="features">
     <div class="sec-head">
-      <div><h2>Features</h2><p>Usage of the assistant features this month.</p></div>
+      <div><h2>Features</h2><p>Usage of the assistant features in this range.</p></div>
     </div>
     <div class="card feat-grid" id="featGrid"></div>
   </section>
@@ -829,10 +864,55 @@ async function currentToken(){
   return session && session.access_token;
 }
 
+/* ============================ DATE RANGE =================================== */
+// ?days=N or ?from=YYYY-MM-DD&to=YYYY-MM-DD in the page URL; the API takes the same.
+const isDay = (v)=> /^\d{4}-\d{2}-\d{2}$/.test(String(v||''));
+const todayKey = ()=> new Date().toISOString().slice(0,10);
+const addDays = (key, n)=> new Date(Date.parse(key+'T00:00:00Z') + n*864e5).toISOString().slice(0,10);
+let RANGE = (()=>{
+  const p = new URLSearchParams(location.search);
+  if(isDay(p.get('from')) && isDay(p.get('to'))) return { from:p.get('from'), to:p.get('to') };
+  const n = parseInt(p.get('days'),10); return { days: n>=1 && n<=366 ? n : 30 };
+})();
+function rangeDates(r){
+  r = r || RANGE;
+  if(r.days) return { from: addDays(todayKey(), -(r.days-1)), to: todayKey() };
+  let { from, to } = r; if(from > to) [from, to] = [to, from];
+  return { from, to };
+}
+function rangeQuery(){ return RANGE.days ? 'days='+RANGE.days : 'from='+RANGE.from+'&to='+RANGE.to; }
+function rangeLabel(){
+  if(RANGE.days===1) return 'Today';
+  if(RANGE.days===365) return 'Last 12 months';
+  if(RANGE.days) return 'Last '+RANGE.days+' days';
+  const { from, to } = rangeDates();
+  const opt = { month:'short', day:'numeric', timeZone:'UTC' };
+  const y = (k)=> k.slice(0,4);
+  const f = new Date(from+'T00:00:00Z').toLocaleDateString('en-US', y(from)!==y(to) ? Object.assign({year:'numeric'},opt) : opt);
+  const t = new Date(to+'T00:00:00Z').toLocaleDateString('en-US', Object.assign({year:'numeric'},opt));
+  return from===to ? t : f+' to '+t;
+}
+function syncRangeUi(){
+  $('rangeTxt').textContent = rangeLabel();
+  document.querySelectorAll('#rangePresets button').forEach(b=>b.classList.toggle('on', Number(b.dataset.days)===RANGE.days));
+  const { from, to } = rangeDates();
+  $('rFrom').value = from; $('rTo').value = to; $('rTo').max = todayKey(); $('rFrom').max = todayKey();
+}
+function setRange(r){
+  RANGE = r;
+  const p = new URLSearchParams(location.search); p.delete('days'); p.delete('from'); p.delete('to');
+  rangeQuery().split('&').forEach(kv=>{ const [k,v] = kv.split('='); p.set(k,v); });
+  history.replaceState(null,'',location.pathname+'?'+p.toString()+location.hash);
+  syncRangeUi(); closeRangePop();
+  refresh();
+}
+function openRangePop(){ $('rangePop').hidden = false; $('rangeBtn').setAttribute('aria-expanded','true'); }
+function closeRangePop(){ $('rangePop').hidden = true; $('rangeBtn').setAttribute('aria-expanded','false'); }
+
 async function loadOverview(){
   if(demoMode) return mockOverview();
   const token = await currentToken();
-  const res = await fetch('/api/admin-overview', { headers: { Authorization: 'Bearer ' + token } });
+  const res = await fetch('/api/admin-overview?' + rangeQuery(), { headers: { Authorization: 'Bearer ' + token } });
   if(res.status === 401) throw new HttpError(401, 'Your session has expired. Please sign in again.');
   if(res.status === 403) throw new HttpError(403, 'Your account is not an admin. Run: update profiles set is_admin=true where email=...');
   if(!res.ok) throw new HttpError(res.status, 'API error ' + res.status);
@@ -844,8 +924,9 @@ function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a
 
 function mockOverview(){
   const R = mulberry32(20261010), rnd=(a,b)=>a+R()*(b-a), ri=(a,b)=>Math.round(rnd(a,b));
-  const N = 30, DAY = 864e5;
-  const today = new Date(); today.setUTCHours(0,0,0,0);
+  const RD = rangeDates(), DAY = 864e5;
+  const N = Math.round((Date.parse(RD.to) - Date.parse(RD.from))/DAY) + 1;
+  const today = new Date(RD.to+'T00:00:00Z');
   const dates = Array.from({length:N},(_,i)=>new Date(+today-(N-1-i)*DAY).toISOString().slice(0,10));
   const P = {
     craft:{base:62,g:.017,cpu:16,tpc:5400,wk:.66},
@@ -908,7 +989,10 @@ function mockOverview(){
       calls:base, tokens:tok, tokens_in:Math.round(tok*rnd(.62,.8)), tokens_out:0, top_model:modelDefs[ri(0,5)][0],
       last_seen:new Date(Date.now()-rnd(.02,1)*Math.pow(i+1,1.6)*3600e3).toISOString() };
   });
-  top_users.forEach(u=>{ u.tokens_out = u.tokens - u.tokens_in; });
+  top_users.forEach(u=>{ u.tokens_out = u.tokens - u.tokens_in; u.joined_at = new Date(Date.now()-rnd(20,200)*864e5).toISOString(); });
+  ['kamal.hasan','olivia.brown','sana.iqbal','marco.rossi','aisha.bello','james.carter'].forEach((p,i)=>top_users.push({ id:'mock-idle-'+i, email:p+'@'+doms[i%3],
+    name:p.split('.').map(x=>x[0].toUpperCase()+x.slice(1)).join(' '), products:[], by_product:[], calls:0, tokens:0, tokens_in:0, tokens_out:0, top_model:'',
+    last_seen:null, joined_at:new Date(Date.now()-(i*3+1)*864e5).toISOString() }));
   products.forEach(p=>{
     p.top_models = models.slice(0,3).map(m=>({ model:m.model, calls:Math.round(m.calls*.3), tokens:Math.round(m.tokens*.3) }));
     p.top_users = top_users.map(u=>({ id:u.id, email:u.email, name:u.name, tokens:(u.by_product.find(x=>x.key===p.key)||{}).tokens||0 })).filter(u=>u.tokens>0).sort((a,b)=>b.tokens-a.tokens).slice(0,3);
@@ -917,6 +1001,7 @@ function mockOverview(){
   return {
     generated_at: new Date().toISOString(),
     range_days: N,
+    range: RD,
     totals: {
       users: totalUsers, signups_today: daily[N-1].signups, signups_week: sum(daily.slice(-7),'signups'),
       active_today: daily[N-1].active_users, active_week: Math.round(sum(daily.slice(-7),'active_users')/7*2.1),
@@ -954,9 +1039,9 @@ function renderKpis(d){
     { l:'Signups this week', v:fmt(t.signups_week), sub:'<b>'+fmt(t.signups_today)+'</b> today', sp:series('signups'), c:'#2F6BFF' },
     { l:'Active today', v:fmt(t.active_today), sub: mau ? '<b>'+pctTxt(pct(t.active_today,mau))+'</b> of monthly actives' : 'Daily active users', sp:series('active_users'), c:'#2F6BFF' },
     { l:'Active this week', v:fmt(t.active_week), sub: t.users ? '<b>'+pctTxt(pct(t.active_week,t.users))+'</b> of all users' : 'Weekly active users', sp:null },
-    { l:'Active this month', v:fmt(mau), sub: t.users ? '<b>'+pctTxt(pct(mau,t.users))+'</b> of all users' : 'Monthly active users', sp:null },
-    { l:'AI calls this month', v:fmt(t.ai_calls_month), title:fmtFull(t.ai_calls_month), sub: mau ? '<b>'+fmt((t.ai_calls_month||0)/mau)+'</b> per active user' : 'Across all products', sp:series('calls'), c:'#2F6BFF' },
-    { l:'Tokens this month', v:fmt(t.tokens_month), title:fmtFull(t.tokens_month), sub: t.ai_calls_month ? '<b>'+fmt((t.tokens_month||0)/t.ai_calls_month)+'</b> per call' : 'Input and output', sp:series('tokens'), c:'#111827' },
+    { l:'Active in range', v:fmt(mau), sub: t.users ? '<b>'+pctTxt(pct(mau,t.users))+'</b> of all users' : 'Active users', sp:null },
+    { l:'AI calls', v:fmt(t.ai_calls_month), title:fmtFull(t.ai_calls_month), sub: mau ? '<b>'+fmt((t.ai_calls_month||0)/mau)+'</b> per active user' : 'Across all products', sp:series('calls'), c:'#2F6BFF' },
+    { l:'Tokens', v:fmt(t.tokens_month), title:fmtFull(t.tokens_month), sub: t.ai_calls_month ? '<b>'+fmt((t.tokens_month||0)/t.ai_calls_month)+'</b> per call' : 'Input and output', sp:series('tokens'), c:'#111827' },
     { l:'MRR', v:money(t.mrr,t.currency), sub: (t.revenue_month ? '<b>'+money(t.revenue_month,t.currency)+'</b> revenue this month' : 'No paid revenue yet'), sp:null },
   ];
   $('kpis').innerHTML = tiles.map(k=>
@@ -1160,7 +1245,7 @@ function drawUsers(){
   rows.sort((a,b)=>{
     const va = k==='last_seen' ? +new Date(a.last_seen||0) : (Number(a[k])||0);
     const vb = k==='last_seen' ? +new Date(b.last_seen||0) : (Number(b[k])||0);
-    return (va-vb)*dir;
+    return (va-vb)*dir || (+new Date(b.joined_at||0) - +new Date(a.joined_at||0));
   });
   document.querySelectorAll('.users-tbl th.sortable').forEach(th=>{
     const on = th.dataset.sort===k;
@@ -1174,19 +1259,21 @@ function drawUsers(){
   }
   $('usersBody').innerHTML = shown.length ? shown.map(u=>{
     const prods = (u.products||[]);
-    return '<tr data-uid="'+esc(u.id)+'" tabindex="0">'+
+    return '<tr data-uid="'+esc(u.id)+'" tabindex="0"'+((u.tokens||u.calls)?'':' class="idle"')+'>'+
       '<td><div class="u-cell">'+avatarHtml(u)+'<div class="u-txt">'+
         (u.full_name ? '<div class="u-name">'+esc(u.full_name)+'</div><div class="u-mail">'+esc(u.email||'')+'</div>'
                      : '<div class="u-name">'+esc(u.email||'Unknown')+'</div>')+
       '</div></div></td>'+
-      '<td class="hide-sm">'+splitHtml(userApps(u), u.tokens, true)+'</td>'+
+      '<td class="hide-sm">'+(u.tokens ? splitHtml(userApps(u), u.tokens, true) : '<span class="idle-l">No usage in this range</span>')+'</td>'+
       '<td class="r" title="'+fmtFull(u.tokens)+'"><b style="font-weight:600">'+fmt(u.tokens)+'</b></td>'+
       '<td class="r hide-sm" title="'+fmtFull(u.tokens_in)+'">'+fmt(u.tokens_in)+'</td>'+
       '<td class="r hide-sm" title="'+fmtFull(u.tokens_out)+'">'+fmt(u.tokens_out)+'</td>'+
       '<td class="r hide-sm" title="'+fmtFull(u.calls)+'">'+fmt(u.calls)+'</td>'+
-      '<td class="r t-time" title="'+esc(u.last_seen?new Date(u.last_seen).toLocaleString():'')+'">'+relTime(u.last_seen)+'</td></tr>';
+      (u.last_seen ? '<td class="r t-time" title="'+esc(new Date(u.last_seen).toLocaleString())+'">'+relTime(u.last_seen)+'</td></tr>'
+        : '<td class="r t-time idle-l" title="'+esc(u.joined_at?'Joined '+new Date(u.joined_at).toLocaleString():'')+'">'+(u.joined_at?'Joined '+dayLabel(String(u.joined_at).slice(0,10)):'-')+'</td></tr>');
   }).join('') : '<tr><td colspan="7"><div class="empty" style="min-height:80px">No users match "'+esc(q)+'"</div></td></tr>';
-  $('usersCountSub').textContent = 'Showing '+shown.length+' of '+rows.length+' users, ranked by tokens this month';
+  const activeN = usersCache.filter(u=>(u.tokens||0)>0||(u.calls||0)>0).length;
+  $('usersCountSub').textContent = 'Showing '+shown.length+' of '+rows.length+' users. '+activeN+' used AI in this range; the rest are listed by when they joined.';
   const more = !q && rows.length>USERS_PAGE;
   $('usersMore').style.display = more ? '' : 'none';
   $('usersMore').textContent = usersShowAll ? 'Show fewer' : 'Show all '+rows.length;
@@ -1219,7 +1306,7 @@ function renderAppSplit(d){
     '<span><b>'+fmt(t.active_month ? total/t.active_month : 0)+'</b>per active user</span></div>';
 }
 function renderTopMini(d){
-  const list = (d.top_users||[]).slice().sort((a,b)=>(b.tokens||0)-(a.tokens||0)).slice(0,6);
+  const list = (d.top_users||[]).filter(u=>(u.tokens||0)>0).sort((a,b)=>(b.tokens||0)-(a.tokens||0)).slice(0,6);
   if(!list.length){ $('topMini').innerHTML = emptyHtml('No users with activity yet'); return; }
   $('topMini').innerHTML = list.map(u=>{ u = Object.assign({}, u, { full_name: u.full_name||u.name||'' });
     return '<div class="mini-u" data-uid="'+esc(u.id)+'" tabindex="0">'+avatarHtml(u)+
@@ -1322,7 +1409,7 @@ function renderUserDetail(d){
   }).join('');
 
   const lu = umUser || {}; const apps = userApps(lu).filter(a=>a.tokens>0);
-  const appsBlock = apps.length ? '<div class="uapps"><div class="uactivity-title">Tokens by app this month</div>'+
+  const appsBlock = apps.length ? '<div class="uapps"><div class="uactivity-title">Tokens by app in this range</div>'+
     appRows(apps.map(a=>Object.assign({label:prodLabel(a.key)},a)),'tokens',sum(apps,'tokens'),(a)=>fmt(a.calls||0)+' calls')+
     '<div class="io">'+(lu.top_model?'<span><b class="mono" style="font-size:12px">'+esc(lu.top_model)+'</b>used most</span>':'')+'<span><b>'+fmt(lu.tokens_in)+'</b>in</span><span><b>'+fmt(lu.tokens_out)+'</b>out</span></div></div>' : '';
   $('umBody').innerHTML =
@@ -1363,12 +1450,12 @@ const FI = {
 function renderFeatures(d){
   const f = d.features||{};
   const items = [
-    { i:'call', v:f.bot_calls_month, l:'Bot calls', d:'Phone calls this month' },
-    { i:'bell', v:f.reminders_month, l:'Reminders', d:'Created this month' },
+    { i:'call', v:f.bot_calls_month, l:'Bot calls', d:'Phone calls in this range' },
+    { i:'bell', v:f.reminders_month, l:'Reminders', d:'Created in this range' },
     { i:'mail', v:f.mail_watch_accounts, l:'Gmail watching', d:'Connected accounts' },
     { i:'mailcall', v:f.gmail_on_calls, l:'Gmail on calls', d:'Users with it on' },
     { i:'cpu', v:f.custom_models, l:'Custom models', d:'Added by users' },
-    { i:'voice', v:f.voice_chars_month, l:'Voice characters', d:'Spoken this month' },
+    { i:'voice', v:f.voice_chars_month, l:'Voice characters', d:'Spoken in this range' },
   ];
   $('featGrid').innerHTML = items.map(x=>
     '<div class="feat"><div class="fi">'+FI[x.i]+'</div><div class="v" title="'+fmtFull(x.v)+'">'+fmt(x.v)+'</div>'+
@@ -1469,7 +1556,7 @@ function safe(name, fn){ try{ fn(); }catch(e){ console.error('[admin] '+name+' f
 function render(d){
   DATA = d || {};
   const days = DATA.range_days || 30;
-  $('rangeTxt').textContent = 'Last ' + days + ' days';
+  syncRangeUi();
   safe('kpis', ()=>renderKpis(DATA));
   safe('products', ()=>renderProducts(DATA));
   safe('models', ()=>renderModels(DATA));
@@ -1710,6 +1797,19 @@ function initDashboardUi(){
   $('usersBody').addEventListener('click', (e)=>{ const tr = e.target.closest('tr[data-uid]'); if(tr) openRow(tr); });
   $('usersBody').addEventListener('keydown', (e)=>{ if(e.key!=='Enter') return; const tr = e.target.closest('tr[data-uid]'); if(tr) openRow(tr); });
   $('alertRetry').addEventListener('click', refresh);
+
+  // date range picker
+  syncRangeUi();
+  $('rangeBtn').addEventListener('click', (e)=>{ e.stopPropagation(); $('rangePop').hidden ? openRangePop() : closeRangePop(); });
+  $('rangePop').addEventListener('click', (e)=>e.stopPropagation());
+  document.addEventListener('click', closeRangePop);
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeRangePop(); });
+  $('rangePresets').addEventListener('click', (e)=>{ const b = e.target.closest('button[data-days]'); if(b) setRange({ days:Number(b.dataset.days) }); });
+  $('rApply').addEventListener('click', ()=>{
+    const from = $('rFrom').value, to = $('rTo').value;
+    if(!isDay(from) || !isDay(to)) return;
+    setRange({ from: from<=to ? from : to, to: from<=to ? to : from });
+  });
 
   // tabs: one panel at a time, remembered in the URL hash
   const TABS = ['overview','users','apps','models','features','audience'];

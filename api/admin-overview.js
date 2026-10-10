@@ -13,7 +13,7 @@ import { requireUser } from './auth.js';
 import { applyCors } from '../lib/cors.js';
 
 const DAY = 24 * 60 * 60 * 1000;
-const RANGE = 30;
+const MAX_DAYS = 366;
 const PRODUCTS = [
   { key: 'craft', label: 'Craft' },
   { key: 'crew', label: 'Crew' },
@@ -24,6 +24,28 @@ const PRODUCTS = [
 
 const isoDaysAgo = (n) => new Date(Date.now() - n * DAY).toISOString();
 const dayKey = (iso) => String(iso).slice(0, 10);
+/** Every day from one YYYY-MM-DD to another, inclusive. */
+function daysBetween(from, to) {
+  const out = [];
+  for (let t = Date.parse(from + 'T00:00:00Z'); t <= Date.parse(to + 'T00:00:00Z'); t += DAY) out.push(new Date(t).toISOString().slice(0, 10));
+  return out;
+}
+/** The range asked for: ?from=&to= (days, inclusive) or ?days=N ending today. Defaults to the last 30 days. */
+function parseRange(q = {}) {
+  const day = (v) => (/^\d{4}-\d{2}-\d{2}$/.test(String(v || '')) && !Number.isNaN(Date.parse(v + 'T00:00:00Z')) ? String(v) : null);
+  const todayKey = new Date().toISOString().slice(0, 10);
+  let from = day(q.from), to = day(q.to);
+  if (!from || !to) {
+    const n = Math.min(MAX_DAYS, Math.max(1, parseInt(q.days, 10) || 30));
+    to = todayKey; from = new Date(Date.now() - (n - 1) * DAY).toISOString().slice(0, 10);
+  }
+  if (from > to) [from, to] = [to, from];
+  if (to > todayKey) to = todayKey;
+  if (from > to) from = to;
+  const earliest = new Date(Date.parse(to + 'T00:00:00Z') - (MAX_DAYS - 1) * DAY).toISOString().slice(0, 10);
+  if (from < earliest) from = earliest;
+  return { from, to };
+}
 function lastDays(n) {
   const out = [];
   for (let i = n - 1; i >= 0; i--) out.push(new Date(Date.now() - i * DAY).toISOString().slice(0, 10));
@@ -60,15 +82,17 @@ export default async function handler(req, res) {
   if (!me?.is_admin) return res.status(403).json({ message: 'Admin access required.' });
 
   const notes = [];
-  const since = isoDaysAgo(RANGE);
-  const days = lastDays(RANGE);
-  const today = days[days.length - 1];
-  const weekAgo = Date.now() - 7 * DAY;
+  const range = parseRange(req.query);
+  const since = `${range.from}T00:00:00.000Z`;
+  const until = `${range.to}T23:59:59.999Z`;
+  const days = daysBetween(range.from, range.to);
+  const today = range.to;                       // "today" and "this week" are the end of the range
+  const weekAgo = Date.parse(until) - 7 * DAY;
 
   // ── Usage rows from every app, in one shape ──────────────────────────────
   const [appRows, histRows] = await Promise.all([
-    fetchAll(() => supabase.from('app_events').select('user_id,product,kind,model,provider,tokens_in,tokens_out,version,platform,created_at').gte('created_at', since).order('created_at', { ascending: true })),
-    fetchAll(() => supabase.from('usage_history').select('user_id,model,tokens_in,tokens_out,tokens_total,prompt_text,created_at').gte('created_at', since).order('created_at', { ascending: true })),
+    fetchAll(() => supabase.from('app_events').select('user_id,product,kind,model,provider,tokens_in,tokens_out,version,platform,created_at').gte('created_at', since).lte('created_at', until).order('created_at', { ascending: true })),
+    fetchAll(() => supabase.from('usage_history').select('user_id,model,tokens_in,tokens_out,tokens_total,prompt_text,created_at').gte('created_at', since).lte('created_at', until).order('created_at', { ascending: true })),
   ]);
   const events = [
     ...appRows.map((r) => ({ user: r.user_id, product: r.product, kind: r.kind, model: r.model || '', provider: r.provider || '', tin: r.tokens_in || 0, tout: r.tokens_out || 0, at: r.created_at, version: r.version, platform: r.platform })),
@@ -112,7 +136,7 @@ export default async function handler(req, res) {
   });
 
   // ── Daily totals (with signups) ──────────────────────────────────────────
-  const profilesNew = await fetchAll(() => supabase.from('profiles').select('created_at').gte('created_at', since));
+  const profilesNew = await fetchAll(() => supabase.from('profiles').select('created_at').gte('created_at', since).lte('created_at', until));
   const signupsByDay = {};
   for (const p of profilesNew) { const k = dayKey(p.created_at); signupsByDay[k] = (signupsByDay[k] || 0) + 1; }
   const daily = days.map((d) => {
@@ -153,17 +177,31 @@ export default async function handler(req, res) {
     if (e.at > u.last_seen) u.last_seen = e.at;
     userMap.set(e.user, u);
   }
-  const top = [...userMap.values()].sort((a, b) => b.tokens - a.tokens || b.calls - a.calls).slice(0, 100);
-  const { data: topProfiles } = top.length
-    ? await supabase.from('profiles').select('id,email,full_name').in('id', top.map((u) => u.id))
-    : { data: [] };
-  const prof = Object.fromEntries((topProfiles || []).map((p) => [p.id, p]));
-  const top_users = top.map((u) => ({
-    id: u.id, email: prof[u.id]?.email || '', name: prof[u.id]?.full_name || '', products: [...u.products],
-    calls: u.calls, tokens: u.tokens, tokens_in: u.tin, tokens_out: u.tout, last_seen: u.last_seen,
-    by_product: Object.values(u.apps).sort((a, b) => b.tokens - a.tokens),
-    top_model: Object.entries(u.models).sort((a, b) => b[1] - a[1])[0]?.[0] || '',
-  }));
+  // Every signed-up user, so the Users tab lists people with no usage this month too:
+  // the active ones first (by tokens), then everyone else by when they joined.
+  const USER_CAP = 5000;
+  const allProfiles = await fetchAll(() => supabase.from('profiles').select('id,email,full_name,created_at,country').order('created_at', { ascending: false }), USER_CAP);
+  const prof = Object.fromEntries(allProfiles.map((p) => [p.id, p]));
+  const missing = [...userMap.keys()].filter((id) => !prof[id]);
+  if (missing.length) {
+    const { data: extra } = await supabase.from('profiles').select('id,email,full_name,created_at,country').in('id', missing.slice(0, 1000));
+    for (const p of extra || []) prof[p.id] = p;
+  }
+  const active = [...userMap.values()].sort((a, b) => b.tokens - a.tokens || b.calls - a.calls);
+  const idle = allProfiles.filter((p) => !userMap.has(p.id));
+  const top_users = [
+    ...active.map((u) => ({
+      id: u.id, email: prof[u.id]?.email || '', name: prof[u.id]?.full_name || '', joined_at: prof[u.id]?.created_at || null, country: prof[u.id]?.country || '',
+      products: [...u.products], calls: u.calls, tokens: u.tokens, tokens_in: u.tin, tokens_out: u.tout, last_seen: u.last_seen,
+      by_product: Object.values(u.apps).sort((a, b) => b.tokens - a.tokens),
+      top_model: Object.entries(u.models).sort((a, b) => b[1] - a[1])[0]?.[0] || '',
+    })),
+    ...idle.map((p) => ({
+      id: p.id, email: p.email || '', name: p.full_name || '', joined_at: p.created_at || null, country: p.country || '',
+      products: [], calls: 0, tokens: 0, tokens_in: 0, tokens_out: 0, last_seen: null, by_product: [], top_model: '',
+    })),
+  ];
+  const users_active_count = active.length;
   // each app's heaviest users, from the same ranking
   for (const p of products) {
     p.top_users = top_users.map((u) => ({ id: u.id, email: u.email, name: u.name, tokens: (u.by_product.find((x) => x.key === p.key) || {}).tokens || 0 }))
@@ -189,17 +227,17 @@ export default async function handler(req, res) {
   const dayStart = new Date(`${today}T00:00:00Z`).getTime();
   const [usersTotal, signupsToday, signupsWeek, remindersMonth, botCallsMonth, mailWatch, gmailCalls, customModels, activeStarter, activePro] = await Promise.all([
     countRows('profiles'),
-    countRows('profiles', (q) => q.gte('created_at', new Date(dayStart).toISOString())),
-    countRows('profiles', (q) => q.gte('created_at', isoDaysAgo(7))),
-    countRows('reminders', (q) => q.gte('created_at', since)),
-    countRows('reminders', (q) => q.eq('kind', 'call').in('status', ['sent', 'done']).gte('due_at', since)),
+    countRows('profiles', (q) => q.gte('created_at', new Date(dayStart).toISOString()).lte('created_at', until)),
+    countRows('profiles', (q) => q.gte('created_at', new Date(weekAgo).toISOString()).lte('created_at', until)),
+    countRows('reminders', (q) => q.gte('created_at', since).lte('created_at', until)),
+    countRows('reminders', (q) => q.eq('kind', 'call').in('status', ['sent', 'done']).gte('due_at', since).lte('due_at', until)),
     countRows('mail_watch_accounts', (q) => q.eq('enabled', true)),
     countRows('mail_links'),
     countRows('user_models'),
     countRows('subscriptions', (q) => q.eq('status', 'active').eq('plan', 'starter')),
     countRows('subscriptions', (q) => q.eq('status', 'active').eq('plan', 'pro')),
   ]);
-  const voice = await fetchAll(() => supabase.from('tts_usage').select('chars').gte('day', since.slice(0, 10)));
+  const voice = await fetchAll(() => supabase.from('tts_usage').select('chars').gte('day', range.from).lte('day', range.to));
   const mrr = activeStarter * +(process.env.WHOP_STARTER_PRICE || 9) + activePro * +(process.env.WHOP_PRO_PRICE || 29);
 
   const countryRows = await fetchAll(() => supabase.from('profiles').select('country'));
@@ -209,7 +247,8 @@ export default async function handler(req, res) {
 
   return res.status(200).json({
     generated_at: new Date().toISOString(),
-    range_days: RANGE,
+    range_days: days.length,
+    range,
     totals: {
       users: usersTotal,
       signups_today: signupsToday,
@@ -231,6 +270,7 @@ export default async function handler(req, res) {
     providers,
     peak_hours: hours,
     top_users,
+    users_active_count,
     features: {
       bot_calls_month: botCallsMonth,
       reminders_month: remindersMonth,
