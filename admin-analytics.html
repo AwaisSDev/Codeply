@@ -1116,17 +1116,19 @@ function drawProductChart(){
     '<span class="lv">'+(pcMetric==='users' ? fmt(s.p.users_month) : fmt(sum(s.data)))+'</span></button>').join('');
   if(!any || !window.Chart){ freshBox('pcBox', any ? 'Charts could not load' : 'No product activity in this range yet'); return; }
   const ctx = freshCanvas('pcBox','productChart');
+  // users per day reads as a line; calls and tokens are amounts per day, so stacked bars (no curve implying a ramp)
+  const bars = pcMetric !== 'users';
   charts.productChart = new Chart(ctx,{
-    type:'line',
+    type: bars ? 'bar' : 'line',
     data:{ labels:dates.map(dayLabel), datasets:sets.map(s=>({
       label:s.p.label||prodLabel(s.p.key), data:s.data, hidden:pcHidden.has(s.p.key),
-      borderColor:prodColor(s.p.key), backgroundColor:prodColor(s.p.key), borderWidth:2, cubicInterpolationMode:'monotone',
+      borderColor:prodColor(s.p.key), backgroundColor:prodColor(s.p.key), borderWidth: bars ? 0 : 2, cubicInterpolationMode:'monotone', borderRadius: bars ? 2 : 0, maxBarThickness:28, stack:'all',
       pointRadius:0, pointHoverRadius:4, pointHoverBorderWidth:2, pointHoverBorderColor:'#fff'
     }))},
     options: baseOpts({
       interaction:{mode:'index',intersect:false},
       plugins:{ tooltip: tip({ label:(c)=>' '+c.dataset.label+': '+fmtFull(c.parsed.y) }) },
-      scales:{ x:xScale(), y:yScale() }
+      scales: bars ? { x:Object.assign(xScale(),{stacked:true}), y:Object.assign(yScale(),{stacked:true}) } : { x:xScale(), y:yScale() }
     })
   });
 }

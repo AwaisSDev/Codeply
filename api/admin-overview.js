@@ -96,7 +96,7 @@ export default async function handler(req, res) {
     fetchAll(() => supabase.from('apply_history').select('user_id,lines_added,lines_removed,created_at').gte('created_at', since).lte('created_at', until).order('created_at', { ascending: true })),
   ]);
   const events = [
-    ...appRows.map((r) => ({ user: r.user_id, product: r.product, kind: r.kind, model: r.model || '', provider: r.provider || '', tin: r.tokens_in || 0, tout: r.tokens_out || 0, at: r.created_at, version: r.version, platform: r.platform })),
+    ...appRows.filter((r) => r.version !== 'selftest').map((r) => ({ user: r.user_id, product: r.product, kind: r.kind, model: r.model || '', provider: r.provider || '', tin: r.tokens_in || 0, tout: r.tokens_out || 0, at: r.created_at, version: r.version, platform: r.platform })),
     ...histRows.map((r) => {
       const phone = String(r.prompt_text || '').trim().toLowerCase() === 'voice call';
       const tin = r.tokens_in || 0; const tout = r.tokens_out || 0;
