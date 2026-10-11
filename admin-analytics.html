@@ -439,6 +439,10 @@
   .crop-controls .zi{width:14px;height:14px;color:var(--muted)}
   .crop-actions{display:flex;gap:10px}
   .crop-actions .btn{flex:1;height:38px}
+.u-country{white-space:nowrap;font-size:13px}
+.u-country .flag,.u-country .cc{margin-right:7px}
+.u-country span:last-child{display:inline-block;max-width:calc(100% - 34px);overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
+.um-country{display:inline-flex;align-items:center;gap:6px;margin-left:10px;padding-left:10px;border-left:1px solid var(--line,#e6e6e6)}
 </style>
 </head>
 <body>
@@ -607,8 +611,9 @@
     <div class="card card-pad">
       <table class="tbl users-tbl">
         <thead><tr>
-          <th style="width:30%">User</th>
-          <th class="hide-sm" style="width:22%">Tokens by app</th>
+          <th style="width:26%">User</th>
+          <th class="hide-sm" style="width:13%">Country</th>
+          <th class="hide-sm" style="width:20%">Tokens by app</th>
           <th class="r sortable" data-sort="tokens">Tokens<span class="arr"></span></th>
           <th class="r sortable hide-sm" data-sort="tokens_in">In<span class="arr"></span></th>
           <th class="r sortable hide-sm" data-sort="tokens_out">Out<span class="arr"></span></th>
@@ -993,11 +998,13 @@ function mockOverview(){
       last_seen:new Date(Date.now()-rnd(.02,1)*Math.pow(i+1,1.6)*3600e3).toISOString() };
   });
   top_users.forEach(u=>{ u.tokens_out = u.tokens - u.tokens_in; u.joined_at = new Date(Date.now()-rnd(20,200)*864e5).toISOString(); });
+  const CC = ['PK','US','IN','GB','AE','DE','NG','CA','SA','TR','BD','ID'];
   top_users.push({ id:'mock-apply', email:'ch.oasis@example.com', name:'Ch', products:['drop'], by_product:[], calls:0, tokens:0, tokens_in:0, tokens_out:0, applies:4, lines_changed:950, top_model:'',
     last_seen:new Date(Date.now()-13*864e5).toISOString(), joined_at:new Date(Date.now()-13*864e5).toISOString() });
   ['kamal.hasan','olivia.brown','sana.iqbal','marco.rossi','aisha.bello','james.carter'].forEach((p,i)=>top_users.push({ id:'mock-idle-'+i, email:p+'@'+doms[i%3],
     name:p.split('.').map(x=>x[0].toUpperCase()+x.slice(1)).join(' '), products:[], by_product:[], calls:0, tokens:0, tokens_in:0, tokens_out:0, top_model:'',
     last_seen:null, joined_at:new Date(Date.now()-(i*3+1)*864e5).toISOString() }));
+  top_users.forEach((u,i)=>{ if(i%9!==8) u.country = CC[i%CC.length]; }); // one in nine left unknown, like real sign-ups
   products.forEach(p=>{
     p.top_models = models.slice(0,3).map(m=>({ model:m.model, calls:Math.round(m.calls*.3), tokens:Math.round(m.tokens*.3) }));
     p.top_users = top_users.map(u=>({ id:u.id, email:u.email, name:u.name, tokens:(u.by_product.find(x=>x.key===p.key)||{}).tokens||0 })).filter(u=>u.tokens>0).sort((a,b)=>b.tokens-a.tokens).slice(0,3);
@@ -1269,7 +1276,7 @@ function drawUsers(){
   });
   const shown = usersShowAll || q ? rows : rows.slice(0,USERS_PAGE);
   if(!usersCache.length){
-    $('usersBody').innerHTML = '<tr><td colspan="7">'+emptyHtml('No users with activity yet')+'</td></tr>';
+    $('usersBody').innerHTML = '<tr><td colspan="8">'+emptyHtml('No users with activity yet')+'</td></tr>';
     $('usersCountSub').textContent=''; $('usersMore').style.display='none'; return;
   }
   $('usersBody').innerHTML = shown.length ? shown.map(u=>{
@@ -1279,6 +1286,7 @@ function drawUsers(){
         (u.full_name ? '<div class="u-name">'+esc(u.full_name)+'</div><div class="u-mail">'+esc(u.email||'')+'</div>'
                      : '<div class="u-name">'+esc(u.email||'Unknown')+'</div>')+
       '</div></div></td>'+
+      '<td class="hide-sm u-country">'+(u.country ? flagHtml(u.country)+'<span title="'+esc(countryName(u.country))+'">'+esc(countryName(u.country))+'</span>' : '<span class="idle-l">Unknown</span>')+'</td>'+
       '<td class="hide-sm">'+(u.tokens ? splitHtml(userApps(u), u.tokens, true)
         : u.applies ? '<span class="noai"><span class="split-l"><span><b style="background:'+prodColor('drop')+'"></b>Drop</span></span>'+fmt(u.applies)+' file'+(u.applies===1?'':'s')+' applied, own key (no tokens recorded)</span>'
         : (u.products||[]).length ? '<span class="noai">Opened '+esc((u.products||[]).map(prodLabel).join(', '))+', no AI tokens recorded</span>'
@@ -1289,7 +1297,7 @@ function drawUsers(){
       '<td class="r hide-sm" title="'+fmtFull(u.calls)+'">'+fmt(u.calls)+'</td>'+
       (u.last_seen && userFilter!=='new' ? '<td class="r t-time" title="'+esc(new Date(u.last_seen).toLocaleString())+'">'+relTime(u.last_seen)+'</td></tr>'
         : '<td class="r t-time'+(userFilter==='new'?'':' idle-l')+'" title="'+esc(u.joined_at?'Joined '+new Date(u.joined_at).toLocaleString():'')+'">'+(u.joined_at?(userFilter==='new'?'Joined '+relTime(u.joined_at):'Joined '+dayLabel(String(u.joined_at).slice(0,10))):'-')+'</td></tr>');
-  }).join('') : '<tr><td colspan="7"><div class="empty" style="min-height:80px">'+(q ? 'No users match "'+esc(q)+'"' : userFilter==='new' ? 'Nobody joined in the last 7 days' : 'No users here')+'</div></td></tr>';
+  }).join('') : '<tr><td colspan="8"><div class="empty" style="min-height:80px">'+(q ? 'No users match "'+esc(q)+'"' : userFilter==='new' ? 'Nobody joined in the last 7 days' : 'No users here')+'</div></td></tr>';
   const activeN = usersCache.filter(isActive).length;
   $('usersCountSub').textContent = userFilter==='new' ? 'Showing '+shown.length+' of '+rows.length+' people who joined in the last 7 days, newest first.'
     : userFilter==='active' ? 'Showing '+shown.length+' of '+rows.length+' users active in this range.'
@@ -1372,12 +1380,13 @@ function demoUserDetail(u){
     at: new Date(now - (i*7+R()*5)*3600e3).toISOString(),
     type: i%4===2 ? 'apply' : 'call',
     model: i%4!==2 ? ms[Math.floor(R()*ms.length)] : undefined,
+    app: i%4!==2 ? ((u.products||[])[i%Math.max(1,(u.products||[]).length)]||'craft') : undefined,
     tokens_total: i%4!==2 ? Math.round(400+R()*5200) : undefined,
     lines_added: i%4===2 ? Math.round(5+R()*80) : undefined,
     lines_removed: i%4===2 ? Math.round(2+R()*40) : undefined,
   }));
   return {
-    profile: { id:u.id, email:u.email, full_name:u.full_name, avatar_url:null, created_at:new Date(now-48*864e5).toISOString(), country:'PK' },
+    profile: { id:u.id, email:u.email, full_name:u.full_name, avatar_url:null, created_at:new Date(now-48*864e5).toISOString(), country:u.country||'' },
     usage: { calls:u.calls||214, tokens_in:Math.round((u.tokens||278000)*.68), tokens_out:Math.round((u.tokens||278000)*.32), tokens_total:u.tokens||278000,
       first_at:new Date(now-30*864e5).toISOString(), last_at:u.last_seen||new Date(now-2*3600e3).toISOString() },
     applies: { count:58, lines_added:3120, lines_removed:940,
@@ -1404,7 +1413,7 @@ function renderUserDetail(d){
   const p = d.profile||{}, u = d.usage||{}, a = d.applies||{};
   $('umHeadAvatar').innerHTML = avatarHtml(p);
   $('umName').textContent = displayName(p);
-  $('umMail').textContent = p.email || '';
+  $('umMail').innerHTML = esc(p.email || '')+(p.country ? '<span class="um-country">'+flagHtml(p.country)+esc(countryName(p.country))+'</span>' : '<span class="um-country idle-l">Country unknown</span>');
 
   const first = earliest(u.first_at, a.first_at);
   const last = latest(u.last_at, a.last_at);
@@ -1417,7 +1426,7 @@ function renderUserDetail(d){
     '<div class="ustat"><div class="lbl">First used</div><div class="val" style="font-size:15px">'+dateOrDash(first)+'</div>'+
       '<div class="sub">Joined '+dateOrDash(p.created_at?new Date(p.created_at):null)+'</div></div>'+
     '<div class="ustat"><div class="lbl">Last used</div><div class="val" style="font-size:15px">'+(last?relTime(last.toISOString()):'-')+'</div>'+
-      '<div class="sub">'+esc(p.country?countryName(p.country):'Country unknown')+'</div></div>';
+      '<div class="sub">'+(last?esc(last.toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})):'Never')+'</div></div>';
 
   const rows = (d.recent||[]).map((r)=>{
     const when = r.at ? new Date(r.at).toLocaleString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
@@ -1427,7 +1436,7 @@ function renderUserDetail(d){
         '<div class="uact-time">'+when+'</div></div>';
     }
     return '<div class="uact-row"><div class="uact-ico call">'+ICO_CALL+'</div>'+
-      '<div class="uact-detail">AI call, <span class="mono" style="font-size:12px">'+esc((r.model||'').split('/').pop()||'model')+'</span>, '+fmt(r.tokens_total||0)+' tokens</div>'+
+      '<div class="uact-detail">'+(r.app?esc(prodLabel(r.app))+' · ':'')+'AI call, <span class="mono" style="font-size:12px">'+esc((r.model||'').split('/').pop()||'model')+'</span>, '+fmt(r.tokens_total||0)+' tokens</div>'+
       '<div class="uact-time">'+when+'</div></div>';
   }).join('');
 

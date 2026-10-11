@@ -4,7 +4,11 @@
 //   profile:  { id, email, full_name, avatar_url, created_at, country, referral_source, plan },
 //   usage:    { calls, tokens_in, tokens_out, tokens_total, first_at, last_at },
 //   applies:  { count, lines_added, lines_removed, first_at, last_at },
-//   recent:   [{ at, type:'call'|'apply', model?, tokens_total?, lines_added?, lines_removed? }, ...]
+//   recent:   [{ at, type:'call'|'apply', app?, model?, tokens_total?, lines_added?, lines_removed? }, ...]
+//
+// AI calls come from both usage streams, like the overview: app_events (Craft,
+// Crew, the CLI, Cloud; test events left out) and usage_history (Drop and
+// phone calls through the AI proxy).
 // }
 //
 // Deliberately excludes usage_history.prompt_text — this view answers "how
@@ -51,13 +55,30 @@ export default async function handler(req, res) {
 
   const notes = [];
 
-  const { data: usageRows } = await supabase
-    .from('usage_history')
-    .select('model,tokens_in,tokens_out,tokens_total,created_at')
-    .eq('user_id', targetId)
-    .order('created_at', { ascending: false })
-    .limit(ROW_CAP);
-  if ((usageRows || []).length >= ROW_CAP) notes.push(`usage capped at ${ROW_CAP} most recent calls`);
+  const [{ data: histRows }, { data: eventRows }] = await Promise.all([
+    supabase.from('usage_history')
+      .select('model,tokens_in,tokens_out,tokens_total,prompt_text,created_at')
+      .eq('user_id', targetId)
+      .order('created_at', { ascending: false })
+      .limit(ROW_CAP),
+    supabase.from('app_events')
+      .select('product,model,tokens_in,tokens_out,version,created_at')
+      .eq('user_id', targetId).eq('kind', 'ai')
+      .order('created_at', { ascending: false })
+      .limit(ROW_CAP),
+  ]);
+  if ((histRows || []).length >= ROW_CAP || (eventRows || []).length >= ROW_CAP) notes.push(`usage capped at ${ROW_CAP} most recent calls per source`);
+  // one shape, newest first; prompt_text is only read to tell a phone call apart, never returned
+  const usageRows = [
+    ...(histRows || []).map((r) => {
+      const tin = r.tokens_in || 0; const tout = r.tokens_out || 0;
+      return { app: String(r.prompt_text || '').trim().toLowerCase() === 'voice call' ? 'phone' : 'drop', model: r.model, tokens_in: tin, tokens_out: tout, tokens_total: tin + tout || r.tokens_total || 0, created_at: r.created_at };
+    }),
+    ...(eventRows || []).filter((r) => r.version !== 'selftest' && r.model !== 'fake').map((r) => {
+      const tin = r.tokens_in || 0; const tout = r.tokens_out || 0;
+      return { app: r.product || 'craft', model: r.model, tokens_in: tin, tokens_out: tout, tokens_total: tin + tout, created_at: r.created_at };
+    }),
+  ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
   const { data: applyRows } = await supabase
     .from('apply_history')
@@ -67,7 +88,7 @@ export default async function handler(req, res) {
     .limit(ROW_CAP);
   if ((applyRows || []).length >= ROW_CAP) notes.push(`applies capped at ${ROW_CAP} most recent`);
 
-  const usage = (usageRows || []).reduce((acc, r) => {
+  const usage = usageRows.reduce((acc, r) => {
     acc.calls++;
     acc.tokens_in += r.tokens_in || 0;
     acc.tokens_out += r.tokens_out || 0;
@@ -88,7 +109,7 @@ export default async function handler(req, res) {
 
   // Merge the two event streams into one recent-activity timeline, newest first.
   const recent = [
-    ...(usageRows || []).map((r) => ({ at: r.created_at, type: 'call', model: r.model, tokens_total: r.tokens_total })),
+    ...usageRows.map((r) => ({ at: r.created_at, type: 'call', app: r.app, model: r.model, tokens_total: r.tokens_total })),
     ...(applyRows || []).map((r) => ({ at: r.created_at, type: 'apply', lines_added: r.lines_added, lines_removed: r.lines_removed })),
   ].sort((a, b) => new Date(b.at) - new Date(a.at)).slice(0, 50);
 
