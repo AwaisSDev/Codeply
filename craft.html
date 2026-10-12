@@ -73,7 +73,6 @@
       <a href="/studio">Studio</a>
       <a href="/mobile">Mobile</a>
       <a href="/cli">CLI</a>
-      <a href="/drop">Drop</a>
       <a href="/changelog">Changelog</a>
     </nav>
     <div class="nav-end">
@@ -82,7 +81,7 @@
     </div>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="/craft">Craft</a><a href="/crew">Crew</a><a href="/studio">Studio</a><a href="/mobile">Mobile</a><a href="/cli">CLI</a><a href="/drop">Drop</a><a href="/changelog">Changelog</a><a href="/docs">Docs</a>
+    <a href="/craft">Craft</a><a href="/crew">Crew</a><a href="/studio">Studio</a><a href="/mobile">Mobile</a><a href="/cli">CLI</a><a href="/changelog">Changelog</a><a href="/docs">Docs</a>
     <a class="btn btn-primary" href="/download">Download</a>
   </nav>
 </header>
@@ -254,6 +253,268 @@
         <div class=""><div class="kicker rv">Cloud runs</div><h2 class="rv d1">Close the laptop. <span class="serif">It keeps going.</span></h2><p class="sub rv d2">Your run moves to the cloud, finishes the job, and opens a pull request. Check it or merge it from your phone.</p></div>
       </div>
       <div class="frame rv d1"><img src="/assets/products/cloud-focus-840.webp" alt="A Craft cloud run that edited files, ran tests and opened a pull request" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="drop" style="padding-top:40px">
+    <div class="wrap media-split rev">
+      <div>
+        <div class=""><div class="kicker rv">The drop</div><h2 class="rv d1">One shortcut. <span class="serif">Any app.</span></h2><p class="sub rv d2">Alt+C on Windows, Option+C on Mac, and Craft drops into the corner of your screen. Give it a task, watch the steps, allow a deploy, and keep working. <a href="/drop" style="color:#1f6bff">How the drop works</a></p></div>
+      </div>
+      <div class="drop-real rv d1" style="margin:0;border:0;box-shadow:none;background:none;border-radius:0"><iframe title="The Craft drop, the real window" srcdoc="<!doctype html><html data-theme=&quot;dark&quot;><head><meta charset=&quot;utf-8&quot;><style>
+:root {
+  --bg: #1b1b1b;
+  --raise: #262626;
+  --raise-2: #2f2f2f;
+  --line: #2f2f2f;
+  --line-2: #3a3a3a;
+  --text: #ececec;
+  --dim: #a8a8a8;
+  --faint: #717171;
+  --hover: rgba(255, 255, 255, 0.06);
+  --bubble: #2b2b2b;
+  --code: #242424;
+  --accent: #4b9dff;
+  --green: #4cc38a;
+  --red: #ef6a5a;
+  --warn: #f0883e;
+  --invert: #ececec;
+  --invert-text: #141414;
+  --knot: #a8a8a8;
+  --shadow: 0 18px 48px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --font: &quot;Segoe UI Variable Text&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacSystemFont, &quot;SF Pro Text&quot;, system-ui, sans-serif;
+  --mono: ui-monospace, &quot;Cascadia Code&quot;, &quot;Cascadia Mono&quot;, &quot;SF Mono&quot;, Consolas, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme=&quot;dark&quot;]) {
+    --bg: #ffffff; --raise: #f4f4f4; --raise-2: #ececec; --line: #e8e8e8; --line-2: #dcdcdc;
+    --text: #0d0d0d; --dim: #5d5d5d; --faint: #8f8f8f; --hover: rgba(0, 0, 0, 0.045);
+    --bubble: #f1f1f1; --code: #f5f5f5; --accent: #1a73e8; --green: #1a9960; --red: #d93b2b; --warn: #c2620f;
+    --invert: #0d0d0d; --invert-text: #ffffff; --knot: #8f8f8f;
+    --shadow: 0 18px 48px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.08);
+    color-scheme: light;
+  }
+}
+:root[data-theme=&quot;light&quot;] {
+  --bg: #ffffff; --raise: #f4f4f4; --raise-2: #ececec; --line: #e8e8e8; --line-2: #dcdcdc;
+  --text: #0d0d0d; --dim: #5d5d5d; --faint: #8f8f8f; --hover: rgba(0, 0, 0, 0.045);
+  --bubble: #f1f1f1; --code: #f5f5f5; --accent: #1a73e8; --green: #1a9960; --red: #d93b2b; --warn: #c2620f;
+  --invert: #0d0d0d; --invert-text: #ffffff; --knot: #8f8f8f;
+  --shadow: 0 18px 48px rgba(0, 0, 0, 0.16), 0 2px 8px rgba(0, 0, 0, 0.08);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; height: 100%; background: transparent; overflow: hidden; }
+body { font: 13.5px/1.5 var(--font); color: var(--text); -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+svg { width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.knot { fill: var(--knot); stroke: none; }
+
+.card {
+  position: fixed; inset: 0; display: flex; flex-direction: column;
+  background: var(--bg); border: 1px solid var(--line-2); border-radius: 18px;
+  overflow: hidden;
+  animation: rise 180ms cubic-bezier(.2, .8, .2, 1);
+}
+@keyframes rise { from { opacity: 0; transform: translateY(8px) scale(.985); } }
+
+
+.head { display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 8px 0 14px; -webkit-app-region: drag; flex: none; }
+.head button { -webkit-app-region: no-drag; }
+.brand { display: flex; }
+.brand .knot { width: 20px; height: 20px; }
+.head-actions { margin-left: auto; display: flex; gap: 2px; }
+.icon { width: 30px; height: 30px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; color: var(--dim); }
+.icon:hover { background: var(--hover); color: var(--text); }
+
+.chip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 9px; border-radius: 8px; color: var(--dim); max-width: 210px; }
+.chip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.chip:hover { background: var(--hover); color: var(--text); }
+.chip .caret { width: 13px; height: 13px; opacity: .7; }
+.chip svg:first-child:not(.caret) { width: 15px; height: 15px; }
+
+
+.thread { flex: 1; overflow-y: auto; padding: 4px 16px 12px; scroll-behavior: smooth; }
+.thread::-webkit-scrollbar { width: 8px; }
+.thread::-webkit-scrollbar-thumb { background: var(--line-2); border-radius: 8px; border: 2px solid var(--bg); }
+
+.empty { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8px 6px 24px; }
+.empty-mark .knot { width: 40px; height: 40px; }
+.empty h1 { font-size: 17px; font-weight: 600; margin: 14px 0 4px; letter-spacing: -.01em; }
+.empty p { margin: 0; color: var(--dim); max-width: 300px; }
+.recent { width: 100%; margin-top: 22px; display: flex; flex-direction: column; gap: 2px; text-align: left; }
+.recent-title { font-size: 12px; color: var(--faint); padding: 0 10px 4px; }
+.recent button { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 10px; color: var(--text); text-align: left; }
+.recent button:hover { background: var(--hover); }
+.recent button svg { color: var(--faint); }
+.recent .t { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recent .when { color: var(--faint); font-size: 12px; }
+.has-chat .empty { display: none; }
+
+.feed { display: flex; flex-direction: column; gap: 10px; }
+.msg-user { align-self: flex-end; max-width: 86%; background: var(--bubble); padding: 8px 12px; border-radius: 16px; white-space: pre-wrap; word-wrap: break-word; }
+.msg-ai { word-wrap: break-word; }
+.msg-ai p { margin: 0 0 8px; } .msg-ai p:last-child { margin-bottom: 0; }
+.msg-ai ul, .msg-ai ol { margin: 4px 0 8px; padding-left: 20px; }
+.msg-ai h1, .msg-ai h2, .msg-ai h3 { font-size: 14px; margin: 10px 0 4px; }
+.msg-ai code { font-family: var(--mono); font-size: 12px; background: var(--code); padding: 1px 5px; border-radius: 5px; }
+.msg-ai pre { background: var(--code); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; overflow-x: auto; margin: 6px 0; }
+.msg-ai pre code { background: none; padding: 0; white-space: pre; }
+.msg-ai a { color: var(--accent); text-decoration: none; }
+.msg-ai a:hover { text-decoration: underline; }
+
+
+.steps { display: flex; flex-direction: column; gap: 1px; }
+.step { display: flex; align-items: center; gap: 8px; min-height: 24px; color: var(--dim); font-size: 12.5px; }
+.step .st { width: 14px; height: 14px; display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.step .st svg { width: 13px; height: 13px; stroke-width: 1.8; }
+.step.ok .st { color: var(--green); }
+.step.bad .st { color: var(--red); }
+.step .v { color: var(--text); flex: none; }
+.step .l { font-family: var(--mono); font-size: 11.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.step .n { font-family: var(--mono); font-size: 11.5px; flex: none; }
+.step .n .a { color: var(--green); } .step .n .r { color: var(--red); } .step .n .a + .r { margin-left: 4px; }
+.more { align-self: flex-start; color: var(--faint); font-size: 12px; padding: 0 0 2px 22px; }
+.more:hover { color: var(--text); }
+.spin { width: 11px; height: 11px; border-radius: 50%; border: 1.6px solid var(--line-2); border-top-color: var(--text); animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.task { font-size: 12px; color: var(--faint); margin-top: 2px; }
+
+.note { font-size: 12.5px; color: var(--dim); display: flex; gap: 8px; align-items: flex-start; }
+.note.error { color: var(--red); }
+.note.warn { color: var(--warn); }
+
+.working { display: flex; align-items: center; gap: 8px; color: var(--faint); font-size: 12.5px; padding: 2px 0; }
+.working .shine { background: linear-gradient(90deg, var(--faint) 0%, var(--text) 50%, var(--faint) 100%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 1.8s linear infinite; }
+@keyframes shine { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+
+.ask { border: 1px solid var(--line-2); border-radius: 14px; padding: 12px; background: var(--raise); display: flex; flex-direction: column; gap: 8px; }
+.ask.danger { border-color: color-mix(in srgb, var(--warn) 55%, var(--line-2)); }
+.ask h3 { margin: 0; font-size: 13px; font-weight: 600; }
+.ask .what { color: var(--dim); }
+.ask pre { margin: 0; font-family: var(--mono); font-size: 11.5px; background: var(--code); border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; white-space: pre-wrap; word-break: break-word; max-height: 120px; overflow: auto; }
+.btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn { height: 30px; padding: 0 12px; border-radius: 9px; border: 1px solid var(--line-2); color: var(--text); }
+.btn:hover { background: var(--hover); }
+.btn.primary { background: var(--invert); color: var(--invert-text); border-color: var(--invert); }
+.btn.primary:hover { opacity: .88; background: var(--invert); }
+.ask input { height: 32px; border-radius: 9px; border: 1px solid var(--line-2); background: var(--bg); color: var(--text); padding: 0 10px; font: inherit; outline: none; }
+.ask input:focus { border-color: var(--dim); }
+.ask.done { opacity: .7; }
+.ask.done .btns, .ask.done input { display: none; }
+.ask .result { color: var(--dim); font-size: 12px; }
+
+.changed { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 12px; padding: 7px 8px 7px 12px; font-size: 12.5px; color: var(--dim); }
+.changed .t { flex: 1; }
+.changed .btn { height: 26px; font-size: 12px; padding: 0 10px; }
+
+
+.composer { flex: none; margin: 0 10px 10px; border: 1px solid var(--line-2); border-radius: 16px; background: var(--raise); padding: 8px 8px 8px 12px; }
+.composer:focus-within { border-color: color-mix(in srgb, var(--dim) 45%, var(--line-2)); }
+.composer textarea { width: 100%; resize: none; overflow-y: hidden; border: 0; outline: none; background: none; color: var(--text); font: inherit; font-size: 14px; line-height: 1.45; max-height: 132px; padding: 2px 2px 6px; }
+.composer textarea::placeholder { color: var(--faint); }
+.composer .row { display: flex; align-items: center; gap: 4px; }
+.seg { display: inline-flex; background: var(--bg); border: 1px solid var(--line); border-radius: 9px; padding: 2px; }
+.seg button { height: 22px; padding: 0 9px; border-radius: 7px; color: var(--dim); font-size: 12px; }
+.seg button.on { background: var(--raise-2); color: var(--text); }
+.composer .chip { height: 28px; font-size: 12.5px; }
+.send { margin-left: auto; width: 30px; height: 30px; border-radius: 50%; background: var(--invert); color: var(--invert-text); display: inline-flex; align-items: center; justify-content: center; }
+.send svg { stroke-width: 1.8; }
+.send:disabled { opacity: .35; cursor: default; }
+.send .i-stop { display: none; fill: currentColor; stroke: none; }
+.running .send .i-send { display: none; }
+.running .send .i-stop { display: block; }
+.running .send:disabled { opacity: 1; cursor: pointer; }
+
+
+.menu { position: absolute; z-index: 5; min-width: 220px; max-width: 300px; max-height: 300px; overflow-y: auto; background: var(--raise); border: 1px solid var(--line-2); border-radius: 12px; padding: 5px; box-shadow: 0 12px 32px rgba(0, 0, 0, .35); }
+.menu .lbl { font-size: 11.5px; color: var(--faint); padding: 6px 9px 4px; }
+.menu button { display: flex; align-items: center; gap: 9px; width: 100%; text-align: left; padding: 7px 9px; border-radius: 8px; }
+.menu button:hover { background: var(--hover); }
+.menu button .t { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.menu button .s { color: var(--faint); font-size: 11.5px; }
+.menu .tick { width: 14px; height: 14px; color: var(--text); }
+.menu hr { border: 0; border-top: 1px solid var(--line); margin: 4px 2px; }
+
+
+.chip.perm svg:first-child { width: 14px; height: 14px; }
+.chip.perm.full { color: var(--warn); }
+.menu button .t .sub { display: block; white-space: normal; }
+.composer .chip.model { max-width: 120px; }
+.composer .chip.perm { max-width: 160px; }
+
+html,body{height:100%;margin:0}body{background:transparent;display:flex;align-items:center;justify-content:center;pointer-events:none}
+html:root{color-scheme:light}
+.card{box-shadow:0 30px 70px -30px rgba(20,30,60,.55);position:relative;inset:auto;width:416px;height:616px;animation:none;flex:none}
+.thread{overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}.empty{display:none}
+</style></head><body><div class=&quot;card has-chat running&quot; id=&quot;card&quot;>
+  <header class=&quot;head&quot;>
+    <div class=&quot;brand&quot;><svg class=&quot;knot&quot; viewBox=&quot;560 540 3200 3200&quot; aria-hidden=&quot;true&quot;><path transform=&quot;translate(446.2 415.6)&quot; fill-rule=&quot;evenodd&quot; d=&quot;M 1678.618 161.001 C 1513.270 173.860, 1361.809 346.904, 1279.057 617.500 C 1274.011 634, 1267.620 654.925, 1264.855 664 C 1249.516 714.339, 1229.366 737.485, 1195.500 743.667 C 1176.163 747.196, 1162.631 743.554, 1110.552 720.802 C 1022.739 682.440, 971.671 664, 888.500 640.621 C 862.965 633.443, 796.420 619.707, 772 616.573 C 713.658 609.085, 593.780 610.737, 551.641 619.609 C 332.720 665.703, 243.351 832.965, 314.976 1062.546 C 353.997 1187.622, 433.071 1316.880, 553.531 1452.500 C 623.139 1530.869, 661.709 1532.912, 733.080 1462.011 C 772.514 1422.836, 780.747 1391.220, 761.479 1352.958 C 754.288 1338.678, 740.993 1320.496, 698.991 1267.500 C 608.528 1153.357, 538.933 1033.300, 526.096 969.244 C 508.440 881.134, 552.031 833.575, 650.500 833.517 C 684.922 833.497, 695.220 834.936, 769.390 850.128 C 888.325 874.489, 1086.233 953.898, 1267.500 1049.990 C 1344.206 1090.653, 1372.719 1106.795, 1461.500 1159.816 C 1608.121 1247.380, 1755.866 1358.262, 1861.500 1460.014 C 1921.219 1517.539, 1951.774 1524.352, 1997.213 1490.277 C 2057.039 1445.413, 2074.206 1391.642, 2043.179 1346.309 C 2033.397 1332.016, 2001.765 1301.543, 1934.541 1241.650 C 1874.053 1187.757, 1792.899 1122.849, 1720.500 1070.456 C 1642.140 1013.750, 1607.593 990.197, 1545.770 951.333 C 1444.460 887.645, 1440.775 876.828, 1477.514 751 C 1554.913 485.915, 1639.597 355.942, 1721.242 376.924 C 1792.586 395.260, 1843.427 482.519, 1903.944 690.500 C 1922.645 754.772, 1931.223 772.623, 1951.366 789.193 C 1979.980 812.729, 2004.596 813.361, 2073.962 792.338 C 2129.084 775.633, 2151.559 737.105, 2138.619 681.500 C 2096.957 502.479, 2034.714 369.918, 1948.588 276.785 C 1867.542 189.146, 1782.992 152.884, 1678.618 161.001 M 2651 826.525 C 2636.425 827.220, 2610.775 828.309, 2594 828.947 C 2547.771 830.703, 2538.279 831.726, 2500.500 839.021 C 2486.750 841.676, 2465.600 845.252, 2453.500 846.968 C 2317.824 866.210, 2285.604 904.119, 2316.087 1008.641 C 2337.385 1081.667, 2374.061 1095.532, 2487.753 1073.537 C 2517.351 1067.811, 2526.614 1066.506, 2555.451 1064.003 C 2580.486 1061.831, 2593.838 1060.071, 2623 1055.100 C 2674.441 1046.332, 2761.094 1044.363, 2803.500 1050.999 C 2919.711 1069.183, 2946.817 1114.190, 2903.478 1217 C 2845.944 1353.482, 2724.242 1482.607, 2533 1610.074 C 2379.093 1712.656, 2141.479 1829.058, 1924.625 1908.104 C 1912.456 1912.540, 1890.432 1920.651, 1875.682 1926.128 C 1850.956 1935.310, 1816.781 1947.333, 1750.760 1970.078 C 1695.022 1989.279, 1679.399 1999.437, 1665.959 2025.213 C 1653.383 2049.332, 1654.682 2087.531, 1669.522 2129.971 C 1691.542 2192.948, 1730.404 2209.667, 1804.386 2187.990 C 1976.971 2137.422, 2183.921 2052.417, 2353.500 1962.440 C 2455.001 1908.585, 2473.561 1910.724, 2546.003 1984.625 C 2709.559 2151.475, 2793.184 2302.385, 2762.458 2375.239 C 2737.105 2435.354, 2659.411 2458.576, 2547.500 2439.488 C 2533.200 2437.049, 2512.157 2433.680, 2500.739 2432.002 C 2470.016 2427.486, 2429.336 2418.321, 2378.085 2404.369 C 2283.654 2378.663, 2250.338 2399.382, 2224.311 2500 C 2211.121 2550.990, 2228.931 2586.687, 2278.053 2607.714 C 2311.029 2621.830, 2394.875 2642.821, 2446.688 2649.932 C 2455.042 2651.079, 2473.042 2654.046, 2486.688 2656.526 C 2531.128 2664.603, 2529.166 2664.462, 2597 2664.482 C 2666.633 2664.503, 2661.731 2664.930, 2712.968 2654.375 C 2793.081 2637.871, 2839.358 2618.554, 2885 2582.566 C 2975.643 2511.096, 3006.471 2421.809, 2989.432 2280.095 C 2981.902 2217.467, 2941.621 2124.094, 2886.934 2042.500 C 2844.667 1979.438, 2814.783 1942.700, 2753.527 1878.500 C 2711.108 1834.043, 2701.792 1818.416, 2701.664 1791.500 C 2701.509 1759.031, 2716.582 1739.248, 2771 1700.491 C 2877.964 1624.312, 2979.014 1528.767, 3039.190 1446.911 C 3127.138 1327.276, 3159.569 1234.123, 3154.045 1117 C 3148.683 1003.324, 3072.370 911.830, 2942.369 863.217 C 2915.206 853.060, 2857.026 837.930, 2824.500 832.566 C 2791.651 827.148, 2702.834 824.056, 2651 826.525 M 1221 1480.554 C 1185.814 1488.106, 1164.806 1513.094, 1153.370 1561 C 1151.466 1568.975, 1147.468 1585.625, 1144.487 1598 C 1141.505 1610.375, 1137.227 1630.850, 1134.980 1643.500 C 1132.732 1656.150, 1128.698 1676.850, 1126.013 1689.500 C 1123.329 1702.150, 1119.707 1721.950, 1117.965 1733.500 C 1114.579 1755.950, 1113.091 1764.073, 1107.617 1790 C 1103.206 1810.891, 1101.591 1822.086, 1099.032 1849.500 C 1096.638 1875.144, 1094.993 1887.946, 1091 1912 C 1084.635 1950.349, 1083.594 1961.542, 1081.521 2014 C 1079.670 2060.833, 1078.662 2076.859, 1075.451 2110.500 C 1073.097 2135.166, 1072.499 2143.857, 1069.981 2190 C 1065.137 2278.770, 1046.459 2294.011, 902.500 2326.667 C 853.941 2337.682, 844.423 2339.535, 818.775 2342.971 C 805.974 2344.686, 786.275 2347.628, 775 2349.510 C 670.265 2366.986, 578.382 2357.052, 530.217 2323.044 C 447.360 2264.540, 489.788 2150.492, 658.069 1979.376 C 701.290 1935.427, 713.158 1921.198, 720.567 1904.445 C 737.226 1866.775, 725.209 1831.984, 679.971 1786.916 C 643.652 1750.733, 611.184 1740.532, 576.802 1754.502 C 536.975 1770.685, 432.342 1880.046, 374.269 1966.185 C 291.116 2089.526, 261.131 2183.962, 268.924 2297.971 C 278.346 2435.833, 391.245 2541.176, 563 2572.366 C 627.602 2584.098, 785.970 2581.139, 852.500 2566.957 C 865.150 2564.261, 884.050 2560.457, 894.500 2558.504 C 904.950 2556.552, 927 2551.636, 943.500 2547.581 C 984.354 2537.540, 984.644 2537.493, 1005.500 2537.543 C 1045.793 2537.641, 1071.124 2557.231, 1081.535 2596.347 C 1085.400 2610.867, 1095.186 2680.902, 1098.534 2718 C 1100.530 2740.113, 1102.307 2752.129, 1106.001 2768.500 C 1107.614 2775.650, 1110.055 2786.450, 1111.425 2792.500 C 1112.796 2798.550, 1115.526 2812.275, 1117.492 2823 C 1135.496 2921.202, 1182.799 3041.222, 1234.744 3120.500 C 1322.370 3254.236, 1425.576 3311.227, 1556.500 3298.177 C 1716.141 3282.265, 1881.913 3095.902, 1981.844 2820 C 2021.370 2710.873, 2024.915 2690.720, 2009.872 2660.701 C 1995.846 2632.714, 1981.433 2623.761, 1914.032 2601.170 C 1837.474 2575.509, 1827.569 2579.467, 1803.046 2645.514 C 1695.736 2934.533, 1604.354 3080.592, 1534.615 3074.557 C 1458.122 3067.937, 1353.237 2893.564, 1315.637 2710.500 C 1313.152 2698.400, 1309.321 2680.400, 1307.124 2670.500 C 1301.618 2645.694, 1300.423 2638.161, 1297.523 2610 C 1294.774 2583.293, 1294.324 2579.619, 1289.992 2548.500 C 1277.686 2460.097, 1277.946 2268.554, 1290.509 2168 C 1294.349 2137.262, 1295.857 2120.182, 1297.501 2088.762 C 1299.997 2041.094, 1300.894 2033.182, 1308.473 1992 C 1312.545 1969.874, 1314.372 1955.875, 1316.500 1930.500 C 1318.625 1905.160, 1320.210 1894.149, 1326.002 1864.500 C 1328.688 1850.750, 1332.488 1827.980, 1334.447 1813.899 C 1336.406 1799.819, 1340.451 1776.194, 1343.436 1761.399 C 1346.420 1746.605, 1350.031 1726.625, 1351.459 1717 C 1355.384 1690.557, 1355.798 1688.343, 1361.654 1662.583 C 1384.615 1561.577, 1376.855 1524.810, 1327.368 1500.125 C 1296.022 1484.489, 1245.756 1475.241, 1221 1480.554&quot;></path></svg></div>
+    <button class=&quot;chip proj&quot; type=&quot;button&quot; title=&quot;Project&quot;>
+      <svg viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;><path d=&quot;M2 4.5c0-.8.7-1.5 1.5-1.5h2.6l1.4 1.5h5c.8 0 1.5.7 1.5 1.5v5.5c0 .8-.7 1.5-1.5 1.5h-9c-.8 0-1.5-.7-1.5-1.5z&quot;></path></svg>
+      <span>bloom-florist</span>
+      <svg class=&quot;caret&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;><path d=&quot;M4.5 6.5 8 10l3.5-3.5&quot;></path></svg>
+    </button>
+    <div class=&quot;head-actions&quot;>
+      <button class=&quot;icon&quot; type=&quot;button&quot; title=&quot;New chat&quot; aria-label=&quot;New chat&quot;>
+        <svg viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;><path d=&quot;M13.2 2.8a1.4 1.4 0 0 1 0 2L7.5 10.5 5 11l.5-2.5 5.7-5.7a1.4 1.4 0 0 1 2 0zM8 3H3.5C2.7 3 2 3.7 2 4.5v8c0 .8.7 1.5 1.5 1.5h8c.8 0 1.5-.7 1.5-1.5V8&quot;></path></svg>
+      </button>
+      <button class=&quot;icon&quot; type=&quot;button&quot; title=&quot;Open in Craft&quot; aria-label=&quot;Open in Craft&quot;>
+        <svg viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;><path d=&quot;M6.5 3H3.5C2.7 3 2 3.7 2 4.5v8c0 .8.7 1.5 1.5 1.5h8c.8 0 1.5-.7 1.5-1.5v-3M9.5 2H14v4.5M14 2 7.5 8.5&quot;></path></svg>
+      </button>
+      <button class=&quot;icon&quot; type=&quot;button&quot; title=&quot;Hide (Esc)&quot; aria-label=&quot;Hide&quot;>
+        <svg viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;><path d=&quot;M4 4l8 8M12 4l-8 8&quot;></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class=&quot;thread&quot;>
+    <section class=&quot;empty&quot;>
+      <div class=&quot;empty-mark&quot;><svg class=&quot;knot&quot; viewBox=&quot;560 540 3200 3200&quot; aria-hidden=&quot;true&quot;><path transform=&quot;translate(446.2 415.6)&quot; fill-rule=&quot;evenodd&quot; d=&quot;M 1678.618 161.001 C 1513.270 173.860, 1361.809 346.904, 1279.057 617.500 C 1274.011 634, 1267.620 654.925, 1264.855 664 C 1249.516 714.339, 1229.366 737.485, 1195.500 743.667 C 1176.163 747.196, 1162.631 743.554, 1110.552 720.802 C 1022.739 682.440, 971.671 664, 888.500 640.621 C 862.965 633.443, 796.420 619.707, 772 616.573 C 713.658 609.085, 593.780 610.737, 551.641 619.609 C 332.720 665.703, 243.351 832.965, 314.976 1062.546 C 353.997 1187.622, 433.071 1316.880, 553.531 1452.500 C 623.139 1530.869, 661.709 1532.912, 733.080 1462.011 C 772.514 1422.836, 780.747 1391.220, 761.479 1352.958 C 754.288 1338.678, 740.993 1320.496, 698.991 1267.500 C 608.528 1153.357, 538.933 1033.300, 526.096 969.244 C 508.440 881.134, 552.031 833.575, 650.500 833.517 C 684.922 833.497, 695.220 834.936, 769.390 850.128 C 888.325 874.489, 1086.233 953.898, 1267.500 1049.990 C 1344.206 1090.653, 1372.719 1106.795, 1461.500 1159.816 C 1608.121 1247.380, 1755.866 1358.262, 1861.500 1460.014 C 1921.219 1517.539, 1951.774 1524.352, 1997.213 1490.277 C 2057.039 1445.413, 2074.206 1391.642, 2043.179 1346.309 C 2033.397 1332.016, 2001.765 1301.543, 1934.541 1241.650 C 1874.053 1187.757, 1792.899 1122.849, 1720.500 1070.456 C 1642.140 1013.750, 1607.593 990.197, 1545.770 951.333 C 1444.460 887.645, 1440.775 876.828, 1477.514 751 C 1554.913 485.915, 1639.597 355.942, 1721.242 376.924 C 1792.586 395.260, 1843.427 482.519, 1903.944 690.500 C 1922.645 754.772, 1931.223 772.623, 1951.366 789.193 C 1979.980 812.729, 2004.596 813.361, 2073.962 792.338 C 2129.084 775.633, 2151.559 737.105, 2138.619 681.500 C 2096.957 502.479, 2034.714 369.918, 1948.588 276.785 C 1867.542 189.146, 1782.992 152.884, 1678.618 161.001 M 2651 826.525 C 2636.425 827.220, 2610.775 828.309, 2594 828.947 C 2547.771 830.703, 2538.279 831.726, 2500.500 839.021 C 2486.750 841.676, 2465.600 845.252, 2453.500 846.968 C 2317.824 866.210, 2285.604 904.119, 2316.087 1008.641 C 2337.385 1081.667, 2374.061 1095.532, 2487.753 1073.537 C 2517.351 1067.811, 2526.614 1066.506, 2555.451 1064.003 C 2580.486 1061.831, 2593.838 1060.071, 2623 1055.100 C 2674.441 1046.332, 2761.094 1044.363, 2803.500 1050.999 C 2919.711 1069.183, 2946.817 1114.190, 2903.478 1217 C 2845.944 1353.482, 2724.242 1482.607, 2533 1610.074 C 2379.093 1712.656, 2141.479 1829.058, 1924.625 1908.104 C 1912.456 1912.540, 1890.432 1920.651, 1875.682 1926.128 C 1850.956 1935.310, 1816.781 1947.333, 1750.760 1970.078 C 1695.022 1989.279, 1679.399 1999.437, 1665.959 2025.213 C 1653.383 2049.332, 1654.682 2087.531, 1669.522 2129.971 C 1691.542 2192.948, 1730.404 2209.667, 1804.386 2187.990 C 1976.971 2137.422, 2183.921 2052.417, 2353.500 1962.440 C 2455.001 1908.585, 2473.561 1910.724, 2546.003 1984.625 C 2709.559 2151.475, 2793.184 2302.385, 2762.458 2375.239 C 2737.105 2435.354, 2659.411 2458.576, 2547.500 2439.488 C 2533.200 2437.049, 2512.157 2433.680, 2500.739 2432.002 C 2470.016 2427.486, 2429.336 2418.321, 2378.085 2404.369 C 2283.654 2378.663, 2250.338 2399.382, 2224.311 2500 C 2211.121 2550.990, 2228.931 2586.687, 2278.053 2607.714 C 2311.029 2621.830, 2394.875 2642.821, 2446.688 2649.932 C 2455.042 2651.079, 2473.042 2654.046, 2486.688 2656.526 C 2531.128 2664.603, 2529.166 2664.462, 2597 2664.482 C 2666.633 2664.503, 2661.731 2664.930, 2712.968 2654.375 C 2793.081 2637.871, 2839.358 2618.554, 2885 2582.566 C 2975.643 2511.096, 3006.471 2421.809, 2989.432 2280.095 C 2981.902 2217.467, 2941.621 2124.094, 2886.934 2042.500 C 2844.667 1979.438, 2814.783 1942.700, 2753.527 1878.500 C 2711.108 1834.043, 2701.792 1818.416, 2701.664 1791.500 C 2701.509 1759.031, 2716.582 1739.248, 2771 1700.491 C 2877.964 1624.312, 2979.014 1528.767, 3039.190 1446.911 C 3127.138 1327.276, 3159.569 1234.123, 3154.045 1117 C 3148.683 1003.324, 3072.370 911.830, 2942.369 863.217 C 2915.206 853.060, 2857.026 837.930, 2824.500 832.566 C 2791.651 827.148, 2702.834 824.056, 2651 826.525 M 1221 1480.554 C 1185.814 1488.106, 1164.806 1513.094, 1153.370 1561 C 1151.466 1568.975, 1147.468 1585.625, 1144.487 1598 C 1141.505 1610.375, 1137.227 1630.850, 1134.980 1643.500 C 1132.732 1656.150, 1128.698 1676.850, 1126.013 1689.500 C 1123.329 1702.150, 1119.707 1721.950, 1117.965 1733.500 C 1114.579 1755.950, 1113.091 1764.073, 1107.617 1790 C 1103.206 1810.891, 1101.591 1822.086, 1099.032 1849.500 C 1096.638 1875.144, 1094.993 1887.946, 1091 1912 C 1084.635 1950.349, 1083.594 1961.542, 1081.521 2014 C 1079.670 2060.833, 1078.662 2076.859, 1075.451 2110.500 C 1073.097 2135.166, 1072.499 2143.857, 1069.981 2190 C 1065.137 2278.770, 1046.459 2294.011, 902.500 2326.667 C 853.941 2337.682, 844.423 2339.535, 818.775 2342.971 C 805.974 2344.686, 786.275 2347.628, 775 2349.510 C 670.265 2366.986, 578.382 2357.052, 530.217 2323.044 C 447.360 2264.540, 489.788 2150.492, 658.069 1979.376 C 701.290 1935.427, 713.158 1921.198, 720.567 1904.445 C 737.226 1866.775, 725.209 1831.984, 679.971 1786.916 C 643.652 1750.733, 611.184 1740.532, 576.802 1754.502 C 536.975 1770.685, 432.342 1880.046, 374.269 1966.185 C 291.116 2089.526, 261.131 2183.962, 268.924 2297.971 C 278.346 2435.833, 391.245 2541.176, 563 2572.366 C 627.602 2584.098, 785.970 2581.139, 852.500 2566.957 C 865.150 2564.261, 884.050 2560.457, 894.500 2558.504 C 904.950 2556.552, 927 2551.636, 943.500 2547.581 C 984.354 2537.540, 984.644 2537.493, 1005.500 2537.543 C 1045.793 2537.641, 1071.124 2557.231, 1081.535 2596.347 C 1085.400 2610.867, 1095.186 2680.902, 1098.534 2718 C 1100.530 2740.113, 1102.307 2752.129, 1106.001 2768.500 C 1107.614 2775.650, 1110.055 2786.450, 1111.425 2792.500 C 1112.796 2798.550, 1115.526 2812.275, 1117.492 2823 C 1135.496 2921.202, 1182.799 3041.222, 1234.744 3120.500 C 1322.370 3254.236, 1425.576 3311.227, 1556.500 3298.177 C 1716.141 3282.265, 1881.913 3095.902, 1981.844 2820 C 2021.370 2710.873, 2024.915 2690.720, 2009.872 2660.701 C 1995.846 2632.714, 1981.433 2623.761, 1914.032 2601.170 C 1837.474 2575.509, 1827.569 2579.467, 1803.046 2645.514 C 1695.736 2934.533, 1604.354 3080.592, 1534.615 3074.557 C 1458.122 3067.937, 1353.237 2893.564, 1315.637 2710.500 C 1313.152 2698.400, 1309.321 2680.400, 1307.124 2670.500 C 1301.618 2645.694, 1300.423 2638.161, 1297.523 2610 C 1294.774 2583.293, 1294.324 2579.619, 1289.992 2548.500 C 1277.686 2460.097, 1277.946 2268.554, 1290.509 2168 C 1294.349 2137.262, 1295.857 2120.182, 1297.501 2088.762 C 1299.997 2041.094, 1300.894 2033.182, 1308.473 1992 C 1312.545 1969.874, 1314.372 1955.875, 1316.500 1930.500 C 1318.625 1905.160, 1320.210 1894.149, 1326.002 1864.500 C 1328.688 1850.750, 1332.488 1827.980, 1334.447 1813.899 C 1336.406 1799.819, 1340.451 1776.194, 1343.436 1761.399 C 1346.420 1746.605, 1350.031 1726.625, 1351.459 1717 C 1355.384 1690.557, 1355.798 1688.343, 1361.654 1662.583 C 1384.615 1561.577, 1376.855 1524.810, 1327.368 1500.125 C 1296.022 1484.489, 1245.756 1475.241, 1221 1480.554&quot;></path></svg></div>
+      <h1>What should Craft do?</h1>
+      <p>Ask anything, or give it a task in bloom-florist.</p>
+      <div class=&quot;recent&quot;></div>
+    </section>
+    <div class=&quot;feed&quot;><div class=&quot;msg-user&quot;>Make me a florist website, search popular ones and make it very aesthetic</div><div class=&quot;steps&quot;><div class=&quot;step ok&quot; data-tool=&quot;web_search&quot;><span class=&quot;st&quot;><svg viewBox=&quot;0 0 16 16&quot;><path d=&quot;M3.5 8.5 6.5 11.5 12.5 4.5&quot;></path></svg></span><span class=&quot;v&quot;>Searched the web for</span><span class=&quot;l&quot; title=&quot;aesthetic florist websites&quot;>aesthetic florist websites</span></div><div class=&quot;step ok&quot; data-tool=&quot;write_file&quot;><span class=&quot;st&quot;><svg viewBox=&quot;0 0 16 16&quot;><path d=&quot;M3.5 8.5 6.5 11.5 12.5 4.5&quot;></path></svg></span><span class=&quot;v&quot;>Wrote</span><span class=&quot;l&quot; title=&quot;index.html&quot;>index.html</span><span class=&quot;n&quot;><span class=&quot;a&quot;>+214</span></span></div><div class=&quot;step ok&quot; data-tool=&quot;write_file&quot;><span class=&quot;st&quot;><svg viewBox=&quot;0 0 16 16&quot;><path d=&quot;M3.5 8.5 6.5 11.5 12.5 4.5&quot;></path></svg></span><span class=&quot;v&quot;>Wrote</span><span class=&quot;l&quot; title=&quot;styles.css&quot;>styles.css</span><span class=&quot;n&quot;><span class=&quot;a&quot;>+168</span></span></div><div class=&quot;step ok&quot; data-tool=&quot;browser_check&quot;><span class=&quot;st&quot;><svg viewBox=&quot;0 0 16 16&quot;><path d=&quot;M3.5 8.5 6.5 11.5 12.5 4.5&quot;></path></svg></span><span class=&quot;v&quot;>Checked</span><span class=&quot;l&quot; title=&quot;index.html&quot;>index.html</span></div></div><div class=&quot;msg-ai&quot;><p>Built a soft, editorial florist site: a full-bleed hero, seasonal bouquets in a gallery and a booking form. Checked it in the browser, no errors.</p></div><div class=&quot;steps&quot;><div class=&quot;step run&quot; data-tool=&quot;publish_deploy&quot;><span class=&quot;st&quot;><span class=&quot;spin&quot;></span></span><span class=&quot;v&quot;>Publishing</span></div></div><div class=&quot;ask &quot; data-req=&quot;3&quot;>
+      <h3>Allow Craft to publish to Vercel?</h3>
+      <div class=&quot;what&quot;>Publish bloom-florist to Vercel</div>
+      <pre>bloom-florist.vercel.app</pre>
+      <div class=&quot;btns&quot;>
+        <button type=&quot;button&quot; class=&quot;btn primary&quot; data-v=&quot;once&quot;>Allow</button>
+        <button type=&quot;button&quot; class=&quot;btn&quot; data-v=&quot;always&quot;>Always allow</button>
+        <button type=&quot;button&quot; class=&quot;btn&quot; data-v=&quot;reject&quot;>Don't allow</button>
+      </div><div class=&quot;result&quot; hidden=&quot;&quot;></div></div><div class=&quot;working&quot; hidden=&quot;&quot;><span class=&quot;spin&quot;></span><span class=&quot;shine&quot;>Working</span><span class=&quot;time&quot;></span></div></div>
+  </main>
+
+  <footer class=&quot;composer&quot;>
+    <textarea rows=&quot;1&quot; placeholder=&quot;Follow up&quot; spellcheck=&quot;true&quot; style=&quot;height: 28px; overflow-y: hidden;&quot;></textarea>
+    <div class=&quot;row&quot;>
+      <div class=&quot;seg&quot; role=&quot;group&quot; aria-label=&quot;Mode&quot;>
+        <button type=&quot;button&quot; data-mode=&quot;Build&quot; class=&quot;on&quot; title=&quot;Makes the changes&quot;>Build</button>
+        <button type=&quot;button&quot; data-mode=&quot;Ask&quot; title=&quot;Answers questions, no edits&quot;>Ask</button>
+      </div>
+      <button class=&quot;chip model&quot; type=&quot;button&quot; title=&quot;Model&quot;>
+        <span>Auto</span>
+        <svg class=&quot;caret&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;><path d=&quot;M4.5 6.5 8 10l3.5-3.5&quot;></path></svg>
+      </button>
+      <button class=&quot;chip perm&quot; type=&quot;button&quot; title=&quot;Permissions&quot;>
+        <svg viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 2 3 4v3.6c0 3 2.1 5.4 5 6.4 2.9-1 5-3.4 5-6.4V4z&quot;></path></svg>
+        <span>Approve manually</span>
+        <svg class=&quot;caret&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;><path d=&quot;M4.5 6.5 8 10l3.5-3.5&quot;></path></svg>
+      </button>
+      <button class=&quot;send&quot; type=&quot;button&quot; aria-label=&quot;Stop&quot;>
+        <svg class=&quot;i-send&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;><path d=&quot;M8 13V3.5M3.8 7.5 8 3.3l4.2 4.2&quot;></path></svg>
+        <svg class=&quot;i-stop&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot;><rect x=&quot;4.5&quot; y=&quot;4.5&quot; width=&quot;7&quot; height=&quot;7&quot; rx=&quot;1.5&quot;></rect></svg>
+      </button>
+    </div>
+  </footer>
+
+  
+</div></body></html>" loading="lazy" tabindex="-1" style="height:680px"></iframe></div>
     </div>
   </section>
 
