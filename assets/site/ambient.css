@@ -470,8 +470,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .foot-cols { grid-template-columns: 1fr 1fr; }
   .pc { height: auto; padding: 22px 16px 112px; }
   .pc-copy { position: relative; left: auto; top: auto; max-width: none; margin-bottom: 18px; }
-  .pc-stage { position: relative; height: 372px; }
-  .pc-win { left: 0; right: auto; top: 0; width: 100%; margin: 0; translate: none; }
+  .pc-stage { position: relative; height: auto; }
+  .pc-win, .pc-win.wide { position: relative; display: none; left: 0; right: auto; top: 0; width: 100%; margin: 0; translate: none; }
+  .pc-win.open { display: block; }
 }
 @media (max-width: 640px) {
   body { font-size: 16px; }
@@ -663,6 +664,23 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .page-hero p { font-size: 18px; }
   .prose p, .prose li { font-size: 16.5px; }
   .ar-act .inst { max-width: 100%; }
+}
+
+/* the phone hero gets a little desk of its own */
+.ph-desk { display: none; }
+@media (max-width: 640px) {
+  .ph-desk { display: block; position: relative; height: 226px; margin: 38px 0 0; }
+  .ph-desk > * { position: absolute; }
+  .ph-desk .call { left: 0; top: 18px; width: 212px; transform: rotate(-4deg); }
+  .ph-desk .sticky { right: 0; top: 0; width: 138px; padding: 12px 13px 15px; font-size: 13.5px; transform: rotate(5deg); }
+  .ph-desk .pd-craft { right: 2px; top: 112px; }
+  .ph-desk .pd-crew { left: 56%; top: 150px; transform: rotate(-6deg); }
+  .ph-desk .icon { width: 70px; }
+  .ph-desk .icon img { width: 50px; height: 50px; border-radius: 12px; }
+  .hello { margin-top: 18px; }
+  /* Orbit: show the part of the screen where it acts */
+  .pc-win[data-app="orbit"] .real { aspect-ratio: 1 / 1 !important; }
+  .pc-win[data-app="orbit"] .real img { object-position: 74% 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
