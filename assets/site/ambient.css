@@ -85,9 +85,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .links > button svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; transition: transform .25s var(--ease); }
 .links > button[aria-expanded="true"] svg { transform: rotate(180deg); }
 .nav-r { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-.status { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink-3); padding: 0 6px; }
-.status .live { width: 8px; height: 8px; border-radius: 50%; background: #30a46c; animation: ping 2.4s var(--ease) infinite; }
-.status time { font-variant-numeric: tabular-nums; }
+.status { display: flex; align-items: center; gap: 15px; padding: 0 8px; font-size: 14.5px; color: #8b8c90; }
+.status svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.status svg.batt { width: 24px; }
+.status time { margin-left: 3px; font-variant-numeric: tabular-nums; }
 @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(48, 164, 108, .5); } 70%, 100% { box-shadow: 0 0 0 7px rgba(48, 164, 108, 0); } }
 .menu-btn { display: none; width: 42px; height: 42px; border-radius: 50%; place-items: center; }
 .menu-btn i { display: block; width: 18px; height: 1.6px; background: var(--ink); margin: 4px auto; border-radius: 2px; transition: transform .25s var(--ease), opacity .2s; }
@@ -147,7 +148,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .hello { width: min(860px, 100%); margin: 68px auto 0; }
 .hello .win-body { aspect-ratio: 16 / 9; background: #0a1d4a; }
 .hello video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.play { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(10, 29, 74, .18); transition: opacity .3s; }
+.play { position: absolute; inset: 0; background: rgba(10, 29, 74, .14); cursor: pointer; transition: opacity .3s; }
+.play .gloss { position: absolute; left: 0; top: 0; will-change: transform; }
+.gloss.glass { color: #111; background: linear-gradient(rgba(255, 255, 255, .78), rgba(225, 232, 245, .55)); border-color: rgba(255, 255, 255, .7); backdrop-filter: blur(14px) saturate(1.6); -webkit-backdrop-filter: blur(14px) saturate(1.6); box-shadow: 0 12px 30px rgba(0, 0, 0, .28), inset 0 -8px 12px -8px rgba(10, 29, 74, .18), inset 0 1px 0 rgba(255, 255, 255, .9); }
 .play .gloss { height: 66px; padding: 0 28px 1px 12px; font-size: 21px; gap: 12px; }
 .play .gloss::before { left: 12px; right: 12px; }
 .play .face { width: 46px; height: 46px; transition: transform .45s var(--spring); }
@@ -287,9 +290,22 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .gmsg b { font-weight: 600; margin-right: 4px; }
 
 /* phones */
-.phone { position: relative; width: 300px; height: 620px; margin: 0 auto; padding: 12px; border-radius: 52px; background: #17181c; box-shadow: var(--shadow-lg), inset 0 0 0 2px #2c2d33; }
-.phone-in { position: relative; height: 100%; border-radius: 41px; overflow: hidden; background: #fff; }
-.island { position: absolute; z-index: 5; top: 10px; left: 50%; translate: -50% 0; width: 96px; height: 28px; border-radius: 999px; background: #000; }
+/* an iPhone: thin titanium edge, slim black bezel, side buttons, the Dynamic Island */
+.phone { position: relative; width: 286px; margin: 0 auto; padding: 7px; border-radius: 52px; border: 2.5px solid transparent;
+  background: linear-gradient(#050505, #050505) padding-box, linear-gradient(140deg, #e6e7ea 0%, #8d9097 20%, #d3d4d8 46%, #70737a 74%, #d9dadd 100%) border-box;
+  box-shadow: var(--shadow-lg), inset 0 0 0 1px rgba(255, 255, 255, .06); }
+.phone::before, .phone::after { content: ''; position: absolute; width: 3px; border-radius: 2px; }
+.phone::before { left: -5.5px; top: 104px; height: 152px; border-radius: 2px 0 0 2px;
+  background: linear-gradient(to bottom, #9a9da3 0 24px, transparent 24px 44px, #9a9da3 44px 94px, transparent 94px 104px, #9a9da3 104px 152px); }
+.phone::after { right: -5.5px; top: 150px; height: 74px; border-radius: 0 2px 2px 0; background: #9a9da3; }
+.phone-in { position: relative; aspect-ratio: 390 / 844; border-radius: 44px; overflow: hidden; background: #000; }
+.island { position: absolute; z-index: 5; top: 1.35%; left: 50%; width: 31.5%; height: 4.3%; translate: -50% 0; border-radius: 999px; background: #000; }
+.sbar { position: absolute; z-index: 4; top: 0; left: 0; right: 0; height: 5.57%; display: flex; align-items: center; justify-content: space-between; padding: 1.2% 8.5% 0 10.5%; color: #fff; }
+.sbar b { font-size: 13px; font-weight: 600; letter-spacing: -.01em; }
+.sbar i { display: flex; align-items: center; gap: 5px; }
+.sbar svg { height: 10px; width: auto; fill: currentColor; }
+.phone-in.papp { background: #0d0d0d; }
+.phone-in.papp img.shot { top: 5.57%; height: 94.43%; }
 .pstat { position: relative; z-index: 4; height: 50px; display: flex; align-items: center; justify-content: space-between; padding: 6px 28px 0 32px; font-size: 14px; font-weight: 600; }
 .pstat.lt { color: #fff; }
 .ring { position: absolute; inset: 0; background: radial-gradient(120% 70% at 50% 0%, #2a2b31, #0d0d10); color: #fff; display: flex; flex-direction: column; align-items: center; padding-top: 104px; text-align: center; }
@@ -477,7 +493,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .bubble { font-size: 20px; }
   .app, .app.two { grid-template-columns: minmax(0, 1fr); height: 400px; }
   .rail, .prev { display: none; }
-  .phone { width: 280px; height: 580px; }
+  .phone { width: 266px; }
   .note .win-body { padding: 22px 20px; font-size: 17px; }
   .q button { font-size: 16.5px; padding: 18px; }
   .q .a p { padding: 0 18px 18px; }

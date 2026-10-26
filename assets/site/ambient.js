@@ -92,10 +92,33 @@
 
   // the film
   var hello = document.getElementById('hello'), vid = document.getElementById('helloVid');
-  if (hello && vid) document.getElementById('play').addEventListener('click', function () {
-    vid.controls = true; hello.classList.add('playing');
-    var p = vid.play(); if (p && p.catch) p.catch(function () {});
-  });
+  var area = document.getElementById('playArea'), pill = document.getElementById('play');
+  if (hello && vid && area && pill) {
+    // the play pill follows the cursor around the film, and goes back to the middle when it leaves
+    var tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+    var clamp = function (v, lo, hi) { return Math.max(lo, Math.min(hi, v)); };
+    var center = function () { tx = (area.clientWidth - pill.offsetWidth) / 2; ty = (area.clientHeight - pill.offsetHeight) / 2; };
+    var draw = function () { pill.style.transform = 'translate(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px)'; };
+    var loop = function () {
+      var k = reduce ? 1 : .2; cx += (tx - cx) * k; cy += (ty - cy) * k; draw();
+      raf = Math.abs(tx - cx) + Math.abs(ty - cy) > .4 ? requestAnimationFrame(loop) : null;
+    };
+    var kick = function () { if (!raf) raf = requestAnimationFrame(loop); };
+    var snap = function () { center(); cx = tx; cy = ty; draw(); };
+    snap(); addEventListener('load', snap); addEventListener('resize', snap);
+    area.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      var r = area.getBoundingClientRect();
+      tx = clamp(e.clientX - r.left - pill.offsetWidth / 2, 10, r.width - pill.offsetWidth - 10);
+      ty = clamp(e.clientY - r.top - pill.offsetHeight / 2, 10, r.height - pill.offsetHeight - 10);
+      kick();
+    });
+    area.addEventListener('pointerleave', function () { center(); kick(); });
+    area.addEventListener('click', function () {
+      vid.controls = true; hello.classList.add('playing');
+      var p = vid.play(); if (p && p.catch) p.catch(function () {});
+    });
+  }
   if (vid) vid.addEventListener('ended', function () { hello.classList.remove('playing'); vid.controls = false; });
 
   // live app windows: children with data-at appear on a timeline that loops,
