@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Changelog · Codeply</title>
-<meta name="description" content="What&#x27;s new in Codeply: a terminal coding agent CLI is here, plus smarter caching, automatic file detection, and built-in AI with no API key required.">
+<meta name="description" content="What&#x27;s new in Codeply: one personal agent, the top bar, Orbit voice, Crew on iPhone and Android, the shared brain, cloud handoff and more. Every release, newest first.">
 <link rel="canonical" href="https://codeply.app/changelog">
 <meta name="theme-color" content="#F3F3F1">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Codeply">
 <meta property="og:url" content="https://codeply.app/changelog">
 <meta property="og:title" content="Changelog · Codeply">
-<meta property="og:description" content="What&#x27;s new in Codeply: a terminal coding agent CLI is here, plus smarter caching, automatic file detection, and built-in AI with no API key required.">
+<meta property="og:description" content="What&#x27;s new in Codeply: one personal agent, the top bar, Orbit voice, Crew on iPhone and Android, the shared brain, cloud handoff and more. Every release, newest first.">
 <meta property="og:image" content="https://codeply.app/assets/logo-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -81,7 +81,117 @@
   <div class="wrap-narrow">
 
         <div class="entry">
-            <span class="tag new">New · Oct 13, 2026</span>
+            <span class="tag new">New · Oct 30, 2026</span>
+            <h2>Codeply 2.3: one personal agent, the top bar, a new look</h2>
+            <ul>
+                <li><strong>One name: Codeply.</strong> The window, tray, sign-in, quick chat, voice and the phone apps now all say Codeply. Craft, Crew, the drop, Orbit and Cloud are features of one product: the app switch reads Code, Agents and Design, and Crew is now Agents.</li>
+                <li><strong>One agent, quiet specialists.</strong> Codeply is a single personal agent. Your bots become its private specialists: it hands them work in their area, can make a new one for something you do again and again (up to 12), and speaks as itself. Put <code>@Name</code> in a message to ask one directly.</li>
+                <li><strong>A top bar that turns into the chat.</strong> A thin bar rests at the top of your screen. It becomes a waveform while Orbit listens or talks, shows what it heard and said, breathes while a task runs, and one click turns it into a minimal chat. Alt+C (Option+C on a Mac) opens the same chat. It fades over full-screen apps and stays out of screen recordings.</li>
+                <li><strong>A proof ledger.</strong> Every email sent and calendar event made is written down before it runs and checked after, so a retry never sends a second email or adds a second event. Every chat now shares the same memory, your day and what Codeply did lately.</li>
+                <li><strong>A morning message.</strong> Built from that ledger and sent at the time you choose, with a suggested focus block in a free stretch of your day.</li>
+                <li><strong>A new look.</strong> A redrawn icon set of 91 icons, calmer stepped dark surfaces, bigger type, a wider composer and a blue send button.</li>
+                <li><strong>A tidier box.</strong> The + button now holds files and photos, Goal, the three modes, Research and Cloud. This Computer and Cloud sit on top of the sidebar, and the rest of your folders sort A to Z or stay where you drag them.</li>
+                <li><strong>More slash commands.</strong> <code>/new</code>, <code>/model</code>, <code>/effort</code>, <code>/usage</code>, <code>/agents</code>, <code>/loop</code>, <code>/schedule</code>, <code>/review</code>, <code>/security</code> (finds loopholes, ranked, with fixes) and <code>/judge</code> (guesses the real goal, argues for it, then attacks it and gives a verdict).</li>
+                <li><strong>CLI 0.7.0.</strong> The CLI help and agent personas now say Codeply too.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 26, 2026</span>
+            <h2>A new codeply.app: ambient intelligence</h2>
+            <ul>
+                <li><strong>The site tells the new story.</strong> Codeply is ambient intelligence: it works at your desk, keeps going in the cloud when you leave and calls you when it needs you.</li>
+                <li><strong>Real apps on every page.</strong> Real iPhone frames, a play pill that follows your cursor, and live mockups of Craft, Crew, Orbit and the phone app.</li>
+                <li><strong>New About and Blog pages.</strong> The ambient intelligence story, and what we are building and why. Careers is there too.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 25, 2026</span>
+            <h2>Codeply Crew on iPhone and Android</h2>
+            <ul>
+                <li><strong>Your agents, as a phone app.</strong> Each agent is a chat thread you can message or call, with a page showing what each one knows. Share a screenshot, a photo or your PC's screen and the agent sees it.</li>
+                <li><strong>Calls and texts that reach you.</strong> When an agent calls or texts you, or a reminder comes due, it arrives as a phone notification. Upcoming ones ring even with the app closed, and texts land in the chat. Offline chats can set reminders too.</li>
+                <li><strong>Hearing on Android.</strong> Calls now listen through the phone's own speech recognizer, so your agent hears you properly.</li>
+                <li><strong>Edge to edge.</strong> The app draws under the status and navigation bars.</li>
+                <li><strong>Install it today.</strong> An installable Android APK and an iPhone build, both built on GitHub.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 25, 2026</span>
+            <h2>Craft 2.2.0 and CLI 0.6.0: a faster engine, docks like Claude's</h2>
+            <ul>
+                <li><strong>A new engine under the same app.</strong> Craft's chats now run on the DSH harness, with Craft's own edit checks, shell hints, undo, web search and a browser check added, and Haze 2 built in. It also lists your own models.</li>
+                <li><strong>Background tasks that survive a restart.</strong> They get their own column on the right (Running, Finished, with output on click) and after a restart show as interrupted, done, failed or stopped.</li>
+                <li><strong>A terminal under the browser.</strong> Drag its top edge to resize it, or give it the whole column with the browser closed.</li>
+                <li><strong>A quieter chat.</strong> Claude-style step cards, thinking rows in line, a stop button that stops at once, and Send now on a queued message.</li>
+                <li><strong>Sidebar folders.</strong> Folder icons and a tree line under each project.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 24, 2026</span>
+            <h2>Craft 2.1.0: Agents, Life and memory, a Codex-style browser</h2>
+            <ul>
+                <li><strong>Crew's redesign.</strong> A Codex-style look, onboarding, a Settings page, chats per bot and simple per-chat permissions (Always ask or Ask once). Crew opens to its home page.</li>
+                <li><strong>Life and memory.</strong> A Life page with each source switched on or off, and memory settings so you decide what your bots keep.</li>
+                <li><strong>Craft's browser, like Codex's.</strong> Tabs, a nav row with a point-at tool, a rounded address pill, a menu and a draggable edge.</li>
+                <li><strong>Design gets its own logo and a seat in the app switch.</strong> Craft, Crew and Design sit in a Claude-style title bar, and all three share new sidebars with bigger rows and a + on every section.</li>
+                <li><strong>Craft uses the design layer.</strong> Any page someone will look at goes through a design direction step and a design check before it is called done.</li>
+                <li><strong>A slimmer composer.</strong> It queues messages while Craft is working, and the check and Undo lines are quiet.</li>
+                <li><strong>Hands in other apps.</strong> Agents can act in other apps for you, and Always in this chat sticks in Crew.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 22 to 23, 2026</span>
+            <h2>The shared brain</h2>
+            <ul>
+                <li><strong>One personal context for every app and bot.</strong> Personal memory, project context, short-lived live context and team lessons live in one place. Jokes, sarcasm and hypotheticals are ignored, first mentions are tentative, your corrections stick and secrets are never kept.</li>
+                <li><strong>Agent handoffs.</strong> A bot hands work to the right bot with just the intent, the facts and the decision. A meeting request in the email bot goes to the calendar bot, with no loops.</li>
+                <li><strong>A Brain page in Crew.</strong> Review, correct, confirm or forget what Codeply knows, and see who handles what.</li>
+                <li><strong>Just suggest, never act.</strong> A new autonomy level for bots that should only make suggestions.</li>
+                <li><strong>Gmail and Calendar, fuller.</strong> CC on emails, whole-email reads, and calendar guests and edits, tested end to end against five simulated busy people. Health now shows up in Life too.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 18 to 19, 2026</span>
+            <h2>Codeply Motion and the drag + Shift converter</h2>
+            <ul>
+                <li><strong>Codeply Motion.</strong> A headless edit and motion studio that agents drive with short commands, so they can cut video and render motion graphics. Builds for Windows and Mac.</li>
+                <li><strong>Drag + Shift converter.</strong> Drag any file in Windows, hold Shift, and a ring of formats appears under your mouse. Drop on one and a converted copy lands next to the original. It handles images (PNG, JPG, WEBP, AVIF, TIFF, BMP, HEIC in), PDF to images, and Word to PDF and back.</li>
+                <li><strong>The drop remembers your screen.</strong> It keeps the last 12 screens, reads tables row by row and reads numbers by their labels, so you can ask about what you just saw.</li>
+                <li><strong>Kinder limits.</strong> Haze 2 limits show as a quiet note and a limit card, and bots decline politely when a Google API is off on our side.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 16 to 17, 2026</span>
+            <h2>Craft 2.0.6: Design, cloud handoff and life bots</h2>
+            <ul>
+                <li><strong>Cloud handoff.</strong> If your PC drops, the run carries on in Craft Cloud from where it was, and when your PC is back the changes merge and it carries on. A per-project switch, on by default.</li>
+                <li><strong>Life bots.</strong> Bots share a life context (calendar, Gmail, calls, plans and projects) and reach out by themselves with a daily budget and quiet hours: leaving soon, before a meeting, an email waiting for a reply.</li>
+                <li><strong>Bots with their own email and Slack.</strong> Each bot can have its own address, and Slack messages to your bots become tasks.</li>
+                <li><strong>A call helper.</strong> It listens to calls on your PC, shows cards and whispers, and can take a call over as your assistant.</li>
+                <li><strong>Autopilot.</strong> Tasks from email, Slack, calls and chat run, get checked and are reported back, with ask, hold or full autonomy per bot and a Stop all bots button, also on the phone.</li>
+                <li><strong>Life, always on.</strong> It listens in the background and reads your screen, from a simpler Life page with big type and a one-button start.</li>
+                <li><strong>Design.</strong> Checks once or twice instead of after every edit, and design folders never turn into Craft projects.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 15, 2026</span>
+            <h2>Craft 2.0.5: Codeply Orbit, a slimmer drop</h2>
+            <ul>
+                <li><strong>Codeply Orbit.</strong> Hold Alt+C (Option+C on a Mac) and talk. Orbit sees your screen, answers out loud, points at what it explains with its own cursor, circles and draws, and can click and type for you. Coding work goes to Craft.</li>
+                <li><strong>A slimmer drop.</strong> A slim bar that grows into a chat, in the phone app's look, with the agent's steps folded into one row.</li>
+            </ul>
+        </div>
+
+        <div class="entry">
+            <span class="tag">Shipped · Oct 13, 2026</span>
             <h2>Craft 2.0.3 and 2.0.4: Haze 2, the routing brain</h2>
             <ul>
                 <li><strong>Meet Haze 2.</strong> Haze 2 replaces Auto as the default model in Craft. You just type, and it picks the right model for each request: Claude Sonnet 5.5 for code and hard tasks, Claude Haiku 5.5 for quick answers, and lighter models for small talk.</li>

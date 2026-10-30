@@ -1,0 +1,37 @@
+# Codeply
+
+> Codeply is ambient intelligence for your computer and phone: one personal AI agent that works at your desk, keeps going in the cloud when you leave, and calls you when it needs you. It writes and checks code in a real browser, runs bots for your inbox and calendar, and is free to start. Apps for Windows, macOS, iPhone, Android, VS Code and the terminal.
+
+Codeply is one product with several surfaces that share the same account, memory and agent. Latest release: Codeply 2.3 (October 30, 2026). The desktop app was previously named "Codeply Craft" and its bot product "Codeply Crew"; both are now features of Codeply (Code, Agents, Design).
+
+## Products
+
+- [Codeply Craft](https://codeply.app/craft): The desktop coding agent. Builds the feature, checks it in a real browser at desktop, tablet and phone sizes, and fixes what is broken. Click Cloud and it keeps going on GitHub while your PC is off, then opens a pull request.
+- [Codeply Crew](https://codeply.app/crew): Bots you make in one sentence. They handle the inbox, the calendar and follow-ups, remember what you tell them, and call or text you when they need you.
+- [Codeply Mobile](https://codeply.app/mobile): The phone app. Start a run on your PC or in the cloud, check the result, merge it and take calls from your bots.
+- [Codeply CLI](https://codeply.app/cli): The same agent in your terminal. Reads your code, edits files, runs commands and checks its own work. Supports plugins, MCP servers and Ollama models.
+- [Codeply Studio](https://codeply.app/studio): VS Code with the Codeply agent in the side panel: Ctrl+K edits in place, Tab autocomplete, every step asks first.
+- [Codeply Drop](https://codeply.app/drop): Press Alt+C (Option+C on Mac) in any app and Codeply opens in the corner of your screen. Included with Craft.
+
+## Get started
+
+- [Download](https://codeply.app/download): Codeply for Windows and macOS, the phone app, and the CLI install commands. Free to start.
+- [Documentation](https://codeply.app/docs): Install, sign in, the hotkey, the write box and file detection.
+- [Changelog](https://codeply.app/changelog): Every release, newest first.
+
+## Company
+
+- [About](https://codeply.app/about): What ambient intelligence means and why Codeply is built this way.
+- [Blog](https://codeply.app/blog): Notes on ambient intelligence and what is being built.
+- [Careers](https://codeply.app/careers): Small team; no open roles at the moment.
+
+## Legal
+
+- [Privacy Policy](https://codeply.app/privacy)
+- [Terms of Service](https://codeply.app/terms)
+- [End User License Agreement](https://codeply.app/eula)
+
+## Optional
+
+- [Full text for LLMs](https://codeply.app/llms-full.txt): A longer plain-text description of every product and recent release.
+- [Sitemap](https://codeply.app/sitemap.xml)
