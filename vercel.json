@@ -9,14 +9,14 @@
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/terms", "destination": "/terms.html" },
     { "source": "/codeply", "destination": "/codeply.html" },
-    { "source": "/craft", "destination": "/codeply.html" },
-    { "source": "/drop", "destination": "/codeply.html" },
     { "source": "/cli", "destination": "/cli.html" },
     { "source": "/wisp", "destination": "/wisp.html" },
     { "source": "/crew", "destination": "/wisp.html" }
   ],
   "cleanUrls": true,
   "routes": [
+    { "src": "/craft(?:\\.html)?/?", "status": 308, "headers": {"Location": "/codeply"} },
+    { "src": "/drop(?:\\.html)?/?", "status": 308, "headers": {"Location": "/codeply"} },
     { "handle": "filesystem" },
     { "src": "/.*", "status": 404, "dest": "/404.html" }
   ]
