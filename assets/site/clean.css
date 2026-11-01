@@ -425,3 +425,68 @@ article.f .fi { background: #fff !important; color: var(--text) !important; }
 .btn .os-ico { width: 17px; height: 17px; fill: currentColor; stroke: none; flex: none; }
 .btn .os-ico path { fill: currentColor; stroke: none; }
 .os-mini { width: 15px; height: 15px; margin-right: 8px; vertical-align: -2px; fill: currentColor; stroke: none; }
+
+/* ==========================================================
+   Mobile fit pass: every mockup fits its frame on a phone
+   (checked at 320, 360, 375, 390 and 430 px wide)
+   ========================================================== */
+
+/* footer: the old site.css pushes each nav to the right of its grid cell; keep the columns on the left edge */
+@media (max-width: 860px) {
+  .ft-top { gap: 32px 24px; }
+  .ft-top nav { margin-left: 0; }
+}
+
+@media (max-width: 980px) {
+  /* "See what Codeply can do": the pinned wrap was flex-growing to the full screen width and losing its side gutter */
+  .tf-sticky > .wrap { flex: none; width: calc(100% - 32px); margin-inline: auto; }
+  /* a plain 1fr track never shrinks below its widest mockup; let the columns fit the screen instead */
+  .row, .row.flip { grid-template-columns: minmax(0, 1fr); }
+  .tf-pane { grid-template-columns: minmax(0, 1fr); }
+  .tf-pane > * { min-width: 0; max-width: 100%; }
+}
+
+@media (max-width: 560px) {
+  /* phone mockups: a size that leaves room for the copy and still fits a 320px screen */
+  .panel .pv-wrap, .row .pv-wrap { --s: .64 !important; }
+  .tf-pane .pv-wrap { --s: .64 !important; }
+  .panel { padding: 24px 20px; min-height: 0; grid-template-columns: minmax(0, 1fr); }
+  .panel-in { width: 100%; min-width: 0; grid-template-columns: minmax(0, 1fr); }
+  .panel-in > * { max-width: 100%; }
+
+  /* Codeply page hero: a narrow app window, as on the home page, instead of the whole desktop at a quarter size */
+  .phero .stage { margin-top: 48px; }
+  .phero .stage .ap { width: 520px !important; }
+  .phero .stage .ap-body { grid-template-columns: 1fr !important; height: 620px !important; }
+  .phero .stage .ap-side { display: none; }
+  .phero .stage .ap-seg, .phero .stage .ap-bl > i:nth-child(n+3), .phero .stage .ap-tools i:not(:last-child) { display: none; }
+  .phero .stage .ap-feed { width: auto !important; left: 22px; right: 22px; }
+  .phero .stage .ap-comp { width: auto !important; margin: 0 16px 16px; }
+  .phero .stage .ap-empty h4 { font-size: 26px; padding: 0 24px; }
+
+  /* the drop: the window inside the frame is 416px wide, so scale the whole frame down instead of cropping it */
+  .drop-frame { width: 100%; min-width: 0; overflow: hidden; }
+  .drop-frame iframe { width: 440px !important; }
+
+  /* Wisp demo: pin the grid column to the card so the input and its Next button stay inside */
+  .ws { grid-template-columns: minmax(0, 1fr); padding: 48px 18px 32px; border-radius: 26px; }
+  .ws-input { width: 100%; }
+  .ws-input input { padding: 0 12px; }
+  .ws-input button { padding: 0 16px; flex: none; }
+
+  /* install commands: the scrollbar is hidden, so on a phone the command just looked cut off; wrap it instead */
+  .term .cmd { align-items: flex-start; }
+  .term code { white-space: normal; word-break: break-all; overflow: visible; line-height: 1.55; }
+  .term .cp { margin-top: 1px; }
+  /* the terminal mockup's prompt: fade out with an ellipsis rather than a hard cut */
+  .cmp { text-overflow: ellipsis; }
+
+  /* Ask Wisp card: keep the two tags on one line each */
+  .mk-tags { flex-wrap: wrap; }
+  .mk-tags i { white-space: nowrap; }
+}
+
+/* the film caption sits on the bright part of the sky on phones: give it the same white as the hero copy */
+@media (max-width: 760px) {
+  .fw-cap { color: rgba(255, 255, 255, .92); text-shadow: 0 1px 2px rgba(10, 40, 120, .35), 0 1px 12px rgba(10, 50, 140, .35); }
+}
