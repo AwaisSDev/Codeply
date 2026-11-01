@@ -524,3 +524,7 @@ article.f .fi { background: #fff !important; color: var(--text) !important; }
 .mk-presets span:has(> i, > svg, > img, > [data-spec], > [data-avatar]),
 .cw-chip:has(> i, > svg, > img, > [data-spec], > [data-avatar]),
 .cx-role:has(> i, > svg, > img, > [data-spec], > [data-avatar]) { padding-left: 5px; }
+
+/* "What you get": three cards now that the drop card is gone */
+.cards4 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 760px) { .cards4 { grid-template-columns: 1fr; } }
