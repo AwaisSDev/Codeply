@@ -25,7 +25,7 @@
   // ─── CONFIG — fill these in ───────────────────────────────────────────────
   const SUPABASE_URL  = 'https://YOUR-PROJECT.supabase.co';  // Supabase → Settings → API → Project URL
   const SUPABASE_ANON = 'YOUR_SUPABASE_ANON_KEY';            // the public "anon" key (safe to ship)
-  const API_BASE      = 'https://codeply.online';            // where your Vercel /api routes are hosted
+  const API_BASE      = 'https://codeply.app';            // where your Vercel /api routes are hosted
   // ──────────────────────────────────────────────────────────────────────────
 
   let sb = null;        // supabase client

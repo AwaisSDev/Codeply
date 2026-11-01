@@ -290,8 +290,8 @@ h1 .nw{white-space:nowrap}
 .cw-chip span{color:var(--muted);font-weight:400;font-size:12px}
 
 /* Phone: real phone.css sizes at 1:1 inside a 390px device, scaled as a whole */
-.pv-wrap{position:relative;margin:24px auto 0;width:calc(390px * var(--s,.6));height:calc(690px * var(--s,.6))}
-.pv-dev{position:absolute;top:0;left:0;width:390px;height:690px;transform:scale(var(--s,.6));transform-origin:0 0;border-radius:58px;background:#0c0c0c;padding:11px;box-shadow:inset 0 0 0 2px #2a2a2a}
+.pv-wrap{position:relative;margin:24px auto 0;width:calc(390px * var(--s,.6) * .918);height:calc(820px * var(--s,.6) * .918)}
+.pv-dev{position:absolute;top:0;left:0;width:390px;height:820px;transform:scale(calc(var(--s,.6) * .918));transform-origin:0 0;border-radius:58px;background:#0c0c0c;padding:11px;box-shadow:inset 0 0 0 2px #2a2a2a}
 .pv{--bg:#1f1f1e;--surface:#2a2a28;--s2:#323230;--bd:#3a3a37;--tx:#ecebe6;--muted:#a6a59f;--faint:#76756f;--accent:#4b9dff;--user:#33332f;--add:#5cb87a;--del:#e0705f;--mono:ui-monospace,"SF Mono","Roboto Mono","Cascadia Code",Consolas,monospace;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",Roboto,"Segoe UI",system-ui,sans-serif;position:relative;width:100%;height:100%;border-radius:48px;overflow:hidden;background:var(--bg);color:var(--tx);display:flex;flex-direction:column;text-align:left;font-size:16px;line-height:1.4;color-scheme:dark}
 .pv svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .pv-status{height:50px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:6px 30px 0 34px;font-size:15px;font-weight:600}

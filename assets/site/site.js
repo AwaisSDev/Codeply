@@ -2,6 +2,10 @@
   var root = document.documentElement;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // always open at the top: no restoring the old scroll position on reload or back, unless a #link asks for a section
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  if (!location.hash) scrollTo(0, 0);
+
   // logos
   var tpl = document.getElementById('tpl-mark').innerHTML;
   document.querySelectorAll('[data-mark]').forEach(function(el){ el.innerHTML = tpl; });
@@ -45,8 +49,9 @@
   // os label + cli command
   var isMac = /Mac/i.test(navigator.platform || navigator.userAgent);
   var isPhone = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  document.getElementById('dl-label').textContent = isPhone ? 'Get Codeply' : (isMac ? 'Download for macOS' : 'Download for Windows');
-  var CMDS = { win: 'irm https://codeply.online/install.ps1 | iex', nix: 'curl -fsSL https://codeply.online/install.sh | sh' };
+  var dlLabel = document.getElementById('dl-label');
+  if (dlLabel) dlLabel.textContent = isPhone ? 'Get Codeply' : (isMac ? 'Download for macOS' : 'Download for Windows');
+  var CMDS = { win: 'irm https://codeply.app/install.ps1 | iex', nix: 'curl -fsSL https://codeply.app/install.sh | sh' };
   var tabs = document.querySelectorAll('.term [data-os]');
   function pickOs(os){
     tabs.forEach(function(x){ x.setAttribute('aria-selected', x.dataset.os === os ? 'true' : 'false'); });
@@ -154,7 +159,7 @@
     tool('edit','Edited','src/cart.ts',' <span class="cx-add">+2</span> <span class="cx-del">-1</span>'),
     tool('edit','Edited','server/routes.ts',' <span class="cx-add">+1</span>'),
     tool('globe','Opened','localhost:5173/checkout'),
-    summary(['src/cart.ts','server/routes.ts'], [check('Opened localhost:5173/checkout'), check('npm test', 0)]),
+    summary(['src/cart.ts','server/routes.ts'], [check('Opened localhost:5173/checkout'), check('npm test -- --run cart checkout totals', 0), check('Tests: 24 passed, 24 total'), check('npm run lint', 0), check('npm run build', 0)]),
     checkpoint(2)
   ];
   var pplay = false;
@@ -180,6 +185,7 @@
       axel: { shape: 'burst7', eyes: 'sleepy', color: 'red', accessory: 'antenna' },
       juno: { shape: 'burst12', eyes: 'sparkle', color: 'purple', accessory: 'halo' },
       cloudy: { shape: 'cloud', eyes: 'happy', color: 'sky', cheeks: true },
+      wisp: { shape: 'cloud', eyes: 'happy', color: 'sky', cheeks: true },
       sleepy: { shape: 'cloud', eyes: 'sleepy', color: 'sky', cheeks: true },
       worker: { shape: 'burst9', eyes: 'pills', color: 'blue', accessory: 'antenna' },
       shella: { shape: 'cloud', eyes: 'pills', color: 'graphite', glasses: 'visor' },
@@ -197,9 +203,10 @@
   try {
   // make your own agent: type a sentence, a bot appears
   var MAKE = [
-    {t: 'Check my inbox every morning and draft replies to anything urgent', n: 'Penny', r: 'Inbox helper', a: { shape: 'flower', eyes: 'pills', color: 'yellow', accessory: 'sparkles' }},
-    {t: 'Watch our site and call me if checkout breaks', n: 'Rex', r: 'Site watcher', a: { shape: 'burst7', eyes: 'ovals', color: 'red', accessory: 'antenna' }},
-    {t: 'Turn my meeting notes into tasks for the team', n: 'Ivy', r: 'Notes to tasks', a: { shape: 'pebble', eyes: 'happy', color: 'green', accessory: 'sprout', cheeks: true }}
+    {t: 'Make the pricing page work on phones', n: 'Frontend', r: 'Wisp brought in a specialist', spec: 'frontend'},
+    {t: 'Find out why checkout is slow and fix it', n: 'Backend', r: 'Wisp brought in a specialist', spec: 'backend'},
+    {t: 'Check the sign-in flow for security holes', n: 'Security', r: 'Wisp brought in a specialist', spec: 'security'},
+    {t: 'Write tests for the cart before we ship', n: 'Testing', r: 'Wisp brought in a specialist', spec: 'testing'}
   ];
   var mkIn = document.getElementById('mkIn'), mkBot = document.getElementById('mkBot'), mi = 0, mkBusy = false, mkVis = false;
   function makeOne(){
@@ -211,7 +218,7 @@
       mkIn.textContent = m.t;
       document.getElementById('mkName').textContent = m.n;
       document.getElementById('mkRole').textContent = m.r;
-      try { document.getElementById('mkAv').innerHTML = window.CraftAvatar ? CraftAvatar.renderAvatar(m.a, 64, {}) : ''; } catch (e) {}
+      try { var av = document.getElementById('mkAv'); av.innerHTML = '<div data-wisp="sm" data-mood="happy"></div>'; if (window.Wisp) Wisp.mount(av); } catch (e) {}
       setTimeout(function(){ mkBot.classList.add('on'); }, 350);
       setTimeout(function(){ mkBusy = false; makeOne(); }, reduce ? 99999999 : 4200);
     })();
@@ -223,13 +230,13 @@
   // faq
   var FAQ = [
     ['What exactly does Codeply do?','Codeply is an autonomous coding agent. Give it a task in plain English and it reads your codebase, writes and edits files, runs commands, and keeps going on its own until the task is actually done.'],
-    ['How is this different from a code-completion tool?','Codeply does not just generate a suggestion and stop. It edits files and runs commands on your project directly. With Codeply Craft it goes a step further: it opens the page it just changed in a real browser panel, reads back console errors and failed requests, and fixes them before it calls the task done.'],
-    ['Does Codeply work with my editor?','Codeply is not tied to a specific editor. Use the codeply CLI on any project on disk, or Codeply Craft, the desktop app with chat, project and session management, and a docked browser panel. Studio brings the agent into VS Code.'],
+    ['How is this different from a code-completion tool?','Codeply does not just generate a suggestion and stop. It edits files and runs commands on your project directly. With the Codeply app it goes a step further: it opens the page it just changed in a real browser panel, reads back console errors and failed requests, and fixes them before it calls the task done.'],
+    ['Does Codeply work with my editor?','Codeply is not tied to a specific editor. Use the codeply CLI on any project on disk, or the Codeply desktop app with chat, project and session management, and a docked browser panel.'],
     ['Does it actually see the page, like a screenshot?','No. The self-check reads real signal from the browser: console errors, failed network requests and broken images. Not a picture of the page.'],
     ['Will it change my files without asking?','By default, no. Every write, edit and command asks for your approval first, with a visible diff before anything touches disk. There is an optional bypass mode if you want it to just run.'],
-    ['What is the difference between the CLI and Codeply Craft?','The CLI is a terminal-native agent for people who live in a terminal. Craft is the full desktop app with chat, projects, sessions and the browser panel that verifies changes. Both share one account.'],
+    ['What is the difference between Codeply CLI and Codeply?','The CLI is a terminal-native agent for people who live in a terminal. Codeply is the full desktop app with chat, projects, sessions and the browser panel that verifies changes. Both share one account.'],
     ['How does Codeply know which skill to use?','It draws on a library of 280+ specialized skills, from accessibility to security review to test-driven workflows, and reaches for the right one when a task calls for it.'],
-    ['Is Codeply a browser extension?','No. Codeply Craft is a desktop app. The browser panel inside it is a real Chromium instance the app controls to verify changes.']
+    ['Is Codeply a browser extension?','No. Codeply is a desktop app. The browser panel inside it is a real Chromium instance the app controls to verify changes.']
   ];
   var list = document.getElementById('faqList');
   FAQ.forEach(function(f, i){
@@ -243,5 +250,7 @@
   } catch (e) {}
   // download buttons: Mac visitors get the Mac build
   if (/Mac/i.test(navigator.platform || navigator.userAgent)) document.querySelectorAll('[data-mac-href]').forEach(function(a){ a.href = a.dataset.macHref; if (a.dataset.macLabel) { var l = a.querySelector('span') || a; l.textContent = a.dataset.macLabel; } });
+  // and the matching logo: Apple on a Mac, Windows everywhere else
+  if (/Mac/i.test(navigator.platform || navigator.userAgent)) document.querySelectorAll('[data-mac-href] .os-ico, #dl-hero .os-ico').forEach(function(s){ s.innerHTML = '<path d="M16.37 12.77c-.03-2.6 2.12-3.85 2.22-3.91-1.21-1.77-3.09-2.01-3.76-2.04-1.6-.16-3.12.94-3.93.94-.81 0-2.06-.92-3.39-.89-1.74.03-3.35 1.01-4.25 2.57-1.81 3.14-.46 7.8 1.3 10.35.86 1.25 1.89 2.65 3.24 2.6 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.38.82 1.4-.03 2.29-1.27 3.14-2.53.99-1.45 1.4-2.86 1.42-2.93-.03-.01-2.72-1.04-2.75-4.14zM13.79 5.14c.71-.87 1.2-2.07 1.07-3.27-1.03.04-2.28.69-3.02 1.55-.66.77-1.24 1.99-1.09 3.17 1.15.09 2.32-.58 3.04-1.45z"/>'; });
   document.querySelectorAll('[data-year]').forEach(function(e){ e.textContent = new Date().getFullYear(); });
 })();

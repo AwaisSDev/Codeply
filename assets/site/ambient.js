@@ -296,7 +296,7 @@
   })();
 
   // CLI install line
-  var CMDS = { win: 'irm https://codeply.online/install.ps1 | iex', nix: 'curl -fsSL https://codeply.online/install.sh | sh' };
+  var CMDS = { win: 'irm https://codeply.app/install.ps1 | iex', nix: 'curl -fsSL https://codeply.app/install.sh | sh' };
   var osBtns = document.querySelectorAll('.inst [data-os]'), cmd = document.getElementById('cmd');
   function pickOs(os) {
     osBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.os === os ? 'true' : 'false'); });

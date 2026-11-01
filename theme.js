@@ -143,8 +143,8 @@
         var isWinOS = /win/i.test(navigator.platform || navigator.userAgent || '');
         document.querySelectorAll('[data-os-cmd]').forEach(function (el) {
             el.textContent = isWinOS
-                ? 'irm https://codeply.online/install.ps1 | iex'
-                : 'curl -fsSL https://codeply.online/install.sh | sh';
+                ? 'irm https://codeply.app/install.ps1 | iex'
+                : 'curl -fsSL https://codeply.app/install.sh | sh';
         });
 
         // Feature index: highlight the section in view
