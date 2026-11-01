@@ -53,6 +53,8 @@
 
   function Wisp(el) {
     var id = 'wg' + (++uid), size = el.dataset.wisp || 'md';
+    // Wisp is a pentagon everywhere. Only the Meet Wisp showcase lets a mood or a topic change its shape.
+    var morphs = !!el.closest('[data-wisp-stage]');
     el.classList.add('wisp-el');
     el.innerHTML = '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="' + id + '" x1=".2" y1="0" x2=".8" y2="1"><stop offset="0" class="s0"/><stop offset="1" class="s1"/></linearGradient></defs>' +
       '<g class="w-body"><path class="w-shape" fill="url(#' + id + ')"/><g class="w-eyes"><g class="w-eye l" transform="translate(41 44)"></g><g class="w-eye r" transform="translate(57 44)"></g></g></g></svg>';
@@ -64,6 +66,7 @@
       mood: null, phase: Math.random() * 10, visible: true, small: size === 'sm', kick: 0
     };
     w.setShape = function (name) {
+      if (!morphs && name !== 'pentagon') return;
       var target = SHAPES[name]; if (!target || target === w.to) return;
       w.from = w.r.slice(); w.to = target; w.t0 = performance.now();
     };
@@ -73,7 +76,7 @@
       w.eyeL.innerHTML = EYES[m] ? EYES[m](-1) : EYES.neutral(-1);
       w.eyeR.innerHTML = EYES[m] ? EYES[m](1) : EYES.neutral(1);
       w.stops[0].style.stopColor = M.c[0]; w.stops[1].style.stopColor = M.c[1];
-      if (!keepShape) w.setShape(M.shape);
+      if (!keepShape && morphs) w.setShape(M.shape);
       w.kick = performance.now();
     };
     w.setMood(el.dataset.mood || 'neutral');
