@@ -100,6 +100,31 @@ function fit() {
 }
 addEventListener('resize', fit); addEventListener('load', fit); fit();
 
+// phones and tablets: size the app window and phones in "See what Codeply can do" to the panel's height,
+// so on a short screen (browser bars showing) the whole mockup stays inside the panel instead of being cut off
+function fitTabs() {
+  var small = window.matchMedia('(max-width: 980px)').matches;
+  document.querySelectorAll('.tf-pane').forEach(function (pane) {
+    var cs = getComputedStyle(pane);
+    var availH = pane.clientHeight - parseFloat(cs.paddingTop) - 18;
+    var availW = pane.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    pane.querySelectorAll('.pv-wrap').forEach(function (w) {
+      if (!small) { w.style.removeProperty('--s'); return; }
+      var s = Math.min(.72, availH / (820 * .918), availW / (390 * .918));
+      w.style.setProperty('--s', Math.max(.4, s).toFixed(3), 'important');
+    });
+    var sc = pane.querySelector('.scaler'), ap = sc && sc.firstElementChild, body = ap && ap.querySelector('.ap-body');
+    if (!body) return;
+    body.style.removeProperty('height');
+    if (!small || !sc.offsetWidth || !ap.offsetWidth) return;
+    var k = Math.min(1, sc.offsetWidth / ap.offsetWidth);
+    var chrome = ap.offsetHeight - body.offsetHeight;
+    body.style.setProperty('height', Math.max(300, availH / k - chrome) + 'px', 'important');
+  });
+  fit();
+}
+addEventListener('resize', fitTabs); addEventListener('load', fitTabs); fitTabs();
+
 // the rotating word: the pill grows or shrinks to the word that's showing
 (function fitRot() {
   var rot = document.getElementById('rot'); if (!rot) return;

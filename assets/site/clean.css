@@ -490,3 +490,31 @@ article.f .fi { background: #fff !important; color: var(--text) !important; }
 @media (max-width: 760px) {
   .fw-cap { color: rgba(255, 255, 255, .92); text-shadow: 0 1px 2px rgba(10, 40, 120, .35), 0 1px 12px rgba(10, 50, 140, .35); }
 }
+
+/* ---------- mobile fit pass, round 2 (from testing on a real iPhone) ---------- */
+
+/* menu: the links inherited the white header text and sat white-on-white; give the open menu dark text on a solid panel */
+.mnav { background: rgba(255, 255, 255, .97) !important; }
+.mnav a:not(.btn), .nav:not(.scrolled) .mnav a:not(.btn) { color: var(--text) !important; }
+.mnav .btn-primary, .nav:not(.scrolled) .mnav .btn-primary { background: #0d0d0d !important; color: #fff !important; }
+
+@media (max-width: 980px) {
+  /* "See what Codeply can do": the app window and phones are sized to the panel's height by sky.js, so nothing runs off the bottom */
+  .tf-pane[data-pane="desk"] { align-items: flex-start !important; padding-top: 18px !important; }
+  .tf-pane .ap { border-radius: 14px !important; border-bottom: 1px solid #333 !important; }
+  .tf-pane { padding-top: 18px; }
+  /* on a short window the chat ends just above the project chip instead of running behind it */
+  .tf-pane .ap-feed { bottom: 36px; overflow: hidden; }
+}
+
+@media (max-width: 760px) {
+  /* Ask Wisp: the role chips sit centred under the card */
+  .mk-presets { justify-content: center; }
+  /* the specialist card: name next to the face, tags on their own full-width row so they can never collide with the card edge */
+  .mk-bot { display: grid; grid-template-columns: 52px minmax(0, 1fr); column-gap: 12px; row-gap: 2px; align-items: center; }
+  .mk-bot > div { display: contents; }
+  .mk-bot .mk-av { width: 52px; height: 52px; grid-row: 1 / span 2; }
+  .mk-bot b { grid-column: 2; align-self: end; }
+  .mk-bot > div > span { grid-column: 2; align-self: start; }
+  .mk-bot .mk-tags { grid-column: 1 / -1; margin-top: 10px; }
+}
