@@ -518,3 +518,9 @@ article.f .fi { background: #fff !important; color: var(--text) !important; }
   .mk-bot > div > span { grid-column: 2; align-self: start; }
   .mk-bot .mk-tags { grid-column: 1 / -1; margin-top: 10px; }
 }
+
+/* chips: the left padding was sized for a small icon in front of the word; without the icon the word sat off-centre. Even it out, keep the tight left edge only when an icon is there */
+.mk-presets span, .cw-chip, .cx-role { padding-left: 12px; padding-right: 12px; justify-content: center; }
+.mk-presets span:has(> i, > svg, > img, > [data-spec], > [data-avatar]),
+.cw-chip:has(> i, > svg, > img, > [data-spec], > [data-avatar]),
+.cx-role:has(> i, > svg, > img, > [data-spec], > [data-avatar]) { padding-left: 5px; }
