@@ -2,9 +2,12 @@
 //
 // GET ?id=<user_id> (admins only) -> {
 //   profile:  { id, email, full_name, avatar_url, created_at, country, referral_source, plan },
-//   usage:    { calls, tokens_in, tokens_out, tokens_total, first_at, last_at },
+//   usage:    { calls, tokens_in, tokens_out, tokens_total, cache_read, cache_write, first_at, last_at },
 //   applies:  { count, lines_added, lines_removed, first_at, last_at },
-//   recent:   [{ at, type:'call'|'apply', app?, model?, tokens_total?, lines_added?, lines_removed? }, ...]
+//   recent:   [{ at, type:'call'|'apply', app?, model?, tokens_total?, cache_read?, cache_write?, lines_added?, lines_removed? }, ...]
+//
+// tokens_in is ALL input; cache_read / cache_write are the parts of it that
+// were served from / written to the prompt cache (Craft, Crew, CLI only).
 //
 // AI calls come from both usage streams, like the overview: app_events (Craft,
 // Crew, the CLI, Cloud; test events left out) and usage_history (Drop and
@@ -18,6 +21,7 @@
 import { supabase } from '../lib/supabaseClient.js';
 import { requireUser } from './auth.js';
 import { applyCors } from '../lib/cors.js';
+import { appEventCacheColumns } from '../lib/cacheColumns.js';
 
 // Enough rows to give an accurate lifetime total for any real user while
 // keeping the query bounded; a note is added if a user somehow blows past it.
@@ -54,6 +58,7 @@ export default async function handler(req, res) {
     .from('subscriptions').select('plan,status').eq('user_id', targetId).maybeSingle();
 
   const notes = [];
+  const cacheCols = await appEventCacheColumns(supabase);
 
   const [{ data: histRows }, { data: eventRows }] = await Promise.all([
     supabase.from('usage_history')
@@ -62,7 +67,7 @@ export default async function handler(req, res) {
       .order('created_at', { ascending: false })
       .limit(ROW_CAP),
     supabase.from('app_events')
-      .select('product,model,tokens_in,tokens_out,version,created_at')
+      .select(`product,model,tokens_in,tokens_out,version,created_at${cacheCols}`)
       .eq('user_id', targetId).eq('kind', 'ai')
       .order('created_at', { ascending: false })
       .limit(ROW_CAP),
@@ -72,11 +77,11 @@ export default async function handler(req, res) {
   const usageRows = [
     ...(histRows || []).map((r) => {
       const tin = r.tokens_in || 0; const tout = r.tokens_out || 0;
-      return { app: String(r.prompt_text || '').trim().toLowerCase() === 'voice call' ? 'phone' : 'drop', model: r.model, tokens_in: tin, tokens_out: tout, tokens_total: tin + tout || r.tokens_total || 0, created_at: r.created_at };
+      return { app: String(r.prompt_text || '').trim().toLowerCase() === 'voice call' ? 'phone' : 'drop', model: r.model, tokens_in: tin, tokens_out: tout, tokens_total: tin + tout || r.tokens_total || 0, cache_read: 0, cache_write: 0, created_at: r.created_at };
     }),
     ...(eventRows || []).filter((r) => r.version !== 'selftest' && r.model !== 'fake').map((r) => {
       const tin = r.tokens_in || 0; const tout = r.tokens_out || 0;
-      return { app: r.product || 'craft', model: r.model, tokens_in: tin, tokens_out: tout, tokens_total: tin + tout, created_at: r.created_at };
+      return { app: r.product || 'craft', model: r.model, tokens_in: tin, tokens_out: tout, tokens_total: tin + tout, cache_read: r.cache_read_tokens || 0, cache_write: r.cache_write_tokens || 0, created_at: r.created_at };
     }),
   ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
@@ -93,10 +98,12 @@ export default async function handler(req, res) {
     acc.tokens_in += r.tokens_in || 0;
     acc.tokens_out += r.tokens_out || 0;
     acc.tokens_total += r.tokens_total || 0;
+    acc.cache_read += r.cache_read || 0;
+    acc.cache_write += r.cache_write || 0;
     if (!acc.last_at) acc.last_at = r.created_at;
     acc.first_at = r.created_at;
     return acc;
-  }, { calls: 0, tokens_in: 0, tokens_out: 0, tokens_total: 0, first_at: null, last_at: null });
+  }, { calls: 0, tokens_in: 0, tokens_out: 0, tokens_total: 0, cache_read: 0, cache_write: 0, first_at: null, last_at: null });
 
   const applies = (applyRows || []).reduce((acc, r) => {
     acc.count++;
@@ -109,7 +116,7 @@ export default async function handler(req, res) {
 
   // Merge the two event streams into one recent-activity timeline, newest first.
   const recent = [
-    ...usageRows.map((r) => ({ at: r.created_at, type: 'call', app: r.app, model: r.model, tokens_total: r.tokens_total })),
+    ...usageRows.map((r) => ({ at: r.created_at, type: 'call', app: r.app, model: r.model, tokens_total: r.tokens_total, tokens_in: r.tokens_in, cache_read: r.cache_read, cache_write: r.cache_write })),
     ...(applyRows || []).map((r) => ({ at: r.created_at, type: 'apply', lines_added: r.lines_added, lines_removed: r.lines_removed })),
   ].sort((a, b) => new Date(b.at) - new Date(a.at)).slice(0, 50);
 

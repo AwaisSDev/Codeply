@@ -11,6 +11,7 @@
 import { supabase } from '../lib/supabaseClient.js';
 import { requireUser } from './auth.js';
 import { applyCors } from '../lib/cors.js';
+import { appEventCacheColumns } from '../lib/cacheColumns.js';
 
 const DAY = 24 * 60 * 60 * 1000;
 const MAX_DAYS = 366;
@@ -91,20 +92,24 @@ export default async function handler(req, res) {
   const weekAgo = Date.parse(until) - 7 * DAY;
 
   // ── Usage rows from every app, in one shape ──────────────────────────────
+  // tokens_in is all input; cache_read/cache_write say how much of it was the
+  // prompt cache (app_events only, once supabase-migration-v4 has run).
+  const cacheCols = await appEventCacheColumns(supabase);
+  if (!cacheCols) notes.push('Prompt-cache counts are not recorded yet: run supabase-migration-v4-cache-tokens.sql and update the track function.');
   const [appRows, histRows, applyRows] = await Promise.all([
-    fetchAll(() => supabase.from('app_events').select('user_id,product,kind,model,provider,tokens_in,tokens_out,version,platform,created_at').gte('created_at', since).lte('created_at', until).order('created_at', { ascending: true })),
+    fetchAll(() => supabase.from('app_events').select(`user_id,product,kind,model,provider,tokens_in,tokens_out,version,platform,created_at${cacheCols}`).gte('created_at', since).lte('created_at', until).order('created_at', { ascending: true })),
     fetchAll(() => supabase.from('usage_history').select('user_id,model,tokens_in,tokens_out,tokens_total,prompt_text,created_at').gte('created_at', since).lte('created_at', until).order('created_at', { ascending: true })),
     fetchAll(() => supabase.from('apply_history').select('user_id,lines_added,lines_removed,created_at').gte('created_at', since).lte('created_at', until).order('created_at', { ascending: true })),
   ]);
   const events = [
-    ...appRows.filter((r) => r.version !== 'selftest').map((r) => ({ user: r.user_id, product: r.product, kind: r.kind, model: r.model || '', provider: r.provider || '', tin: r.tokens_in || 0, tout: r.tokens_out || 0, at: r.created_at, version: r.version, platform: r.platform })),
+    ...appRows.filter((r) => r.version !== 'selftest').map((r) => ({ user: r.user_id, product: r.product, kind: r.kind, model: r.model || '', provider: r.provider || '', tin: r.tokens_in || 0, tout: r.tokens_out || 0, cread: r.cache_read_tokens || 0, cwrite: r.cache_write_tokens || 0, at: r.created_at, version: r.version, platform: r.platform })),
     ...histRows.map((r) => {
       const phone = String(r.prompt_text || '').trim().toLowerCase() === 'voice call';
       const tin = r.tokens_in || 0; const tout = r.tokens_out || 0;
-      return { user: r.user_id, product: phone ? 'phone' : 'drop', kind: 'ai', model: r.model || '', provider: phone ? 'phone' : 'proxy', tin: tin || (tout ? 0 : r.tokens_total || 0), tout, at: r.created_at };
+      return { user: r.user_id, product: phone ? 'phone' : 'drop', kind: 'ai', model: r.model || '', provider: phone ? 'phone' : 'proxy', tin: tin || (tout ? 0 : r.tokens_total || 0), tout, cread: 0, cwrite: 0, at: r.created_at };
     }),
     // a file applied in Drop: activity without tokens (the AI call may have used the person's own key)
-    ...applyRows.map((r) => ({ user: r.user_id, product: 'drop', kind: 'apply', model: '', provider: '', tin: 0, tout: 0, at: r.created_at, added: r.lines_added || 0, removed: r.lines_removed || 0 })),
+    ...applyRows.map((r) => ({ user: r.user_id, product: 'drop', kind: 'apply', model: '', provider: '', tin: 0, tout: 0, cread: 0, cwrite: 0, at: r.created_at, added: r.lines_added || 0, removed: r.lines_removed || 0 })),
   ];
   const imported = appRows.filter((r) => r.version === 'manual-import').length;
   if (imported) notes.push(`Includes ${imported} AI calls added by hand from a provider's own usage page (DeepSeek), marked manual-import. Their per-day split is read off that page's chart.`);
@@ -136,6 +141,8 @@ export default async function handler(req, res) {
       tokens_month: mineAi.reduce((n, e) => n + tokens(e), 0),
       tokens_in_month: mineAi.reduce((n, e) => n + e.tin, 0),
       tokens_out_month: mineAi.reduce((n, e) => n + e.tout, 0),
+      cache_read_month: mineAi.reduce((n, e) => n + e.cread, 0),
+      cache_write_month: mineAi.reduce((n, e) => n + e.cwrite, 0),
       top_models: [...pm.values()].sort((a, b) => b.tokens - a.tokens).slice(0, 3),
       trend: days.map((d) => ({ date: d, users: byDay[d].users.size, calls: byDay[d].calls, tokens: byDay[d].tokens })),
     };
@@ -173,10 +180,10 @@ export default async function handler(req, res) {
   const userMap = new Map();
   for (const e of events) {
     if (!e.user) continue;
-    const u = userMap.get(e.user) || { id: e.user, products: new Set(), calls: 0, tokens: 0, tin: 0, tout: 0, applies: 0, lines: 0, apps: {}, models: {}, last_seen: e.at };
+    const u = userMap.get(e.user) || { id: e.user, products: new Set(), calls: 0, tokens: 0, tin: 0, tout: 0, cread: 0, cwrite: 0, applies: 0, lines: 0, apps: {}, models: {}, last_seen: e.at };
     u.products.add(e.product);
     if (e.kind === 'ai') {
-      u.calls++; u.tokens += tokens(e); u.tin += e.tin; u.tout += e.tout;
+      u.calls++; u.tokens += tokens(e); u.tin += e.tin; u.tout += e.tout; u.cread += e.cread; u.cwrite += e.cwrite;
       const a = u.apps[e.product] || (u.apps[e.product] = { key: e.product, calls: 0, tokens: 0 }); a.calls++; a.tokens += tokens(e);
       if (e.model) u.models[e.model] = (u.models[e.model] || 0) + tokens(e);
     }
@@ -199,13 +206,13 @@ export default async function handler(req, res) {
   const top_users = [
     ...active.map((u) => ({
       id: u.id, email: prof[u.id]?.email || '', name: prof[u.id]?.full_name || '', joined_at: prof[u.id]?.created_at || null, country: prof[u.id]?.country || '',
-      products: [...u.products], calls: u.calls, tokens: u.tokens, tokens_in: u.tin, tokens_out: u.tout, applies: u.applies, lines_changed: u.lines, last_seen: u.last_seen,
+      products: [...u.products], calls: u.calls, tokens: u.tokens, tokens_in: u.tin, tokens_out: u.tout, cache_read: u.cread, cache_write: u.cwrite, applies: u.applies, lines_changed: u.lines, last_seen: u.last_seen,
       by_product: Object.values(u.apps).sort((a, b) => b.tokens - a.tokens),
       top_model: Object.entries(u.models).sort((a, b) => b[1] - a[1])[0]?.[0] || '',
     })),
     ...idle.map((p) => ({
       id: p.id, email: p.email || '', name: p.full_name || '', joined_at: p.created_at || null, country: p.country || '',
-      products: [], calls: 0, tokens: 0, tokens_in: 0, tokens_out: 0, applies: 0, lines_changed: 0, last_seen: null, by_product: [], top_model: '',
+      products: [], calls: 0, tokens: 0, tokens_in: 0, tokens_out: 0, cache_read: 0, cache_write: 0, applies: 0, lines_changed: 0, last_seen: null, by_product: [], top_model: '',
     })),
   ];
   const users_active_count = active.length;
@@ -267,6 +274,8 @@ export default async function handler(req, res) {
       tokens_month: ai.reduce((n, e) => n + tokens(e), 0),
       tokens_in_month: ai.reduce((n, e) => n + e.tin, 0),
       tokens_out_month: ai.reduce((n, e) => n + e.tout, 0),
+      cache_read_month: ai.reduce((n, e) => n + e.cread, 0),
+      cache_write_month: ai.reduce((n, e) => n + e.cwrite, 0),
       mrr,
       revenue_month: mrr,
       currency: 'USD',

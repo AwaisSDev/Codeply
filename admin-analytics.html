@@ -804,6 +804,15 @@ function fmt(n){
   return Math.round(n).toLocaleString('en-US');
 }
 const fmtFull = (n)=> (Number(n)||0).toLocaleString('en-US');
+// Prompt cache: tokens_in is ALL input; cache read/write are parts of it.
+// Read is billed at about a tenth of input, write a little above it.
+function cacheSpans(read, write, tin){
+  read = Number(read)||0; write = Number(write)||0;
+  if(!read && !write) return '';
+  const share = tin ? ' ('+Math.round(read/tin*100)+'% of input)' : '';
+  return (read ? '<span title="Input served from the prompt cache: '+fmtFull(read)+' tokens'+share+'"><b>'+fmt(read)+'</b>cached'+share+'</span>' : '')+
+    (write ? '<span title="Input written to the prompt cache: '+fmtFull(write)+' tokens"><b>'+fmt(write)+'</b>cache write</span>' : '');
+}
 function money(n, cur){
   try{ return new Intl.NumberFormat('en-US',{style:'currency',currency:cur||'USD',maximumFractionDigits:(Number(n)||0)>=1000?0:2,minimumFractionDigits:0}).format(Number(n)||0); }
   catch(e){ return '$' + fmt(n); }
@@ -997,7 +1006,7 @@ function mockOverview(){
       calls:base, tokens:tok, tokens_in:Math.round(tok*rnd(.62,.8)), tokens_out:0, top_model:modelDefs[ri(0,5)][0],
       last_seen:new Date(Date.now()-rnd(.02,1)*Math.pow(i+1,1.6)*3600e3).toISOString() };
   });
-  top_users.forEach(u=>{ u.tokens_out = u.tokens - u.tokens_in; u.joined_at = new Date(Date.now()-rnd(20,200)*864e5).toISOString(); });
+  top_users.forEach(u=>{ u.tokens_out = u.tokens - u.tokens_in; u.cache_read = Math.round(u.tokens_in*rnd(.3,.85)); u.cache_write = Math.round(u.tokens_in*rnd(.02,.1)); u.joined_at = new Date(Date.now()-rnd(20,200)*864e5).toISOString(); });
   const CC = ['PK','US','IN','GB','AE','DE','NG','CA','SA','TR','BD','ID'];
   top_users.push({ id:'mock-apply', email:'ch.oasis@example.com', name:'Ch', products:['drop'], by_product:[], calls:0, tokens:0, tokens_in:0, tokens_out:0, applies:4, lines_changed:950, top_model:'',
     last_seen:new Date(Date.now()-13*864e5).toISOString(), joined_at:new Date(Date.now()-13*864e5).toISOString() });
@@ -1334,6 +1343,7 @@ function renderAppSplit(d){
   $('appSplit').innerHTML = appRows(list,'tokens_month',total)+
     '<div class="io"><span><b>'+fmt(total)+'</b>tokens</span>'+
     (t.tokens_in_month!=null ? '<span><b>'+fmt(t.tokens_in_month)+'</b>in</span><span><b>'+fmt(t.tokens_out_month)+'</b>out</span>' : '')+
+    cacheSpans(t.cache_read_month, t.cache_write_month, t.tokens_in_month)+
     '<span><b>'+fmt(t.active_month ? total/t.active_month : 0)+'</b>per active user</span></div>';
 }
 function renderTopMini(d){
@@ -1385,9 +1395,11 @@ function demoUserDetail(u){
     lines_added: i%4===2 ? Math.round(5+R()*80) : undefined,
     lines_removed: i%4===2 ? Math.round(2+R()*40) : undefined,
   }));
+  recent.forEach((r,i)=>{ if(r.type==='call' && i%3) r.cache_read = Math.round(r.tokens_total*(.4+R()*.5)); });
   return {
     profile: { id:u.id, email:u.email, full_name:u.full_name, avatar_url:null, created_at:new Date(now-48*864e5).toISOString(), country:u.country||'' },
     usage: { calls:u.calls||214, tokens_in:Math.round((u.tokens||278000)*.68), tokens_out:Math.round((u.tokens||278000)*.32), tokens_total:u.tokens||278000,
+      cache_read:Math.round((u.tokens||278000)*.4),
       first_at:new Date(now-30*864e5).toISOString(), last_at:u.last_seen||new Date(now-2*3600e3).toISOString() },
     applies: { count:58, lines_added:3120, lines_removed:940,
       first_at:new Date(now-29*864e5).toISOString(), last_at:new Date(now-5*3600e3).toISOString() },
@@ -1420,7 +1432,7 @@ function renderUserDetail(d){
 
   const stats =
     '<div class="ustat"><div class="lbl">AI calls</div><div class="val">'+fmt(u.calls||0)+'</div>'+
-      '<div class="sub">'+fmt(u.tokens_total||0)+' tokens total</div></div>'+
+      '<div class="sub">'+fmt(u.tokens_total||0)+' tokens total'+(u.cache_read&&u.tokens_in?', '+Math.round(u.cache_read/u.tokens_in*100)+'% of input cached':'')+'</div></div>'+
     '<div class="ustat"><div class="lbl">Files applied</div><div class="val">'+fmt(a.count||0)+'</div>'+
       '<div class="sub">+'+fmt(a.lines_added||0)+' / -'+fmt(a.lines_removed||0)+' lines</div></div>'+
     '<div class="ustat"><div class="lbl">First used</div><div class="val" style="font-size:15px">'+dateOrDash(first)+'</div>'+
@@ -1436,14 +1448,16 @@ function renderUserDetail(d){
         '<div class="uact-time">'+when+'</div></div>';
     }
     return '<div class="uact-row"><div class="uact-ico call">'+ICO_CALL+'</div>'+
-      '<div class="uact-detail">'+(r.app?esc(prodLabel(r.app))+' · ':'')+'AI call, <span class="mono" style="font-size:12px">'+esc((r.model||'').split('/').pop()||'model')+'</span>, '+fmt(r.tokens_total||0)+' tokens</div>'+
+      '<div class="uact-detail">'+(r.app?esc(prodLabel(r.app))+' · ':'')+'AI call, <span class="mono" style="font-size:12px">'+esc((r.model||'').split('/').pop()||'model')+'</span>, '+fmt(r.tokens_total||0)+' tokens'+
+      (r.cache_read ? ', <span title="'+fmtFull(r.cache_read)+' input tokens read from the prompt cache">'+fmt(r.cache_read)+' cached</span>' : '')+
+      (r.cache_write ? ', <span title="'+fmtFull(r.cache_write)+' input tokens written to the prompt cache">'+fmt(r.cache_write)+' cache write</span>' : '')+'</div>'+
       '<div class="uact-time">'+when+'</div></div>';
   }).join('');
 
   const lu = umUser || {}; const apps = userApps(lu).filter(a=>a.tokens>0);
   const appsBlock = apps.length ? '<div class="uapps"><div class="uactivity-title">Tokens by app in this range</div>'+
     appRows(apps.map(a=>Object.assign({label:prodLabel(a.key)},a)),'tokens',sum(apps,'tokens'),(a)=>fmt(a.calls||0)+' calls')+
-    '<div class="io">'+(lu.top_model?'<span><b class="mono" style="font-size:12px">'+esc(lu.top_model)+'</b>used most</span>':'')+'<span><b>'+fmt(lu.tokens_in)+'</b>in</span><span><b>'+fmt(lu.tokens_out)+'</b>out</span></div></div>' : '';
+    '<div class="io">'+(lu.top_model?'<span><b class="mono" style="font-size:12px">'+esc(lu.top_model)+'</b>used most</span>':'')+'<span><b>'+fmt(lu.tokens_in)+'</b>in</span><span><b>'+fmt(lu.tokens_out)+'</b>out</span>'+cacheSpans(lu.cache_read, lu.cache_write, lu.tokens_in)+'</div></div>' : '';
   $('umBody').innerHTML =
     '<div class="umodal-stats">'+stats+'</div>'+appsBlock+
     '<div class="uactivity-title">Recent activity</div>'+
