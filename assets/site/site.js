@@ -40,7 +40,14 @@
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
 
   var mb = document.getElementById('menuBtn'), mn = document.getElementById('mnav');
-  function setMenu(open){ mn.classList.toggle('open', open); mb.setAttribute('aria-expanded', open ? 'true' : 'false'); mb.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); }
+  var top = document.createElement('div');
+  top.className = 'mnav-top';
+  top.innerHTML = '<a class="brand" href="/" aria-label="Codeply home"><span class="mark" data-mark></span>Codeply</a><button type="button" class="mnav-x" aria-label="Close menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>';
+  mn.insertBefore(top, mn.firstChild);
+  var srcMark = document.querySelector('.nav .brand .mark');
+  if (srcMark) top.querySelector('.mark').innerHTML = srcMark.innerHTML;
+  top.querySelector('.mnav-x').addEventListener('click', function(){ setMenu(false); mb.focus(); });
+  function setMenu(open){ mn.classList.toggle('open', open); document.documentElement.style.overflow = open && innerWidth <= 980 ? 'hidden' : ''; mb.setAttribute('aria-expanded', open ? 'true' : 'false'); mb.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); }
   mb.addEventListener('click', function(){ setMenu(!mn.classList.contains('open')); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && mn.classList.contains('open')) { setMenu(false); mb.focus(); } });
   mn.addEventListener('click', function(e){ if (e.target.closest('a')) setMenu(false); });
