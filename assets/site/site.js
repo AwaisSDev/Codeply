@@ -4,7 +4,10 @@
 
   // always open at the top: no restoring the old scroll position on reload or back, unless a #link asks for a section
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  if (!location.hash) scrollTo(0, 0);
+  // Jump without the page's smooth scrolling: a smooth scrollTo that gets interrupted (a touch, a resize
+  // as the phone browser's toolbar moves) leaves the page stuck a little below the top.
+  function jump(y){ var el = document.documentElement, was = el.style.scrollBehavior; el.style.scrollBehavior = 'auto'; scrollTo(0, y); el.style.scrollBehavior = was; }
+  if (!location.hash) jump(0);
 
   // logos
   var tpl = document.getElementById('tpl-mark').innerHTML;
@@ -38,6 +41,9 @@
   var nav = document.getElementById('nav');
   function onScroll(){ nav.classList.toggle('scrolled', scrollY > 8); }
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  // Scroll events don't fire when the browser restores a page or moves its own toolbars, so the bar
+  // could keep its "scrolled" pill at the very top. Look again whenever the page comes back or resizes.
+  ['pageshow', 'resize', 'orientationchange', 'visibilitychange', 'scrollend', 'touchend'].forEach(function(ev){ addEventListener(ev, onScroll, {passive:true}); });
 
   var mb = document.getElementById('menuBtn'), mn = document.getElementById('mnav');
   var top = document.createElement('div');
@@ -47,7 +53,8 @@
   var srcMark = document.querySelector('.nav .brand .mark');
   if (srcMark) top.querySelector('.mark').innerHTML = srcMark.innerHTML;
   top.querySelector('.mnav-x').addEventListener('click', function(){ setMenu(false); mb.focus(); });
-  function setMenu(open){ mn.classList.toggle('open', open); document.documentElement.style.overflow = open && innerWidth <= 980 ? 'hidden' : ''; mb.setAttribute('aria-expanded', open ? 'true' : 'false'); mb.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); }
+  var menuY = 0;
+  function setMenu(open){ var was = mn.classList.contains('open'); if (open && !was) menuY = scrollY; mn.classList.toggle('open', open); document.documentElement.style.overflow = open && innerWidth <= 980 ? 'hidden' : ''; if (!open && was) { jump(menuY); onScroll(); } mb.setAttribute('aria-expanded', open ? 'true' : 'false'); mb.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); }
   mb.addEventListener('click', function(){ setMenu(!mn.classList.contains('open')); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && mn.classList.contains('open')) { setMenu(false); mb.focus(); } });
   mn.addEventListener('click', function(e){ if (e.target.closest('a')) setMenu(false); });
