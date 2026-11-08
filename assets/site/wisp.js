@@ -1,5 +1,5 @@
-// Wisp: a soft blue pentagon with eyes. The eyes follow your cursor and blink, the body morphs between
-// shapes, and the mood changes both. Drawn in SVG, one animation loop for every Wisp on the page.
+// Wisp: a flat blue hexagon with two white pill eyes. The eyes follow your cursor and blink, and the
+// mood changes the eyes and how it moves. Only the Meet Wisp showcase morphs between shapes. Drawn in SVG, one animation loop for every Wisp on the page.
 (function () {
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var N = 144, TAU = Math.PI * 2, CX = 50, CY = 54, R = 40;
@@ -21,52 +21,53 @@
     circle: polar(function () { return 1; }, 1),
     square: polar(poly(4, Math.PI / 4), 13),
     triangle: polar(poly(3), 15),
-    hexagon: polar(poly(6), 11),
+    hexagon: polar(poly(6, Math.PI / 6), 9), // flat top and base, rounded like the logo
     star: polar(function (t) { return .8 + .2 * Math.cos(5 * (t + Math.PI / 2)); }, 5),
     spiky: polar(function (t) { var c = Math.cos(8 * (t + Math.PI / 2)); return .84 + .16 * Math.sign(c) * Math.pow(Math.abs(c), .6); }, 3),
     blob: polar(function (t) { return 1 + .07 * Math.sin(3 * t + 1) + .05 * Math.cos(5 * t - .4); }, 5),
     cloud: polar(function (t) { return .9 + .1 * Math.abs(Math.cos(3.5 * (t + Math.PI / 2))); }, 5)
   };
 
-  // ---- moods: eyes, a shape, and a colour ----
+  // ---- moods: eyes, a shape, and a colour (flat: one colour, no gradient) ----
   var MOODS = {
-    neutral: { shape: 'pentagon', c: ['#74a6ff', '#1f52e0'], blink: true },
-    happy: { shape: 'circle', c: ['#7fb2ff', '#2a5fea'], blink: false, bounce: true },
-    sad: { shape: 'pentagon', c: ['#9db2e6', '#4e66b4'], blink: true, sag: true },
-    angry: { shape: 'spiky', c: ['#ff8f7a', '#e0304a'], blink: false, shake: true },
-    sleepy: { shape: 'blob', c: ['#9fb4e8', '#4c64b8'], blink: false },
-    surprised: { shape: 'pentagon', c: ['#8ab8ff', '#2f6bff'], blink: true },
-    thinking: { shape: 'pentagon', c: ['#86b0ff', '#3a5fe0'], blink: true }
+    neutral: { shape: 'hexagon', c: ['#2F6BFF', '#2F6BFF'], blink: true },
+    happy: { shape: 'circle', c: ['#2F6BFF', '#2F6BFF'], blink: false, bounce: true },
+    sad: { shape: 'hexagon', c: ['#2F6BFF', '#2F6BFF'], blink: true, sag: true },
+    angry: { shape: 'spiky', c: ['#E5484D', '#E5484D'], blink: false, shake: true },
+    sleepy: { shape: 'blob', c: ['#2F6BFF', '#2F6BFF'], blink: false },
+    surprised: { shape: 'hexagon', c: ['#2F6BFF', '#2F6BFF'], blink: true },
+    thinking: { shape: 'hexagon', c: ['#2F6BFF', '#2F6BFF'], blink: true }
   };
   var EYES = {
-    neutral: function (s) { return '<ellipse rx="1.8" ry="2.9"/>'; },
-    surprised: function (s) { return '<circle r="2.9"/><circle r=".9" cx=".8" cy="-1" fill="#fff"/>'; },
-    thinking: function (s) { return '<ellipse rx="1.7" ry="2.7"/>'; },
-    happy: function (s) { return '<path d="M-4.2 1.8Q0 -4.6 4.2 1.8" fill="none" stroke="#0b0b0f" stroke-width="2.3" stroke-linecap="round"/>'; },
-    sleepy: function (s) { return '<path d="M-4 0Q0 2.6 4 0" fill="none" stroke="#0b0b0f" stroke-width="2.1" stroke-linecap="round"/>'; },
+    // white pills, 7 x 14 (the logo's 8 x 16 on this smaller body)
+    neutral: function (s) { return '<rect x="-3.5" y="-7" width="7" height="14" rx="3.5"/>'; },
+    surprised: function (s) { return '<circle r="4"/>'; },
+    thinking: function (s) { return '<rect x="-3.3" y="-6.2" width="6.6" height="12.4" rx="3.3"/>'; },
+    happy: function (s) { return '<path d="M-4.8 2.2Q0 -5.2 4.8 2.2" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>'; },
+    sleepy: function (s) { return '<path d="M-4.6 0Q0 3 4.6 0" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>'; },
     // sorry: small eyes looking down, brows tilted up in the middle
-    sad: function (s) { return '<ellipse rx="1.7" ry="2.5" cy="1.4"/><path d="' + (s < 0 ? 'M-4 -3.4L1.6 -5.6' : 'M4 -3.4L-1.6 -5.6') + '" fill="none" stroke="#0b0b0f" stroke-width="1.5" stroke-linecap="round"/>'; },
-    angry: function (s) { return s < 0 ? '<path d="M-3.8 -2.2L3.6 .6L-3.2 2.2Z"/>' : '<path d="M3.8 -2.2L-3.6 .6L3.2 2.2Z"/>'; }
+    sad: function (s) { return '<rect x="-3" y="-3.4" width="6" height="10" rx="3"/><path d="' + (s < 0 ? 'M-4.4 -6.2L2 -8.6' : 'M4.4 -6.2L-2 -8.6') + '" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>'; },
+    angry: function (s) { return s < 0 ? '<path d="M-4.4 -3L4.2 .8L-3.8 3Z"/>' : '<path d="M4.4 -3L-4.2 .8L3.8 3Z"/>'; }
   };
 
   var all = [], uid = 0, px = null, py = null, lastMove = 0;
 
   function Wisp(el) {
     var id = 'wg' + (++uid), size = el.dataset.wisp || 'md';
-    // Wisp is a pentagon everywhere. Only the Meet Wisp showcase lets a mood or a topic change its shape.
+    // Wisp is a hexagon everywhere. Only the Meet Wisp showcase lets a mood or a topic change its shape.
     var morphs = !!el.closest('[data-wisp-stage]');
     el.classList.add('wisp-el');
     el.innerHTML = '<svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="' + id + '" x1=".2" y1="0" x2=".8" y2="1"><stop offset="0" class="s0"/><stop offset="1" class="s1"/></linearGradient></defs>' +
-      '<g class="w-body"><path class="w-shape" fill="url(#' + id + ')"/><g class="w-eyes"><g class="w-eye l" transform="translate(41 44)"></g><g class="w-eye r" transform="translate(57 44)"></g></g></g></svg>';
+      '<g class="w-body"><path class="w-shape" fill="url(#' + id + ')"/><g class="w-eyes"><g class="w-eye l" transform="translate(41 51)"></g><g class="w-eye r" transform="translate(59 51)"></g></g></g></svg>';
     var w = {
       el: el, svg: el.firstChild, path: el.querySelector('.w-shape'), eyes: el.querySelector('.w-eyes'),
       eyeL: el.querySelector('.w-eye.l'), eyeR: el.querySelector('.w-eye.r'), stops: el.querySelectorAll('stop'),
-      r: SHAPES.pentagon.slice(), from: null, to: SHAPES.pentagon, t0: 0, dur: 560,
+      r: SHAPES.hexagon.slice(), from: null, to: SHAPES.hexagon, t0: 0, dur: 560,
       lx: 0, ly: 0, tx: 0, ty: 0, blinkAt: performance.now() + 1500 + Math.random() * 3000, blink: 0,
       mood: null, phase: Math.random() * 10, visible: true, small: size === 'sm', kick: 0
     };
     w.setShape = function (name) {
-      if (!morphs && name !== 'pentagon') return;
+      if (!morphs && name !== 'hexagon') return;
       var target = SHAPES[name]; if (!target || target === w.to) return;
       w.from = w.r.slice(); w.to = target; w.t0 = performance.now();
     };
@@ -123,7 +124,7 @@
       else if (w.mood === 'sleepy') { tx = 0; ty = 2; }
       else if (w.mood === 'sad') { tx = -1; ty = 2.6; }
       else if (px !== null && now - lastMove < 4000) {
-        var b = w.svg.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + b.height * .44;
+        var b = w.svg.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + b.height * .51;
         var dx = px - cx, dy = py - cy, dist = Math.hypot(dx, dy) || 1, reach = Math.min(1, dist / (b.width * 2.2 + 120));
         tx = dx / dist * 6 * reach; ty = dy / dist * 4.5 * reach;
       } else if (!reduce) { tx = Math.sin(now / 1700 + w.phase) * 3; ty = Math.sin(now / 2300 + w.phase) * 1.5; }
@@ -134,7 +135,7 @@
         if (now > w.blinkAt) { w.blink = now; w.blinkAt = now + 2200 + Math.random() * 3800; }
         var bt = (now - w.blink) / 150; if (bt < 1) sc = Math.max(.08, Math.abs(1 - 2 * bt));
       }
-      w.eyes.setAttribute('transform', 'translate(' + (w.lx + ox).toFixed(2) + ' ' + (w.ly + oy).toFixed(2) + ') translate(49 44) scale(1 ' + sc.toFixed(3) + ') translate(-49 -44)');
+      w.eyes.setAttribute('transform', 'translate(' + (w.lx + ox).toFixed(2) + ' ' + (w.ly + oy).toFixed(2) + ') translate(50 51) scale(1 ' + sc.toFixed(3) + ') translate(-50 -51)');
     }
     requestAnimationFrame(frame);
   }
@@ -161,7 +162,7 @@
       [/\b(clouds?|sky|weather|rain|fluffy)\b/i, 'cloud', 'Very fluffy. Very cloud.'],
       [/\b(water|slime|liquid|melt|wobbly|jelly|chill)\b/i, 'blob', 'Going with the flow.'],
       [/\b(ball|round|circle|bubble|planet|moon)\b/i, 'circle', 'Round and ready.'],
-      [/\b(bees?|honey|hexagon|hive)\b/i, 'hexagon', 'Hexagons. The best shape.'],
+      [/\b(bees?|honey|hexagon|hive)\b/i, 'hexagon', 'Hexagons. My favourite shape.'],
       [/\b(pyramid|triangle|mountain|pointy)\b/i, 'triangle', 'Pointy. On purpose.'],
       [/\b(box|square|cube|block|lego)\b/i, 'square', 'Squared away.']
     ];

@@ -263,7 +263,7 @@
 /* Wisp keeps solid black dot eyes wherever he sits, even inside icon-styled mockups */
 .wisp-el svg { stroke: none !important; }
 .wisp-el .w-shape { stroke: none !important; }
-.wisp-el .w-eye { fill: #0b0b0f !important; }
+.wisp-el .w-eye { fill: #fff !important; }
 .c4-wisp { width: 112px; height: 112px; }
 .c4-wisp [data-wisp] { width: 100%; height: 100%; display: block; }
 .mk-av [data-wisp] { width: 64px; height: 64px; display: block; }
