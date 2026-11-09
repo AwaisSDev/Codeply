@@ -1,6 +1,6 @@
 import { supabase, publicSupabaseConfig } from '../lib/supabaseClient.js';
 import { applyCors } from '../lib/cors.js';
-import { getJsonBody, requireUser } from './auth.js';
+import { getJsonBody, requireUser } from '../lib/auth.js';
 
 const REMOTE_FIELDS = ['kill_switch', 'min_version', 'update_banner', 'feature_flags', 'free_mode'];
 

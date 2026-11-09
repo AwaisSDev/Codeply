@@ -2,7 +2,7 @@
 // GET  -> { month, tokens, requests, monthly_cap, per_prompt_cap, capReached }
 // POST -> { tokens, requests? } adds usage for the current month
 import { supabase } from '../lib/supabaseClient.js';
-import { getJsonBody, requireUser } from './auth.js';
+import { getJsonBody, requireUser } from '../lib/auth.js';
 import { applyCors } from '../lib/cors.js';
 
 function currentMonth() {

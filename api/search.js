@@ -10,7 +10,7 @@
 //   3. Keyless, raced: Exa's public MCP and DuckDuckGo's HTML results; Wikipedia if both fail
 // Results without page text get the top pages read here, so the model answers from the pages, not snippets.
 // Signed-in users only (Bearer token, like the other routes), so this is not an open proxy.
-import { requireUser, getJsonBody } from './auth.js';
+import { requireUser, getJsonBody } from '../lib/auth.js';
 import { applyCors } from '../lib/cors.js';
 import dns from 'node:dns/promises';
 import net from 'node:net';

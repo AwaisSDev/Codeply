@@ -19,7 +19,7 @@
 //
 // Auth: same pattern as admin-stats.js — Bearer token -> requireUser -> is_admin.
 import { supabase } from '../lib/supabaseClient.js';
-import { requireUser } from './auth.js';
+import { requireUser } from '../lib/auth.js';
 import { applyCors } from '../lib/cors.js';
 import { appEventCacheColumns } from '../lib/cacheColumns.js';
 

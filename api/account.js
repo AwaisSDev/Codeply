@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabaseClient.js';
-import { ensureProfile, getJsonBody, requireUser } from './auth.js';
+import { ensureProfile, getJsonBody, requireUser } from '../lib/auth.js';
 import { applyCors } from '../lib/cors.js';
 
 const starterProviders = new Set(['openrouter', 'groq']);

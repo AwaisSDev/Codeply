@@ -1,4 +1,4 @@
-import { requireUser, getJsonBody } from './auth.js';
+import { requireUser, getJsonBody } from '../lib/auth.js';
 import { applyCors } from '../lib/cors.js';
 
 const planEnv = {

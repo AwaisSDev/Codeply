@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 import { supabase } from '../lib/supabaseClient.js';
-import { getJsonBody, requireUser } from './auth.js';
+import { getJsonBody, requireUser } from '../lib/auth.js';
 
 const allowedProviders = new Set(['openai', 'claude', 'openrouter', 'groq', 'gemini', 'deepseek', 'qwen', 'custom']);
 

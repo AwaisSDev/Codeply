@@ -2,7 +2,7 @@
 // GET   -> current settings (creates defaults on first call)
 // PATCH -> merge partial updates (called debounced by web + app, no save buttons)
 import { supabase } from '../lib/supabaseClient.js';
-import { getJsonBody, requireUser } from './auth.js';
+import { getJsonBody, requireUser } from '../lib/auth.js';
 import { applyCors } from '../lib/cors.js';
 
 const DEFAULTS = {

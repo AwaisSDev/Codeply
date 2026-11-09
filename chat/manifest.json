@@ -1,0 +1,22 @@
+{
+  "name": "Codeply",
+  "short_name": "Codeply",
+  "start_url": "/chat/",
+  "display": "standalone",
+  "background_color": "#171717",
+  "theme_color": "#171717",
+  "icons": [
+    {
+      "src": "/chat/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "id": "/chat/",
+  "scope": "/chat/",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ]
+}

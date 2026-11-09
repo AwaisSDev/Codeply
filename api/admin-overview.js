@@ -9,7 +9,7 @@
 //
 // Auth: Bearer token -> requireUser -> profiles.is_admin, like admin-stats.
 import { supabase } from '../lib/supabaseClient.js';
-import { requireUser } from './auth.js';
+import { requireUser } from '../lib/auth.js';
 import { applyCors } from '../lib/cors.js';
 import { appEventCacheColumns } from '../lib/cacheColumns.js';
 
