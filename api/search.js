@@ -15,8 +15,6 @@ import { applyCors } from '../lib/cors.js';
 import dns from 'node:dns/promises';
 import net from 'node:net';
 
-export const config = { maxDuration: 30 };
-
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36';
 const PAGE_CHARS = 2600;     // text kept per result page
 const LINK_CHARS = 9000;     // text kept per page the user linked
@@ -114,7 +112,7 @@ async function brave(query, num) {
 /** Exa's keyless MCP: rate-limited per address, so it is one of two raced sources, never the only one. */
 async function exaMcp(query, num) {
   const res = await fetch('https://mcp.exa.ai/mcp', {
-    method: 'POST', signal: AbortSignal.timeout(9000),
+    method: 'POST', signal: AbortSignal.timeout(6000),
     headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' },
     body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'web_search_exa', arguments: { query, numResults: num, objective: `Find current, reliable pages that answer: ${query}` } } }),
   });
@@ -138,7 +136,7 @@ async function exaMcp(query, num) {
 
 async function duckduckgo(query, num) {
   const res = await fetch('https://html.duckduckgo.com/html/', {
-    method: 'POST', signal: AbortSignal.timeout(9000),
+    method: 'POST', signal: AbortSignal.timeout(6000),
     headers: { 'User-Agent': UA, 'Content-Type': 'application/x-www-form-urlencoded', 'Accept-Language': 'en-US,en;q=0.9' },
     body: `q=${encodeURIComponent(query)}&kl=wt-wt`,
   });
@@ -161,7 +159,7 @@ async function duckduckgo(query, num) {
 
 async function wikipedia(query, num) {
   const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(query)}&gsrlimit=${Math.min(num, 4)}&prop=extracts|info&inprop=url&exintro=1&explaintext=1&format=json`, {
-    signal: AbortSignal.timeout(8000), headers: { 'User-Agent': 'Codeply/1.0 (https://codeply.app)' },
+    signal: AbortSignal.timeout(4000), headers: { 'User-Agent': 'Codeply/1.0 (https://codeply.app)' },
   });
   if (!res.ok) throw new Error(`Wikipedia ${res.status}`);
   const pages = Object.values(((await res.json()).query || {}).pages || {}).sort((a, b) => a.index - b.index);
@@ -171,15 +169,18 @@ async function wikipedia(query, num) {
 }
 
 /** Fill in page text for the top results that only have a snippet. */
-async function addPageText(results, n = 4) {
+async function addPageText(results, deadline, n = 4) {
+  const ms = Math.min(3500, deadline - Date.now()); // stay inside the function's time limit
+  if (ms < 1000) return results;
   await Promise.all(results.slice(0, n).map(async (r) => {
     if (r.content && r.content.length > 400) return;
-    try { const p = await readPage(r.url, PAGE_CHARS, 4500); if (p.content.length > 200) r.content = p.content; } catch { /* the snippet stays */ }
+    try { const p = await readPage(r.url, PAGE_CHARS, ms); if (p.content.length > 200) r.content = p.content; } catch { /* the snippet stays */ }
   }));
   return results;
 }
 
 async function search(query, num) {
+  const deadline = Date.now() + 8500;
   const errors = [];
   const attempt = async (name, fn) => { try { return { via: name, results: await fn() }; } catch (e) { errors.push(e.message); return null; } };
   let found = null;
@@ -194,7 +195,7 @@ async function search(query, num) {
   }
   if (!found) found = await attempt('wikipedia', () => wikipedia(query, num));
   if (!found) throw new Error(errors.join('; ') || 'no results');
-  await addPageText(found.results);
+  await addPageText(found.results, deadline);
   return found;
 }
 
