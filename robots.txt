@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /admin-analytics.html
+Disallow: /chat
 
 # AI search and assistant crawlers are welcome
 User-agent: GPTBot
@@ -17,5 +18,6 @@ User-agent: CCBot
 Allow: /
 Disallow: /api/
 Disallow: /admin-analytics.html
+Disallow: /chat
 
 Sitemap: https://codeply.app/sitemap.xml

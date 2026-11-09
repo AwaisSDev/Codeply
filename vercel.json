@@ -17,7 +17,8 @@
     { "source": "/voice", "destination": "/voice.html" },
     { "source": "/mobile", "destination": "/mobile.html" },
     { "source": "/chat", "destination": "/chat.html" },
-    { "source": "/chat/", "destination": "/chat.html" }
+    { "source": "/chat/", "destination": "/chat.html" },
+    { "source": "/chat/:id([0-9a-z]{6,40})", "destination": "/chat.html" }
   ],
   "cleanUrls": true,
   "routes": [
