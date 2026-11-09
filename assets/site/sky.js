@@ -125,6 +125,16 @@ function fitTabs() {
 }
 addEventListener('resize', fitTabs); addEventListener('load', fitTabs); fitTabs();
 
+// desktop: the panel's contents sit on a fixed 908 x 660 canvas, scaled to whatever size the panel ends up
+function fitStage() {
+  document.querySelectorAll('.tf-stage').forEach(function (st) {
+    var panel = st.parentElement;
+    if (window.matchMedia('(max-width: 980px)').matches || !panel.offsetWidth) { st.style.removeProperty('--k'); return; }
+    st.style.setProperty('--k', (panel.offsetWidth / 908).toFixed(4));
+  });
+}
+addEventListener('resize', fitStage); addEventListener('load', fitStage); fitStage();
+
 // the rotating word: the pill grows or shrinks to the word that's showing
 (function fitRot() {
   var rot = document.getElementById('rot'); if (!rot) return;

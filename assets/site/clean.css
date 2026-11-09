@@ -527,3 +527,12 @@ article.f .fi { background: #fff !important; color: var(--text) !important; }
 /* "What you get": three cards now that the drop card is gone */
 .cards4 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 @media (max-width: 760px) { .cards4 { grid-template-columns: 1fr; } }
+
+/* ---------- what it can do: one fixed canvas, scaled as a whole ----------
+   The panel's contents are laid out once on a 908 x 660 canvas (.tf-stage) and the canvas is scaled to fit,
+   keeping its shape. So at any browser zoom or window height the mockups look the same, never cropped. */
+.tf-stage { position: absolute; inset: 0; }
+@media (min-width: 981px) {
+  .tf-scroll .tf-panel { width: min(100%, 908px, calc((100vh - 230px) * 908 / 660)); height: auto !important; aspect-ratio: 908 / 660; justify-self: center; }
+  .tf-stage { inset: auto; top: 0; left: 0; width: 908px; height: 660px; transform-origin: 0 0; transform: scale(var(--k, 1)); }
+}
