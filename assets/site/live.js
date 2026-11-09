@@ -171,35 +171,38 @@
     undo: '<svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>',
     gt: '<svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>'
   };
+  // Codeply 3.0: the brand row with the flat blue mascot and search, roomy rows with the Codex icons,
+  // Settings beside the account, and no Code / Agents / Design switch in the title bar.
+  function oi(n) { return (window.OI && OI[n]) || ''; }
   function apSide() {
-    function grp(icon, name, rows, open) {
-      return '<div class="ap-grp"><div class="ap-gh">' + icon + '<span>' + name + '</span><i>' + AP.plus + '</i></div>' +
-        (rows.length ? '<div class="ap-rows">' + rows.map(function (r) { return '<div class="ap-row' + (r[1] ? ' ' + r[1] : '') + '">' + r[0] + '</div>'; }).join('') + '</div>' : '<div class="ap-rows"><div class="ap-row none">No chats yet</div></div>') + '</div>';
+    function grp(icon, name, rows) {
+      return '<div class="ap-grp"><div class="ap-gh">' + icon + '<span>' + name + '</span><i>' + oi('plus') + '</i></div>' +
+        (rows ? '<div class="ap-rows">' + (rows.length ? rows.map(function (r) { return '<div class="ap-row' + (r[1] ? ' ' + r[1] : '') + '">' + r[0] + '</div>'; }).join('') : '<div class="ap-row none">No chats yet</div>') + '</div>' : '') + '</div>';
     }
     return '<aside class="ap-side">' +
-      '<div class="ap-nav"><span>' + AP.edit + 'New chat</span><span>' + AP.search + 'Search</span><span>' + AP.folder + 'Open project</span><span>' + AP.task + 'Tasks</span></div>' +
+      '<div class="ap-brand"><img src="/assets/mascot.svg" alt=""><b>Codeply</b><i title="Search">' + oi('search') + '</i></div>' +
+      '<div class="ap-nav"><span>' + oi('compose') + 'New chat</span><span>' + oi('folder') + 'Open project</span><span>' + oi('tasks') + 'Tasks</span><span>' + oi('users') + 'Specialists</span></div>' +
       '<div class="ap-groups">' +
-        grp(AP.pc, 'This Computer', [['Morning plan with Wisp', 'dot']]) +
-        grp(AP.cloud, 'Cloud', []) +
-        grp(AP.folderOpen, 'lumen-site', [['Dark mode on settings', 'cur'], ['Fix failing npm test'], ['Landing page hero']]) +
-        grp(AP.folderOpen, 'landing-page', [['Plan the pricing page'], ['Speed up image uploads']]) +
-        grp(AP.folder, 'api-server', []).replace('<div class="ap-rows"><div class="ap-row none">No chats yet</div></div>', '') +
-        grp(AP.folder, 'mobile-app', []).replace('<div class="ap-rows"><div class="ap-row none">No chats yet</div></div>', '') +
+        grp(oi('desktop'), 'This Computer', [['Morning plan with Wisp']]) +
+        grp(oi('cloud'), 'Cloud', []) +
+        grp(oi('folder-open'), 'lumen-site', [['Dark mode on settings', 'cur'], ['Fix failing npm test'], ['Landing page hero']]) +
+        grp(oi('folder-open'), 'landing-page', [['Plan the pricing page'], ['Speed up image uploads']]) +
+        grp(oi('folder'), 'api-server', null) +
+        grp(oi('folder'), 'mobile-app', null) +
       '</div>' +
-      '<div class="ap-acct"><span class="av">YO</span><b>you@yourmail.com</b>' + AP.down + '</div></aside>';
+      '<div class="ap-acct"><span class="av">YO</span><b>you@yourmail.com</b><i title="Settings">' + oi('settings') + '</i></div></aside>';
   }
   function apWindow() {
-    return '<div class="ap-bar"><div class="ap-bl"><i>' + AP.ham + '</i><i>' + AP.side + '</i><i>' + AP.back + '</i><i class="dim">' + AP.fwd + '</i>' +
-        '<span class="ap-seg"><i class="on">' + AP.atom + '</i><i>' + AP.cog + '</i><i>' + AP.brush + '</i></span></div>' +
+    return '<div class="ap-bar"><div class="ap-bl"><i>' + AP.ham + '</i><i>' + AP.side + '</i><i>' + AP.back + '</i><i class="dim">' + AP.fwd + '</i></div>' +
         '<div class="ap-br"><i>' + AP.min + '</i><i>' + AP.max + '</i><i>' + AP.close + '</i></div></div>' +
       '<div class="ap-body">' + apSide() +
         '<main class="ap-main">' +
-          '<div class="ap-head"><span class="ap-globe">' + AP.globe + '</span><b class="ap-title">Dark mode on settings</b><span class="ap-tools"><em>Publish</em><i>' + AP.globe + '</i><i>' + AP.list + '</i><i>' + AP.term + '</i><i>' + AP.trash + '</i><i>' + AP.panel + '</i></span></div>' +
+          '<div class="ap-head"><span class="ap-globe">' + oi('globe_c') + '</span><b class="ap-title">Dark mode on settings</b><span class="ap-tools"><em>Publish</em><i>' + oi('globe_c') + '</i><i>' + oi('terminal_c') + '</i><i>' + oi('trash_c') + '</i><i>' + oi('panel-right_c') + '</i></span></div>' +
           '<div class="ap-stage">' +
-            '<div class="ap-empty"><span class="ap-mark">' + AP.atom + '</span><h4>What should we build in <u>lumen-site</u>?</h4></div>' +
+            '<div class="ap-empty"><img class="ap-mascot" src="/assets/mascot.svg" alt=""><h4>What should we build in <u>lumen-site</u>?</h4></div>' +
             '<div class="ap-feed">' +
               '<div class="ap-u">Add dark mode to the settings page and make it remember my choice</div>' +
-              '<div class="ap-did"><i data-wisp="sm" data-mood="thinking"></i><span class="shimmer">Working as Frontend…</span><span class="t">Read Settings.tsx, edited 3 files, ran 2 commands, checked 2 pages ' + AP.gt + '</span></div>' +
+              '<div class="ap-did"><i data-wisp="sm" data-mood="thinking"></i><span class="shimmer">Brewing an answer</span><span class="t">Read Settings.tsx, edited 3 files, ran 2 commands, checked 2 pages ' + AP.gt + '</span></div>' +
               '<div class="ap-a"><p>Done. <b>Settings</b> has a dark mode switch now, and it remembers your choice.</p><ul>' +
                 '<li><b>Fix:</b> added a <code>theme</code> setting that saves to local storage, and the switch reads it on load (<code>Settings.tsx</code>).</li>' +
                 '<li><b>Checked:</b> I opened the settings page in the browser, light and dark, with no console errors.</li>' +
@@ -207,15 +210,16 @@
                 '<div class="ap-chg"><span>Changed 3 files ' + AP.gt + '</span><em>' + AP.undo + 'Undo</em></div></div>' +
             '</div>' +
           '</div>' +
-          '<div class="ap-comp"><div class="ap-ctx">' + AP.folder + 'lumen-site</div>' +
+          '<div class="ap-comp"><div class="ap-ctx">' + oi('folder') + 'lumen-site</div>' +
             '<div class="ap-box"><div class="ap-in"><span class="ap-ph">Ask Codeply anything, or type / for commands</span><span class="ap-typed"></span><span class="ap-car"></span></div>' +
-            '<div class="ap-row2"><i>' + AP.plus + '</i><span class="ap-appr">' + AP.shield + 'Approve manually</span><span class="sp"></span><span class="ap-model">Haze 2 ' + AP.down + '</span><span class="ap-send">' + AP.up + '</span></div></div></div>' +
+            '<div class="ap-row2"><i>' + oi('plus') + '</i><span class="ap-appr">' + oi('shield-check_c') + 'Accept edits' + oi('chevron-down_c') + '</span><span class="sp"></span><span class="ap-model">Haze 2 ' + oi('chevron-down_c') + '</span><span class="ap-send">' + oi('arrow-up_c') + '</span></div></div></div>' +
         '</main>' +
       '</div>';
   }
   document.querySelectorAll('[data-app]').forEach(function (box) {
     box.classList.add('ap');
     box.innerHTML = apWindow();
+    if ('static' in box.dataset) return; // a still window (the wallpaper demo)
     box.querySelectorAll('[data-spec]').forEach(function (el) { el.innerHTML = window.specHTML ? specHTML(el.dataset.spec) : ''; });
     var ask = 'Add dark mode to the settings page and make it remember my choice';
     var typed = box.querySelector('.ap-typed'), lis = box.querySelectorAll('.ap-a li');

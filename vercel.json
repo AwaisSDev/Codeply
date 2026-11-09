@@ -11,7 +11,11 @@
     { "source": "/codeply", "destination": "/codeply.html" },
     { "source": "/cli", "destination": "/cli.html" },
     { "source": "/wisp", "destination": "/wisp.html" },
-    { "source": "/crew", "destination": "/wisp.html" }
+    { "source": "/crew", "destination": "/wisp.html" },
+    { "source": "/apps", "destination": "/apps.html" },
+    { "source": "/specialists", "destination": "/specialists.html" },
+    { "source": "/voice", "destination": "/voice.html" },
+    { "source": "/mobile", "destination": "/mobile.html" }
   ],
   "cleanUrls": true,
   "routes": [

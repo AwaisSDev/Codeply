@@ -76,7 +76,7 @@
       el.dataset.mood = m;
       w.eyeL.innerHTML = EYES[m] ? EYES[m](-1) : EYES.neutral(-1);
       w.eyeR.innerHTML = EYES[m] ? EYES[m](1) : EYES.neutral(1);
-      w.stops[0].style.stopColor = M.c[0]; w.stops[1].style.stopColor = M.c[1];
+      var c0 = el.dataset.color || M.c[0], c1 = el.dataset.color || M.c[1]; w.stops[0].style.stopColor = c0; w.stops[1].style.stopColor = c1; // data-color: a specialist's own colour
       if (!keepShape && morphs) w.setShape(M.shape);
       w.kick = performance.now();
     };

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Changelog · Codeply</title>
-<meta name="description" content="What&#x27;s new in Codeply: one personal agent, the top bar, Orbit voice, Crew on iPhone and Android, the shared brain, cloud handoff and more. Every release, newest first.">
+<meta name="description" content="What&#x27;s new in Codeply: 3.0 with Wisp and real specialists, Apps, a rebuilt phone app that works with the PC off, voice mode and a new look. Every release, newest first.">
 <link rel="canonical" href="https://codeply.app/changelog">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#ffffff">
@@ -12,7 +12,7 @@
 <meta property="og:site_name" content="Codeply">
 <meta property="og:url" content="https://codeply.app/changelog">
 <meta property="og:title" content="Changelog · Codeply">
-<meta property="og:description" content="What&#x27;s new in Codeply: one personal agent, the top bar, Orbit voice, Crew on iPhone and Android, the shared brain, cloud handoff and more. Every release, newest first.">
+<meta property="og:description" content="What&#x27;s new in Codeply: 3.0 with Wisp and real specialists, Apps, a rebuilt phone app that works with the PC off, voice mode and a new look. Every release, newest first.">
 <meta property="og:image" content="https://codeply.app/assets/og-card.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -34,6 +34,7 @@
 <link rel="stylesheet" href="/assets/site/live.css?v=7">
 <link rel="stylesheet" href="/assets/site/sky.css?v=9">
 <link rel="stylesheet" href="/assets/site/clean.css?v=52">
+<link rel="stylesheet" href="/assets/site/v3.css?v=2">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="textpage">
@@ -81,6 +82,7 @@
     <nav class="links" aria-label="Main">
       <a href="/codeply">Codeply</a>
       <a href="/wisp">Wisp</a>
+      <a href="/apps">Apps</a>
       <a href="/cli">CLI</a>
       <a href="/docs">Docs</a>
       <a href="/changelog">Changelog</a>
@@ -91,7 +93,7 @@
     </div>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/cli">Codeply CLI</a><a href="/mobile">Mobile</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a>
+    <a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/specialists">Specialists</a><a href="/apps">Apps</a><a href="/voice">Voice mode</a><a href="/mobile">Mobile</a><a href="/cli">Codeply CLI</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a>
     <a class="btn btn-primary" href="/download">Download</a>
   </nav>
 </header>
@@ -108,8 +110,92 @@
 <section class="prose">
   <div class="wrap-narrow">
 
+        <div class="entry entry-big" id="v3">
+            <span class="tag new">New · Nov 9, 2026</span>
+            <h2>Codeply 3.0</h2>
+            <p class="entry-lede">The biggest release yet. Wisp now leads every chat with a team of real specialists, any app connects in a click, chats keep working while your PC is off, and the whole app has a new look. <a href="https://github.com/AwaisSDev/Codeply-Craft/releases/tag/v3.0.0">See the release on GitHub</a>.</p>
+
+            <h3>Codeply Cloud</h3>
+            <ul>
+                <li><strong>Chats keep working while the PC is off.</strong> Start something on your phone with the PC asleep and it runs in the cloud, then the PC picks it up when it is back.</li>
+                <li><strong>Bots keep working too.</strong> With the PC offline, the phone checks your bots' email and Slack with the same sign-in. A message from you becomes a task run in the cloud; a message from anyone else becomes a draft reply. Nothing is sent without your tap.</li>
+                <li><strong>Schedules, calendar and live checks without the PC.</strong> Scheduled tasks run in the cloud on their own timer (create, run now, pause, resume, delete). Your Google Calendar is read and written straight from the phone, and Checks show your GitHub branches, pull requests and Actions runs.</li>
+                <li><strong>No surprise deploys.</strong> The branch Cloud uses to keep task state never starts a Vercel deployment.</li>
+            </ul>
+
+            <h3>Wisp and specialists</h3>
+            <ul>
+                <li><strong>Wisp is the main agent of every chat.</strong> Ask once and Wisp does the work, bringing in a specialist when a job needs one.</li>
+                <li><strong>Specialists are real agents.</strong> Each has its own face, colour, voice and gear (beret, cap, glasses, headphones, crown and more), and the team list shows them all.</li>
+                <li><strong>Talk to one with @Name.</strong> <code>@Emma</code> switches the chat to Emma, with her face and colour, until <code>@Codeply</code> hands you back. The @ menu shows your three most recent and finds anyone by name, on the PC and the phone.</li>
+                <li><strong>Hand coding to Claude Code.</strong> Connect Claude Code in Apps (install and sign in right from its card) and Wisp can hand it coding work in the chat's project, on your own Claude plan.</li>
+                <li><strong>Faces that feel.</strong> Each answer's face shows how Wisp feels about what you wrote, and the thinking line is a shimmering word that changes while three dots hop.</li>
+            </ul>
+
+            <h3>The new mascot</h3>
+            <ul>
+                <li><strong>One flat blue mascot everywhere.</strong> Wisp's body is now the Codeply mascot, flat blue with white eyes, on the PC, the phone and the sign-in screens.</li>
+                <li><strong>Moods fade back.</strong> A happy, surprised or sorry face shows for a moment, then relaxes to neutral.</li>
+            </ul>
+
+            <h3>Apps and connections</h3>
+            <ul>
+                <li><strong>Connect any app with a remote MCP server.</strong> Search the official MCP Registry (34,000+ apps), pick from 22 Featured apps that are each vendor's own server, or add one by URL with a sign-in or a key. Apps Codeply has not reviewed ask once more before connecting.</li>
+                <li><strong>Apps in Build chats.</strong> Connected apps work in Build chats through one <code>use_app</code> tool, and anything that writes still asks first.</li>
+                <li><strong>OAuth on the phone.</strong> Connecting an app from the phone starts the app's own sign-in, with no pasted tokens. Settings shows Gmail, Slack, GitHub, Vercel and Supabase with their real status.</li>
+                <li><strong>Faster search.</strong> Matching Featured apps show at once while the registry answers.</li>
+            </ul>
+
+            <h3>Chat</h3>
+            <ul>
+                <li><strong>Rich, interactive replies.</strong> Headings, callouts, checklists, coloured tags, aligned tables and code blocks with a language label and Copy.</li>
+                <li><strong>Reader text settings.</strong> Pick the size and style of the text you read, in Settings.</li>
+                <li><strong>Link chips.</strong> A bare link shows as a small rounded chip with the site's icon and name.</li>
+                <li><strong>Chats name themselves.</strong> A new chat starts as "Casual chat" and gets a short name after three messages. A name you set yourself stays.</li>
+                <li><strong>Screenshots in chat.</strong> Screenshots from the PC and from cloud runs show up on the phone too.</li>
+                <li><strong>Web search on the phone and in voice.</strong> Wisp searches the web from phone chats and voice mode, with source links, even with the PC off.</li>
+            </ul>
+
+            <h3>Models</h3>
+            <ul>
+                <li><strong>A new model picker.</strong> Plain one-line rows. Haze 2 is on top, the models it routes to (Sonnet 5.5, Haiku 5.5 and non-disclosed models) are grayed and locked, and Add a model and Connect Ollama sit at the bottom.</li>
+                <li><strong>A real effort slider.</strong> The effort card's levels come from each provider's own API. Anthropic keys use Anthropic's native API so effort really works; a model without reasoning says "Reasoning not available".</li>
+                <li><strong>Four permission modes.</strong> Approve manually, Accept edits (file edits run, commands still ask), Plan (makes a plan and changes nothing) and Full access.</li>
+            </ul>
+
+            <h3>Look</h3>
+            <ul>
+                <li><strong>Wallpapers and glass.</strong> Pick a built-in picture or your own (kept on your PC, never uploaded) and the panels turn to glass over it.</li>
+                <li><strong>A new sidebar.</strong> A bigger brand row with the mascot and search, roomy rows, and Settings next to your account.</li>
+                <li><strong>Codex-style icons</strong> across the whole app.</li>
+                <li><strong>One window.</strong> The Code, Agents and Design switch is gone. Design is a mode in the + menu, and Settings is its own page (Ctrl+,).</li>
+            </ul>
+
+            <h3>Phone</h3>
+            <ul>
+                <li><strong>A rebuilt phone app.</strong> Chat is the app: a native look, glass bars over the chat, springy buttons, and the composer on the home bar line.</li>
+                <li><strong>A new menu.</strong> New chat, Tasks, Calendar, Specialists and Projects. Tasks and Checks share one page.</li>
+                <li><strong>Everything on real data.</strong> Approvals from every chat with Allow, Always and Deny on the card, usage with a 7 day to 1 year picker, and your PC and its projects.</li>
+                <li><strong>Specialists know your time zone,</strong> so "today" in an inbox read means your today.</li>
+                <li><strong>The taste skill for designs.</strong> Designs made on the phone get the same art direction the PC's agent uses.</li>
+            </ul>
+
+            <h3>Voice</h3>
+            <ul>
+                <li><strong>Talk to Codeply with Wisp's face.</strong> Wisp sits in the middle with a live caption line, and its face follows how you feel and what it says.</li>
+                <li><strong>Sessions saved as chats.</strong> Every voice session is a chat in the sidebar you can read back and carry on typing in.</li>
+                <li><strong>iOS mic watchdog.</strong> If iOS quietly stops the microphone, voice mode wakes it again.</li>
+                <li><strong>Lighter on memory.</strong> Whisper loads only when you use voice and unloads after 5 quiet minutes, so Codeply starts at about 430 MB instead of 1.15 GB.</li>
+            </ul>
+
+            <h3>Speed</h3>
+            <ul>
+                <li><strong>Prompt cache kept warm on every route.</strong> Each request resends the last one byte for byte plus what is new. A 50 turn chat now reuses 87% of its history from turn to turn, up from under 1%.</li>
+            </ul>
+        </div>
+
         <div class="entry">
-            <span class="tag new">New · Nov 1, 2026</span>
+            <span class="tag">Shipped · Nov 1, 2026</span>
             <h2>One name: Codeply</h2>
             <ul>
                 <li><strong>Craft is now Codeply.</strong> The desktop app, the drop, voice mode (Orbit), VS Code (Studio) and the phone app are all one product, called Codeply.</li>
@@ -386,7 +472,7 @@
   <div class="wrap">
     <div class="ft-top">
       <div class="ft-brand"><a class="brand" href="/"><span class="mark" data-mark></span>Codeply</a><p>Ambient intelligence for your computer and phone.</p></div>
-      <nav aria-label="Products"><b>Products</b><a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/cli">Codeply CLI</a><a href="/mobile">Mobile</a></nav>
+      <nav aria-label="Products"><b>Products</b><a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/specialists">Specialists</a><a href="/apps">Apps</a><a href="/voice">Voice mode</a><a href="/mobile">Mobile</a><a href="/cli">Codeply CLI</a></nav>
       <nav aria-label="Resources"><b>Resources</b><a href="/download">Download</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a></nav>
       <nav aria-label="Company"><b>Company</b><a href="/about">About</a><a href="/careers">Careers</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/eula">EULA</a></nav>
     </div>
@@ -394,8 +480,10 @@
   </div>
 </footer>
 <script src="/assets/site/bot-avatar.js?v=2"></script>
-<script src="/assets/site/live.js?v=16"></script>
-<script src="/assets/site/wisp.js?v=5"></script>
+<script src="/assets/site/oi.js?v=1"></script>
+<script src="/assets/site/live.js?v=18"></script>
+<script src="/assets/site/wisp.js?v=6"></script>
+<script src="/assets/site/v3.js?v=2"></script>
 <script src="/assets/site/site.js?v=10"></script>
 <script src="/assets/site/sky.js?v=7"></script>
 </body>

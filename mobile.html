@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="/assets/site/live.css?v=7">
 <link rel="stylesheet" href="/assets/site/sky.css?v=9">
 <link rel="stylesheet" href="/assets/site/clean.css?v=52">
+<link rel="stylesheet" href="/assets/site/v3.css?v=2">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -74,6 +75,7 @@
     <nav class="links" aria-label="Main">
       <a href="/codeply">Codeply</a>
       <a href="/wisp">Wisp</a>
+      <a href="/apps">Apps</a>
       <a href="/cli">CLI</a>
       <a href="/docs">Docs</a>
       <a href="/changelog">Changelog</a>
@@ -84,7 +86,7 @@
     </div>
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/cli">Codeply CLI</a><a href="/mobile">Mobile</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a>
+    <a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/specialists">Specialists</a><a href="/apps">Apps</a><a href="/voice">Voice mode</a><a href="/mobile">Mobile</a><a href="/cli">Codeply CLI</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a>
     <a class="btn btn-primary" href="/download">Download</a>
   </nav>
 </header>
@@ -93,8 +95,9 @@
   <section class="hero phero">
     <div class="scene" aria-hidden="true"><div class="scene-img"></div></div>
     <div class="wrap hero-in">
-      <h1 class="rv d1">Start work<br><span class="dim">from your phone.</span></h1>
-      <p class="lede rv d2">Kick off a run on your PC or in the cloud. Check the result, review it, merge it, and take calls from Wisp.</p>
+      <a class="v3-pill rv" href="/changelog#v3"><b>New in 3.0</b>The rebuilt phone app<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      <h1 class="rv d1">Codeply in your pocket.<br><span class="dim">Even with the PC off.</span></h1>
+      <p class="lede rv d2">The phone app is rebuilt from the ground up. Chat with Wisp and your specialists, approve what needs you, and keep bots, schedules and checks running while your PC sleeps.</p>
       <div class="ctas rv d3"><a class="btn btn-primary" href="https://mobile.codeply.app">Open Codeply on your phone</a><a class="btn btn-ghost" href="#install">How to install</a></div>
       <p class="meta rv d3">Works on any phone. Sign in with your Codeply account.</p>
     </div>
@@ -104,15 +107,15 @@
   <section class="cs" id="how">
     <div class="wrap">
       <div class="cs-center">
-        <h2 class="cs-h rv">Your work, in your pocket</h2><p class="cs-p rv d1">Start a run on your PC or in the cloud, see what changed, merge it, and take calls from Wisp.</p>
+        <h2 class="cs-h rv">Chat is the app</h2><p class="cs-p rv d1">A native look, glass bars over the chat, springy buttons and the composer right on the home bar line.</p>
       </div>
       <div class="row rv">
         <div class="panel p-sky"><div class="panel-in"><div class="pv-wrap" data-pv="chat" aria-hidden="true" style="--s:0.72"></div></div></div>
-        <div class="row-copy"><h3>Start a run</h3><p>Ask from your phone and it runs on your PC when it is on, or in the cloud when it is not.</p></div>
+        <div class="row-copy"><h3>Start anything, anywhere</h3><p>Ask from your phone and it runs on your PC when it is on, or in Codeply Cloud when it is not. Rich replies, link chips and screenshots come along, and Wisp searches the web right from the phone.</p></div>
       </div>
       <div class="row flip rv">
         <div class="panel p-lilac"><div class="panel-in"><div class="pv-wrap" data-pv="cloud" aria-hidden="true" style="--s:0.72"></div></div></div>
-        <div class="row-copy"><h3>Review and merge</h3><p>See every change and the checks it ran, then merge it into main from wherever you are.</p></div>
+        <div class="row-copy"><h3>Approve, review, merge</h3><p>Tasks gathers approvals from every chat with Allow, Always and Deny on the card, plus running and finished work. See every change and the checks it ran, then merge it into main.</p></div>
       </div>
       <div class="row rv">
         <div class="panel p-pink"><div class="panel-in"><div class="pv-wrap" data-pv="call" aria-hidden="true" style="--s:0.72"></div></div></div>
@@ -120,8 +123,14 @@
       </div>
       <div class="row flip rv">
         <div class="panel p-peach"><div class="panel-in"><div class="pv-wrap" data-pv="menu" aria-hidden="true" style="--s:0.72"></div></div></div>
-        <div class="row-copy"><h3>Everything in one place</h3><p>Your projects, cloud runs, calls and recent chats, the same as on your PC.</p></div>
+        <div class="row-copy"><h3>A new menu</h3><p>New chat, Tasks, Calendar, Specialists and Projects. Specialists shows Wisp's whole team, and @Name talks to any of them, with your time zone.</p><a class="link" href="/specialists">Wisp and specialists<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></div>
       </div>
+    </div>
+  </section>
+  <section class="cs" id="pc-off">
+    <div class="wrap">
+      <div class="cs-center"><h2 class="cs-h rv">Works with your PC off</h2><p class="cs-p rv d1">When your computer sleeps, the phone and Codeply Cloud take over.</p></div>
+      <div class="trust3 c3"><div class="t3 rv"><b>Chats keep going</b><p>Anything you start runs in Codeply Cloud, and the PC picks it up when it is back.</p></div><div class="t3 rv d1"><b>Bots keep working</b><p>The phone checks your bots' email and Slack. Your messages become tasks; anyone else's become draft replies. Nothing sends without your tap.</p></div><div class="t3 rv d2"><b>Schedules run on time</b><p>Create, run now, pause and resume scheduled tasks. Each run's real result is right there.</p></div><div class="t3 rv"><b>Your calendar</b><p>Google Calendar, read and written straight from the phone.</p></div><div class="t3 rv d1"><b>Live checks</b><p>GitHub branches, pull requests and Actions runs, checked from the phone.</p></div><div class="t3 rv d2"><b>Apps with a real sign-in</b><p>Connect apps with their own OAuth page, no pasted tokens. <a href="/apps">See Apps</a>.</p></div></div>
     </div>
   </section>
   <section class="cs" id="install">
@@ -146,7 +155,7 @@
   <div class="wrap">
     <div class="ft-top">
       <div class="ft-brand"><a class="brand" href="/"><span class="mark" data-mark></span>Codeply</a><p>Ambient intelligence for your computer and phone.</p></div>
-      <nav aria-label="Products"><b>Products</b><a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/cli">Codeply CLI</a><a href="/mobile">Mobile</a></nav>
+      <nav aria-label="Products"><b>Products</b><a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/specialists">Specialists</a><a href="/apps">Apps</a><a href="/voice">Voice mode</a><a href="/mobile">Mobile</a><a href="/cli">Codeply CLI</a></nav>
       <nav aria-label="Resources"><b>Resources</b><a href="/download">Download</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a></nav>
       <nav aria-label="Company"><b>Company</b><a href="/about">About</a><a href="/careers">Careers</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/eula">EULA</a></nav>
     </div>
@@ -154,8 +163,10 @@
   </div>
 </footer>
 <script src="/assets/site/bot-avatar.js?v=2"></script>
-<script src="/assets/site/live.js?v=16"></script>
-<script src="/assets/site/wisp.js?v=5"></script>
+<script src="/assets/site/oi.js?v=1"></script>
+<script src="/assets/site/live.js?v=18"></script>
+<script src="/assets/site/wisp.js?v=6"></script>
+<script src="/assets/site/v3.js?v=2"></script>
 <script src="/assets/site/site.js?v=10"></script>
 <script src="/assets/site/sky.js?v=7"></script>
 </body>
