@@ -17,14 +17,14 @@
     { "source": "/voice", "destination": "/voice.html" },
     { "source": "/mobile", "destination": "/mobile.html" },
     { "source": "/chat", "destination": "/chat.html" },
-    { "source": "/chat/", "destination": "/chat.html" },
-    { "source": "/chat/:id", "destination": "/chat.html" }
+    { "source": "/chat/", "destination": "/chat.html" }
   ],
   "cleanUrls": true,
   "routes": [
     { "src": "/craft(?:\\.html)?/?", "status": 308, "headers": {"Location": "/codeply"} },
     { "src": "/drop(?:\\.html)?/?", "status": 308, "headers": {"Location": "/codeply"} },
     { "handle": "filesystem" },
+    { "src": "/chat/[0-9a-z]{6,40}/?", "dest": "/chat.html" },
     { "src": "/.*", "status": 404, "dest": "/404.html" }
   ]
 }
