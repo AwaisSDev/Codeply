@@ -21,6 +21,7 @@
   "routes": [
     { "src": "/craft(?:\\.html)?/?", "status": 308, "headers": {"Location": "/codeply"} },
     { "src": "/drop(?:\\.html)?/?", "status": 308, "headers": {"Location": "/codeply"} },
+    { "src": "/chat(/.*)?", "dest": "https://mobile.codeply.app/chat$1" },
     { "handle": "filesystem" },
     { "src": "/.*", "status": 404, "dest": "/404.html" }
   ]
