@@ -50,7 +50,7 @@
 .ui3 { --c: #262626; --c2: #2f2f2f; --ln: #343434; --tx: #ececec; --mu: #9b9b9b; --fa: #6b6b6b;
   font: 14px/1.45 -apple-system, 'Segoe UI', system-ui, sans-serif; color: var(--tx); text-align: left; }
 .ui3 svg { width: 16px; height: 16px; flex: none; }
-.ui3-card { background: var(--c); border: 1px solid var(--ln); border-radius: 18px; box-shadow: 0 30px 60px -24px rgba(10, 20, 50, .55); padding: 8px; width: 300px; }
+.ui3-card { background: var(--c); border: 1px solid var(--ln); border-radius: 18px; box-shadow: 0 30px 60px -24px rgba(10, 20, 50, .55); padding: 8px; width: min(300px, 100%); }
 
 /* the model picker */
 .mp-title { padding: 8px 12px 6px; color: var(--mu); font-size: 13px; }
@@ -123,7 +123,7 @@
 @media (max-width: 980px) { .feat-grid { grid-template-columns: 1fr; } }
 
 /* the apps directory card */
-.apps3 { width: 360px; padding: 14px; }
+.apps3 { width: min(360px, 100%); padding: 14px; }
 .apps3-search { display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 12px; border-radius: 10px; background: #1c1c1c; box-shadow: inset 0 0 0 1px var(--ln); color: var(--mu); }
 .apps3-search em { font-style: normal; color: var(--tx); }
 .apps3-h { margin: 14px 4px 6px; color: var(--mu); font-size: 12.5px; }
@@ -136,7 +136,7 @@
 .apps3-shim { height: 46px; border-radius: 10px; margin-top: 4px; background: linear-gradient(90deg, #2a2a2a 20%, #353535 50%, #2a2a2a 80%); background-size: 200% 100%; animation: shim 1.4s linear infinite; }
 
 /* a chat card used on the feature pages */
-.ch3 { width: 380px; padding: 16px; display: grid; gap: 12px; }
+.ch3 { width: min(380px, 100%); padding: 16px; display: grid; gap: 12px; }
 .ch3-u { justify-self: end; max-width: 85%; background: #2f6bff; color: #fff; padding: 9px 14px; border-radius: 16px; }
 .ch3-u.tint { background: var(--tint, #2f6bff); }
 .ch3-m { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; }
@@ -161,7 +161,7 @@
 .ch3-pop small { color: var(--mu); margin-left: auto; font-size: 12px; }
 
 /* the team list */
-.team3 { width: 360px; padding: 10px; display: grid; gap: 2px; }
+.team3 { width: min(360px, 100%); padding: 10px; display: grid; gap: 2px; }
 .team3-row { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; padding: 8px; border-radius: 12px; }
 .team3-row [data-wisp] { width: 44px; height: 44px; display: block; }
 .team3-row b { font-weight: 600; }

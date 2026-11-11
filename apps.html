@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" class="lp-light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,14 +24,39 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site/site.css?v=4">
-<link rel="stylesheet" href="/assets/site/live.css?v=7">
+<link rel="stylesheet" href="/assets/site/site.css?v=6">
+<link rel="stylesheet" href="/assets/site/live.css?v=8">
 <link rel="stylesheet" href="/assets/site/sky.css?v=9">
 <link rel="stylesheet" href="/assets/site/clean.css?v=52">
-<link rel="stylesheet" href="/assets/site/v3.css?v=3">
+<link rel="stylesheet" href="/assets/site/v3.css?v=4">
+<link rel="stylesheet" href="/assets/site/landing.css?v=81">
+<link rel="stylesheet" href="/assets/site/pages.css?v=10">
+<style>
+  .phero { position: relative; overflow: hidden; }
+  .phero .hero-in { position: relative; z-index: 2; }
+  .apps-stat { margin-top: 34px; display: inline-flex; align-items: baseline; gap: 14px; flex-wrap: wrap; justify-content: center;
+    padding: 14px 26px; border-radius: 999px; background: #fff; border: 1.5px solid rgba(12,20,48,.18);
+    box-shadow: 0 1px 2px rgba(12,20,48,.08), 0 18px 36px -18px rgba(10,30,110,.45); color: #0b1020; }
+  .apps-stat b { font: 600 clamp(30px, 4vw, 44px)/1 "Geist", system-ui, sans-serif; letter-spacing: -.03em; font-variant-numeric: tabular-nums; color: #2f6bff; }
+  .apps-stat span { font-size: 15px; color: #4a5368; }
+  .apps3-search em b { color: #fff; font-weight: 600; }
+  .apps3-sk { display: flex; align-items: center; gap: 11px; padding: 8px 6px; }
+  .apps3-sk i, .apps3-sk u { display: block; border-radius: 8px; background: linear-gradient(90deg, #303030 20%, #3d3d3d 50%, #303030 80%); background-size: 200% 100%; animation: shim 1.6s ease-in-out infinite; }
+  .apps3-sk i { width: 30px; height: 30px; flex: none; }
+  .apps3-sk span { flex: 1; display: grid; gap: 7px; }
+  .apps3-sk u { height: 9px; border-radius: 5px; width: 62%; }
+  .apps3-sk u + u { width: 84%; height: 8px; opacity: .7; }
+  .apps3-more { margin: 8px 4px 2px; color: var(--mu); font-size: 12.5px; display: flex; align-items: center; gap: 8px; }
+  .apps3-more::before { content: ""; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #3d3d3d; border-top-color: #6f9bff; animation: apps3spin .9s linear infinite; }
+  @keyframes apps3spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .apps3-sk i, .apps3-sk u, .apps3-more::before { animation: none; } }
+  @media (max-width: 700px) {
+    .apps-stat { border-radius: 22px; padding: 14px 18px; gap: 6px; flex-direction: column; align-items: center; text-align: center; }
+  }
+</style>
 <script>document.documentElement.classList.add('js');</script>
 </head>
-<body>
+<body class="pp-apps">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="knot" viewBox="0 0 4295 4295"><path transform="translate(0 0)" fill-rule="evenodd" d="M3639 2160C3639 2185.8 3637.38 2211.8 3634.08 2237.41C3630.78 2263.02 3625.87 2288.65 3619.2 2313.68C3612.52 2338.71 3604.21 2363.58 3594.02 2387.6C3583.82 2411.62 3569.74 2434.69 3558.04 2457.8C3546.33 2480.9 3535.05 2503.65 3523.79 2526.23C3512.52 2548.81 3501.54 2571.11 3490.46 2593.27C3479.39 2615.42 3468.45 2637.36 3457.34 2659.16C3446.24 2680.95 3435.14 2702.56 3423.83 2724.03C3412.51 2745.5 3401.11 2766.8 3389.45 2787.97C3377.8 2809.13 3365.98 2830.14 3353.92 2851.04C3341.85 2871.94 3329.57 2892.68 3317.06 2913.35C3304.55 2934.03 3291.81 2954.56 3278.88 2975.09C3265.94 2995.62 3252.77 3016.04 3239.45 3036.55C3226.13 3057.07 3212.6 3077.51 3198.95 3098.18C3185.3 3118.85 3171.48 3139.51 3157.56 3160.56C3143.63 3181.6 3129.58 3202.74 3115.42 3224.43C3101.26 3246.12 3088.32 3269.85 3072.62 3290.69C3056.91 3311.53 3039.53 3331.16 3021.19 3349.46C3002.85 3367.76 2983.11 3384.82 2962.58 3400.48C2942.05 3416.15 2920.35 3430.55 2898 3443.45C2875.65 3456.35 2852.33 3467.94 2828.5 3477.89C2804.67 3487.84 2780.02 3496.41 2755 3503.14C2729.99 3509.87 2704.3 3515.11 2678.4 3518.29C2652.5 3521.47 2625.48 3520.82 2599.62 3522.23C2573.75 3523.65 2548.41 3525.25 2523.23 3526.79C2498.04 3528.32 2473.23 3529.96 2448.51 3531.45C2423.79 3532.93 2399.32 3534.43 2374.89 3535.71C2350.46 3536.99 2326.2 3538.18 2301.95 3539.12C2277.7 3540.05 2253.55 3540.83 2229.39 3541.32C2205.23 3541.81 2181.13 3542.08 2157 3542.08C2132.87 3542.08 2108.77 3541.81 2084.61 3541.32C2060.45 3540.83 2036.3 3540.05 2012.05 3539.12C1987.8 3538.18 1963.54 3536.99 1939.11 3535.71C1914.68 3534.43 1890.21 3532.93 1865.49 3531.45C1840.77 3529.96 1815.96 3528.32 1790.77 3526.79C1765.59 3525.25 1740.25 3523.65 1714.38 3522.23C1688.52 3520.82 1661.5 3521.47 1635.6 3518.29C1609.7 3515.11 1584.01 3509.87 1559 3503.14C1533.98 3496.41 1509.33 3487.84 1485.5 3477.89C1461.67 3467.94 1438.35 3456.35 1416 3443.45C1393.65 3430.55 1371.95 3416.15 1351.42 3400.48C1330.89 3384.82 1311.15 3367.76 1292.81 3349.46C1274.47 3331.16 1257.09 3311.53 1241.38 3290.69C1225.68 3269.85 1212.74 3246.12 1198.58 3224.43C1184.42 3202.74 1170.37 3181.6 1156.44 3160.56C1142.52 3139.51 1128.7 3118.85 1115.05 3098.18C1101.4 3077.51 1087.87 3057.07 1074.55 3036.55C1061.23 3016.04 1048.06 2995.62 1035.12 2975.09C1022.19 2954.56 1009.45 2934.03 996.94 2913.35C984.43 2892.68 972.15 2871.94 960.08 2851.04C948.02 2830.14 936.2 2809.13 924.55 2787.97C912.89 2766.8 901.49 2745.5 890.17 2724.03C878.86 2702.56 867.76 2680.95 856.66 2659.16C845.55 2637.36 834.61 2615.42 823.54 2593.27C812.46 2571.11 801.48 2548.81 790.21 2526.23C778.95 2503.65 767.67 2480.9 755.96 2457.8C744.26 2434.69 730.18 2411.62 719.98 2387.6C709.79 2363.58 701.48 2338.71 694.8 2313.68C688.13 2288.65 683.22 2263.02 679.92 2237.41C676.62 2211.8 675 2185.8 675 2160C675 2134.2 676.62 2108.2 679.92 2082.59C683.22 2056.98 688.13 2031.35 694.8 2006.32C701.48 1981.29 709.79 1956.42 719.98 1932.4C730.18 1908.38 744.26 1885.31 755.96 1862.2C767.67 1839.1 778.95 1816.35 790.21 1793.77C801.48 1771.19 812.46 1748.89 823.54 1726.73C834.61 1704.58 845.55 1682.64 856.66 1660.84C867.76 1639.05 878.86 1617.44 890.17 1595.97C901.49 1574.5 912.89 1553.2 924.55 1532.03C936.2 1510.87 948.02 1489.86 960.08 1468.96C972.15 1448.06 984.43 1427.32 996.94 1406.65C1009.45 1385.97 1022.19 1365.44 1035.12 1344.91C1048.06 1324.38 1061.23 1303.96 1074.55 1283.45C1087.87 1262.93 1101.4 1242.49 1115.05 1221.82C1128.7 1201.15 1142.52 1180.49 1156.44 1159.44C1170.37 1138.4 1184.42 1117.26 1198.58 1095.57C1212.74 1073.88 1225.68 1050.15 1241.38 1029.31C1257.09 1008.47 1274.47 988.84 1292.81 970.54C1311.15 952.24 1330.89 935.18 1351.42 919.52C1371.95 903.85 1393.65 889.45 1416 876.55C1438.35 863.65 1461.67 852.06 1485.5 842.11C1509.33 832.16 1533.98 823.59 1559 816.86C1584.01 810.13 1609.7 804.89 1635.6 801.71C1661.5 798.53 1688.52 799.18 1714.38 797.77C1740.25 796.35 1765.59 794.75 1790.77 793.21C1815.96 791.68 1840.77 790.04 1865.49 788.55C1890.21 787.07 1914.68 785.57 1939.11 784.29C1963.54 783.01 1987.8 781.82 2012.05 780.88C2036.3 779.95 2060.45 779.17 2084.61 778.68C2108.77 778.19 2132.87 777.92 2157 777.92C2181.13 777.92 2205.23 778.19 2229.39 778.68C2253.55 779.17 2277.7 779.95 2301.95 780.88C2326.2 781.82 2350.46 783.01 2374.89 784.29C2399.32 785.57 2423.79 787.07 2448.51 788.55C2473.23 790.04 2498.04 791.68 2523.23 793.21C2548.41 794.75 2573.75 796.35 2599.62 797.77C2625.48 799.18 2652.5 798.53 2678.4 801.71C2704.3 804.89 2729.99 810.13 2755 816.86C2780.02 823.59 2804.67 832.16 2828.5 842.11C2852.33 852.06 2875.65 863.65 2898 876.55C2920.35 889.45 2942.05 903.85 2962.58 919.52C2983.11 935.18 3002.85 952.24 3021.19 970.54C3039.53 988.84 3056.91 1008.47 3072.62 1029.31C3088.32 1050.15 3101.26 1073.88 3115.42 1095.57C3129.58 1117.26 3143.63 1138.4 3157.56 1159.44C3171.48 1180.49 3185.3 1201.15 3198.95 1221.82C3212.6 1242.49 3226.13 1262.93 3239.45 1283.45C3252.77 1303.96 3265.94 1324.38 3278.88 1344.91C3291.81 1365.44 3304.55 1385.97 3317.06 1406.65C3329.57 1427.32 3341.85 1448.06 3353.92 1468.96C3365.98 1489.86 3377.8 1510.87 3389.45 1532.03C3401.11 1553.2 3412.51 1574.5 3423.83 1595.97C3435.14 1617.44 3446.24 1639.05 3457.34 1660.84C3468.45 1682.64 3479.39 1704.58 3490.46 1726.73C3501.54 1748.89 3512.52 1771.19 3523.79 1793.77C3535.05 1816.35 3546.33 1839.1 3558.04 1862.2C3569.74 1885.31 3583.82 1908.38 3594.02 1932.4C3604.21 1956.42 3612.52 1981.29 3619.2 2006.32C3625.87 2031.35 3630.78 2056.98 3634.08 2082.59C3637.38 2108.2 3639 2134.2 3639 2160ZM1690.33 1960A133.33 133.33 0 0 1 1957 1960V2226.67A133.33 133.33 0 0 1 1690.33 2226.67ZM2357 1960A133.33 133.33 0 0 1 2623.67 1960V2226.67A133.33 133.33 0 0 1 2357 2226.67Z"/></symbol>
@@ -69,26 +94,44 @@
   <svg class="m-light" viewBox="560 560 3170 3170" aria-hidden="true"><path fill="#FFFFFF" d="M1690.33 1960A133.33 133.33 0 0 1 1957 1960V2226.67A133.33 133.33 0 0 1 1690.33 2226.67ZM2357 1960A133.33 133.33 0 0 1 2623.67 1960V2226.67A133.33 133.33 0 0 1 2357 2226.67Z"/><use href="#knot" fill="#2F6BFF" width="4295" height="4295"/></svg>
 </template>
 
-<header class="nav" id="nav">
-  <div class="wrap">
-    <a class="brand" href="/" aria-label="Codeply home"><span class="mark" data-mark></span>Codeply</a>
-    <nav class="links" aria-label="Main">
-      <a href="/codeply">Codeply</a>
-      <a href="/wisp">Wisp</a>
-      <a href="/apps">Apps</a>
-      <a href="/cli">CLI</a>
-      <a href="/docs">Docs</a>
-      <a href="/changelog">Changelog</a>
-    </nav>
-    <div class="nav-end">
-      <a class="btn btn-primary btn-sm dl" href="/download">Download</a>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
+<header class="lp-nav" id="nav">
+  <svg class="lp-sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="nv-cli" viewBox="0 0 200 120"><g stroke="#0d0d0d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="27" y="21" width="154" height="90" rx="11" fill="#ff8a3d"/><rect x="19" y="12" width="154" height="90" rx="11" fill="#fff"/><path d="M19 23a11 11 0 0 1 11-11h132a11 11 0 0 1 11 11v14H19z" fill="#2f6bff"/><circle cx="33" cy="25" r="3.4" fill="#ff4d4d" stroke-width="2.4"/><circle cx="45" cy="25" r="3.4" fill="#ff8a3d" stroke-width="2.4"/><circle cx="57" cy="25" r="3.4" fill="#fff" stroke-width="2.4"/><path d="M35 53l13 9-13 9" fill="none" stroke-width="4.5"/><path d="M58 62h32" fill="none" stroke-width="4.5"/><rect x="98" y="51" width="12" height="22" fill="#ff8a3d"/><path d="M35 88h26" fill="none" stroke-width="4"/><path d="M69 88h20" fill="none" stroke="#2f6bff" stroke-width="4.5"/></g></symbol>
+    <symbol id="nv-app" viewBox="0 0 200 120"><g stroke="#0d0d0d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="24" y="42" width="168" height="76" rx="11" fill="#ff8a3d"/><path d="M128 4l22 16-8 25h-28l-8-25z" fill="#2f6bff"/><ellipse cx="119" cy="22" rx="3.2" ry="4.6" fill="#0d0d0d" stroke="none"/><ellipse cx="137" cy="22" rx="3.2" ry="4.6" fill="#0d0d0d" stroke="none"/><rect x="16" y="34" width="168" height="76" rx="11" fill="#fff"/><path d="M17.5 50h40v60h-29a11 11 0 0 1-11-11z" fill="#dbe6ff" stroke="none"/><path d="M16 50h168M58 50v59" fill="none" stroke-width="3"/><circle cx="28" cy="42" r="2.8" fill="#ff4d4d" stroke-width="2.2"/><circle cx="38" cy="42" r="2.8" fill="#ff8a3d" stroke-width="2.2"/><circle cx="48" cy="42" r="2.8" fill="#fff" stroke-width="2.2"/><path d="M27 62h20M27 74h14M27 86h18" fill="none" stroke-width="3.5"/><rect x="70" y="58" width="72" height="18" rx="9" fill="#2f6bff"/><rect x="100" y="84" width="76" height="18" rx="9" fill="#ff8a3d"/><ellipse cx="110" cy="35" rx="7.5" ry="5" fill="#2f6bff"/><ellipse cx="146" cy="35" rx="7.5" ry="5" fill="#2f6bff"/></g></symbol>
+    <symbol id="nv-mob" viewBox="0 0 200 120"><g stroke="#0d0d0d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="51" y="12" width="60" height="104" rx="13" fill="#ff8a3d"/><rect x="44" y="6" width="60" height="104" rx="13" fill="#fff"/><path d="M66 15h16" fill="none" stroke-width="3"/><circle cx="58" cy="36" r="6" fill="#ff8a3d" stroke-width="3"/><rect x="50" y="72" width="32" height="13" rx="6.5" fill="#fff" stroke-width="3"/><rect x="60" y="91" width="36" height="13" rx="6.5" fill="#ff8a3d" stroke-width="3"/><path d="M92 16h56a10 10 0 0 1 10 10v18a10 10 0 0 1-10 10H112L92 66l4-12h-4a10 10 0 0 1-10-10V26a10 10 0 0 1 10-10z" fill="#2f6bff"/><circle cx="104" cy="35" r="4" fill="#fff" stroke-width="2.4"/><circle cx="120" cy="35" r="4" fill="#fff" stroke-width="2.4"/><circle cx="136" cy="35" r="4" fill="#fff" stroke-width="2.4"/><circle cx="46" cy="10" r="7" fill="#ff4d4d"/></g></symbol>
+  </svg>
+  <div class="lp-shell" id="lpShell">
+    <div class="lp-bar">
+      <a class="lp-brand" href="/" aria-label="Codeply home"><span class="mark" data-mark></span>Codeply</a>
+      <nav class="lp-links" aria-label="Main">
+        <button type="button" class="lp-dd" data-panel="products" aria-expanded="false">Products<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></button>
+        <a href="/wisp">Wisp</a>
+        <a href="/apps">Apps</a>
+        <a href="/docs">Docs</a>
+        <a href="/changelog">Changelog</a>
+      </nav>
+      <a class="lp-cta" href="/download">Download</a>
+      <button type="button" class="lp-burger" data-panel="menu" aria-expanded="false" aria-label="Open menu"><i></i><i></i></button>
+    </div>
+    <div class="lp-panels">
+      <div class="lp-panel" data-for="products">
+        <div class="lp-pgrid">
+          <a class="lp-pcard" href="/cli"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-cli"/></svg><b>CLI</b><span>Codeply in your terminal</span></a>
+          <a class="lp-pcard" href="/codeply"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-app"/></svg><b>Codeply app</b><span>Your agent on the desktop</span></a>
+          <a class="lp-pcard" href="/mobile"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-mob"/></svg><b>Mobile</b><span>Talk to it from anywhere</span></a>
+        </div>
+      </div>
+      <div class="lp-panel lp-mpanel" data-for="menu">
+        <div class="lp-mprod"><a class="lp-mcard" href="/cli"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-cli"/></svg><span><b>CLI</b><small>Codeply in your terminal</small></span></a><a class="lp-mcard" href="/codeply"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-app"/></svg><span><b>Codeply app</b><small>Your agent on the desktop</small></span></a><a class="lp-mcard" href="/mobile"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-mob"/></svg><span><b>Mobile</b><small>Talk to it from anywhere</small></span></a></div>
+        <div class="lp-mlinks">
+          <a href="/wisp">Wisp</a><a href="/apps">Apps</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a>
+        </div>
+        <div class="lp-mfoot"><a href="/download" class="lp-cta wide">Download Codeply</a></div>
+      </div>
     </div>
   </div>
-  <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/specialists">Specialists</a><a href="/apps">Apps</a><a href="/voice">Voice mode</a><a href="/mobile">Mobile</a><a href="/cli">Codeply CLI</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a>
-    <a class="btn btn-primary" href="/download">Download</a>
-  </nav>
+  <button id="menuBtn" hidden aria-hidden="true" tabindex="-1"></button>
+  <nav id="mnav" hidden aria-hidden="true"></nav>
 </header>
 
 <main id="top">
@@ -99,6 +142,7 @@
       <h1 class="rv d1">Every app you use,<br><span class="dim">one click away.</span></h1>
       <p class="lede rv d2">Connect any app with a remote MCP server. Codeply uses it in your chats and Build chats, and asks before anything that writes.</p>
       <div class="ctas rv d3"><a class="btn btn-primary" href="/download">Download Codeply</a><a class="btn btn-ghost" href="/changelog#v3">What's new in 3.0</a></div>
+      <div class="apps-stat rv d3"><b>34,000+</b><span>apps in the official MCP Registry, one search away</span></div>
     </div>
   </section>
   <section class="cs">
@@ -108,14 +152,16 @@
       </div>
       <div class="row rv">
         <div class="panel p-sky"><div class="panel-in"><div class="ui3" aria-hidden="true"><div class="ui3-card apps3">
-            <div class="apps3-search"><svg data-oi="search"></svg><em>Search 34,000+ apps</em></div>
+            <div class="apps3-search"><svg data-oi="search"></svg><em>Search <b>34,000+</b> apps</em></div>
             <div class="apps3-h">Connected</div>
             <div class="apps3-row"><img src="/assets/github.webp" alt=""><div><b>GitHub</b><small>Issues, pull requests, Actions</small></div><em class="ok">Reconnect</em></div>
             <div class="apps3-h">Featured</div>
             <div class="apps3-row"><img src="/assets/slack.webp" alt=""><div><b>Slack</b><small>Read and post in your channels</small></div><em>Connect</em></div>
             <div class="apps3-row"><img src="/assets/vercel.webp" alt=""><div><b>Vercel</b><small>Deploys, domains, logs</small></div><em>Connect</em></div>
             <div class="apps3-row"><img src="/assets/supabase.webp" alt=""><div><b>Supabase</b><small>Tables, auth, storage</small></div><em>Connect</em></div>
-            <div class="apps3-shim"></div>
+            <div class="apps3-sk"><i></i><span><u></u><u></u></span></div>
+            <div class="apps3-sk"><i></i><span><u></u><u></u></span></div>
+            <div class="apps3-more">Searching 34,000+ apps</div>
           </div></div></div></div>
         <div class="row-copy"><h3>34,000+ apps, one search</h3><p>Search the official MCP Registry and connect in one click. 22 Featured apps are each vendor's own server, checked live. Add any other by URL with a sign-in or a key. An app Codeply has not reviewed says so and asks once more before connecting.</p></div>
       </div>
@@ -152,8 +198,8 @@
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
+<footer class="lp-foot">
+  <div class="lp-wrap">
     <div class="ft-top">
       <div class="ft-brand"><a class="brand" href="/"><span class="mark" data-mark></span>Codeply</a><p>Ambient intelligence for your computer and phone.</p></div>
       <nav aria-label="Products"><b>Products</b><a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/specialists">Specialists</a><a href="/apps">Apps</a><a href="/voice">Voice mode</a><a href="/mobile">Mobile</a><a href="/cli">Codeply CLI</a></nav>
@@ -165,10 +211,11 @@
 </footer>
 <script src="/assets/site/bot-avatar.js?v=2"></script>
 <script src="/assets/site/oi.js?v=1"></script>
-<script src="/assets/site/live.js?v=18"></script>
-<script src="/assets/site/wisp.js?v=6"></script>
+<script src="/assets/site/live.js?v=73"></script>
+<script src="/assets/site/wisp.js?v=7"></script>
 <script src="/assets/site/v3.js?v=2"></script>
 <script src="/assets/site/site.js?v=10"></script>
-<script src="/assets/site/sky.js?v=7"></script>
+<script src="/assets/site/sky.js?v=10"></script>
+<script src="/assets/site/landing.js?v=74"></script>
 </body>
 </html>

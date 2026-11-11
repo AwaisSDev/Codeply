@@ -20,7 +20,7 @@
 .tl .br { display: block; color: #a8adb3; }
 .cmp { flex: none; margin-top: 4px; padding: 5px 10px; border: 1px solid #4a4f55; border-radius: 6px; white-space: nowrap; overflow: hidden; }
 .cmp .ph { color: #80868b; }
-.tcur { display: inline-block; width: .6em; height: 1.1em; margin-left: 1px; vertical-align: -.2em; background: #e3e3e3; animation: tblink 1s steps(1) infinite; }
+.tcur { display: inline-block; width: .6em; height: 1.1em; margin-left: 1px; vertical-align: -.2em; background: #e3e3e3; }
 .cmp.typing .ph { display: none; }
 .cft { flex: none; display: flex; justify-content: space-between; padding: 6px 12px 0; }
 @media (max-width: 560px) { .tty { height: 320px; font-size: 10px; padding: 12px; } .tball { grid-template-columns: repeat(10, 4px); grid-auto-rows: 4px; } .cb { padding: 10px 14px; } .cft { padding: 6px 4px 0; } }
@@ -122,8 +122,8 @@
 .pa-a ul { margin: 0; padding-left: 20px; list-style: disc; display: grid; gap: 6px; }
 .pa-a li { opacity: 0; transform: translateY(4px); transition: opacity .35s, transform .35s; }
 .pa-a li.on { opacity: 1; transform: none; }
-.pa-sugg { display: flex; gap: 8px; padding: 0 12px 10px; overflow: hidden; transition: opacity .3s, max-height .4s; max-height: 80px; }
-.pa-sugg span { flex: none; padding: 10px 12px; border-radius: 14px; border: 1px solid #2c2c2c; background: #121212; font-size: 12.5px; color: #9a9a9a; line-height: 1.35; }
+.pa-sugg { display: flex; gap: 8px; padding: 0 12px 10px; overflow: hidden; transition: opacity .3s, max-height .4s; max-height: 140px; }
+.pa-sugg span { flex: 1 1 0; min-width: 0; padding: 10px 12px; border-radius: 14px; border: 1px solid #2c2c2c; background: #121212; font-size: 12.5px; color: #9a9a9a; line-height: 1.35; }
 .pa-sugg b { display: block; color: #ececec; font-weight: 600; font-size: 13.5px; }
 .pa-comp { padding: 0 12px 30px; }
 .pa-ctx { padding: 0 2px 8px; }
@@ -133,7 +133,7 @@
 .pa-in { position: relative; background: #161616; border: 1px solid #2c2c2c; border-bottom: 0; border-radius: 22px 22px 0 0; padding: 14px 16px 6px; font-size: 16px; min-height: 46px; }
 .pa-ph { color: #7a7a7a; }
 .pa-typed { color: #ececec; }
-.pa-car { display: none; width: 2px; height: 18px; background: #ececec; vertical-align: -3px; margin-left: 1px; animation: tblink 1s steps(1) infinite; }
+.pa-car { display: none; width: 2px; height: 18px; background: #ececec; vertical-align: -3px; margin-left: 1px; }
 .pa-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 10px 10px; background: #161616; border: 1px solid #2c2c2c; border-top: 0; border-radius: 0 0 22px 22px; }
 .pa-send { width: 36px; height: 36px; border-radius: 50%; background: #f2f2f2; color: #0b0b0b; display: grid; place-items: center; }
 .pa-send svg { width: 18px; height: 18px; }
@@ -237,7 +237,7 @@
 .ap-box { background: #2b2b2b; border: 1px solid #383838; border-radius: 18px; padding: 14px 16px 10px; }
 .ap-in { min-height: 26px; font-size: 15px; }
 .ap-ph { color: #8f8f8f; }
-.ap-car { display: none; width: 2px; height: 18px; background: #ececec; vertical-align: -3px; margin-left: 1px; animation: tblink 1s steps(1) infinite; }
+.ap-car { display: none; width: 2px; height: 18px; background: #ececec; vertical-align: -3px; margin-left: 1px; }
 .ap-row2 { display: flex; align-items: center; gap: 14px; margin-top: 16px; }
 .ap-row2 > i svg { width: 18px; height: 18px; color: #d6d6d6; }
 .ap-appr { display: inline-flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 500; }
@@ -259,6 +259,36 @@
 .ap.did .ap-did .t { display: inline-flex; }
 .ap.answered .ap-a { opacity: 1; transform: none; }
 .ap.changed .ap-chg { opacity: 1; }
+
+/* a live window: the summary line opens its steps, Undo / Redo flips the change */
+.ap.did .ap-did { cursor: pointer; user-select: none; }
+.ap.did .ap-did:hover { color: #d4d4d4; }
+.ap-did:focus-visible, .ap-chg em:focus-visible { outline: 2px solid #5b86ff; outline-offset: 3px; border-radius: 6px; }
+.ap-did .t svg { transition: transform .3s ease; }
+.ap.steps-open .ap-did .t svg { transform: rotate(90deg); }
+.ap-steps { display: grid; grid-template-rows: 0fr; margin-top: -18px; transition: grid-template-rows .35s ease, margin-top .35s ease; }
+.ap-steps-in { min-height: 0; overflow: hidden; display: grid; gap: 2px; align-content: start; }
+.ap.steps-open .ap-steps { grid-template-rows: 1fr; margin-top: -6px; }
+.ap-st { display: flex; align-items: center; gap: 9px; height: 26px; font-size: 13.5px; color: var(--mu); opacity: 0; transform: translateY(-3px); transition: opacity .2s, transform .2s; white-space: nowrap; }
+.ap.steps-open .ap-st { opacity: 1; transform: none; transition: opacity .3s calc(var(--k) * 45ms + 90ms), transform .3s calc(var(--k) * 45ms + 90ms); }
+.ap-st svg { width: 15px; height: 15px; flex: none; }
+.ap-st span { color: #bdbdbd; }
+.ap-st code { font: 13px ui-monospace, Consolas, monospace; color: #e2e2e2; overflow: hidden; text-overflow: ellipsis; }
+.ap-st s { text-decoration: none; font: 12px ui-monospace, Consolas, monospace; margin-left: -3px; }
+.ap-st s.a { color: #4ade80; } .ap-st s.d { color: #f87171; }
+.ap-st small { font-size: 12.5px; color: #7d7d7d; margin-left: 2px; }
+.ap.steps-open .ap-feed { overflow-y: auto !important; scrollbar-width: none; }
+.ap.steps-open .ap-feed::-webkit-scrollbar { display: none; }
+.ap.steps-open .ap-feed > * { flex: none; }
+.ap-chg u { text-decoration: none; }
+.ap-chg em { cursor: pointer; transition: border-color .2s, background-color .2s; }
+.ap-chg em:hover { border-color: #5a5a5a; background: rgba(255, 255, 255, .05); }
+.ap-chg .c2, .ap-chg .u2 { display: none; }
+.ap.undone .ap-chg .c1, .ap.undone .ap-chg .u1 { display: none; }
+.ap.undone .ap-chg .c2, .ap.undone .ap-chg .u2 { display: inline; }
+.ap-a p, .ap-a ul { transition: opacity .3s; }
+.ap.undone .ap-a p, .ap.undone .ap-a ul { opacity: .4; }
+@media (prefers-reduced-motion: reduce) { .ap-steps, .ap-st, .ap-did .t svg { transition: none; } }
 
 /* Wisp keeps solid black dot eyes wherever he sits, even inside icon-styled mockups */
 .wisp-el svg { stroke: none !important; }

@@ -13,6 +13,7 @@
       steps.forEach(function (s) { timers.push(setTimeout(s[1], s[0])); });
       timers.push(setTimeout(function () { if (on) play(); }, every));
     }
+    el._hold = function () { on = false; clear(); };
     onView(el, function (v) { on = v; if (v) play(); else clear(); });
   }
 
@@ -103,9 +104,9 @@
           '<div class="pa-a"><p>' + S.answer + '</p><ul>' + S.list.map(function (l) { return '<li>' + l + '</li>'; }).join('') + '</ul></div>' +
         '</div>' +
       '</div>' +
-      '<div class="pa-sugg"><span><b>Explain a concept</b>simply, with an example</span><span><b>Draft a reply</b>short and friendly</span><span><b>Check my email</b>what needs a reply</span></div>' +
+      '<div class="pa-sugg"><span><b>Explain a concept</b>simply, with an example</span><span><b>Draft a reply</b>short and friendly</span></div>' +
       '<div class="pa-comp">' + (S.chip ? '<div class="pa-ctx">' + S.chip + '</div>' : '') +
-        '<div class="pa-in"><span class="pa-ph">' + S.ph + '</span><span class="pa-typed"></span><span class="pa-car"></span></div>' +
+        '<div class="pa-in"><span class="pa-ph">' + S.ph + '</span><span class="pa-typed"></span></div>' +
         '<div class="pa-row"><span class="pa-ib sm">' + A.plus + '</span><span class="pa-send">' + A.voice + '</span></div>' +
       '</div></div>';
   }
@@ -187,8 +188,6 @@
         grp(oi('cloud'), 'Cloud', []) +
         grp(oi('folder-open'), 'lumen-site', [['Dark mode on settings', 'cur'], ['Fix failing npm test'], ['Landing page hero']]) +
         grp(oi('folder-open'), 'landing-page', [['Plan the pricing page'], ['Speed up image uploads']]) +
-        grp(oi('folder'), 'api-server', null) +
-        grp(oi('folder'), 'mobile-app', null) +
       '</div>' +
       '<div class="ap-acct"><span class="av">YO</span><b>you@yourmail.com</b><i title="Settings">' + oi('settings') + '</i></div></aside>';
   }
@@ -203,15 +202,20 @@
             '<div class="ap-feed">' +
               '<div class="ap-u">Add dark mode to the settings page and make it remember my choice</div>' +
               '<div class="ap-did"><i data-wisp="sm" data-mood="thinking"></i><span class="shimmer">Brewing an answer</span><span class="t">Read Settings.tsx, edited 3 files, ran 2 commands, checked 2 pages ' + AP.gt + '</span></div>' +
+              '<div class="ap-steps" aria-hidden="true"><div class="ap-steps-in">' +
+                [['file', 'Read', 'src/Settings.tsx', ''], ['edit', 'Edited', 'src/Settings.tsx', '<s class="a">+18</s> <s class="d">-2</s>'], ['edit', 'Edited', 'src/theme.ts', '<s class="a">+12</s>'], ['edit', 'Edited', 'src/index.css', '<s class="a">+9</s> <s class="d">-1</s>'],
+                 ['terminal', 'Ran', 'npm test', '<small>24 passed</small>'], ['terminal', 'Ran', 'npm run lint', '<small>exit 0</small>'], ['globe', 'Opened', 'localhost:5173/settings', '<small>light, no console errors</small>'], ['globe', 'Opened', 'localhost:5173/settings', '<small>dark, no console errors</small>']].map(function (r, k) {
+                  return '<div class="ap-st" style="--k:' + k + '">' + (r[0] === 'file' ? '<svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/></svg>' : oi(r[0] + '_c')) + '<span>' + r[1] + '</span><code>' + r[2] + '</code>' + r[3] + '</div>';
+                }).join('') + '</div></div>' +
               '<div class="ap-a"><p>Done. <b>Settings</b> has a dark mode switch now, and it remembers your choice.</p><ul>' +
                 '<li><b>Fix:</b> added a <code>theme</code> setting that saves to local storage, and the switch reads it on load (<code>Settings.tsx</code>).</li>' +
                 '<li><b>Checked:</b> I opened the settings page in the browser, light and dark, with no console errors.</li>' +
                 '<li><b>Tests:</b> all 24 pass.</li></ul>' +
-                '<div class="ap-chg"><span>Changed 3 files ' + AP.gt + '</span><em>' + AP.undo + 'Undo</em></div></div>' +
+                '<div class="ap-chg"><span><u class="c1">Changed 3 files</u><u class="c2">Reverted 3 files</u> ' + AP.gt + '</span><em role="button" tabindex="0">' + AP.undo + '<u class="u1">Undo</u><u class="u2">Redo</u></em></div></div>' +
             '</div>' +
           '</div>' +
           '<div class="ap-comp"><div class="ap-ctx">' + oi('folder') + 'lumen-site</div>' +
-            '<div class="ap-box"><div class="ap-in"><span class="ap-ph">Ask Codeply anything, or type / for commands</span><span class="ap-typed"></span><span class="ap-car"></span></div>' +
+            '<div class="ap-box"><div class="ap-in"><span class="ap-ph">Ask Codeply anything, or type / for commands</span><span class="ap-typed"></span></div>' +
             '<div class="ap-row2"><i>' + oi('plus') + '</i><span class="ap-appr">' + oi('shield-check_c') + 'Accept edits' + oi('chevron-down_c') + '</span><span class="sp"></span><span class="ap-model">Haze 2 ' + oi('chevron-down_c') + '</span><span class="ap-send">' + oi('arrow-up_c') + '</span></div></div></div>' +
         '</main>' +
       '</div>';
@@ -223,7 +227,7 @@
     box.querySelectorAll('[data-spec]').forEach(function (el) { el.innerHTML = window.specHTML ? specHTML(el.dataset.spec) : ''; });
     var ask = 'Add dark mode to the settings page and make it remember my choice';
     var typed = box.querySelector('.ap-typed'), lis = box.querySelectorAll('.ap-a li');
-    var steps = [[0, function () { box.classList.remove('typing', 'sent', 'working', 'did', 'answered', 'changed'); typed.textContent = ''; lis.forEach(function (l) { l.classList.remove('on'); }); }]];
+    var steps = [[0, function () { box.classList.remove('typing', 'sent', 'working', 'did', 'answered', 'changed', 'steps-open', 'undone'); box.querySelector('.ap-did').removeAttribute('aria-expanded'); typed.textContent = ''; lis.forEach(function (l) { l.classList.remove('on'); }); }]];
     var t = 1000;
     for (var i = 1; i <= ask.length; i++) (function (i) { steps.push([t + i * 34, function () { box.classList.add('typing'); typed.textContent = ask.slice(0, i); }]); })(i);
     t += ask.length * 34 + 450;
@@ -234,7 +238,46 @@
     lis.forEach(function (l, k) { steps.push([t + 3700 + k * 600, function () { l.classList.add('on'); }]); });
     steps.push([t + 3700 + lis.length * 600 + 300, function () { box.classList.add('changed'); }]);
     loop(box, steps, t + 3700 + lis.length * 600 + 6000);
+
+    // it is a live window: once the answer is in, the summary line opens its steps and Undo / Redo flips the change.
+    // The first touch settles the demo (everything shown) and stops the replay, so the page does not reset under the reader.
+    var did = box.querySelector('.ap-did'), undo = box.querySelector('.ap-chg em'), stepsEl = box.querySelector('.ap-steps');
+    did.setAttribute('role', 'button'); did.setAttribute('tabindex', '0'); did.setAttribute('title', 'Show the steps');
+    function settle() {
+      if (box._hold) box._hold();
+      box.classList.remove('typing', 'working'); box.classList.add('sent', 'did', 'answered', 'changed');
+      typed.textContent = ''; lis.forEach(function (l) { l.classList.add('on'); });
+    }
+    function toggleSteps() {
+      if (!box.classList.contains('did')) return;
+      settle();
+      var open = box.classList.toggle('steps-open');
+      did.setAttribute('aria-expanded', open ? 'true' : 'false'); stepsEl.setAttribute('aria-hidden', open ? 'false' : 'true');
+      did.title = open ? 'Hide the steps' : 'Show the steps';
+    }
+    function toggleUndo() {
+      if (!box.classList.contains('changed')) return;
+      settle();
+      box.classList.toggle('undone');
+    }
+    function key(fn) { return function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } }; }
+    did.addEventListener('click', toggleSteps); did.addEventListener('keydown', key(toggleSteps));
+    undo.addEventListener('click', toggleUndo); undo.addEventListener('keydown', key(toggleUndo));
   });
+
+  // the hero window is sized with zoom (text re-lays out at its real size, so it stays sharp and uncropped);
+  // pages.css switches off the transform scale that sky.js puts on the same element
+  function fitHero() {
+    document.querySelectorAll('.phero .scaler, .drop-frame.scaler').forEach(function (sc) {
+      var ap = sc.firstElementChild;
+      if (!ap || !('zoom' in ap.style) || !sc.clientWidth) return;
+      ap.style.zoom = '';
+      ap.style.zoom = Math.min(1, sc.clientWidth / ap.offsetWidth);
+    });
+  }
+  fitHero();
+  addEventListener('resize', fitHero);
+  addEventListener('load', fitHero);
 
 
   // the self-check card: first just the one-line summary, like the app. A cursor glides in and clicks it,

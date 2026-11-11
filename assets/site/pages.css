@@ -1,0 +1,268 @@
+/* Codeply inner pages in the new look: loaded after landing.css on every page except the homepage.
+   Every public page is light (html.lp-light): soft #f3f5fa page, white cards, dark text, the same blue sky heroes
+   as the homepage and pastel panels. Only real app windows (terminal, chat, phone) stay dark. */
+
+/* ---------- colours ---------- */
+:root, :root[data-theme="light"] {
+  --bg: #f3f5fa; --bg-2: #eef1f8; --panel: #ffffff; --panel-2: #f7f9fc;
+  --line: rgba(12, 20, 48, .1); --line-2: rgba(12, 20, 48, .16);
+  --text: #0b1020; --muted: #4a5368; --faint: #7a8296;
+  --accent: #2f6bff; --accent-2: #0b1020; --ok: #0f9d63; --bad: #d6383d;
+  --btn: #0b1020; --btn-fg: #ffffff; --btn-2: rgba(12, 20, 48, .06);
+  --glow: transparent; --code: #0d0f14; color-scheme: light;
+  /* theme.css (the text pages) */
+  --bg-soft: #ffffff; --bg-sunk: #eef1f8; --line-strong: rgba(12, 20, 48, .16);
+  --fg: #0b1020; --fg-2: #4a5368; --fg-3: #7a8296; --accent-soft: rgba(47, 107, 255, .08);
+  --shadow-window: 0 24px 48px -28px rgba(20, 30, 60, .35);
+}
+html, body { background: var(--lp-bg); color: var(--lp-tx); }
+body { font-family: var(--lp-sans); }
+.wrap { width: min(1200px, calc(100% - 48px)); }
+@media (max-width: 640px) { .wrap { width: calc(100% - 32px); } }
+
+/* ---------- product page heroes: the homepage sky, fading into the page ---------- */
+.phero, .page-hero { position: relative; overflow: hidden; isolation: isolate; color: #fff; padding-top: 150px !important;
+  background: linear-gradient(180deg, #0a2a9e 0, #1442d6 30%, #2a5ee8 55%, #4a7eee 72%, #7ba3f1 83%, #c3d6f8 92%, #eaf0fc 97%, var(--lp-bg) 100%) !important; }
+.phero > .scene, .page-hero > .scene { display: none !important; }
+/* two whole clouds drifting at the edges, never over the words */
+.phero::before, .phero::after, .page-hero::before { content: ""; position: absolute; z-index: -1; pointer-events: none;
+  background: url(/assets/site/lp/cloud-a.webp) center / contain no-repeat; animation: lp-drift 16s ease-in-out infinite alternate; }
+.phero::before, .page-hero::before { inset: auto; width: 520px; height: 300px; right: -170px; top: 70px; }
+.phero::after { inset: auto; width: 380px; height: 220px; left: -170px; top: 560px; transform: scaleX(-1); animation-name: lp-drift-flip; animation-duration: 20s; }
+/* text pages (docs, changelog, blog...) get the same two clouds; clean.css switched the first one off */
+body.textpage .page-hero::before { content: ""; }
+.page-hero::after { content: ""; position: absolute; z-index: -1; pointer-events: none; inset: auto; width: 380px; height: 220px; left: -170px; bottom: 10px; transform: scaleX(-1);
+  background: url(/assets/site/lp/cloud-a.webp) center / contain no-repeat; animation: lp-drift-flip 20s ease-in-out infinite alternate; }
+@media (max-width: 760px) { .page-hero::after { width: 220px; height: 130px; left: -110px; bottom: -10px; } }
+@media (prefers-reduced-motion: reduce) { .page-hero::after { animation: none; } }
+/* each text page arranges its two clouds differently (same image: position, size, flip, speed, opacity) */
+body.tp-docs .page-hero::before { width: 560px; height: 320px; left: -220px; right: auto; top: 30px; transform: scaleX(-1); animation: lp-drift-flip 22s ease-in-out infinite alternate; }
+body.tp-docs .page-hero::after { width: 300px; height: 170px; left: auto; right: -120px; bottom: 30px; transform: none; animation: lp-drift 15s ease-in-out infinite alternate; }
+body.tp-changelog .page-hero::before { width: 640px; height: 360px; right: -200px; top: 120px; animation-duration: 26s; }
+body.tp-changelog .page-hero::after { width: 240px; height: 140px; left: 40px; bottom: auto; top: 50px; opacity: .75; animation-duration: 14s; }
+body.tp-blog .page-hero::before { width: 320px; height: 180px; right: 7%; top: -50px; animation-duration: 18s; }
+body.tp-blog .page-hero::after { width: 360px; height: 200px; left: 5%; bottom: 8px; animation-duration: 24s; }
+body.tp-careers .page-hero::before { width: 440px; height: 250px; left: -140px; right: auto; top: 100px; transform: scaleX(-1); animation: lp-drift-flip 19s ease-in-out infinite alternate; }
+body.tp-careers .page-hero::after { width: 500px; height: 280px; left: auto; right: -210px; bottom: 10px; transform: none; opacity: .85; animation: lp-drift 23s ease-in-out infinite alternate; }
+body.tp-about .page-hero::before { width: 580px; height: 330px; right: -90px; top: 20px; animation-duration: 21s; }
+body.tp-about .page-hero::after { width: 280px; height: 160px; left: -50px; bottom: 40px; animation-duration: 17s; }
+body.tp-privacy .page-hero::before { width: 420px; height: 240px; right: -230px; top: 170px; opacity: .6; animation-duration: 28s; }
+body.tp-privacy .page-hero::after { content: none; }
+body.tp-terms .page-hero::before { content: none; }
+body.tp-terms .page-hero::after { width: 420px; height: 240px; left: -230px; bottom: 20px; opacity: .6; animation-duration: 27s; }
+body.tp-eula .page-hero::before { width: 300px; height: 170px; right: 10%; top: 190px; opacity: .55; animation-duration: 25s; }
+body.tp-eula .page-hero::after { content: none; }
+@media (max-width: 760px) {
+  body.tp-docs .page-hero::before { width: 300px; height: 170px; left: -150px; top: 50px; }
+  body.tp-docs .page-hero::after { width: 200px; height: 115px; right: -90px; bottom: 8px; }
+  body.tp-changelog .page-hero::before { width: 340px; height: 190px; right: -170px; top: 60px; }
+  body.tp-changelog .page-hero::after { width: 170px; height: 100px; left: -40px; top: auto; bottom: 8px; }
+  body.tp-blog .page-hero::before { width: 220px; height: 125px; right: -30px; top: 40px; }
+  body.tp-blog .page-hero::after { width: 240px; height: 135px; left: -70px; bottom: 8px; }
+  body.tp-careers .page-hero::before { width: 230px; height: 130px; left: -130px; top: 74px; }
+  body.tp-careers .page-hero::after { width: 280px; height: 160px; right: -130px; bottom: 8px; }
+  body.tp-about .page-hero::before { width: 320px; height: 180px; right: -110px; top: 36px; }
+  body.tp-about .page-hero::after { width: 190px; height: 110px; left: -80px; bottom: 6px; }
+  body.tp-privacy .page-hero::before { width: 260px; height: 150px; right: -140px; top: 70px; }
+  body.tp-terms .page-hero::after { width: 260px; height: 150px; left: -140px; bottom: 8px; }
+  body.tp-eula .page-hero::before { width: 200px; height: 115px; right: -40px; top: 54px; }
+}
+@media (prefers-reduced-motion: reduce) { body.textpage .page-hero::before, body.textpage .page-hero::after { animation: none !important; } }
+.phero .hero-in { position: relative; z-index: 1; }
+.phero h1, .page-hero h1 { font: 600 clamp(44px, 6.6vw, 92px)/1 var(--lp-sans) !important; letter-spacing: -.055em !important; color: #fff !important; text-wrap: balance; }
+.phero h1 .dim, .page-hero h1 .dim { color: #fff !important; opacity: 1 !important; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; font-size: 1.1em; }
+.phero .lede, .page-hero p { color: rgba(255, 255, 255, .86) !important; font-size: clamp(16px, 1.4vw, 19px) !important; line-height: 1.55; }
+.phero .meta { color: rgba(255, 255, 255, .82) !important; }
+.page-hero { padding-bottom: 90px !important; text-align: center; }
+.page-hero .wrap-narrow { position: relative; z-index: 1; }
+.page-hero .wrap-narrow > p { text-align: center; margin-inline: auto; }
+.page-hero h1 { font-size: clamp(40px, 5.6vw, 76px) !important; }
+@media (max-width: 760px) {
+  .phero::before, .page-hero::before { width: 300px; height: 170px; right: -130px; top: 64px; }
+  .phero::after { width: 240px; height: 140px; left: -120px; top: 420px; }
+}
+
+/* ---------- buttons, everywhere ---------- */
+.btn { border-radius: 999px !important; font-family: var(--lp-sans) !important; font-weight: 600 !important; box-shadow: none !important; transition: transform .3s cubic-bezier(.3, 1.6, .5, 1), background .2s !important; }
+.btn:hover { transform: translateY(-2px) scale(1.02); }
+.btn-primary, .btn-dark { background: #0b1020 !important; color: #fff !important; border: 1px solid #0b1020 !important; }
+.btn-ghost { background: rgba(12, 20, 48, .05) !important; color: var(--lp-tx) !important; border: 1px solid rgba(12, 20, 48, .2) !important; }
+.phero .btn-primary, .phero .btn-dark, .page-hero .btn-primary, .final .btn-primary, .final .btn-dark, .nf .btn-primary, .nf .btn-dark { background: #fff !important; color: #0a1230 !important; border-color: #fff !important; }
+.phero .btn-ghost, .page-hero .btn-ghost, .final .btn-ghost, .nf .btn-ghost { background: rgba(8, 24, 90, .32) !important; color: #fff !important; border-color: rgba(255, 255, 255, .35) !important; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.btn-primary .os-ico, .btn-primary svg { fill: currentColor; }
+
+/* ---------- sections ---------- */
+.cs { padding-top: 120px !important; background: transparent !important; }
+.cs-h, .sec h2 { font: 500 clamp(34px, 4.2vw, 54px)/1.05 var(--lp-sans) !important; letter-spacing: -.045em !important; color: var(--lp-tx) !important; }
+.cs-p { color: var(--lp-tx-2) !important; }
+.row-copy h3, .kn h3, .t3 b, .c4 b { color: var(--lp-tx) !important; font-family: var(--lp-sans) !important; letter-spacing: -.03em; }
+.row-copy p, .kn p, .t3 p, .c4 span, .kn-private { color: var(--lp-tx-2) !important; }
+.link { color: #2f6bff !important; }
+
+/* the product panels are little skies, light blue like the homepage sky; the mockups sit on them with a soft
+   neutral shadow behind (never blue) */
+.panel, .c4-panel { background: radial-gradient(120% 90% at 0% 0%, #f2f9ff 0, rgba(242, 249, 255, 0) 55%), linear-gradient(150deg, #d9eeff 0, #b5dcfa 45%, #8fc8f3 100%) !important;
+  border: 0 !important; box-shadow: none !important; border-radius: 28px !important; }
+.panel-in > *, .c4-art > *, .c4-cmd, .c4-wisp { filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .22)) !important; }
+/* the Wisp page's day tiles: soft pastel panels, no colour glow */
+.kn-vis { background: linear-gradient(160deg, #e9f1ff, #b6c8f6) !important; border: 0 !important; box-shadow: none !important; border-radius: 22px !important; }
+.kn:nth-child(2) .kn-vis { background: linear-gradient(160deg, #e6fbf6, #9fe0d4) !important; }
+.kn:nth-child(3) .kn-vis { background: linear-gradient(160deg, #f1ecff, #c4b5fd) !important; }
+/* nothing in the mockups casts a blue shadow */
+.tf-card, .pv-wrap, .kn-card, .gc, .ui3-card, .mk, .proof { box-shadow: none !important; }
+
+/* the small cards inside the Wisp tiles: white on the pastel panel */
+.kn-card, .kn-u, .kn-a, .kn-srcs span { background: #fff !important; color: var(--lp-tx) !important; border: 0 !important; box-shadow: 0 8px 20px -14px rgba(16, 42, 84, .4) !important; }
+.kn-card p, .kn-card b { color: var(--lp-tx) !important; }
+.kn-app, .kn-app em, .kn-meta, .kn-time small { color: var(--lp-tx-3) !important; }
+.kn-u { background: #0b1020 !important; color: #fff !important; }
+.kn { background: var(--lp-card, #fff) !important; box-shadow: 0 0 0 1px var(--lp-line, rgba(12,20,48,.1)) !important; }
+.kn h3 { color: var(--lp-tx) !important; }
+.kn > p { color: var(--lp-tx-2) !important; }
+.kn-meta { background: rgba(12, 20, 48, .05) !important; }
+.kn-task { background: #fff !important; box-shadow: 0 6px 16px -12px rgba(16, 42, 84, .4) !important; color: var(--lp-tx) !important; }
+.kn-date { background: #fff !important; color: var(--lp-tx) !important; }
+.kn-date small { color: #2f6bff !important; }
+
+/* ---------- download ---------- */
+.dl-card { background: var(--lp-card) !important; border: 1px solid var(--lp-line) !important; box-shadow: none !important; border-radius: 26px !important; color: var(--lp-tx); }
+.dl-card h3, .dl-row b { color: var(--lp-tx) !important; }
+.dl-card .tagline, .dl-row { color: var(--lp-tx-2) !important; }
+.dl-row { border-color: var(--lp-line) !important; }
+.pills span { background: rgba(12, 20, 48, .05) !important; color: var(--lp-tx-2) !important; border-color: var(--lp-line) !important; }
+.dl-card a[style*="1f6bff"] { color: #2f6bff !important; }
+.term { background: #0a0b0f !important; border: 1px solid var(--lp-line) !important; box-shadow: none !important; }
+
+/* ---------- the final call to action: back up into the sky, like the homepage ---------- */
+.final { position: relative; overflow: hidden; isolation: isolate; margin: 40px 16px 0 !important; border-radius: 30px; padding: 150px 0 170px !important; text-align: center;
+  background: linear-gradient(180deg, #0a2a9e 0, #1442d6 40%, #3d74ee 80%, #8db5f5 100%) !important; color: #fff; }
+.final::before, .final::after { content: "" !important; position: absolute; z-index: -1; pointer-events: none; inset: auto;
+  background: url(/assets/site/lp/cloud-a.webp) center / contain no-repeat !important; animation: lp-drift 16s ease-in-out infinite alternate; }
+.final::before { width: 560px; height: 320px; right: -130px; bottom: -110px; }
+.final::after { width: 280px; height: 160px; left: 5%; top: 50px; transform: scaleX(-1); animation-name: lp-drift-flip; }
+.final .mark { display: none !important; }
+.final h2 { font: 600 clamp(38px, 5.4vw, 72px)/1.02 var(--lp-sans) !important; letter-spacing: -.05em !important; color: #fff !important; }
+.final h2 .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; }
+@media (max-width: 760px) { .final::before { width: 320px; height: 180px; } .final { padding: 110px 0 140px !important; } }
+
+/* every product page arranges its hero clouds and its closing-banner clouds differently (mobile keeps the default hero pair) */
+body.pp-codeply .phero::before { width: 600px; height: 340px; right: -210px; top: 30px; animation-duration: 22s; }
+body.pp-codeply .phero::after { width: 340px; height: 200px; left: -200px; top: auto; bottom: 130px; animation-duration: 17s; }
+body.pp-wisp .phero::before { width: 380px; height: 220px; right: -40px; top: 110px; animation-duration: 18s; }
+body.pp-wisp .phero::after { width: 360px; height: 210px; left: 30%; top: auto; bottom: 0; opacity: .8; animation-duration: 26s; }
+body.pp-cli .phero::before { width: 340px; height: 200px; right: 5%; top: -30px; animation-duration: 19s; }
+body.pp-cli .phero::after { width: 440px; height: 250px; left: -150px; top: auto; bottom: 20px; animation-duration: 23s; }
+body.pp-voice .phero::before { width: 560px; height: 320px; right: -230px; top: 200px; animation-duration: 24s; }
+body.pp-voice .phero::after { width: 360px; height: 210px; left: -215px; top: auto; bottom: -10px; animation-duration: 21s; }
+body.pp-download .phero::before { width: 440px; height: 250px; right: -100px; top: 150px; animation-duration: 20s; }
+body.pp-download .phero::after { width: 300px; height: 170px; left: 42%; top: auto; bottom: 10px; opacity: .85; animation-duration: 27s; }
+body.pp-apps .phero::before { width: 500px; height: 290px; right: -150px; top: 20px; animation-duration: 25s; }
+body.pp-apps .phero::after { width: 300px; height: 175px; left: -130px; top: auto; bottom: 20px; animation-duration: 18s; }
+body.pp-specialists .phero::before { width: 360px; height: 210px; right: -60px; top: -20px; animation-duration: 16s; }
+body.pp-specialists .phero::after { width: 500px; height: 290px; left: auto; right: -190px; top: auto; bottom: 20px; transform: none; animation: lp-drift 21s ease-in-out infinite alternate; }
+@media (max-width: 760px) {
+  body[class*="pp-"]:not(.pp-mobile) .phero::before, body[class*="pp-"]:not(.pp-mobile) .phero::after { zoom: .55; }
+  body[class*="pp-"] .final::before, body[class*="pp-"] .final::after { zoom: .6; }
+}
+body.pp-codeply .final::before { left: -150px; right: auto; bottom: -100px; width: 540px; height: 310px; transform: scaleX(-1); animation-name: lp-drift-flip; }
+body.pp-codeply .final::after { left: auto; right: 6%; top: 40px; width: 260px; height: 150px; transform: none; animation-name: lp-drift; }
+body.pp-wisp .final::before { right: -60px; bottom: -120px; width: 640px; height: 360px; animation-duration: 21s; }
+body.pp-wisp .final::after { left: -60px; top: 70px; width: 300px; height: 170px; animation-duration: 25s; }
+body.pp-cli .final::before { right: 20%; bottom: -130px; width: 480px; height: 275px; animation-duration: 19s; }
+body.pp-cli .final::after { left: -100px; top: 30px; width: 340px; height: 195px; animation-duration: 23s; }
+body.pp-voice .final::before { left: -160px; right: auto; bottom: -110px; transform: scaleX(-1); animation-name: lp-drift-flip; animation-duration: 22s; }
+body.pp-voice .final::after { left: auto; right: -60px; top: 60px; width: 340px; height: 195px; transform: none; animation-name: lp-drift; }
+body.pp-download .final::before { right: -200px; bottom: -90px; width: 620px; height: 350px; animation-duration: 24s; }
+body.pp-download .final::after { left: 12%; top: 90px; width: 220px; height: 125px; animation-duration: 18s; }
+body.pp-apps .final::before { left: 25%; right: auto; bottom: -140px; width: 600px; height: 340px; animation-duration: 26s; }
+body.pp-apps .final::after { left: auto; right: 4%; top: 40px; width: 300px; height: 170px; transform: none; animation-name: lp-drift; animation-duration: 17s; }
+body.pp-specialists .final::before { right: -100px; bottom: -100px; width: 520px; height: 300px; animation-duration: 28s; }
+body.pp-specialists .final::after { left: -80px; top: 80px; width: 380px; height: 215px; animation-duration: 20s; }
+body.pp-mobile .final::before { left: auto; right: 30%; bottom: -120px; width: 520px; height: 300px; animation-duration: 23s; }
+body.pp-mobile .final::after { left: auto; right: -40px; top: 30px; width: 240px; height: 140px; transform: none; animation-name: lp-drift; animation-duration: 19s; }
+@media (prefers-reduced-motion: reduce) { body[class*="pp-"] .phero::before, body[class*="pp-"] .phero::after, body[class*="pp-"] .final::before, body[class*="pp-"] .final::after { animation: none !important; } }
+
+/* ---------- the text pages: about, blog, careers, changelog, docs, legal ---------- */
+.prose { background: transparent !important; color: var(--lp-tx-2); padding-top: 30px !important; }
+.prose h2, .prose h3, .prose h4, .prose strong, .prose b { color: var(--lp-tx) !important; }
+.prose h2 { font-family: var(--lp-sans) !important; letter-spacing: -.03em; }
+.prose p, .prose li { color: var(--lp-tx-2) !important; }
+.prose a { color: #2f6bff !important; }
+.prose .entry { border-color: var(--lp-line) !important; }
+.prose hr { border-color: var(--lp-line) !important; }
+.prose code { background: rgba(12, 20, 48, .06) !important; color: var(--lp-tx) !important; border-color: var(--lp-line) !important; }
+.prose pre { background: #fff !important; border: 1px solid var(--lp-line) !important; color: var(--lp-tx) !important; box-shadow: none !important; }
+.prose pre code { background: transparent !important; }
+.prose table, .prose th, .prose td { border-color: var(--lp-line) !important; color: var(--lp-tx-2); }
+.prose th { color: var(--lp-tx) !important; background: rgba(12, 20, 48, .04) !important; }
+
+/* ---------- 404 ---------- */
+body.textpage:has(.nf) main { padding-top: 0; }
+.nf { min-height: 72vh; display: grid; place-items: center; text-align: center; padding-top: 110px;
+  background: linear-gradient(180deg, #0a2a9e 0, #1442d6 30%, #2a5ee8 55%, #6f9af0 78%, #d6e2fa 92%, var(--lp-bg) 100%); position: relative; overflow: hidden; isolation: isolate; }
+.nf::before { content: ""; position: absolute; z-index: -1; width: 520px; height: 300px; right: -150px; top: 90px; background: url(/assets/site/lp/cloud-a.webp) center / contain no-repeat; }
+.nf h1 { font: 600 clamp(90px, 16vw, 200px)/1 var(--lp-sans) !important; letter-spacing: -.06em; color: #fff !important; margin: 0; }
+.nf p { color: rgba(255, 255, 255, .85) !important; font-size: 18px; }
+
+@media (prefers-reduced-motion: reduce) { .phero::before, .phero::after, .page-hero::before, .final::before, .final::after { animation: none; } }
+
+/* the Wisp page: its day tiles and the Meet Wisp stage were white */
+.ws { background: linear-gradient(160deg, #e9f1ff, #b6c8f6) !important; border: 0; }
+.ws-title { color: var(--lp-tx) !important; }
+.ws-say { background: #fff !important; color: var(--lp-tx) !important; border: 0; box-shadow: 0 8px 20px -14px rgba(16, 42, 84, .4) !important; }
+.ws-input { background: #fff !important; box-shadow: 0 8px 20px -14px rgba(16, 42, 84, .4) !important; }
+.ws-group button { background: rgba(255, 255, 255, .7) !important; color: var(--lp-tx-2) !important; box-shadow: inset 0 0 0 1px rgba(12, 20, 48, .1) !important; }
+.ws-group button:hover { background: #fff !important; color: var(--lp-tx) !important; }
+.ws-group button[aria-pressed="true"] { background: #0b1020 !important; color: #fff !important; box-shadow: none !important; }
+.ws-group small { color: var(--lp-tx-2) !important; }
+.ws-input input { background: transparent !important; color: var(--lp-tx) !important; border-color: rgba(12, 20, 48, .12) !important; box-shadow: none !important; }
+.ws-input button { background: #0b1020 !important; color: #fff !important; }
+.ws-hint { color: var(--lp-tx-3) !important; }
+/* the 3.0 chat inside a panel */
+.panel-card .lp-chat.ap { width: 100%; }
+
+/* small feature cards (Everything in one app and the like) */
+.trust3 .t3 { background: #fff !important; border: 1.5px solid rgba(12, 20, 48, .2) !important; box-shadow: 0 1px 2px rgba(12, 20, 48, .05), 0 10px 24px -16px rgba(12, 20, 48, .18) !important; border-radius: 22px !important; }
+.trust3 .t3 b { color: var(--lp-tx) !important; }
+.trust3 .t3 p { color: var(--lp-tx-2) !important; }
+.trust3 .t3 a { color: #2f6bff !important; }
+
+/* ---------- mockups: flat, sharp, whole ---------- */
+/* the hero app window is sized with zoom (live.js fitHero); no transform scale, no tilt, no clipped height */
+.phero .stage { perspective: none !important; }
+.phero .scaler, .drop-frame.scaler { height: auto !important; overflow: visible !important; }
+.phero .scaler > .ap, .drop-frame.scaler > iframe { transform: none !important; }
+/* the sidebar lists its few workspaces in full */
+.phero .ap-groups { gap: 6px; }
+/* no blinking carets in any mockup */
+.tcur, .pa-car, .ap-car, .c4-cmd i, .mk-caret { animation: none !important; }
+
+/* feature rows: a flipped row swaps its columns, so every panel is the same width and copy sits beside its panel */
+@media (min-width: 981px) {
+  .row.flip { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+}
+.moods figcaption { color: var(--lp-tx-2); font-size: 14px; }
+
+/* v3.css gives every svg inside .ui3 a 16px icon size, which shrank the mascots to dots; they fill their slot */
+.ui3 [data-wisp] svg { width: 100% !important; height: 100% !important; }
+
+/* specialists page: big mascots (team list, @ menu, chat) */
+body.pp-specialists .team3, body.pp-specialists .ch3 { width: min(470px, 100%); }
+body.pp-specialists .team3 { padding: 12px; gap: 4px; }
+body.pp-specialists .team3-row { grid-template-columns: 76px minmax(0, 1fr) auto; gap: 16px; padding: 8px 12px; }
+body.pp-specialists .team3-row [data-wisp] { width: 76px; height: 76px; }
+body.pp-specialists .team3-row b { font-size: 17px; }
+body.pp-specialists .team3-row small { font-size: 13.5px; }
+body.pp-specialists .team3-row em { font-size: 12.5px; }
+body.pp-specialists .ch3-pop div { gap: 14px; padding: 6px 12px; }
+body.pp-specialists .ch3-pop [data-wisp] { width: 52px; height: 52px; }
+body.pp-specialists .ch3-pop b { font-size: 16px; }
+body.pp-specialists .ch3-m { grid-template-columns: 52px minmax(0, 1fr); gap: 14px; }
+body.pp-specialists .ch3-m [data-wisp] { width: 52px; height: 52px; }
+body.pp-specialists .moods [data-wisp] { width: 132px !important; height: 132px !important; }
+@media (max-width: 560px) {
+  body.pp-specialists .team3-row { grid-template-columns: 60px minmax(0, 1fr) auto; gap: 12px; }
+  body.pp-specialists .team3-row [data-wisp] { width: 60px; height: 60px; }
+  body.pp-specialists .ch3-pop [data-wisp], body.pp-specialists .ch3-m [data-wisp] { width: 44px; height: 44px; }
+  body.pp-specialists .ch3-m { grid-template-columns: 44px minmax(0, 1fr); }
+}

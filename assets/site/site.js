@@ -217,10 +217,11 @@
   try {
   // make your own agent: type a sentence, a bot appears
   var MAKE = [
-    {t: 'Make the pricing page work on phones', n: 'Frontend', r: 'Wisp brought in a specialist', spec: 'frontend'},
-    {t: 'Find out why checkout is slow and fix it', n: 'Backend', r: 'Wisp brought in a specialist', spec: 'backend'},
-    {t: 'Check the sign-in flow for security holes', n: 'Security', r: 'Wisp brought in a specialist', spec: 'security'},
-    {t: 'Write tests for the cart before we ship', n: 'Testing', r: 'Wisp brought in a specialist', spec: 'testing'}
+    // the specialists as they look in the app now: each has its own shape and colour
+    {t: 'Make the pricing page work on phones', n: 'Frontend', r: 'Pages, styles, the browser check', shape: 'hexagon', color: '#12b39a'},
+    {t: 'Anything from the landlord today?', n: 'Emma', r: 'Inbox and email', shape: 'circle', color: '#ff6fa3'},
+    {t: 'Write tests for the cart before we ship', n: 'Testing', r: 'Runs and writes the tests', shape: 'square', color: '#f29a2e'},
+    {t: 'Move my 3pm to Friday morning', n: 'Calendar', r: 'Your day, in your time zone', shape: 'star', color: '#8a63ff'}
   ];
   var mkIn = document.getElementById('mkIn'), mkBot = document.getElementById('mkBot'), mi = 0, mkBusy = false, mkVis = false;
   function makeOne(){
@@ -232,7 +233,7 @@
       mkIn.textContent = m.t;
       document.getElementById('mkName').textContent = m.n;
       document.getElementById('mkRole').textContent = m.r;
-      try { var av = document.getElementById('mkAv'); av.innerHTML = '<div data-wisp="sm" data-mood="happy"></div>'; if (window.Wisp) Wisp.mount(av); } catch (e) {}
+      try { var av = document.getElementById('mkAv'); av.innerHTML = m.shape ? '<div data-wisp="sm" data-mood="happy" data-shape="' + m.shape + '" data-color="' + m.color + '"></div>' : '<div data-wisp="sm" data-mood="happy"></div>'; if (window.Wisp) Wisp.mount(av); } catch (e) {}
       setTimeout(function(){ mkBot.classList.add('on'); }, 350);
       setTimeout(function(){ mkBusy = false; makeOne(); }, reduce ? 99999999 : 4200);
     })();

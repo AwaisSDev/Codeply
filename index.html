@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="light" class="lp-light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,11 +24,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site/site.css?v=4">
-<link rel="stylesheet" href="/assets/site/live.css?v=7">
+<link rel="stylesheet" href="/assets/site/site.css?v=6">
+<link rel="stylesheet" href="/assets/site/live.css?v=8">
 <link rel="stylesheet" href="/assets/site/sky.css?v=9">
 <link rel="stylesheet" href="/assets/site/clean.css?v=54">
-<link rel="stylesheet" href="/assets/site/v3.css?v=3">
+<link rel="stylesheet" href="/assets/site/v3.css?v=4">
+<link rel="stylesheet" href="/assets/site/landing.css?v=81">
 <script type="application/ld+json">{
  "@context": "https://schema.org",
  "@graph": [
@@ -67,7 +68,7 @@
   }
  ]
 }</script>
-<script>document.documentElement.classList.add('js');</script>
+<script>document.documentElement.classList.add('js');try{localStorage.removeItem('codeply-home-theme');}catch(e){}</script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -107,171 +108,303 @@
   <svg class="m-light" viewBox="560 560 3170 3170" aria-hidden="true"><path fill="#FFFFFF" d="M1690.33 1960A133.33 133.33 0 0 1 1957 1960V2226.67A133.33 133.33 0 0 1 1690.33 2226.67ZM2357 1960A133.33 133.33 0 0 1 2623.67 1960V2226.67A133.33 133.33 0 0 1 2357 2226.67Z"/><use href="#knot" fill="#2F6BFF" width="4295" height="4295"/></svg>
 </template>
 
-<header class="nav" id="nav">
-  <div class="wrap">
-    <a class="brand" href="/" aria-label="Codeply home"><span class="mark" data-mark></span>Codeply</a>
-    <nav class="links" aria-label="Main">
-      <a href="/codeply">Codeply</a>
-      <a href="/wisp">Wisp</a>
-      <a href="/apps">Apps</a>
-      <a href="/cli">CLI</a>
-      <a href="/docs">Docs</a>
-      <a href="/changelog">Changelog</a>
-    </nav>
-    <div class="nav-end">
-      <a class="btn btn-primary btn-sm dl" href="/download">Download</a>
-      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
+<header class="lp-nav" id="nav">
+  <svg class="lp-sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="nv-cli" viewBox="0 0 200 120"><g stroke="#0d0d0d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="27" y="21" width="154" height="90" rx="11" fill="#ff8a3d"/><rect x="19" y="12" width="154" height="90" rx="11" fill="#fff"/><path d="M19 23a11 11 0 0 1 11-11h132a11 11 0 0 1 11 11v14H19z" fill="#2f6bff"/><circle cx="33" cy="25" r="3.4" fill="#ff4d4d" stroke-width="2.4"/><circle cx="45" cy="25" r="3.4" fill="#ff8a3d" stroke-width="2.4"/><circle cx="57" cy="25" r="3.4" fill="#fff" stroke-width="2.4"/><path d="M35 53l13 9-13 9" fill="none" stroke-width="4.5"/><path d="M58 62h32" fill="none" stroke-width="4.5"/><rect x="98" y="51" width="12" height="22" fill="#ff8a3d"/><path d="M35 88h26" fill="none" stroke-width="4"/><path d="M69 88h20" fill="none" stroke="#2f6bff" stroke-width="4.5"/></g></symbol>
+    <symbol id="nv-app" viewBox="0 0 200 120"><g stroke="#0d0d0d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="24" y="42" width="168" height="76" rx="11" fill="#ff8a3d"/><path d="M128 4l22 16-8 25h-28l-8-25z" fill="#2f6bff"/><ellipse cx="119" cy="22" rx="3.2" ry="4.6" fill="#0d0d0d" stroke="none"/><ellipse cx="137" cy="22" rx="3.2" ry="4.6" fill="#0d0d0d" stroke="none"/><rect x="16" y="34" width="168" height="76" rx="11" fill="#fff"/><path d="M17.5 50h40v60h-29a11 11 0 0 1-11-11z" fill="#dbe6ff" stroke="none"/><path d="M16 50h168M58 50v59" fill="none" stroke-width="3"/><circle cx="28" cy="42" r="2.8" fill="#ff4d4d" stroke-width="2.2"/><circle cx="38" cy="42" r="2.8" fill="#ff8a3d" stroke-width="2.2"/><circle cx="48" cy="42" r="2.8" fill="#fff" stroke-width="2.2"/><path d="M27 62h20M27 74h14M27 86h18" fill="none" stroke-width="3.5"/><rect x="70" y="58" width="72" height="18" rx="9" fill="#2f6bff"/><rect x="100" y="84" width="76" height="18" rx="9" fill="#ff8a3d"/><ellipse cx="110" cy="35" rx="7.5" ry="5" fill="#2f6bff"/><ellipse cx="146" cy="35" rx="7.5" ry="5" fill="#2f6bff"/></g></symbol>
+    <symbol id="nv-mob" viewBox="0 0 200 120"><g stroke="#0d0d0d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><rect x="51" y="12" width="60" height="104" rx="13" fill="#ff8a3d"/><rect x="44" y="6" width="60" height="104" rx="13" fill="#fff"/><path d="M66 15h16" fill="none" stroke-width="3"/><circle cx="58" cy="36" r="6" fill="#ff8a3d" stroke-width="3"/><rect x="50" y="72" width="32" height="13" rx="6.5" fill="#fff" stroke-width="3"/><rect x="60" y="91" width="36" height="13" rx="6.5" fill="#ff8a3d" stroke-width="3"/><path d="M92 16h56a10 10 0 0 1 10 10v18a10 10 0 0 1-10 10H112L92 66l4-12h-4a10 10 0 0 1-10-10V26a10 10 0 0 1 10-10z" fill="#2f6bff"/><circle cx="104" cy="35" r="4" fill="#fff" stroke-width="2.4"/><circle cx="120" cy="35" r="4" fill="#fff" stroke-width="2.4"/><circle cx="136" cy="35" r="4" fill="#fff" stroke-width="2.4"/><circle cx="46" cy="10" r="7" fill="#ff4d4d"/></g></symbol>
+  </svg>
+  <div class="lp-shell" id="lpShell">
+    <div class="lp-bar">
+      <a class="lp-brand" href="/" aria-label="Codeply home"><span class="mark" data-mark></span>Codeply</a>
+      <nav class="lp-links" aria-label="Main">
+        <button type="button" class="lp-dd" data-panel="products" aria-expanded="false">Products<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3"/></svg></button>
+        <a href="/wisp">Wisp</a>
+        <a href="/apps">Apps</a>
+        <a href="/docs">Docs</a>
+        <a href="/changelog">Changelog</a>
+      </nav>
+      <a class="lp-cta" href="/download">Download</a>
+      <button type="button" class="lp-burger" data-panel="menu" aria-expanded="false" aria-label="Open menu"><i></i><i></i></button>
+    </div>
+    <div class="lp-panels">
+      <div class="lp-panel" data-for="products">
+        <div class="lp-pgrid">
+          <a class="lp-pcard" href="/cli"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-cli"/></svg><b>CLI</b><span>Codeply in your terminal</span></a>
+          <a class="lp-pcard" href="/codeply"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-app"/></svg><b>Codeply app</b><span>Your agent on the desktop</span></a>
+          <a class="lp-pcard" href="/mobile"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-mob"/></svg><b>Mobile</b><span>Talk to it from anywhere</span></a>
+        </div>
+      </div>
+      <div class="lp-panel lp-mpanel" data-for="menu">
+        <div class="lp-mprod"><a class="lp-mcard" href="/cli"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-cli"/></svg><span><b>CLI</b><small>Codeply in your terminal</small></span></a><a class="lp-mcard" href="/codeply"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-app"/></svg><span><b>Codeply app</b><small>Your agent on the desktop</small></span></a><a class="lp-mcard" href="/mobile"><svg class="lp-ill" viewBox="0 0 200 120" aria-hidden="true"><use href="#nv-mob"/></svg><span><b>Mobile</b><small>Talk to it from anywhere</small></span></a></div>
+        <div class="lp-mlinks">
+          <a href="/wisp">Wisp</a><a href="/apps">Apps</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a>
+        </div>
+        <div class="lp-mfoot"><a href="/download" class="lp-cta wide">Download Codeply</a></div>
+      </div>
     </div>
   </div>
-  <nav class="mnav" id="mnav" aria-label="Mobile">
-    <a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/specialists">Specialists</a><a href="/apps">Apps</a><a href="/voice">Voice mode</a><a href="/mobile">Mobile</a><a href="/cli">Codeply CLI</a><a href="/docs">Docs</a><a href="/changelog">Changelog</a>
-    <a class="btn btn-primary" href="/download">Download</a>
-  </nav>
+  <button id="menuBtn" hidden aria-hidden="true" tabindex="-1"></button>
+  <nav id="mnav" hidden aria-hidden="true"></nav>
 </header>
 
 <main id="top">
-  <section class="hero">
-    <div class="scene" aria-hidden="true"><div class="scene-img"></div></div>
-    <div class="wrap hero-in">
-      <div class="glass" aria-hidden="true">
-        <div class="gcard"><div class="gh"><span><i></i>Codeply · Cloud</span><span>now</span></div><b>Pull request ready</b><div class="gs">Dark mode on settings, done while your PC was off</div><div class="ga"><em class="pri">Merge</em><em>View</em></div></div>
-        <div class="gcard"><div class="gb"><span class="av" data-wisp="sm"></span><div><b>Wisp is calling</b><div class="gs">The checkout fix is ready</div></div><span class="wave"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i></span></div><div class="ga"><em>Later</em><em class="pop">Answer</em></div></div>
-      </div>
-      
-      <a class="v3-pill rv" href="/changelog#v3">Codeply 3.0 is out<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-      <h1 class="rv d1">AI that’s<br><span class="dim">already on it.</span></h1>
-      <p class="lede rv d2" style="text-wrap:balance">Codeply <span class="sr">handles, plans, builds and runs</span><span class="rot" id="rot" aria-hidden="true"><span class="on">handles</span><span>plans</span><span>builds</span><span>runs</span></span> it all: inbox, calendar, business, code. Close the laptop. It keeps going.</p>
-      <div class="ctas rv d3">
-        <a class="btn btn-primary" href="/download" id="dl-hero"><svg class="os-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.6 10.4 4.6v7H3zM11.4 4.4 21 3v8.6h-9.6zM3 12.6h7.4v7L3 18.5zM11.4 12.6H21V21l-9.6-1.3z"/></svg><span id="dl-label">Download</span></a>
-        <a class="btn btn-ghost" href="#apps">Meet the apps</a>
-      </div>
-      <p class="meta rv d3">Windows · macOS · works with your own models</p>
+  <section class="lp-hero" id="lpHero">
+    <div class="lp-sky" aria-hidden="true">
+      <img class="lp-cl c1" data-depth="-60" src="/assets/site/lp/cloud-a.webp" alt="">
+      <img class="lp-cl c3" data-depth="-30" src="/assets/site/lp/cloud-a.webp" alt="">
+      <img class="lp-cl c4" data-depth="-90" src="/assets/site/lp/cloud-a.webp" alt="">
     </div>
 
-    <div class="wrap">
-      <div class="stage film-stage rv">
-        <div class="fwin" id="hello">
-          <div class="fw-bar"><span class="mark" data-mark></span><span class="fw-t">hello.mp4</span><span class="fw-ctl" aria-hidden="true"><i><svg viewBox="0 0 10 10"><path d="M0 5h10"/></svg></i><i><svg viewBox="0 0 10 10"><rect x=".5" y=".5" width="9" height="9" rx="1.5"/></svg></i><i><svg viewBox="0 0 10 10"><path d="M.5.5l9 9M9.5.5l-9 9"/></svg></i></span></div>
-          <div class="fw-body">
-            <video id="helloVid" src="/assets/site/hello.mp4" poster="/assets/site/hello-poster.webp" preload="none" playsinline></video>
-            <div class="fw-play" id="playArea"><button class="fw-pill" id="play" type="button" aria-label="Play the Codeply film, 1 minute 27 seconds"><span class="face" data-wisp="sm"></span>say hi to Codeply</button></div>
-          </div>
+    <div class="lp-ride" data-depth="-150" aria-hidden="true">
+      <div class="lp-ride-in">
+        <img class="lp-ride-cloud" src="/assets/site/lp/cloud-a.webp" alt="">
+        <button type="button" class="lp-buddy" id="lpBuddy" tabindex="-1" aria-hidden="true">
+          <span class="lp-bubble" id="lpBubble">Already on it!</span>
+          <span class="lp-buddy-in"><span data-wisp="sm" data-mood="happy"></span></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="lp-wrap lp-hero-in">
+      <a class="lp-badge lp-in" style="--d:0" href="/changelog#v3"><span class="lp-new">New</span>Codeply 3.0 is out<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+      <h1 class="lp-lines"><span class="ln"><span style="--i:0">AI that’s already</span></span><span class="ln"><span style="--i:1">on it.</span></span></h1>
+      <p class="lp-lede lp-in" style="--d:4">Codeply handles it all: inbox, calendar, business, code. Close the laptop. It keeps going.</p>
+      <div class="lp-ctas lp-in" style="--d:5">
+        <a class="lp-btn" href="/download" id="dl-hero"><svg class="os-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.6 10.4 4.6v7H3zM11.4 4.4 21 3v8.6h-9.6zM3 12.6h7.4v7L3 18.5zM11.4 12.6H21V21l-9.6-1.3z"/></svg><span id="dl-label">Download</span></a>
+        <a class="lp-btn ghost" href="#film"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg>Watch the film</a>
+      </div>
+    </div>
+
+    <div class="lp-wrap lp-stage lp-in" style="--d:6">
+      <div class="lp-tilt">
+        <div class="lp-win">
+          <div class="scaler" data-w="1280"><div class="lp-app" role="img" aria-label="The Codeply 3.0 home screen: a new chat, recent activity, usage and pull requests">
+  <div class="la-wall" aria-hidden="true"></div>
+  <aside class="la-side">
+    <div class="la-bar"><i class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></i><i class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M9 4v16"/></svg></i><i class="ic"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></i><i class="ic dim"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></i></div>
+    <div class="la-brand"><span class="la-logo" data-wisp="sm"></span><b>Codeply</b><i class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></i></div>
+    <nav class="la-nav">
+      <span><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>New chat</span>
+      <span><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>Open project</span>
+      <span><svg viewBox="0 0 24 24"><path d="M4 6h2M4 12h2M4 18h2M10 6h10M10 12h10M10 18h10"/></svg>Tasks</span>
+      <span><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 20a6.5 6.5 0 0 0-3-5.5"/></svg>Specialists</span>
+    </nav>
+    <div class="la-grp"><div class="la-gh"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>This Computer<em>+</em></div>
+      <span>Plan my week</span><span>Summarize today’s inbox</span><span>Draft the launch thread</span><span>Book flights to Lisbon</span></div>
+    <div class="la-grp"><div class="la-gh"><svg viewBox="0 0 24 24"><path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 8.5a4.75 4.75 0 0 1-.5 9.5Z"/></svg>Cloud<em>+</em></div>
+      <span>Morning briefing</span><span>Weekly report for the team</span><span>Track my package</span></div>
+    <div class="la-grp"><div class="la-gh"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>launch-site<em>+</em></div>
+      <span class="on">Pricing page with three tiers</span><span>Fix the onboarding crash</span><span>Write release notes</span></div>
+    <div class="la-me"><span class="la-av">YO</span><b>you@yourmail.com</b><i class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg></i></div>
+  </aside>
+  <main class="la-main">
+    <div class="la-top"><i class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></i><span class="sp"></span><i class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></i><i class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/></svg></i><i class="ic"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></i></div>
+    <div class="la-center">
+      <div class="la-mascot" data-wisp="sm" data-mood="happy"></div>
+      <h4>What should we build in <u>launch-site</u>?</h4>
+      <div class="la-comp">
+        <div class="la-ctx"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg>launch-site</div>
+        <div class="la-box"><div class="la-in"><span class="la-ph">Ask Codeply anything, or type / for commands</span><span class="la-typed" id="laTyped"></span></div>
+          <div class="la-row"><i class="ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i><span class="la-appr"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6Z"/><path d="M9 12l2 2 4-4"/></svg>Approve manually</span><span class="sp"></span><span class="la-model">Sonnet 5.5<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span><span class="la-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></div>
         </div>
-        <p class="fw-cap">hello.mp4 · 1:27 · sound on</p>
+      </div>
+      <div class="la-cards">
+        <div class="la-card la-act"><div class="la-ch"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Activity</div><div class="la-heat" id="laHeat"></div><div class="la-cf"><span>227 active days · 3.6b tokens</span><span>Last 12 months</span></div></div>
+        <div class="la-card la-recent"><div class="la-ch"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Recent chats</div>
+          <div class="la-rc"><b>Pricing page with three tiers</b><small>51 min ago</small></div><div class="la-rc"><b>Plan my week</b><small>1 h ago</small></div><div class="la-rc"><b>Summarize today’s inbox</b><small>yesterday</small></div><div class="la-more">63 more</div></div>
+        <div class="la-card la-total"><div class="la-ch"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Total</div><div class="la-big"><b data-count="3.6" data-suffix="b">3.6b</b><small>tokens</small></div><span class="la-btn">Open usage<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        <div class="la-card la-prs"><div class="la-ch"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M6 8.5v7M18 15.5V11a3 3 0 0 0-3-3h-4"/></svg>Pull requests</div>
+          <div class="la-pr"><svg class="pu" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M6 8.5v7M18 15.5V11a3 3 0 0 0-3-3h-4"/></svg><b>Admin dashboard: pro…</b><small>2 days ago</small></div>
+          <div class="la-pr"><svg class="gr" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M6 8.5v7M18 15.5V11a3 3 0 0 0-3-3h-4"/></svg><b>Local intelligence: cont…</b><small>2 days ago</small></div></div>
+        <div class="la-card la-month"><div class="la-ch"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>This month</div>
+          <div class="la-nums"><div><b class="b1">152</b><small>chats</small></div><div><b class="b2">436m</b><small>tokens</small></div></div>
+          <div class="la-bars"><i style="--h:.35"></i><i style="--h:.55"></i><i style="--h:.4"></i><i style="--h:.75"></i><i style="--h:.6"></i><i style="--h:.9"></i><i style="--h:.7"></i><span></span></div></div>
+      </div>
+    </div>
+  </main>
+</div></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="mq" role="img" aria-label="Works with 30 model providers, including OpenAI, Claude, Gemini, Meta, Mistral, DeepSeek, xAI, Qwen, Perplexity, Cohere, Groq, Ollama, OpenRouter, Hugging Face, NVIDIA, Microsoft, AWS, Vertex AI, Kimi, Zhipu, MiniMax, Together AI, Fireworks, Cerebras, SambaNova, AI21, Stability AI, Doubao, Yi, Replicate">
-    <p class="mq-lab">Works with the models you already use</p>
-    <div class="mq-row"><div class="mq-track"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/openai.svg" alt="" title="OpenAI" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/claude-color.svg" alt="" title="Claude" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/gemini-color.svg" alt="" title="Gemini" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/meta-color.svg" alt="" title="Meta" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/mistral-color.svg" alt="" title="Mistral" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/deepseek-color.svg" alt="" title="DeepSeek" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/xai.svg" alt="" title="xAI" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/qwen-color.svg" alt="" title="Qwen" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/perplexity-color.svg" alt="" title="Perplexity" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/cohere-color.svg" alt="" title="Cohere" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/groq.svg" alt="" title="Groq" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/ollama.svg" alt="" title="Ollama" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/openrouter.svg" alt="" title="OpenRouter" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/huggingface-color.svg" alt="" title="Hugging Face" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/nvidia-color.svg" alt="" title="NVIDIA" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/openai.svg" alt="" title="OpenAI" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/claude-color.svg" alt="" title="Claude" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/gemini-color.svg" alt="" title="Gemini" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/meta-color.svg" alt="" title="Meta" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/mistral-color.svg" alt="" title="Mistral" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/deepseek-color.svg" alt="" title="DeepSeek" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/xai.svg" alt="" title="xAI" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/qwen-color.svg" alt="" title="Qwen" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/perplexity-color.svg" alt="" title="Perplexity" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/cohere-color.svg" alt="" title="Cohere" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/groq.svg" alt="" title="Groq" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/ollama.svg" alt="" title="Ollama" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/openrouter.svg" alt="" title="OpenRouter" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/huggingface-color.svg" alt="" title="Hugging Face" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/nvidia-color.svg" alt="" title="NVIDIA" width="34" height="34" loading="lazy"></div></div>
-    <div class="mq-row rev"><div class="mq-track"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/microsoft-color.svg" alt="" title="Microsoft" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/aws-color.svg" alt="" title="AWS" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/vertexai-color.svg" alt="" title="Vertex AI" width="34" height="34" loading="lazy"><img src="/assets/site/kimi.svg" alt="" title="Kimi" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/zhipu-color.svg" alt="" title="Zhipu" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/minimax-color.svg" alt="" title="MiniMax" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/together-color.svg" alt="" title="Together AI" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/fireworks-color.svg" alt="" title="Fireworks" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/cerebras-color.svg" alt="" title="Cerebras" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/sambanova-color.svg" alt="" title="SambaNova" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/ai21.svg" alt="" title="AI21" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/stability-color.svg" alt="" title="Stability AI" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/doubao-color.svg" alt="" title="Doubao" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/yi-color.svg" alt="" title="Yi" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/replicate.svg" alt="" title="Replicate" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/microsoft-color.svg" alt="" title="Microsoft" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/aws-color.svg" alt="" title="AWS" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/vertexai-color.svg" alt="" title="Vertex AI" width="34" height="34" loading="lazy"><img src="/assets/site/kimi.svg" alt="" title="Kimi" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/zhipu-color.svg" alt="" title="Zhipu" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/minimax-color.svg" alt="" title="MiniMax" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/together-color.svg" alt="" title="Together AI" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/fireworks-color.svg" alt="" title="Fireworks" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/cerebras-color.svg" alt="" title="Cerebras" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/sambanova-color.svg" alt="" title="SambaNova" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/ai21.svg" alt="" title="AI21" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/stability-color.svg" alt="" title="Stability AI" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/doubao-color.svg" alt="" title="Doubao" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/yi-color.svg" alt="" title="Yi" width="34" height="34" loading="lazy"><img src="https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/replicate.svg" alt="" title="Replicate" width="34" height="34" loading="lazy"></div></div>
+  <div class="lp-logos" role="img" aria-label="Works with the models you already use, including OpenAI, Claude, Gemini, Meta, Mistral, DeepSeek, xAI, Qwen, Perplexity, Ollama and more">
+    <p>Works with the models you already use</p>
+    <div class="lp-lrow"><div class="lp-ltrack" id="lpLogos"></div></div>
   </div>
 
-  <section class="cs tf-scroll" id="what" data-tabs-scroll>
-    <div class="tf-sticky">
-    <div class="wrap">
-      <div class="tabs-feat" data-tabs>
-        <div class="tf-side">
-        <h2 class="cs-h rv">See what Codeply can do</h2>
-        <div class="tf-list rv">
-          <button class="tf-item on" type="button" data-tab="desk"><b>It does the work on your PC</b><span>Describe the change. It edits your project, runs it and checks the result in a real browser before it says it's done.</span></button>
-          <button class="tf-item" type="button" data-tab="proof"><b>It checks its own work</b><span>It reads back console errors and failed requests, fixes them, and shows you what changed. Not a screenshot, not a guess.</span></button>
-          <button class="tf-item" type="button" data-tab="cloud"><b>It keeps going when you leave</b><span>Close the laptop. The run moves to the cloud, finishes the job and opens a pull request.</span></button>
-          <button class="tf-item" type="button" data-tab="phone"><b>It's on your phone</b><span>Start a run, see what changed and merge it from wherever you are.</span></button>
-          <button class="tf-item" type="button" data-tab="cli"><b>It's in your terminal</b><span>The same agent as a CLI. One line to install, then ask in plain English.</span></button>
+  <section class="lp-say" id="say">
+    <div class="lp-wrap">
+      <p class="lp-fill" id="lpFill">You ask once. Wisp picks the right specialist, does the work on your PC, checks it in a real browser, keeps going when you close the laptop, and calls you when a decision is yours.</p>
+    </div>
+  </section>
+
+  <section class="lp-day" id="day">
+    <div class="lp-day-pin">
+      <div class="lp-wrap lp-day-in">
+        <div class="lp-day-copy">
+          <span class="lp-kicker">A day with Codeply</span>
+          <h2>Your day,<br>already handled</h2>
+          <ol class="lp-steps">
+            <li class="on"><b>09:00</b><div><strong>You ask once</strong><p>Wisp picks the right specialist for the job and gets going.</p></div></li>
+            <li><b>13:00</b><div><strong>It keeps going</strong><p>Close the laptop. The run moves to the cloud and opens a pull request.</p></div></li>
+            <li><b>17:30</b><div><strong>It calls for a yes</strong><p>When a decision is yours, Wisp rings your phone. Talk it through, then get on with your day.</p></div></li>
+          </ol>
         </div>
+        <div class="lp-day-stage">
+          <div class="lp-scene s0 on">
+            <div class="lp-scene-pad"><div class="mk cw" id="makeCard" aria-hidden="true">
+              <div class="mk-lab">Ask Wisp</div>
+              <div class="mk-box"><span class="mk-in" id="mkIn"></span><span class="mk-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></div>
+              <div class="mk-bot" id="mkBot"><span class="mk-av" id="mkAv"></span><div><b id="mkName"></b><span id="mkRole"></span><div class="mk-tags"><i>Picked by Wisp</i><i>Checks its work</i></div></div></div>
+              <div class="mk-presets lp-roster"><span><i data-wisp="sm" data-shape="hexagon" data-color="#12b39a"></i>Frontend</span><span><i data-wisp="sm" data-shape="circle" data-color="#ff6fa3"></i>Emma</span><span><i data-wisp="sm" data-shape="square" data-color="#f29a2e"></i>Testing</span><span><i data-wisp="sm" data-shape="star" data-color="#8a63ff"></i>Calendar</span></div>
+            </div></div>
+          </div>
+          <div class="lp-scene s1"><div class="pv-wrap" data-pv="cloud" aria-hidden="true" style="--s:.68"></div></div>
+          <div class="lp-scene s2"><div class="pv-wrap" data-pv="call" aria-hidden="true" style="--s:.68"></div></div>
         </div>
-        <div class="tf-panel rv d1">
-          <div class="tf-stage">
-          <div class="tf-pane on" data-pane="desk"><div class="scaler" data-w="1100"><div data-app aria-label="The Codeply desktop app adding dark mode to a settings page" role="img"></div></div></div>
-          <div class="tf-pane" data-pane="proof"><div class="tf-card"><div class="proof cx" style="border-color:#2f2f2f" aria-hidden="true">
-        <div class="cx-head"><b>Checkout page shows the wrong total</b><span class="cx-ib on"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg></span></div>
-        <div style="padding:6px 22px 8px">
-          <div class="cx-bubble" style="margin-left:auto;width:fit-content">The checkout page is broken, fix it</div>
-          <div class="pf" data-proof></div>
-        </div>
-      </div></div></div>
-          <div class="tf-pane" data-pane="cloud"><div class="pv-wrap" data-pv="cloud" aria-hidden="true" style="--s:.72"></div></div>
-          <div class="tf-pane" data-pane="phone"><div class="pv-wrap" data-pv="chat" aria-hidden="true" style="--s:.72"></div></div>
-          <div class="tf-pane" data-pane="cli"><div class="tf-card wide"><div data-cli></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-hl" id="what">
+    <div class="lp-hl-pin">
+    <div class="lp-wrap">
+      <div class="lp-head">
+        <div><span class="lp-kicker">What it does</span><h2>One agent,<br>everywhere you work</h2></div>
+        <p>One account across your desktop, your terminal and your phone. Same memory, same specialists, same rules.</p>
+      </div>
+    </div>
+    <div class="lp-rail-view"><div class="lp-rail" id="lpRail" aria-label="Highlights">
+      <article class="lp-tile t-proof">
+        <p class="lp-tcap"><b>It checks its own work.</b> It opens what it changed in a real browser, reads back errors and failed requests, and fixes them before it says done.</p>
+        <div class="lp-tvis"><div class="lp-chat ap sent did answered changed" aria-hidden="true">
+          <div class="ap-u">The checkout total is wrong, fix it</div>
+          <div class="ap-did"><i data-wisp="sm"></i><span class="t">Opened 2 pages, read 1 file, edited 2 files, ran 4 checks <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span></div>
+          <div class="ap-a"><p>Fixed. <b>cartTotal</b> was adding the tax twice.</p><ul>
+            <li class="on"><b>Before:</b> the checkout page threw <code>total is undefined</code> and the cart request failed with a 404.</li>
+            <li class="on"><b>Checked:</b> I opened checkout in a real browser again. No console errors, no failed requests.</li>
+            <li class="on"><b>Tests:</b> all 24 pass.</li></ul>
+            <div class="ap-chg"><span>Changed 2 files <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></span><em><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>Undo</em></div></div>
+        </div></div>
+      </article>
+      <article class="lp-tile t-cli">
+        <p class="lp-tcap"><b>It’s in your terminal.</b> One line to install, then ask in plain English. Same agent, same memory.</p>
+        <div class="lp-tvis"><div class="lp-cli"><div data-cli></div></div></div>
+      </article>
+      <article class="lp-tile t-phone">
+        <p class="lp-tcap"><b>It’s on your phone.</b> Start a run, see what changed and merge it from anywhere, even with the PC off.</p>
+        <div class="lp-tvis"><div class="pv-wrap" data-pv="chat" aria-hidden="true" style="--s:.66"></div></div>
+      </article>
+      <article class="lp-tile t-team">
+        <p class="lp-tcap"><b>Wisp brings in a specialist.</b> Real agents with their own face and colour. Talk to any of them with @Name. <a href="/specialists">Meet the team</a></p>
+        <div class="lp-tvis"><div class="lp-team" aria-hidden="true">
+          <div class="lp-lead"><i data-wisp="sm"></i><b>Wisp</b></div>
+          <div class="lp-mate m1"><i data-wisp="sm" data-shape="hexagon" data-color="#12b39a"></i><b>Frontend</b></div>
+          <div class="lp-mate m2"><i data-wisp="sm" data-shape="circle" data-color="#ff6fa3"></i><b>Emma</b></div>
+          <div class="lp-mate m3"><i data-wisp="sm" data-shape="square" data-color="#f29a2e"></i><b>Testing</b></div>
+          <div class="lp-mate m4"><i data-wisp="sm" data-shape="star" data-color="#8a63ff"></i><b>Calendar</b></div>
+        </div></div>
+      </article>
+    </div></div>
+    <div class="lp-pager" aria-label="Highlights controls">
+      <div class="lp-dots" id="lpDots"><button type="button" aria-label="It checks its own work"><i></i></button><button type="button" aria-label="It’s in your terminal"><i></i></button><button type="button" aria-label="It’s on your phone"><i></i></button><button type="button" aria-label="Wisp brings in a specialist"><i></i></button></div>
+    </div>
+    </div>
+  </section>
+
+  <section class="lp-film" id="film">
+    <div class="lp-wrap">
+      <div class="lp-film-head">
+        <h2 class="rv">Say <em>hi</em> to Codeply</h2>
+        <p class="rv d1">One minute on everything new in Codeply 3.0.</p>
+      </div>
+      <div class="lp-grow" id="lpGrow">
+        <div class="stage film-stage">
+          <div class="fwin" id="hello">
+            <div class="fw-bar"><span class="mark" data-mark></span><span class="fw-t">codeply-3.0.mp4</span><span class="fw-ctl" aria-hidden="true"><i><svg viewBox="0 0 10 10"><path d="M0 5h10"/></svg></i><i><svg viewBox="0 0 10 10"><rect x=".5" y=".5" width="9" height="9" rx="1.5"/></svg></i><i><svg viewBox="0 0 10 10"><path d="M.5.5l9 9M9.5.5l-9 9"/></svg></i></span></div>
+            <div class="fw-body">
+              <video id="helloVid" src="/assets/site/launch-3.mp4" poster="/assets/site/launch-3-poster.webp" preload="none" playsinline></video>
+              <div class="fw-play" id="playArea"><button class="fw-pill" id="play" type="button" aria-label="Play the Codeply 3.0 film, 1 minute"><span class="lp-play"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z"/></svg></span>Play the film</button></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
   </section>
 
-  <section class="cs" id="wisp">
-    <div class="wrap">
-      <div class="cs-center">
-        <h2 class="cs-h rv">Meet Wisp</h2>
-        <p class="cs-p rv d1">One agent that works around the clock. It brings in the right specialist for each job, learns how you like things done, and calls you when something needs a yes.</p>
+  <section class="lp-sec" id="trust">
+    <div class="lp-wrap">
+      <div class="lp-head">
+        <div><span class="lp-kicker">Built to be trusted</span><h2>Nothing happens<br>without your yes</h2></div>
+        <p>Codeply works on your real files, inbox and accounts, so every step is in the open and every change can be undone.</p>
       </div>
-      <div class="row rv">
-        <div class="panel p-pink"><div class="panel-in"><div class="mk cw" id="makeCard" aria-hidden="true">
-        <div class="mk-lab">Ask Wisp</div>
-        <div class="mk-box"><span class="mk-in" id="mkIn"></span><span class="mk-caret"></span><span class="mk-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></div>
-        <div class="mk-bot" id="mkBot"><span class="mk-av" id="mkAv"></span><div><b id="mkName"></b><span id="mkRole"></span><div class="mk-tags"><i>Picked by Wisp</i><i>Checks its work</i></div></div></div>
-        <div class="mk-presets"><span>Frontend</span><span>Backend</span><span>Database</span><span>Security</span><span>Testing</span></div>
-      </div></div></div>
-        <div class="row-copy"><h3>One agent, a specialist for every job</h3><p>Ask once. Wisp picks Frontend for the page, Backend for the API, Testing before it ships, and keeps going until it's done.</p><a class="link" href="/wisp">Meet Wisp<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></div>
-      </div>
-      <div class="row flip rv">
-        <div class="panel p-sky"><div class="panel-in"><div class="pv-wrap" data-pv="call" aria-hidden="true" style="--s:.62"></div></div></div>
-        <div class="row-copy"><h3>It calls when it needs you</h3><p>When a decision is yours, Wisp rings your phone. Talk it through out loud, with live captions, then get back to your day.</p><a class="link" href="/mobile">Codeply on mobile<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cs" id="everywhere">
-    <div class="wrap">
-      <div class="cs-center">
-        <h2 class="cs-h rv">The same agent everywhere you work</h2>
-        <p class="cs-p rv d1">One account across your desktop, your terminal and your phone.</p>
-      </div>
-      <div class="cards4">
-        <a class="c4 rv" href="/codeply"><div class="c4-panel p-sky"><div class="c4-art"><div class="craft-art cx c4-cx" aria-hidden="true">
-            <div class="cx-role" style="margin-bottom:10px"><span class="cx-mascot"><img class="ball" src="/assets/site/frontend.png" alt=""><img class="eyes" src="/assets/site/eyes.png" alt=""></span>Working as <b>Frontend</b></div>
-            <div class="cx-tool"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/></svg><span>Read</span><code>src/cart.ts</code></div>
-            <div class="cx-tool"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><span>Edited</span><code>src/cart.ts</code> <span class="cx-add">+6</span> <span class="cx-del">-2</span></div>
-            <div class="cx-tool"><svg viewBox="0 0 24 24"><path d="M5 7l5 5-5 5"/><path d="M12 17h7"/></svg><span>Ran</span><code>npm test</code> <span class="cx-badge">24 passed</span></div>
-            <div class="cx-tool"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18"/><path d="M12 3a14 14 0 0 0 0 18"/></svg><span>Opened</span><code>localhost:5173/checkout</code></div>
-          </div></div></div><b>Codeply</b><span>The desktop app for Windows and macOS</span></a>
-        <a class="c4 rv d1" href="/wisp"><div class="c4-panel p-pink"><div class="c4-wisp"><div data-wisp="sm" data-mood="happy"></div></div></div><b>Codeply Wisp</b><span>One agent with specialists</span></a>
-        <a class="c4 rv d2" href="/cli"><div class="c4-panel p-lilac"><div class="c4-cmd"><span>$</span> codeply<i></i></div></div><b>Codeply CLI</b><span>The same agent in your terminal</span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="cs" id="trust">
-    <div class="wrap">
-      <h2 class="cs-h rv">Built to be trusted</h2>
-      <div class="trust3">
-        <div class="t3 rv"><b>Nothing without your yes</b><p>Every write, edit and command asks first, with the change in front of you. Undo a whole message in one click.</p></div>
-        <div class="t3 rv d1"><b>It checks its own work</b><p>It opens what it changed in a real browser and reads back real errors before it calls the task done.</p></div>
-        <div class="t3 rv d2"><b>Your models, or ours</b><p>Haze 2 picks the right model for each step, or bring OpenAI, Claude, Gemini or a local model.</p></div>
+      <div class="lp-trust">
+        <article class="lp-tc rv">
+          <div class="lp-tstage" aria-hidden="true">
+            <div class="lp-perm back"><div class="lp-perm-h"><span>Run</span><b>npm test</b><em class="ok">Allowed</em></div></div>
+            <div class="lp-perm">
+              <div class="lp-perm-h"><span>Wisp wants to edit</span><b>src/cart.ts</b></div>
+              <div class="lp-diff"><div class="rm"><i>-</i>const total = price + tax + tax</div><div class="ad"><i>+</i>const total = price + tax</div></div>
+              <div class="lp-perm-b"><span>Deny</span><span class="yes">Allow</span></div>
+            </div>
+          </div>
+          <b>It asks first</b>
+          <p>Every write, edit and command waits for your yes, with the change in front of you. Undo a whole message in one click.</p>
+        </article>
+        <article class="lp-tc rv d1">
+          <div class="lp-tstage" aria-hidden="true">
+            <div class="lp-checks">
+              <div class="lp-checks-h"><span>Checked before it said done</span><em>4 of 4</em></div>
+              <div class="lp-check"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg><span>Opened</span><b>localhost:5173/checkout</b></div>
+              <div class="lp-check"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg><span>Console</span><b>No errors</b></div>
+              <div class="lp-check"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg><span>Network</span><b>No failed requests</b></div>
+              <div class="lp-check"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg><span>Tests</span><b>24 passed</b></div>
+            </div>
+          </div>
+          <b>It shows its proof</b>
+          <p>It opens what it changed in a real browser and reads back real errors before it calls the task done.</p>
+        </article>
+        <article class="lp-tc rv d2">
+          <div class="lp-tstage" aria-hidden="true">
+            <div class="lp-pick">
+              <div class="lp-pick-row on"><div><b>Haze 2</b><small>Auto, picks a model for each step</small></div><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg></div>
+              <div class="lp-pick-row"><b>Claude Opus 5.5</b><small>Anthropic</small></div>
+              <div class="lp-pick-row"><b>GPT-6 Astra</b><small>OpenAI</small></div>
+              <div class="lp-pick-row"><b>Gemini 4 Argon</b><small>Google</small></div>
+              <div class="lp-pick-row"><b>Local model</b><small>On your PC</small></div>
+            </div>
+          </div>
+          <b>Your models, or ours</b>
+          <p>Haze 2 picks the right model for each step, or bring OpenAI, Claude, Gemini or a model on your own PC.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="cs" id="faq">
-    <div class="wrap">
-      <h2 class="cs-h rv">Frequently asked questions</h2>
+  <section class="lp-sec lp-faq" id="faq">
+    <div class="lp-wrap lp-faq-in">
+      <div><span class="lp-kicker">FAQ</span><h2>Questions,<br>answered</h2></div>
       <div class="faq" id="faqList"></div>
     </div>
   </section>
 
-  <section class="final">
-    <div class="wrap">
-      <h2 class="rv d1">Put Codeply to work on your biggest <span class="serif">ideas.</span></h2>
-      <div class="ctas rv d2"><a class="btn btn-primary" href="/download">Download Codeply</a><a class="btn btn-ghost" href="/docs">Read the docs</a></div>
+  <section class="lp-final">
+    <div class="lp-sky" aria-hidden="true">
+      <img class="lp-cl f1" src="/assets/site/lp/cloud-a.webp" alt="" loading="lazy">
+      <img class="lp-cl f2" src="/assets/site/lp/cloud-a.webp" alt="" loading="lazy">
+      <img class="lp-cl f3" src="/assets/site/lp/cloud-a.webp" alt="" loading="lazy">
+    </div>
+    <div class="lp-wrap lp-final-in">
+      <h2 class="rv">Put Codeply to work<br>on your biggest ideas.</h2>
+      <div class="lp-ctas rv d1"><a class="lp-btn" href="/download">Download Codeply</a><a class="lp-btn ghost" href="/docs">Read the docs</a></div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
+<footer class="lp-foot">
+  <div class="lp-wrap">
     <div class="ft-top">
       <div class="ft-brand"><a class="brand" href="/"><span class="mark" data-mark></span>Codeply</a><p>Ambient intelligence for your computer and phone.</p></div>
       <nav aria-label="Products"><b>Products</b><a href="/codeply">Codeply</a><a href="/wisp">Codeply Wisp</a><a href="/specialists">Specialists</a><a href="/apps">Apps</a><a href="/voice">Voice mode</a><a href="/mobile">Mobile</a><a href="/cli">Codeply CLI</a></nav>
@@ -283,10 +416,11 @@
 </footer>
 <script src="/assets/site/bot-avatar.js?v=2"></script>
 <script src="/assets/site/oi.js?v=1"></script>
-<script src="/assets/site/live.js?v=18"></script>
-<script src="/assets/site/wisp.js?v=6"></script>
+<script src="/assets/site/live.js?v=73"></script>
+<script src="/assets/site/wisp.js?v=7"></script>
 <script src="/assets/site/v3.js?v=2"></script>
-<script src="/assets/site/site.js?v=10"></script>
-<script src="/assets/site/sky.js?v=8"></script>
+<script src="/assets/site/site.js?v=11"></script>
+<script src="/assets/site/sky.js?v=10"></script>
+<script src="/assets/site/landing.js?v=74"></script>
 </body>
 </html>

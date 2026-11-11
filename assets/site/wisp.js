@@ -81,7 +81,8 @@
       w.kick = performance.now();
     };
     w.setMood(el.dataset.mood || 'neutral');
-    if (el.dataset.shape) w.setShape(el.dataset.shape);
+    // a specialist's own shape (data-shape) is part of who it is, so it's drawn that way from the start, morphing or not
+    if (el.dataset.shape && SHAPES[el.dataset.shape]) { w.r = SHAPES[el.dataset.shape].slice(); w.to = SHAPES[el.dataset.shape]; w.from = null; }
     new IntersectionObserver(function (es) { w.visible = es[0].isIntersecting; }).observe(el);
     el.addEventListener('click', function () {
       if (el.closest('[data-wisp-stage]')) return;

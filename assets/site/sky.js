@@ -93,6 +93,16 @@ function fit() {
   document.querySelectorAll('.scaler').forEach(function (sc) {
     var inner = sc.firstElementChild, w = (inner && inner.offsetWidth) || +sc.dataset.w || 1160;
     if (!inner || !sc.offsetWidth) return;
+    // the hero mockup uses zoom instead of transform: zoom re-lays text out at its real size,
+    // so it stays crisp; a fractional scale() rasterizes at 1280px and resamples it soft
+    if (inner.classList.contains('lp-app') && 'zoom' in inner.style) {
+      inner.style.zoom = '';
+      inner.style.transform = 'none';
+      var kz = Math.min(1, sc.offsetWidth / inner.offsetWidth);
+      inner.style.zoom = kz;
+      sc.style.height = '';
+      return;
+    }
     var k = Math.min(1, sc.offsetWidth / w);
     inner.style.transform = 'scale(' + k + ')';
     sc.style.height = (inner.offsetHeight * k) + 'px';
