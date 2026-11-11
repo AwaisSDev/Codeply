@@ -414,11 +414,7 @@ body { background: var(--lp-bg); color: var(--lp-tx); font-family: var(--lp-sans
 .ap-a code, .ap code { font: inherit; font-size: .94em; }
 
 /* ---------- the app window: the Codeply 3.0 home screen on a dotted wallpaper ---------- */
-.lp-app { --la-wall: radial-gradient(60% 18% at 30% 62%, #ffffff 0, rgba(190, 210, 255, .9) 30%, rgba(60, 90, 200, .0) 70%),
-    radial-gradient(70% 16% at 38% 70%, rgba(255, 70, 60, .95) 0, rgba(160, 30, 30, .55) 40%, rgba(0, 0, 0, 0) 75%),
-    radial-gradient(50% 60% at 8% 40%, rgba(110, 150, 255, .75) 0, rgba(40, 70, 170, .35) 45%, rgba(0, 0, 0, 0) 75%),
-    radial-gradient(60% 20% at 85% 52%, rgba(170, 200, 255, .8) 0, rgba(60, 90, 200, .25) 50%, rgba(0, 0, 0, 0) 80%),
-    radial-gradient(80% 40% at 70% 92%, rgba(60, 80, 160, .45) 0, rgba(0, 0, 0, 0) 70%), #05060a;
+.lp-app { --la-wall: url("galaxy.jpg") center / cover no-repeat, #05060a;
   position: relative; width: 1280px; min-height: 800px; display: flex; overflow: hidden; background: #0b0b0d; color: #ececf1;
   font: 14px/1.45 "Segoe UI", -apple-system, system-ui, sans-serif; text-align: left; isolation: isolate; }
 .lp-app .ic { display: inline-grid; place-items: center; width: 28px; height: 28px; color: #c9c9d1; }
