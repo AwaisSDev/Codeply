@@ -37,26 +37,43 @@
    "@type": "Organization",
    "@id": "https://codeply.app/#org",
    "name": "Codeply",
+   "alternateName": "Codeply AI",
    "url": "https://codeply.app/",
-   "logo": "https://codeply.app/assets/logo-512.png"
+   "logo": {
+    "@type": "ImageObject",
+    "url": "https://codeply.app/assets/logo-512.png",
+    "width": 512,
+    "height": 512
+   },
+   "image": [
+    "https://codeply.app/assets/site/google/codeply.png",
+    "https://codeply.app/assets/site/google/desktop.jpg",
+    "https://codeply.app/assets/site/google/phone.jpg",
+    "https://codeply.app/assets/site/google/cli.png"
+   ],
+   "description": "Codeply is ambient intelligence for your computer and phone: Wisp, one personal agent that works at your desk, keeps going in the cloud when you leave, and calls you when it needs you. It comes as a desktop app for Windows and macOS, a phone app, a web app and the Codeply CLI."
   },
   {
    "@type": "WebSite",
    "@id": "https://codeply.app/#site",
    "url": "https://codeply.app/",
    "name": "Codeply",
+   "alternateName": "Codeply AI",
    "publisher": {
     "@id": "https://codeply.app/#org"
    }
   },
   {
    "@type": "SoftwareApplication",
+   "@id": "https://codeply.app/#app",
    "name": "Codeply",
    "applicationCategory": "DeveloperApplication",
-   "operatingSystem": "Windows, macOS, iOS, Android, Linux",
+   "operatingSystem": "Windows, macOS",
    "description": "Codeply is ambient intelligence for your computer and phone: one personal agent that works at your desk, keeps going in the cloud when you leave, and calls you when it needs you.",
-   "url": "https://codeply.app/",
+   "url": "https://codeply.app/codeply",
    "downloadUrl": "https://codeply.app/download",
+   "image": "https://codeply.app/assets/site/google/desktop.jpg",
+   "screenshot": "https://codeply.app/assets/site/google/desktop.jpg",
    "offers": {
     "@type": "Offer",
     "price": "0",
@@ -65,6 +82,57 @@
    "publisher": {
     "@id": "https://codeply.app/#org"
    }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://codeply.app/#cli",
+   "name": "Codeply CLI",
+   "applicationCategory": "DeveloperApplication",
+   "operatingSystem": "Windows, macOS, Linux",
+   "description": "A coding agent in your terminal: give it a task in plain English and it reads your code, edits it, runs commands, and checks its work.",
+   "url": "https://codeply.app/cli",
+   "image": "https://codeply.app/assets/site/google/cli.png",
+   "screenshot": "https://codeply.app/assets/site/google/cli.png",
+   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+   "publisher": { "@id": "https://codeply.app/#org" }
+  },
+  {
+   "@type": "MobileApplication",
+   "@id": "https://codeply.app/#mobile",
+   "name": "Codeply for iPhone and Android",
+   "applicationCategory": "ProductivityApplication",
+   "operatingSystem": "iOS, Android",
+   "description": "Start work from your phone, on your PC or in the cloud. Check a run, review the result, and take calls from Wisp.",
+   "url": "https://codeply.app/mobile",
+   "image": "https://codeply.app/assets/site/google/phone.jpg",
+   "screenshot": "https://codeply.app/assets/site/google/phone.jpg",
+   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+   "publisher": { "@id": "https://codeply.app/#org" }
+  },
+  {
+   "@type": "WebApplication",
+   "@id": "https://codeply.app/#web",
+   "name": "Codeply web app",
+   "applicationCategory": "ProductivityApplication",
+   "operatingSystem": "Any (in the browser)",
+   "browserRequirements": "Requires a modern browser",
+   "description": "Codeply in your browser: chat with Wisp, search the web, and start work on your PC or in the cloud.",
+   "url": "https://codeply.app/chat",
+   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+   "publisher": { "@id": "https://codeply.app/#org" }
+  },
+  {
+   "@type": "ItemList",
+   "@id": "https://codeply.app/#nav",
+   "name": "Codeply",
+   "itemListElement": [
+    { "@type": "SiteNavigationElement", "position": 1, "name": "Download Codeply", "description": "The desktop app for Windows and macOS, and the Codeply CLI.", "url": "https://codeply.app/download" },
+    { "@type": "SiteNavigationElement", "position": 2, "name": "Codeply CLI", "description": "A coding agent in your terminal.", "url": "https://codeply.app/cli" },
+    { "@type": "SiteNavigationElement", "position": 3, "name": "Codeply web app", "description": "Chat with Wisp in your browser.", "url": "https://codeply.app/chat" },
+    { "@type": "SiteNavigationElement", "position": 4, "name": "Codeply on your phone", "description": "Start work from your phone and take calls from Wisp.", "url": "https://codeply.app/mobile" },
+    { "@type": "SiteNavigationElement", "position": 5, "name": "Wisp", "description": "One agent, a specialist for every job.", "url": "https://codeply.app/wisp" },
+    { "@type": "SiteNavigationElement", "position": 6, "name": "Docs", "description": "Install, sign in and use Codeply.", "url": "https://codeply.app/docs" }
+   ]
   }
  ]
 }</script>
