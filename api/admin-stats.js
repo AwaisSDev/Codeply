@@ -94,8 +94,8 @@ async function whopRevenueThisMonth() {
 
 // Subscription-based MRR fallback (configure prices via env if you like).
 async function subscriptionRevenue() {
-  const STARTER = +(process.env.WHOP_STARTER_PRICE || 9);
-  const PRO = +(process.env.WHOP_PRO_PRICE || 29);
+  const STARTER = +(process.env.WHOP_STARTER_PRICE || 20);
+  const PRO = +(process.env.WHOP_PRO_PRICE || 100);
   const [activeStarter, activePro] = await Promise.all([
     countRows('subscriptions', (q) => q.eq('status', 'active').eq('plan', 'starter')),
     countRows('subscriptions', (q) => q.eq('status', 'active').eq('plan', 'pro')),

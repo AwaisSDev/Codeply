@@ -1,0 +1,49 @@
+/* Pricing page. Uses the site tokens from landing.css (--lp-*). */
+.pr { padding: 8px 0 96px; }
+.pr-wrap { width: min(1080px, 100% - 32px); margin: 0 auto; }
+
+.pr-banner { margin: 0 auto 24px; max-width: 720px; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--lp-line); background: var(--lp-card); color: var(--lp-tx); font-size: 15px; text-align: center; }
+.pr-banner[data-kind="warn"] { border-color: rgba(214, 120, 20, .45); }
+
+.pr-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+@media (max-width: 900px) { .pr-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
+
+.pr-card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 28px 24px; border-radius: 20px; border: 1px solid var(--lp-line); background: var(--lp-card); color: var(--lp-tx); }
+.pr-card h2 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
+.pr-feature { border-color: #2f6bff; box-shadow: 0 0 0 1px #2f6bff inset; }
+.pr-current { border-color: var(--lp-tx-3); }
+.pr-tag { position: absolute; top: 18px; right: 18px; padding: 3px 10px; border-radius: 999px; background: #2f6bff; color: #fff; font-size: 12px; font-weight: 600; }
+
+.pr-price { margin: 4px 0 0; display: flex; align-items: baseline; gap: 4px; }
+.pr-price b { font-size: 40px; font-weight: 600; letter-spacing: -.02em; }
+.pr-price span { color: var(--lp-tx-3); font-size: 15px; }
+.pr-sub { margin: 0; color: var(--lp-tx-2); font-size: 15px; }
+
+.pr-btn { display: inline-flex; justify-content: center; align-items: center; width: 100%; min-height: 44px; margin: 8px 0 6px; text-decoration: none; cursor: pointer; }
+.pr-btn:disabled { opacity: .6; cursor: default; }
+
+.pr-list { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 10px; font-size: 15px; color: var(--lp-tx-2); }
+.pr-list li { position: relative; padding-left: 24px; line-height: 1.45; }
+.pr-list li::before { content: ""; position: absolute; left: 2px; top: .5em; width: 10px; height: 6px; border-left: 2px solid #2f6bff; border-bottom: 2px solid #2f6bff; transform: rotate(-45deg); }
+.pr-list b { color: var(--lp-tx); font-weight: 600; }
+.pr-soon { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; border: 1px solid var(--lp-line); color: var(--lp-tx-3); font-size: 12px; white-space: nowrap; }
+
+.pr-faq { max-width: 720px; margin: 64px auto 0; color: var(--lp-tx); }
+.pr-faq h2 { font-size: 24px; font-weight: 600; margin: 0 0 16px; }
+.pr-faq dt { font-weight: 600; margin-top: 18px; }
+.pr-faq dd { margin: 6px 0 0; color: var(--lp-tx-2); line-height: 1.55; }
+
+.pr-modal { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 16px; background: rgba(5, 8, 20, .45); }
+.pr-modal[hidden], .pr-modal [hidden], .pr [hidden] { display: none !important; }
+.pr-dialog { position: relative; width: min(400px, 100%); padding: 28px 24px 22px; border-radius: 20px; background: var(--lp-card); color: var(--lp-tx); border: 1px solid var(--lp-line); }
+.pr-dialog h2 { margin: 0 0 4px; font-size: 20px; font-weight: 600; }
+.pr-dialog form { display: grid; gap: 12px; margin-top: 16px; }
+.pr-dialog label { display: grid; gap: 6px; font-size: 14px; color: var(--lp-tx-2); }
+.pr-dialog input { height: 42px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--lp-line); background: transparent; color: var(--lp-tx); font: inherit; font-size: 16px; }
+.pr-dialog input:focus-visible { outline: 2px solid #2f6bff; outline-offset: 1px; }
+.pr-x { position: absolute; top: 10px; right: 12px; width: 36px; height: 36px; border: 0; background: none; color: var(--lp-tx-3); font-size: 24px; cursor: pointer; }
+.pr-hint { margin: 0; color: var(--lp-tx-3); font-size: 14px; }
+.pr-new { margin-top: 14px; }
+.pr-new a { color: #2f6bff; }
+.pr-err { margin: 0; color: #c2410c; font-size: 14px; }
+.pr-link { border: 0; background: none; padding: 4px 0; color: #2f6bff; font: inherit; font-size: 14px; cursor: pointer; }

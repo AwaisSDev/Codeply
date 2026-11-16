@@ -252,7 +252,7 @@ export default async function handler(req, res) {
     countRows('subscriptions', (q) => q.eq('status', 'active').eq('plan', 'pro')),
   ]);
   const voice = await fetchAll(() => supabase.from('tts_usage').select('chars').gte('day', range.from).lte('day', range.to));
-  const mrr = activeStarter * +(process.env.WHOP_STARTER_PRICE || 9) + activePro * +(process.env.WHOP_PRO_PRICE || 29);
+  const mrr = activeStarter * +(process.env.WHOP_STARTER_PRICE || 20) + activePro * +(process.env.WHOP_PRO_PRICE || 100);
 
   const countryRows = await fetchAll(() => supabase.from('profiles').select('country'));
   const cMap = {};

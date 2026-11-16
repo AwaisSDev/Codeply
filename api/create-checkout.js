@@ -41,7 +41,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         plan_id: planId,
         metadata,
-        redirect_url: `${origin}/#dashboard`,
+        redirect_url: `${origin}/pricing?checkout=done`,
       }),
     });
 

@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { supabase } from '../lib/supabaseClient.js';
 import { getJsonBody, requireUser } from '../lib/auth.js';
+import { activePlanKey, PLANS } from '../lib/plans.js';
 
 const allowedProviders = new Set(['openai', 'claude', 'openrouter', 'groq', 'gemini', 'deepseek', 'qwen', 'custom']);
 
@@ -29,10 +30,10 @@ function hint(value) {
 async function isPro(userId) {
   const { data } = await supabase
     .from('subscriptions')
-    .select('plan,status')
+    .select('plan,status,current_period_end,updated_at')
     .eq('user_id', userId)
     .maybeSingle();
-  return data?.plan === 'pro' && data?.status === 'active';
+  return activePlanKey(data) === 'pro';
 }
 
 export default async function handler(req, res) {
@@ -40,7 +41,7 @@ export default async function handler(req, res) {
   if (!user) return;
 
   if (!(await isPro(user.id))) {
-    return res.status(403).json({ message: 'API key storage is available on Pro.' });
+    return res.status(403).json({ message: `API key storage is available on ${PLANS.pro.name}.` });
   }
 
   const body = getJsonBody(req);

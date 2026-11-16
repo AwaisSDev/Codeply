@@ -1,6 +1,7 @@
 import { supabase } from '../lib/supabaseClient.js';
 import { ensureProfile, getJsonBody, requireUser } from '../lib/auth.js';
 import { applyCors } from '../lib/cors.js';
+import { activePlanKey, describePlan } from '../lib/plans.js';
 
 const starterProviders = new Set(['openrouter', 'groq']);
 
@@ -51,7 +52,7 @@ export default async function handler(req, res) {
     supabase.from('user_api_keys').select('provider,key_hint,updated_at').eq('user_id', user.id),
   ]);
 
-  const plan = subscription?.status === 'active' ? subscription.plan : 'free';
+  const plan = activePlanKey(subscription);
   const starterProvider = profile?.starter_provider || 'openrouter';
   const enabledProviders = plan === 'pro'
     ? ['openai', 'claude', 'openrouter', 'groq', 'gemini', 'deepseek', 'qwen']
@@ -63,6 +64,7 @@ export default async function handler(req, res) {
     user: { id: user.id, email: user.email },
     profile,
     subscription: subscription || { plan: 'free', status: 'inactive' },
+    plan: describePlan(plan),
     enabledProviders: enabledProviders.map((provider) => ({ provider, label: providerLabels[provider] || provider })),
     apiKeys: (keys || []).map((key) => ({ provider: key.provider, hint: key.key_hint || maskKey(key.provider), updated_at: key.updated_at })),
   });
