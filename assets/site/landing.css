@@ -583,7 +583,7 @@ html.lp-light .lp-foot a:hover { color: var(--lp-tx); }
 html.lp-light .lp-foot .ft-legal { color: var(--lp-tx-3); }
 
 /* the glass bar turns white once you scroll; at the very top it stays blue glass over the sky */
-html.lp-light .lp-nav.scrolled .lp-shell { background: rgba(255, 255, 255, .8); border-color: rgba(12, 20, 48, .1); }
+html.lp-light .lp-nav.scrolled .lp-shell { background: rgba(255, 255, 255, .94); border-color: rgba(12, 20, 48, .1); box-shadow: 0 6px 20px -12px rgba(12, 20, 48, .25); }
 html.lp-light .lp-nav.scrolled .lp-brand { color: var(--lp-tx); }
 html.lp-light .lp-nav.scrolled .lp-links a, html.lp-light .lp-nav.scrolled .lp-dd { color: rgba(12, 20, 48, .8); }
 html.lp-light .lp-nav.scrolled .lp-links a:hover, html.lp-light .lp-nav.scrolled .lp-dd:hover, html.lp-light .lp-nav.scrolled .lp-dd[aria-expanded="true"] { color: var(--lp-tx); background: rgba(12, 20, 48, .06); }
