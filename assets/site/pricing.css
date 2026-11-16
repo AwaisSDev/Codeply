@@ -21,7 +21,7 @@
 .pr-sub { margin: 14px 0 0; color: #4a5368; font-size: 14.5px; line-height: 1.55; min-height: 4.65em; }
 
 .pr-icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 13px; background: #fff; box-shadow: 0 0 0 1px rgba(15, 30, 70, .06), 0 4px 10px -4px rgba(15, 30, 70, .22); }
-.pr-icon svg { width: 24px; height: 24px; fill: none; stroke: #1e88f5; stroke-width: 1.8; stroke-linejoin: round; stroke-linecap: round; }
+.pr-icon img { display: block; width: 34px; height: 34px; }
 
 .pr-tag { position: absolute; top: 22px; right: 22px; display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px 5px 8px; border-radius: 999px; background: linear-gradient(180deg, #2c9bff, #1677f2); color: #fff; font-size: 14px; font-weight: 500; box-shadow: 0 6px 14px -6px rgba(22, 119, 242, .7), inset 0 1px 0 rgba(255, 255, 255, .35); }
 .pr-tag svg { width: 16px; height: 16px; fill: #fff; }
@@ -32,8 +32,8 @@
 .pr-price span { color: #6f7789; font-size: 15px; }
 
 .pr-list { list-style: none; margin: 0; padding: 26px 12px 26px; display: grid; gap: 16px; align-content: start; flex: 1; font-size: 15.5px; color: #3b4456; }
-.pr-list li { position: relative; padding-left: 34px; line-height: 1.45; }
-.pr-list li::before { content: ""; position: absolute; left: 0; top: -1px; width: 24px; height: 24px; border-radius: 50%; background: #e3f2ff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 12.5l3.2 3.2L17 8.8' fill='none' stroke='%231e88f5' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 18px no-repeat; }
+.pr-list li { position: relative; padding-left: 36px; line-height: 1.45; }
+.pr-list li::before { content: ""; position: absolute; left: 0; top: -3px; width: 28px; height: 28px; background: url("/assets/site/icons/kubai/circle-check.svg") center / 28px no-repeat; }
 .pr-list b { color: #111827; font-weight: 600; }
 .pr-soon { display: inline-block; margin-left: 6px; padding: 1px 9px; border-radius: 999px; background: #f0f2f6; color: #6f7789; font-size: 12px; white-space: nowrap; vertical-align: 1px; }
 
