@@ -1,9 +1,12 @@
 import { Whop } from '@whop/sdk';
 import { supabase } from '../lib/supabaseClient.js';
-import { PAID_PLANS } from '../lib/plans.js';
+import { PAID_PLANS, whopConfig } from '../lib/plans.js';
 
 // Whop -> subscriptions. What each event does to a person's plan:
-//   payment.succeeded, membership.activated   active, new period end
+//   payment.succeeded, membership.activated   active (trialing during a free trial), new period end
+//   membership.updated                        Whop's one event for a membership changing (it
+//                                             activates, deactivates, or cancel_at_period_end
+//                                             flips): its status and cancel_at_period_end say which
 //   membership.cancel_at_period_end_changed   canceled (keeps the plan until
 //                                             the period end) or active again
 //   membership.cancelled / .canceled          canceled, same as above
@@ -35,8 +38,9 @@ function resolvePlan(data) {
   if (PAID_PLANS.includes(metadataPlan)) return metadataPlan;
 
   const planId = data?.plan?.id || data?.plan_id || data?.checkout_configuration?.plan?.id || data?.membership?.plan?.id;
-  if (planId && planId === process.env.WHOP_PRO_PLAN_ID) return 'pro';
-  if (planId && planId === process.env.WHOP_STARTER_PLAN_ID) return 'starter';
+  const whop = whopConfig();
+  if (planId && planId === whop.planId('pro')) return 'pro';
+  if (planId && planId === whop.planId('starter')) return 'starter';
   return null;
 }
 
@@ -93,6 +97,21 @@ export async function applyEvent(type, data) {
   const base = { whop_membership_id: membershipId || undefined, current_period_end: periodEnd };
 
   switch (type) {
+    case 'membership.updated': {
+      // What the membership is now: Whop's status, and whether it ends at the period end.
+      const st = String(data?.status || '');
+      if (st === 'trialing' || st === 'active') {
+        return saveSubscription(userId, data?.cancel_at_period_end === true
+          ? { ...base, plan, status: 'canceled', canceled_at: new Date().toISOString() }
+          : { ...base, plan, status: st, canceled_at: null });
+      }
+      if (st === 'past_due') return saveSubscription(userId, { ...base, plan, status: 'past_due' });
+      if (['canceled', 'cancelled', 'completed', 'expired', 'unresolved', 'drafted'].includes(st)) {
+        return saveSubscription(userId, { ...base, plan, status: 'inactive', canceled_at: new Date().toISOString() });
+      }
+      return undefined; // a status we don't act on
+    }
+
     case 'payment.succeeded':
     case 'membership.activated':
       if (!plan) {
@@ -104,7 +123,8 @@ export async function applyEvent(type, data) {
           return;
         }
       }
-      return saveSubscription(userId, { ...base, plan, status: 'active', canceled_at: null });
+      // A membership that starts with a free trial is "trialing" until its first charge.
+      return saveSubscription(userId, { ...base, plan, status: data?.status === 'trialing' ? 'trialing' : 'active', canceled_at: null });
 
     case 'membership.cancel_at_period_end_changed': {
       const cancelling = data?.cancel_at_period_end === true;
