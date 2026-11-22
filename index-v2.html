@@ -17,6 +17,19 @@
 </head>
 <body>
 
+<!-- ink doodles, Notion style -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="d-spark" viewBox="0 0 24 24"><path d="M12 2.5c.6 4.6 2.6 7.6 9 9.5-6.4 1.9-8.4 4.9-9 9.5-.6-4.6-2.6-7.6-9-9.5 6.4-1.9 8.4-4.9 9-9.5Z"/></symbol>
+  <symbol id="d-plane" viewBox="0 0 48 40"><path d="M3 18 45 3 33 37 22 25Z"/><path d="M22 25 45 3M22 25l-2 11 7-6"/></symbol>
+  <symbol id="d-env" viewBox="0 0 48 36"><rect x="3" y="3" width="42" height="30" rx="4"/><path d="M4 6l20 15L44 6"/></symbol>
+  <symbol id="d-cal" viewBox="0 0 40 40"><rect x="4" y="7" width="32" height="29" rx="5"/><path d="M4 16h32M13 3v8M27 3v8"/><path d="M12 24l4 4 9-9"/></symbol>
+  <symbol id="d-code" viewBox="0 0 48 32"><path d="M15 6 4 16l11 10M33 6l11 10-11 10M27 3l-6 26"/></symbol>
+  <symbol id="d-check" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15"/><path d="M11 18.5l5 5 9-10"/></symbol>
+  <symbol id="d-squig" viewBox="0 0 80 16"><path d="M2 9c6-8 12 8 19 0s12-8 19 0 12 8 19 0 12-8 19 0"/></symbol>
+  <symbol id="d-bars" viewBox="0 0 44 36"><path d="M4 33h36"/><rect x="8" y="18" width="7" height="15" rx="2"/><rect x="19" y="10" width="7" height="23" rx="2"/><rect x="30" y="4" width="7" height="29" rx="2"/></symbol>
+  <symbol id="d-cup" viewBox="0 0 40 40"><path d="M7 15h22v9a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9Z"/><path d="M29 18h3a4 4 0 0 1 0 8h-3M14 4c-2 3 2 5 0 8M21 4c-2 3 2 5 0 8"/></symbol>
+</svg>
+
 <!-- NAV: full width at the top, a floating pill once you scroll -->
 <header class="nv" id="nv">
   <div class="nv-in">
@@ -38,29 +51,34 @@
 
 <!-- HERO: a big rounded scene, headline bottom left -->
 <section class="hero">
-  <div class="scene sky" aria-hidden="true">
-    <i class="haze h1"></i><i class="haze h2"></i><i class="haze h3"></i>
-    <i class="puff p1"></i><i class="puff p2"></i><i class="puff p3"></i><i class="puff p4"></i>
-    <i class="grain"></i>
-  </div>
-  <div class="hero-crew" aria-hidden="true">
-    <span class="say">Already on it!</span>
-    <div class="ride">
-      <span class="c-wisp" data-wisp="lg" data-mood="happy"></span>
-      <span class="c-a" data-wisp="md" data-shape="triangle" data-color="#e8649a"></span>
-      <span class="c-b" data-wisp="md" data-shape="cloud" data-color="#f08a3c"></span>
-      <span class="c-c" data-wisp="md" data-shape="circle" data-color="#4bbf63"></span>
-      <span class="c-d" data-wisp="md" data-shape="square" data-color="#6a57f5"></span>
-      <span class="toon"><i></i><i></i><i></i><i></i><i></i></span>
+  <div class="hero-art" aria-hidden="true">
+    <svg class="trail" viewBox="0 0 600 420" preserveAspectRatio="none"><path d="M40 330C120 250 60 160 170 140s170 120 260 40 70-120 130-110"/></svg>
+    <svg class="dd plane"><use href="#d-plane"/></svg>
+    <svg class="dd env"><use href="#d-env"/></svg>
+    <svg class="dd cal"><use href="#d-cal"/></svg>
+    <svg class="dd code"><use href="#d-code"/></svg>
+    <svg class="dd chk"><use href="#d-check"/></svg>
+    <svg class="dd sp1"><use href="#d-spark"/></svg>
+    <svg class="dd sp2"><use href="#d-spark"/></svg>
+    <svg class="dd sp3"><use href="#d-spark"/></svg>
+    <svg class="dd sq"><use href="#d-squig"/></svg>
+    <div class="gang">
+      <span class="say">Already on it!</span>
+      <span class="g-wisp" data-wisp="lg" data-mood="happy"></span>
+      <span class="g-a" data-wisp="md" data-shape="triangle" data-color="#e8649a"></span>
+      <span class="g-b" data-wisp="md" data-shape="cloud" data-color="#f08a3c"></span>
+      <span class="g-c" data-wisp="md" data-shape="circle" data-color="#4bbf63"></span>
+      <span class="g-d" data-wisp="md" data-shape="square" data-color="#6a57f5"></span>
+      <i class="floor"></i>
     </div>
   </div>
   <div class="hero-copy">
     <span class="hero-tag"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-4.8"/></svg>Free to start</span>
     <h1>Your AI that’s<br>already on it</h1>
-    <p>Inbox, calendar, business and code. Ask Wisp once, close the laptop, and it keeps going.</p>
+    <p>Inbox, calendar, business and code, all in one app. Ask Wisp once, close the laptop, and it keeps going.</p>
     <div class="hero-ctas">
-      <a class="pill pill-white" href="/download">Download Yune</a>
-      <a class="pill pill-glass" href="#how">See how it works</a>
+      <a class="pill pill-ink" href="/download">Download Yune</a>
+      <a class="pill pill-line" href="#how">See how it works</a>
     </div>
   </div>
 </section>
@@ -80,21 +98,21 @@
   <h2 class="t-c rv">Perfect if you’re…</h2>
   <div class="who">
     <figure class="rv">
-      <div class="tile tl-green" aria-hidden="true">
+      <div class="tile tl-green" aria-hidden="true"><svg class="dd t-d"><use href="#d-env"/></svg>
         <span class="tile-ag" data-wisp="lg" data-shape="circle" data-color="#4bbf63"></span>
         <span class="chip-f f1">42 emails sorted</span><span class="chip-f f2">3 replies drafted</span>
       </div>
       <figcaption>Drowning in email</figcaption>
     </figure>
     <figure class="rv d1">
-      <div class="tile tl-pink" aria-hidden="true">
+      <div class="tile tl-pink" aria-hidden="true"><svg class="dd t-d"><use href="#d-code"/></svg>
         <span class="tile-ag" data-wisp="lg" data-shape="triangle" data-color="#e8649a"></span>
         <span class="chip-f f1">✓ 24 tests pass</span><span class="chip-f f2">Pull request ready</span>
       </div>
       <figcaption>Shipping a product</figcaption>
     </figure>
     <figure class="rv d2">
-      <div class="tile tl-violet" aria-hidden="true">
+      <div class="tile tl-violet" aria-hidden="true"><svg class="dd t-d"><use href="#d-bars"/></svg>
         <span class="tile-ag" data-wisp="lg" data-shape="square" data-color="#6a57f5"></span>
         <span class="chip-f f1">4 venues for Friday</span><span class="chip-f f2">Weekly report done</span>
       </div>
@@ -146,9 +164,9 @@
 <section class="sec" id="tour">
   <div class="tour">
     <div class="tour-v rv" aria-hidden="true">
-      <div class="scene sky soft"><i class="haze h1"></i><i class="haze h2"></i><i class="grain"></i></div>
+      <div class="flat fl-blue"><svg class="dd tsp"><use href="#d-spark"/></svg><svg class="dd tsq"><use href="#d-squig"/></svg></div>
       <div class="tv-win">
-        <div class="tv-bar"><i></i><i></i><i></i><span>Yune Code</span></div>
+        <div class="tv-bar"><i></i><i></i><i></i><span>Yune</span></div>
         <div class="tv-body">
           <div class="pane on" data-pane="inbox">
             <div class="pn-h"><span data-wisp="sm" data-shape="circle" data-color="#4bbf63"></span>Inbox<em>42 sorted</em></div>
@@ -187,7 +205,7 @@
         <button class="tab" data-tab="code" role="tab"><i class="ti" style="--c:#e8649a"><svg viewBox="0 0 24 24"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></i><span><b>Code that checks itself</b><small>Opened in a real browser</small></span></button>
         <button class="tab" data-tab="research" role="tab"><i class="ti" style="--c:#6a57f5"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></svg></i><span><b>Research</b><small>Options, compared for you</small></span></button>
         <button class="tab" data-tab="cloud" role="tab"><i class="ti" style="--c:#f08a3c"><svg viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.6-8 6 6 0 0 1 11.6 1.5A3.3 3.3 0 0 1 17.5 18Z"/></svg></i><span><b>Keeps going in the cloud</b><small>Even with the laptop closed</small></span></button>
-        <button class="tab" data-tab="cli" role="tab"><i class="ti" style="--c:#2f6bff"><svg viewBox="0 0 24 24"><path d="M5 7l5 5-5 5M12 18h7"/></svg></i><span><b>Yune CLI</b><small>The same agent in your terminal</small></span></button>
+        <button class="tab" data-tab="cli" role="tab"><i class="ti" style="--c:#2f6bff"><svg viewBox="0 0 24 24"><path d="M5 7l5 5-5 5M12 18h7"/></svg></i><span><b>Yune Code</b><small>The same agent in your terminal</small></span></button>
       </div>
     </div>
   </div>
@@ -227,43 +245,43 @@
   <h2 class="t-c rv">Meet the team</h2>
   <p class="sub t-c rv d1">Real agents with their own face and colour. Talk to any of them with @Name, or just ask Wisp.</p>
   <div class="crew">
-    <article class="mate lead rv"><div class="mt-v" style="--bg1:#dfe8ff;--bg2:#c4d4ff"><span data-wisp="lg" data-mood="happy"></span></div><b>Wisp</b><small>LEADS THE TEAM</small><p>Your agent. Picks who does what and keeps you posted.</p></article>
-    <article class="mate rv d1"><div class="mt-v" style="--bg1:#ffe3ee;--bg2:#ffc9dc"><span data-wisp="lg" data-shape="triangle" data-color="#e8649a"></span></div><b>Frontend</b><small>BUILDS IT</small><p>Pages, screens and anything you can click.</p></article>
-    <article class="mate rv d2"><div class="mt-v" style="--bg1:#ffeadb;--bg2:#ffd3b3"><span data-wisp="lg" data-shape="cloud" data-color="#f08a3c"></span></div><b>Backend</b><small>WIRES IT UP</small><p>Data, accounts, limits and the plumbing behind it.</p></article>
-    <article class="mate rv d3"><div class="mt-v" style="--bg1:#e1f5e5;--bg2:#c3ebcb"><span data-wisp="lg" data-shape="circle" data-color="#4bbf63"></span></div><b>Inbox</b><small>ANSWERS MAIL</small><p>Sorts, drafts and books, then waits for your OK.</p></article>
-    <article class="mate rv d4"><div class="mt-v" style="--bg1:#e7e3ff;--bg2:#d0c8ff"><span data-wisp="lg" data-shape="square" data-color="#6a57f5"></span></div><b>Research</b><small>FINDS THINGS</small><p>Venues, flights, facts and options, compared.</p></article>
+    <article class="mate lead rv"><div class="mt-v" style="--bg:#dfe8ff"><span data-wisp="lg" data-mood="happy"></span></div><b>Wisp</b><small>LEADS THE TEAM</small><p>Your agent. Picks who does what and keeps you posted.</p></article>
+    <article class="mate rv d1"><div class="mt-v" style="--bg:#ffe1ec"><span data-wisp="lg" data-shape="triangle" data-color="#e8649a"></span></div><b>Frontend</b><small>BUILDS IT</small><p>Pages, screens and anything you can click.</p></article>
+    <article class="mate rv d2"><div class="mt-v" style="--bg:#ffe8d6"><span data-wisp="lg" data-shape="cloud" data-color="#f08a3c"></span></div><b>Backend</b><small>WIRES IT UP</small><p>Data, accounts, limits and the plumbing behind it.</p></article>
+    <article class="mate rv d3"><div class="mt-v" style="--bg:#dff3e3"><span data-wisp="lg" data-shape="circle" data-color="#4bbf63"></span></div><b>Inbox</b><small>ANSWERS MAIL</small><p>Sorts, drafts and books, then waits for your OK.</p></article>
+    <article class="mate rv d4"><div class="mt-v" style="--bg:#e6e1ff"><span data-wisp="lg" data-shape="square" data-color="#6a57f5"></span></div><b>Research</b><small>FINDS THINGS</small><p>Venues, flights, facts and options, compared.</p></article>
   </div>
 </section>
 
 <!-- PRODUCTS -->
 <section class="sec" id="products">
-  <h2 class="t-c rv">Two ways to use Yune</h2>
-  <p class="sub t-c rv d1">One account, one memory, the same team. Free to start.</p>
+  <h2 class="t-c rv">Yune and Yune Code</h2>
+  <p class="sub t-c rv d1">The app for everything, and Code for your terminal. One account, one memory, the same team.</p>
   <div class="prods">
     <article class="prod rv">
       <div class="pd-v" aria-hidden="true">
-        <div class="scene sky dusk"><i class="haze h1"></i><i class="haze h2"></i><i class="grain"></i></div>
+        <div class="flat fl-sky"><svg class="dd tsp"><use href="#d-spark"/></svg><svg class="dd tcup"><use href="#d-cup"/></svg></div>
         <span class="pd-on">On Windows and macOS</span>
-        <div class="pd-win"><div class="tv-bar"><i></i><i></i><i></i></div><div class="pd-in"><span data-wisp="md" data-mood="happy"></span><b>What should we do today?</b><div class="pd-box">Ask Wisp anything</div></div></div>
+        <div class="pd-win"><div class="tv-bar"><i></i><i></i><i></i></div><div class="pd-in"><span data-wisp="md" data-mood="happy"></span><b>What should we do today?</b><div class="pd-box">Ask Wisp anything<span class="mode"><i class="on">Chat</i><i>Code</i></span></div></div></div>
       </div>
       <div class="pd-c">
-        <h3>Yune Code</h3>
-        <span class="lbl">THE DESKTOP APP</span>
-        <ul><li>Chat with Wisp and the whole team</li><li>Inbox, calendar, research and code</li><li>Checks its work in a real browser</li><li>Sends work to the cloud when you leave</li></ul>
-        <a class="pill pill-ink" href="/download">Download Yune Code</a>
+        <h3>Yune</h3>
+        <span class="lbl">THE APP · CHAT AND CODE</span>
+        <ul><li>Chat mode for your inbox, calendar and research</li><li>Code mode to build and fix your projects</li><li>Checks its work in a real browser</li><li>Sends work to the cloud when you leave</li></ul>
+        <a class="pill pill-ink" href="/download">Download Yune</a>
       </div>
     </article>
     <article class="prod rv d1">
       <div class="pd-v" aria-hidden="true">
-        <div class="scene night"><i class="stars"></i><i class="grain"></i></div>
+        <div class="flat fl-ink"><svg class="dd tsp w"><use href="#d-spark"/></svg><svg class="dd tsp2 w"><use href="#d-spark"/></svg></div>
         <span class="pd-on">In your terminal</span>
         <div class="pd-term"><p class="mu"># one line to install</p><p><span class="pr">$</span> npm i -g yune</p><p><span class="pr">$</span> <b>yune</b> "write the release notes"</p><p class="gr">✓ Wrote RELEASE.md from 18 pull requests</p></div>
       </div>
       <div class="pd-c">
-        <h3>Yune CLI</h3>
+        <h3>Yune Code</h3>
         <span class="lbl">FOR YOUR TERMINAL</span>
-        <ul><li>The same agent, in plain English</li><li>Reads your code, edits and runs it</li><li>Same account and memory as Yune Code</li><li>Asks before every change</li></ul>
-        <a class="pill pill-line" href="/cli">Get Yune CLI</a>
+        <ul><li>The same agent, in plain English</li><li>Reads your code, edits and runs it</li><li>Same account and memory as the Yune app</li><li>Asks before every change</li></ul>
+        <a class="pill pill-line" href="/cli">Get Yune Code</a>
       </div>
     </article>
   </div>
@@ -285,7 +303,7 @@
   <div class="faq">
     <details><summary>What is Yune?</summary><p>Yune gives you Wisp, one AI agent with a team of specialists behind it. It handles your inbox, calendar, business and code, and keeps going in the cloud when you leave.</p></details>
     <details><summary>What can I ask Wisp to do?</summary><p>Sort and answer email, plan your week, research options, write documents and build or fix code. Wisp picks the right teammate for each part.</p></details>
-    <details><summary>What’s the difference between Yune Code and Yune CLI?</summary><p>Yune Code is the desktop app for Windows and macOS. Yune CLI is the same agent in your terminal. Same account, same memory, same team.</p></details>
+    <details><summary>What’s the difference between Yune and Yune Code?</summary><p>Yune is the app for Windows and macOS, with a Chat mode for everyday work and a Code mode for your projects. Yune Code is the same agent in your terminal. Same account, same memory, same team.</p></details>
     <details><summary>Does it work when my laptop is closed?</summary><p>Yes. Send a task to the cloud and it keeps going on its own, then shows you what it did when you’re back.</p></details>
     <details><summary>Will it do anything without asking me?</summary><p>No. Every write, edit, email and command waits for your yes, with the change in front of you.</p></details>
     <details><summary>How much does Yune cost?</summary><p>Yune is free to start.</p></details>
@@ -294,7 +312,7 @@
 
 <!-- NIGHT CTA -->
 <section class="night-cta">
-  <div class="scene night big" aria-hidden="true"><i class="stars"></i><i class="moon"></i><i class="glow"></i><i class="grain"></i></div>
+  <div class="nightbg" aria-hidden="true"><i class="moon"></i><svg class="dd st s1 w"><use href="#d-spark"/></svg><svg class="dd st s2 w"><use href="#d-spark"/></svg><svg class="dd st s3 w"><use href="#d-spark"/></svg><svg class="dd st s4 w"><use href="#d-spark"/></svg><svg class="dd st s5 w"><use href="#d-spark"/></svg></div>
   <div class="nc-crew" aria-hidden="true">
     <span data-wisp="md" data-shape="triangle" data-color="#e8649a"></span>
     <span data-wisp="lg" data-mood="happy"></span>
@@ -303,7 +321,7 @@
   <div class="nc-c">
     <h2>Put Yune to work tonight</h2>
     <p>Ask before bed. Wake up to it done.</p>
-    <div class="hero-ctas center"><a class="pill pill-white" href="/download">Download Yune Code</a><a class="pill pill-glass" href="/cli">Get Yune CLI</a></div>
+    <div class="hero-ctas center"><a class="pill pill-white" href="/download">Download Yune</a><a class="pill pill-glass" href="/cli">Get Yune Code</a></div>
   </div>
 </section>
 
@@ -316,7 +334,7 @@
   </div>
   <div class="ft-mid">
     <div class="ft-brand"><a class="brand" href="/"><img src="/assets/site/v4/yune-logo.svg" alt="" width="26" height="26">Yune</a><small>Your AI that’s already on it.</small></div>
-    <nav><b>Products</b><a href="/codeply">Yune Code</a><a href="/cli">Yune CLI</a><a href="/download">Download</a></nav>
+    <nav><b>Products</b><a href="/codeply">Yune</a><a href="/cli">Yune Code</a><a href="/download">Download</a></nav>
     <nav><b>Explore</b><a href="#how">How it works</a><a href="#team">The team</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a></nav>
     <nav><b>Support</b><a href="/docs">Docs</a><a href="#faq">FAQ</a><a href="/about">About</a></nav>
   </div>
