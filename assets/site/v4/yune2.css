@@ -1,24 +1,30 @@
 /* Yune 2: the nature-first landing (/yune/yune2). Loads after home + pages css. */
 
 /* ------- hero: one big photo, the app sitting in front of it ------- */
-.y2-hero { padding: 68px 12px 0; }
-.y2-top { position: relative; height: min(90vh, 880px); min-height: 640px; border-radius: 22px; overflow: hidden; background: #1b2a22; }
+/* --ov is how far the app window rides up over the photo. The photo is padded by the same amount at the
+   bottom, so the words and buttons can never end up underneath the window, whatever the screen height. */
+.y2-hero { --ov: clamp(170px, 26vh, 300px); padding: 68px 12px 0; }
+.y2-top { position: relative; min-height: min(88vh, 860px); border-radius: 22px; overflow: hidden; background: #1b2a22;
+  display: flex; justify-content: center; padding: clamp(48px, 9vh, 112px) 0 calc(var(--ov) + 56px); }
 .y2-top > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; transform: scale(1.02); animation: y2-drift 26s ease-in-out infinite alternate; }
 @keyframes y2-drift { to { transform: scale(1.06); } }
 /* a calm, even shade over the top half so the words always read; the photo stays clear below */
 .y2-top::after { content: ""; position: absolute; inset: 0; pointer-events: none;
   background: linear-gradient(180deg, rgba(8,16,34,.42) 0%, rgba(8,16,34,.3) 30%, rgba(8,16,34,.08) 55%, transparent 70%, rgba(8,16,34,.18) 100%); }
-.y2-hc { position: absolute; z-index: 2; left: 50%; top: 11%; transform: translateX(-50%); width: min(820px, 92%); text-align: center; color: #fff; }
+.y2-hc { position: relative; z-index: 2; width: min(820px, 92%); text-align: center; color: #fff; }
 /* a soft, blurred pool of shade right behind the words, so busy rock and snow never show through */
 .y2-hc::before { content: ""; position: absolute; z-index: -1; left: 4%; right: 4%; top: -6%; bottom: -10%; border-radius: 50%;
   background: radial-gradient(closest-side, rgba(6,12,26,.3), rgba(6,12,26,.14) 60%, transparent); filter: blur(24px); }
-.y2-hc h1 { font-size: clamp(42px, 6.4vw, 88px); line-height: 1; letter-spacing: -.035em; font-weight: 600; text-shadow: 0 1px 10px rgba(0,0,0,.12); }
-.y2-hc p { margin: 20px auto 0; max-width: 540px; font-size: 19px; line-height: 1.55; font-weight: 500; color: #fff;
+.y2-hc h1 { font-size: clamp(42px, 6vw, 84px); line-height: 1; letter-spacing: -.035em; font-weight: 600; text-shadow: 0 1px 10px rgba(0,0,0,.12); }
+.y2-hc p { margin: 18px auto 0; max-width: 460px; font-size: 19px; line-height: 1.55; font-weight: 500; color: #fff;
   text-shadow: 0 1px 2px rgba(0,0,0,.35), 0 0 8px rgba(0,0,0,.2); }
 
 .y2-eyebrow { display: inline-block; margin-bottom: 18px; font-size: 13.5px; font-weight: 500; letter-spacing: .02em; padding: 6px 13px; border-radius: 999px;
   background: rgba(255,255,255,.16); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
 .y2-time { align-self: center; font-size: 12px; color: var(--ink-3); }
+
+/* the "Draft ready" tag also matched the trust section's .ask card style and stretched into a block */
+.tg.ask { width: auto; padding: 4px 8px; border-radius: 999px; box-shadow: none; font-size: 11.5px; background: #fff0dc; }
 
 /* window buttons in their real colours: red, yellow, green */
 .y2 .tv-bar i:nth-child(1) { background: #ff5f57; }
@@ -26,7 +32,7 @@
 .y2 .tv-bar i:nth-child(3) { background: #28c840; }
 
 /* the app window, overlapping the bottom of the photos */
-.y2-app { position: relative; z-index: 3; max-width: 1020px; margin: clamp(-320px, -29vh, -190px) auto 0; padding: 0 12px; }
+.y2-app { position: relative; z-index: 3; max-width: 1020px; margin: calc(-1 * var(--ov)) auto 0; padding: 0 12px; }
 .y2-peek { position: absolute; z-index: 2; width: 70px; height: 70px; right: 64px; top: -56px; animation: hop 3.6s ease-in-out infinite; }
 .y2-win { background: #fff; border-radius: 16px; border: 1.5px solid #1f1f1f; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(6,20,40,.55); }
 .y2-body { display: grid; grid-template-columns: 230px 1fr; min-height: 430px; }
@@ -108,13 +114,12 @@
   .y2-body { grid-template-columns: 190px 1fr; }
 }
 @media (max-width: 760px) {
-  .y2-hero { padding: 64px 8px 0; }
-  .y2-top { height: 640px; min-height: 0; border-radius: 18px; }
+  .y2-hero { --ov: 210px; padding: 64px 8px 0; }
+  .y2-top { min-height: 0; border-radius: 18px; padding: 44px 0 calc(var(--ov) + 64px); }
   .y2-top > img { object-position: 58% 60%; }
-  .y2-hc { top: 7%; }
   .y2-hc h1 { font-size: 42px; }
   .y2-hc p { font-size: 16px; }
-  .y2-app { margin-top: -230px; padding: 0 8px; }
+  .y2-app { padding: 0 8px; }
   .y2-peek { width: 54px; height: 54px; right: 28px; top: -44px; }
   .y2-body { grid-template-columns: 1fr; min-height: 0; }
   .y2-side { display: none; }
