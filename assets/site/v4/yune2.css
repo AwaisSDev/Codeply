@@ -1,0 +1,108 @@
+/* Yune 2: the nature-first landing (/yune/yune2). Loads after home + pages css. */
+
+/* ------- hero: one big photo, the app sitting in front of it ------- */
+.y2-hero { padding: 68px 12px 0; }
+.y2-top { position: relative; height: min(90vh, 880px); min-height: 640px; border-radius: 22px; overflow: hidden; background: #1b2a22; }
+.y2-top > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; transform: scale(1.02); animation: y2-drift 26s ease-in-out infinite alternate; }
+@keyframes y2-drift { to { transform: scale(1.06); } }
+/* a calm, even shade over the top half so the words always read; the photo stays clear below */
+.y2-top::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(8,16,34,.42) 0%, rgba(8,16,34,.3) 30%, rgba(8,16,34,.08) 55%, transparent 70%, rgba(8,16,34,.18) 100%); }
+.y2-hc { position: absolute; z-index: 2; left: 50%; top: 11%; transform: translateX(-50%); width: min(820px, 92%); text-align: center; color: #fff; }
+/* a soft, blurred pool of shade right behind the words, so busy rock and snow never show through */
+.y2-hc::before { content: ""; position: absolute; z-index: -1; left: 4%; right: 4%; top: -6%; bottom: -10%; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(6,12,26,.3), rgba(6,12,26,.14) 60%, transparent); filter: blur(24px); }
+.y2-hc h1 { font-size: clamp(42px, 6.4vw, 88px); line-height: 1; letter-spacing: -.035em; font-weight: 600; text-shadow: 0 1px 10px rgba(0,0,0,.12); }
+.y2-hc p { margin: 20px auto 0; max-width: 540px; font-size: 19px; line-height: 1.55; font-weight: 500; color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.35), 0 0 8px rgba(0,0,0,.2); }
+
+/* window buttons in their real colours: red, yellow, green */
+.y2 .tv-bar i:nth-child(1) { background: #ff5f57; }
+.y2 .tv-bar i:nth-child(2) { background: #febc2e; }
+.y2 .tv-bar i:nth-child(3) { background: #28c840; }
+
+/* the app window, overlapping the bottom of the photos */
+.y2-app { position: relative; z-index: 3; max-width: 1020px; margin: clamp(-320px, -29vh, -190px) auto 0; padding: 0 12px; }
+.y2-peek { position: absolute; z-index: 2; width: 70px; height: 70px; right: 64px; top: -56px; animation: hop 3.6s ease-in-out infinite; }
+.y2-win { background: #fff; border-radius: 16px; border: 1.5px solid #1f1f1f; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(6,20,40,.55); }
+.y2-body { display: grid; grid-template-columns: 230px 1fr; min-height: 430px; }
+.y2-side { background: var(--beige); border-right: 1px solid var(--line); padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; font-size: 13.5px; }
+.y2-side small { color: var(--ink-3); font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; margin: 14px 8px 6px; }
+.y2-new { background: #fff; border-radius: 10px; padding: 9px 12px; font-weight: 500; box-shadow: inset 0 0 0 1px var(--line); }
+.y2-it { display: flex; align-items: center; gap: 9px; padding: 8px; border-radius: 9px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.y2-it.on { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+.y2-it [data-wisp] { width: 20px; height: 20px; flex: none; }
+.y2-team { margin-top: auto; }
+.y2-team div { display: flex; gap: 6px; padding: 0 8px; }
+.y2-team [data-wisp] { width: 26px; height: 26px; }
+.y2-main { padding: 22px 26px; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
+.y2-u { align-self: flex-end; background: #2f6bff; color: #fff; padding: 10px 14px; border-radius: 16px 16px 4px 16px; max-width: 74%; }
+.y2-a { display: flex; gap: 10px; align-items: flex-start; color: var(--ink); }
+.y2-a [data-wisp] { width: 26px; height: 26px; flex: none; margin-top: -2px; }
+.y2-work { border-radius: 12px; padding: 12px 14px; box-shadow: inset 0 0 0 1px var(--line); max-width: 460px; }
+.y2-wh { display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 13px; margin-bottom: 4px; }
+.y2-wh em { margin-left: auto; font-style: normal; color: var(--ink-3); font-weight: 400; }
+.y2-ok { display: flex; align-items: center; gap: 14px; justify-content: space-between; border-radius: 12px; padding: 12px 14px; background: var(--beige); max-width: 560px; }
+.y2-ok small { display: block; color: var(--ink-3); font-size: 12px; } .y2-ok b { font-weight: 500; font-size: 13.5px; }
+.y2-btns { display: flex; gap: 6px; flex: none; }
+.y2-btns span { font-size: 12.5px; padding: 6px 12px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+.y2-btns .y { background: #111; color: #fff; box-shadow: none; }
+.y2-box { margin-top: auto; display: flex; align-items: center; justify-content: space-between; color: var(--ink-3); padding: 13px 15px; border-radius: 12px; box-shadow: inset 0 0 0 1px var(--line), 0 4px 12px -8px rgba(0,0,0,.2); }
+
+/* ------- ask once, then go outside ------- */
+.y2-out { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+.y2-card { margin: 0; }
+.y2-pic { position: relative; aspect-ratio: .82; border-radius: 18px; overflow: hidden; margin-bottom: 18px; }
+.y2-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.y2-card:hover .y2-pic img { transform: scale(1.05); }
+.y2-pic::before { content: ""; position: absolute; z-index: 1; inset: 0 0 auto; height: 30%; background: linear-gradient(180deg, rgba(6,14,30,.35), transparent); pointer-events: none; }
+.y2-pic::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(6,14,30,.45)); pointer-events: none; }
+/* where you were: a glass pill top left, how long ago top right */
+.y2-tag { position: absolute; z-index: 2; left: 16px; top: 16px; display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 500; color: #fff; padding: 6px 11px 6px 9px; border-radius: 999px;
+  background: rgba(255,255,255,.16); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
+.y2-tag svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.y2-ago { position: absolute; z-index: 2; right: 18px; top: 22px; font-size: 12px; color: rgba(255,255,255,.88); text-shadow: 0 1px 6px rgba(0,0,0,.35); }
+/* what Yune did meanwhile: a small notification */
+.y2-chip { position: absolute; z-index: 2; left: 14px; right: 14px; bottom: 14px; padding: 14px 15px 12px; border-radius: 16px;
+  background: rgba(255,255,255,.95); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -18px rgba(0,0,0,.55); font-size: 13.5px; }
+.y2-ch-h { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.y2-ch-h [data-wisp] { width: 28px; height: 28px; flex: none; }
+.y2-ch-h b { font-weight: 600; font-size: 14.5px; }
+.y2-st { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 500; padding: 4px 9px; border-radius: 999px; background: #e3f6e7; color: #237a3b; }
+.y2-st::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.y2-st.wait { background: #fff2d6; color: #9a6200; }
+.y2-ch-l { display: flex; align-items: center; gap: 8px; padding: 3px 0; color: var(--ink-2); }
+.y2-ch-l::before { content: ""; width: 16px; height: 16px; flex: none; border-radius: 50%; background: #eef0f3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M4 7.2l2 2 4-4.2' fill='none' stroke='%23555' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat; }
+.y2-card h3 { font-size: 19px; font-weight: 500; }
+.y2-card p { margin-top: 4px; color: var(--ink-3); font-size: 15px; }
+
+/* ------- photos behind the existing app windows ------- */
+.y2-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.y2-ph.dim::after { content: ""; position: absolute; inset: 0; background: rgba(6,14,24,.35); }
+.y2 .pd-v .pd-on { color: #fff; text-shadow: 0 1px 10px rgba(0,0,0,.45); }
+
+/* ------- phones and small laptops ------- */
+@media (max-width: 1080px) {
+  .y2-body { grid-template-columns: 190px 1fr; }
+}
+@media (max-width: 760px) {
+  .y2-hero { padding: 64px 8px 0; }
+  .y2-top { height: 640px; min-height: 0; border-radius: 18px; }
+  .y2-top > img { object-position: 58% 60%; }
+  .y2-hc { top: 7%; }
+  .y2-hc h1 { font-size: 42px; }
+  .y2-hc p { font-size: 16px; }
+  .y2-app { margin-top: -230px; padding: 0 8px; }
+  .y2-peek { width: 54px; height: 54px; right: 28px; top: -44px; }
+  .y2-body { grid-template-columns: 1fr; min-height: 0; }
+  .y2-side { display: none; }
+  .y2-main { padding: 16px; font-size: 13.5px; }
+  .y2-u { max-width: 88%; }
+  .y2-ok { flex-direction: column; align-items: flex-start; }
+  .y2-out { grid-template-columns: 1fr; gap: 34px; margin-top: 32px; }
+  .y2-pic { aspect-ratio: 1.1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .y2-top > img, .y2-peek { animation: none; }
+}

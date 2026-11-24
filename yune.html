@@ -14,9 +14,10 @@
 <link rel="preload" href="/assets/fonts/yune-sans/YuneSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site/v4/home-9e602c1d.css">
 <link rel="stylesheet" href="/assets/site/v4/pages-5e959e31.css">
+<link rel="stylesheet" href="/assets/site/v4/yune2.css">
 <script>document.documentElement.classList.add('js');if('scrollRestoration' in history)history.scrollRestoration='manual';if(!location.hash){scrollTo(0,0);addEventListener('load',function(){scrollTo(0,0)})}</script>
 </head>
-<body>
+<body class="y2">
 
 <!-- ink doodles, Notion style -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -47,35 +48,44 @@
 
 <main>
 
-<!-- HERO: a big rounded scene, headline bottom left -->
-<section class="top">
-  <div class="top-c">
-    <h1>Your AI that’s already on it</h1>
-    <p>Inbox, calendar, business and code, all in one app. Ask Yune once, close the laptop, and it keeps going.</p>
-    <div class="hero-ctas center">
-      <a class="pill pill-ink" href="/yune/download">Download Yune</a>
-      <a class="pill pill-soft" href="#how">See how it works</a>
+<!-- HERO: a wall of nature, with the app sitting in front of it -->
+<section class="y2-hero">
+  <div class="y2-top">
+    <img src="/assets/site/v4/nature2/hero-lake.webp" alt="A turquoise mountain lake under a blue sky">
+    <div class="y2-hc">
+      <h1>Your AI that’s already on it</h1>
+      <p>Inbox, calendar, business and code, all in one app. Ask Yune once, close the laptop, and go live your life.</p>
+      <div class="hero-ctas center"><a class="pill pill-white" href="/yune/download">Download Yune</a><a class="pill pill-glass" href="#how">See how it works</a></div>
     </div>
   </div>
-  <div class="top-art" aria-hidden="true">
-    <svg class="trail" viewBox="0 0 600 420" preserveAspectRatio="none"><path d="M20 300C90 210 150 330 240 250S330 70 420 110 520 260 590 90"/></svg>
-    <svg class="dd plane"><use href="#d-plane"/></svg>
-    <svg class="dd env"><use href="#d-env"/></svg>
-    <svg class="dd cal"><use href="#d-cal"/></svg>
-    <svg class="dd code"><use href="#d-code"/></svg>
-    <svg class="dd chk"><use href="#d-check"/></svg>
-    <svg class="dd sp1"><use href="#d-spark"/></svg>
-    <svg class="dd sp2"><use href="#d-spark"/></svg>
-    <svg class="dd sp3"><use href="#d-spark"/></svg>
-    <svg class="dd sq"><use href="#d-squig"/></svg>
-    <div class="gang">
-      <span class="say">Already on it!</span>
-      <span class="g-wisp" data-wisp="lg" data-mood="happy"></span>
-      <span class="g-a" data-wisp="md" data-shape="triangle" data-color="#e8649a"></span>
-      <span class="g-b" data-wisp="md" data-shape="cloud" data-color="#f08a3c"></span>
-      <span class="g-c" data-wisp="md" data-shape="circle" data-color="#4bbf63"></span>
-      <span class="g-d" data-wisp="md" data-shape="square" data-color="#6a57f5"></span>
-      <i class="floor"></i>
+  <div class="y2-app rv" aria-hidden="true">
+    <span class="y2-peek" data-wisp="lg"></span>
+    <div class="y2-win">
+      <div class="tv-bar"><i></i><i></i><i></i><span>Yune</span></div>
+      <div class="y2-body">
+        <aside class="y2-side">
+          <div class="y2-new">+ New task</div>
+          <small>Today</small>
+          <div class="y2-it on"><span data-wisp="sm"></span>Inbox and flights</div>
+          <div class="y2-it"><span data-wisp="sm" data-shape="triangle" data-color="#e8649a"></span>Fix the checkout bug</div>
+          <div class="y2-it"><span data-wisp="sm" data-shape="square" data-color="#6a57f5"></span>Venues for Friday</div>
+          <div class="y2-it"><span data-wisp="sm" data-shape="cloud" data-color="#f08a3c"></span>Weekly report</div>
+          <div class="y2-team"><small>Your team</small><div><span data-wisp="sm"></span><span data-wisp="sm" data-shape="triangle" data-color="#e8649a"></span><span data-wisp="sm" data-shape="cloud" data-color="#f08a3c"></span><span data-wisp="sm" data-shape="circle" data-color="#4bbf63"></span><span data-wisp="sm" data-shape="square" data-color="#6a57f5"></span></div></div>
+        </aside>
+        <div class="y2-main">
+          <div class="y2-u">Sort my inbox and find flights to Lisbon for Friday</div>
+          <div class="y2-a"><span data-wisp="sm"></span><p>On it. Inbox is sorting your mail and Research is comparing flights.</p></div>
+          <div class="y2-work">
+            <div class="y2-wh"><i class="live"></i>Working in the cloud<em>4 min</em></div>
+            <div class="rb-l done">Read 42 emails</div>
+            <div class="rb-l done">Drafted 3 replies</div>
+            <div class="rb-l done">Found 3 direct flights</div>
+            <div class="rb-l now">Holding the best seat…</div>
+          </div>
+          <div class="y2-ok"><div><small>Yune wants to send</small><b>Reply to Sam: “3pm works, see you then”</b></div><div class="y2-btns"><span>Not now</span><span class="y">Send</span></div></div>
+          <div class="y2-box">Ask Yune anything<span class="mode"><i class="on">Chat</i><i>Code</i></span></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -90,70 +100,38 @@
   <span><img src="/assets/logos/ollama.svg" alt="">Ollama</span>
 </section>
 
-<!-- PERFECT IF -->
+<!-- ASK ONCE, THEN GO OUTSIDE -->
 <section class="sec">
-  <h2 class="t-c rv">Perfect if you’re…</h2>
-  <div class="who">
-    <figure class="rv">
-      <div class="tile tl-green" aria-hidden="true"><svg class="dd t-d"><use href="#d-env"/></svg>
-        <span class="tile-ag" data-wisp="lg" data-shape="circle" data-color="#4bbf63"></span>
-        <span class="chip-f f1">42 emails sorted</span><span class="chip-f f2">3 replies drafted</span>
-      </div>
-      <figcaption>Drowning in email</figcaption>
+  <h2 class="t-c rv">Ask once, then go outside</h2>
+  <p class="sub t-c rv d1">Yune keeps working while you live your life. You come back to work that’s done, waiting for your yes.</p>
+  <div class="y2-out">
+    <figure class="y2-card rv">
+      <div class="y2-pic" aria-hidden="true"><img src="/assets/site/v4/nature2/forest-fog.webp" alt="" style="object-position:50% 50%">
+        <span class="y2-tag"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>On a hike</span><span class="y2-ago">3h away</span>
+        <div class="y2-chip">
+          <div class="y2-ch-h"><span data-wisp="sm" data-shape="circle" data-color="#4bbf63"></span><b>Inbox</b><span class="y2-st">Done</span></div>
+          <div class="y2-ch-l">42 emails sorted</div><div class="y2-ch-l">3 replies drafted for you</div>
+        </div></div>
+      <h3>Your inbox, sorted</h3><p>While you were out on the trail.</p>
     </figure>
-    <figure class="rv d1">
-      <div class="tile tl-pink" aria-hidden="true"><svg class="dd t-d"><use href="#d-code"/></svg>
-        <span class="tile-ag" data-wisp="lg" data-shape="triangle" data-color="#e8649a"></span>
-        <span class="chip-f f1">✓ 24 tests pass</span><span class="chip-f f2">Pull request ready</span>
-      </div>
-      <figcaption>Shipping a product</figcaption>
+    <figure class="y2-card rv d1">
+      <div class="y2-pic" aria-hidden="true"><img src="/assets/site/v4/nature2/lake-mist.webp" alt="" style="object-position:50% 50%">
+        <span class="y2-tag"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>At sunrise</span><span class="y2-ago">1h away</span>
+        <div class="y2-chip">
+          <div class="y2-ch-h"><span data-wisp="sm" data-shape="square" data-color="#6a57f5"></span><b>Research</b><span class="y2-st wait">Needs your yes</span></div>
+          <div class="y2-ch-l">Lisbon, Friday 09:40 · $342</div><div class="y2-ch-l">Best seat held for you</div>
+        </div></div>
+      <h3>Your plans, made</h3><p>While you watched the lake wake up.</p>
     </figure>
-    <figure class="rv d2">
-      <div class="tile tl-violet" aria-hidden="true"><svg class="dd t-d"><use href="#d-bars"/></svg>
-        <span class="tile-ag" data-wisp="lg" data-shape="square" data-color="#6a57f5"></span>
-        <span class="chip-f f1">4 venues for Friday</span><span class="chip-f f2">Weekly report done</span>
-      </div>
-      <figcaption>Running a business</figcaption>
+    <figure class="y2-card rv d2">
+      <div class="y2-pic" aria-hidden="true"><img src="/assets/site/v4/nature2/mountains-fog.webp" alt="" style="object-position:50% 45%">
+        <span class="y2-tag"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>No signal</span><span class="y2-ago">All day</span>
+        <div class="y2-chip">
+          <div class="y2-ch-h"><span data-wisp="sm" data-shape="triangle" data-color="#e8649a"></span><b>Frontend</b><span class="y2-st">Done</span></div>
+          <div class="y2-ch-l">Checkout bug fixed</div><div class="y2-ch-l">24 tests pass · PR opened</div>
+        </div></div>
+      <h3>Your code, shipped</h3><p>While you were somewhere far from a laptop.</p>
     </figure>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section class="sec" id="how">
-  <h2 class="t-c rv">How it works</h2>
-  <p class="sub t-c rv d1">Yune is one AI agent with a team behind it.</p>
-  <div class="steps">
-    <article class="rv">
-      <div class="st-v" aria-hidden="true"><b class="num">1</b>
-        <div class="bub u">Sort my inbox and find flights to Lisbon for Friday</div>
-        <div class="bub a"><span data-wisp="sm"></span>On it.</div>
-      </div>
-      <h3>Ask Yune</h3>
-      <p>Type or talk, like messaging someone who already knows your work.</p>
-    </article>
-    <article class="rv d1">
-      <div class="st-v" aria-hidden="true"><b class="num">2</b>
-        <div class="pick"><span data-wisp="sm" data-shape="circle" data-color="#4bbf63"></span><div><b>Inbox</b><small>Picked for your email</small></div></div>
-        <div class="pick dim"><span data-wisp="sm" data-shape="square" data-color="#6a57f5"></span><div><b>Research</b><small>Picked for the flights</small></div></div>
-      </div>
-      <h3>Yune picks a teammate</h3>
-      <p>The right agent for each part of the job gets to work.</p>
-    </article>
-    <article class="rv d2">
-      <div class="st-v" aria-hidden="true"><b class="num">3</b>
-        <div class="runbox"><div class="rb-h"><i class="live"></i>In the cloud</div>
-          <div class="rb-l done">Read 42 emails</div><div class="rb-l done">Drafted 3 replies</div><div class="rb-l now">Comparing flights…</div></div>
-      </div>
-      <h3>It keeps going</h3>
-      <p>Close the laptop. The work carries on in the cloud.</p>
-    </article>
-    <article class="rv d3">
-      <div class="st-v" aria-hidden="true"><b class="num">4</b>
-        <div class="ok-card"><small>Yune wants to send</small><b>Reply to Sam</b><div class="ok-b"><span>Not now</span><span class="y">Send</span></div></div>
-      </div>
-      <h3>You say yes</h3>
-      <p>Anything that matters waits for you. One click and it’s done.</p>
-    </article>
   </div>
 </section>
 
@@ -161,7 +139,7 @@
 <section class="sec" id="tour">
   <div class="tour">
     <div class="tour-v rv" aria-hidden="true">
-      <div class="flat fl-blue"><svg class="dd tsp"><use href="#d-spark"/></svg></div>
+      <div class="flat y2-ph"><img src="/assets/site/v4/nature/mountain.webp" alt="" style="object-position:50% 40%"></div>
       <div class="tv-win">
         <div class="tv-bar"><i></i><i></i><i></i><span>Yune</span></div>
         <div class="tv-body">
@@ -206,32 +184,42 @@
   </div>
 </section>
 
-<!-- PROOF -->
-<section class="sec">
-  <div class="split">
-    <div class="split-c">
-      <h2 class="rv">Proof, not promises</h2>
-      <p class="sub rv d1">Before it says done, Yune opens what it changed in a real browser and reads back real errors.</p>
-      <p class="fine rv d2">Every check is in the open, and every change can be undone.</p>
-    </div>
-    <div class="floaters" aria-hidden="true">
-      <div class="fl rv"><span class="fl-i" style="--c:#4bbf63">✓</span><div><b>Console</b><small>no errors</small></div><span class="bars"><i style="--h:.3"></i><i style="--h:.55"></i><i style="--h:.4"></i><i style="--h:.8"></i></span></div>
-      <div class="fl f2 rv d1"><span class="fl-i" style="--c:#2f6bff">✓</span><div><b>Network</b><small>no failed requests</small></div><span class="bars"><i style="--h:.5"></i><i style="--h:.35"></i><i style="--h:.7"></i><i style="--h:.6"></i></span></div>
-      <div class="fl rv d2"><span class="fl-i" style="--c:#e8649a">✓</span><div><b>Tests</b><small>24 passed</small></div><span class="bars"><i style="--h:.6"></i><i style="--h:.8"></i><i style="--h:.7"></i><i style="--h:.95"></i></span></div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY -->
-<section class="sec why">
-  <div class="why-m" aria-hidden="true">
-    <span class="star s1">✦</span><span class="star s2">✦</span>
-    <span data-wisp="lg" data-mood="happy"></span>
-  </div>
-  <h2 class="t-c rv">Why we built Yune</h2>
-  <div class="why-t rv d1">
-    <p>Most AI waits for you to come back and type the next thing. We wanted one that just gets on with it, and checks its work like a good teammate would.</p>
-    <p>So we made Yune warm and friendly, gave it a team of specialists, and made sure nothing important happens without your yes.</p>
+<!-- HOW IT WORKS -->
+<section class="sec" id="how">
+  <h2 class="t-c rv">How it works</h2>
+  <p class="sub t-c rv d1">Yune is one AI agent with a team behind it.</p>
+  <div class="steps">
+    <article class="rv">
+      <div class="st-v" aria-hidden="true"><b class="num">1</b>
+        <div class="bub u">Sort my inbox and find flights to Lisbon for Friday</div>
+        <div class="bub a"><span data-wisp="sm"></span>On it.</div>
+      </div>
+      <h3>Ask Yune</h3>
+      <p>Type or talk, like messaging someone who already knows your work.</p>
+    </article>
+    <article class="rv d1">
+      <div class="st-v" aria-hidden="true"><b class="num">2</b>
+        <div class="pick"><span data-wisp="sm" data-shape="circle" data-color="#4bbf63"></span><div><b>Inbox</b><small>Picked for your email</small></div></div>
+        <div class="pick dim"><span data-wisp="sm" data-shape="square" data-color="#6a57f5"></span><div><b>Research</b><small>Picked for the flights</small></div></div>
+      </div>
+      <h3>Yune picks a teammate</h3>
+      <p>The right agent for each part of the job gets to work.</p>
+    </article>
+    <article class="rv d2">
+      <div class="st-v" aria-hidden="true"><b class="num">3</b>
+        <div class="runbox"><div class="rb-h"><i class="live"></i>In the cloud</div>
+          <div class="rb-l done">Read 42 emails</div><div class="rb-l done">Drafted 3 replies</div><div class="rb-l now">Comparing flights…</div></div>
+      </div>
+      <h3>It keeps going</h3>
+      <p>Close the laptop. The work carries on in the cloud.</p>
+    </article>
+    <article class="rv d3">
+      <div class="st-v" aria-hidden="true"><b class="num">4</b>
+        <div class="ok-card"><small>Yune wants to send</small><b>Reply to Sam</b><div class="ok-b"><span>Not now</span><span class="y">Send</span></div></div>
+      </div>
+      <h3>You say yes</h3>
+      <p>Anything that matters waits for you. One click and it’s done.</p>
+    </article>
   </div>
 </section>
 
@@ -240,7 +228,7 @@
   <h2 class="t-c rv">Meet the team</h2>
   <p class="sub t-c rv d1">Real agents with their own face and colour. Talk to any of them with @Name, or just ask Yune.</p>
   <div class="crew">
-    <article class="mate lead rv"><div class="mt-v" style="--bg:#dfe8ff"><span data-wisp="lg" data-mood="happy"></span></div><b>Yune</b><small>LEADS THE TEAM</small><p>Your agent. Picks who does what and keeps you posted.</p></article>
+    <article class="mate lead rv"><div class="mt-v" style="--bg:#dfe8ff"><span data-wisp="lg" data-mood="neutral"></span></div><b>Yune</b><small>LEADS THE TEAM</small><p>Your agent. Picks who does what and keeps you posted.</p></article>
     <article class="mate rv d1"><div class="mt-v" style="--bg:#ffe1ec"><span data-wisp="lg" data-shape="triangle" data-color="#e8649a"></span></div><b>Frontend</b><small>BUILDS IT</small><p>Pages, screens and anything you can click.</p></article>
     <article class="mate rv d2"><div class="mt-v" style="--bg:#ffe8d6"><span data-wisp="lg" data-shape="cloud" data-color="#f08a3c"></span></div><b>Backend</b><small>WIRES IT UP</small><p>Data, accounts, limits and the plumbing behind it.</p></article>
     <article class="mate rv d3"><div class="mt-v" style="--bg:#dff3e3"><span data-wisp="lg" data-shape="circle" data-color="#4bbf63"></span></div><b>Inbox</b><small>ANSWERS MAIL</small><p>Sorts, drafts and books, then waits for your OK.</p></article>
@@ -255,9 +243,9 @@
   <div class="prods">
     <article class="prod rv">
       <div class="pd-v" aria-hidden="true">
-        <div class="flat fl-sky"><svg class="dd tsp"><use href="#d-spark"/></svg><svg class="dd tcup"><use href="#d-cup"/></svg></div>
+        <div class="flat y2-ph"><img src="/assets/site/v4/nature2/turquoise-lake.webp" alt="" style="object-position:50% 50%"></div>
         <span class="pd-on">On Windows and macOS</span>
-        <div class="pd-win"><div class="tv-bar"><i></i><i></i><i></i></div><div class="pd-in"><span data-wisp="md" data-mood="happy"></span><b>What should we do today?</b><div class="pd-box">Ask Yune anything<span class="mode"><i class="on">Chat</i><i>Code</i></span></div></div></div>
+        <div class="pd-win"><div class="tv-bar"><i></i><i></i><i></i></div><div class="pd-in"><span data-wisp="md" data-mood="neutral"></span><b>What should we do today?</b><div class="pd-box">Ask Yune anything<span class="mode"><i class="on">Chat</i><i>Code</i></span></div></div></div>
       </div>
       <div class="pd-c">
         <h3>Yune</h3>
@@ -268,7 +256,7 @@
     </article>
     <article class="prod rv d1">
       <div class="pd-v" aria-hidden="true">
-        <div class="flat fl-ink"><svg class="dd tsp w"><use href="#d-spark"/></svg><svg class="dd tsp2 w"><use href="#d-spark"/></svg></div>
+        <div class="flat y2-ph dim"><img src="/assets/site/v4/nature2/redwoods.webp" alt="" style="object-position:50% 50%"></div>
         <span class="pd-on">In your terminal</span>
         <div class="pd-cli"><div data-cli="short"></div></div>
       </div>
@@ -279,6 +267,19 @@
         <a class="pill pill-line" href="/yune/code">Get Yune Code</a>
       </div>
     </article>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="sec why">
+  <div class="why-m" aria-hidden="true">
+    <span class="star s1">✦</span><span class="star s2">✦</span>
+    <span data-wisp="lg" data-mood="neutral"></span>
+  </div>
+  <h2 class="t-c rv">Why we built Yune</h2>
+  <div class="why-t rv d1">
+    <p>Most AI waits for you to come back and type the next thing. We wanted one that just gets on with it, and checks its work like a good teammate would.</p>
+    <p>So we made Yune warm and friendly, gave it a team of specialists, and made sure nothing important happens without your yes.</p>
   </div>
 </section>
 
