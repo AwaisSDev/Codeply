@@ -16,6 +16,10 @@
 .y2-hc p { margin: 20px auto 0; max-width: 540px; font-size: 19px; line-height: 1.55; font-weight: 500; color: #fff;
   text-shadow: 0 1px 2px rgba(0,0,0,.35), 0 0 8px rgba(0,0,0,.2); }
 
+.y2-eyebrow { display: inline-block; margin-bottom: 18px; font-size: 13.5px; font-weight: 500; letter-spacing: .02em; padding: 6px 13px; border-radius: 999px;
+  background: rgba(255,255,255,.16); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
+.y2-time { align-self: center; font-size: 12px; color: var(--ink-3); }
+
 /* window buttons in their real colours: red, yellow, green */
 .y2 .tv-bar i:nth-child(1) { background: #ff5f57; }
 .y2 .tv-bar i:nth-child(2) { background: #febc2e; }
@@ -77,6 +81,23 @@
 .y2-card h3 { font-size: 19px; font-weight: 500; }
 .y2-card p { margin-top: 4px; color: var(--ink-3); font-size: 15px; }
 
+/* ------- a companion that grows with you: memory, specialists, schedules ------- */
+.y2-mini { width: 100%; background: #fff; border-radius: 14px; padding: 14px; box-shadow: 0 1px 0 rgba(0,0,0,.03), 0 14px 30px -18px rgba(0,0,0,.3); font-size: 13px; display: flex; flex-direction: column; gap: 6px; }
+.y2-mh { display: flex; align-items: center; gap: 9px; padding-bottom: 8px; margin-bottom: 2px; border-bottom: 1px solid var(--line); }
+.y2-mh [data-wisp] { width: 24px; height: 24px; flex: none; }
+.y2-mh b { font-weight: 600; font-size: 13.5px; } .y2-mh small { display: block; color: var(--ink-3); font-size: 11.5px; }
+.y2-mem { display: flex; align-items: center; gap: 9px; padding: 6px 8px; border-radius: 9px; background: var(--beige); color: var(--ink); }
+.y2-mem i { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex: none; }
+.y2-mem em { margin-left: auto; font-style: normal; font-size: 11px; font-weight: 500; color: #237a3b; background: #e3f6e7; padding: 2px 8px; border-radius: 999px; }
+.y2-mem.new { background: #f3f0ff; }
+.y2-kv { display: grid; grid-template-columns: 70px 1fr; gap: 8px; padding: 6px 2px; color: var(--ink); line-height: 1.4; }
+.y2-kv small { color: var(--ink-3); font-size: 12px; }
+.y2-sch { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 6px 2px; }
+.y2-sch b { display: block; font-weight: 500; } .y2-sch small { color: var(--ink-3); font-size: 12px; }
+.y2-tg { width: 30px; height: 18px; flex: none; border-radius: 999px; background: #dcdcdc; position: relative; }
+.y2-tg::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+.y2-tg.on { background: #2f9e4b; } .y2-tg.on::after { left: 14px; }
+
 /* ------- photos behind the existing app windows ------- */
 .y2-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .y2-ph.dim::after { content: ""; position: absolute; inset: 0; background: rgba(6,14,24,.35); }
@@ -99,6 +120,7 @@
   .y2-side { display: none; }
   .y2-main { padding: 16px; font-size: 13.5px; }
   .y2-u { max-width: 88%; }
+  .y2-wh em { display: none; }
   .y2-ok { flex-direction: column; align-items: flex-start; }
   .y2-out { grid-template-columns: 1fr; gap: 34px; margin-top: 32px; }
   .y2-pic { aspect-ratio: 1.1; }
