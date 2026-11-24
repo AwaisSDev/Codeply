@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" href="/assets/fonts/yune-sans/YuneSans-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site/v4/home-9e602c1d.css">
+<link rel="stylesheet" href="/assets/site/v4/pages-5e959e31.css">
 <script>document.documentElement.classList.add('js');if('scrollRestoration' in history)history.scrollRestoration='manual';if(!location.hash){scrollTo(0,0);addEventListener('load',function(){scrollTo(0,0)})}</script>
 </head>
 <body>
@@ -33,19 +34,16 @@
 <!-- NAV: full width at the top, a floating pill once you scroll -->
 <header class="nv" id="nv">
   <div class="nv-in">
-    <a class="brand" href="/" aria-label="Yune home"><img src="/assets/site/v4/yune-logo.svg" alt="" width="26" height="26">Yune</a>
-    <nav class="nv-links" aria-label="Main">
-      <a href="#how">How it works</a>
-      <a href="#team">The team</a>
-      <a href="#products">Products</a>
-      <a href="#faq">FAQ</a>
-    </nav>
+    <a class="brand" href="/yune" aria-label="Yune home"><img src="/assets/site/v4/yune-logo.svg" alt="" width="26" height="26">Yune</a>
+    <nav class="nv-links" aria-label="Main"><a href="/yune/app">Yune</a><a href="/yune/code">Yune Code</a><a href="/yune/team">Team</a><a href="/yune/docs">Docs</a><a href="/yune/changelog">Changelog</a></nav>
     <div class="nv-end">
-      <a class="nv-text" href="/docs">Docs</a>
-      <a class="pill pill-ink" href="/download">Download</a>
+      <a class="nv-text" href="/yune/about">About</a>
+      <a class="pill pill-ink" href="/yune/download">Download</a>
+      <button class="burger" type="button" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
     </div>
   </div>
 </header>
+<nav class="mnav" aria-label="Menu"><a href="/yune/app">Yune</a><a href="/yune/code">Yune Code</a><a href="/yune/team">Team</a><a href="/yune/docs">Docs</a><a href="/yune/changelog">Changelog</a><a href="/yune/about">About</a><a class="pill pill-ink" href="/yune/download">Download Yune</a></nav>
 
 <main>
 
@@ -55,7 +53,7 @@
     <h1>Your AI that’s already on it</h1>
     <p>Inbox, calendar, business and code, all in one app. Ask Yune once, close the laptop, and it keeps going.</p>
     <div class="hero-ctas center">
-      <a class="pill pill-ink" href="/download">Download Yune</a>
+      <a class="pill pill-ink" href="/yune/download">Download Yune</a>
       <a class="pill pill-soft" href="#how">See how it works</a>
     </div>
   </div>
@@ -265,7 +263,7 @@
         <h3>Yune</h3>
         <span class="lbl">THE APP · CHAT AND CODE</span>
         <ul><li>Chat mode for your inbox, calendar and research</li><li>Code mode to build and fix your projects</li><li>Checks its work in a real browser</li><li>Sends work to the cloud when you leave</li></ul>
-        <a class="pill pill-ink" href="/download">Download Yune</a>
+        <a class="pill pill-ink" href="/yune/download">Download Yune</a>
       </div>
     </article>
     <article class="prod rv d1">
@@ -278,7 +276,7 @@
         <h3>Yune Code</h3>
         <span class="lbl">FOR YOUR TERMINAL</span>
         <ul><li>The same agent, in plain English</li><li>Reads your code, edits and runs it</li><li>Same account and memory as the Yune app</li><li>Asks before every change</li></ul>
-        <a class="pill pill-line" href="/cli">Get Yune Code</a>
+        <a class="pill pill-line" href="/yune/code">Get Yune Code</a>
       </div>
     </article>
   </div>
@@ -353,7 +351,7 @@
     <div class="mz-c">
       <h2>Put Yune to work on your biggest ideas</h2>
       <p>Free to start. Ask once, then go outside.</p>
-      <div class="hero-ctas center"><a class="pill pill-white" href="/download">Download Yune</a><a class="pill pill-glass" href="/cli">Get Yune Code</a></div>
+      <div class="hero-ctas center"><a class="pill pill-white" href="/yune/download">Download Yune</a><a class="pill pill-glass" href="/yune/code">Get Yune Code</a></div>
     </div>
   </div>
 </section>
@@ -363,18 +361,18 @@
 <footer class="ft">
   <div class="ft-top">
     <div><b>Nothing happens without your yes</b><small>Every change is in the open and can be undone.</small></div>
-    <a class="pill pill-ink" href="/download">Download Yune</a>
+    <a class="pill pill-ink" href="/yune/download">Download Yune</a>
   </div>
   <div class="ft-mid">
-    <div class="ft-brand"><a class="brand" href="/"><img src="/assets/site/v4/yune-logo.svg" alt="" width="26" height="26">Yune</a><small>Your AI that’s already on it.</small></div>
-    <nav><b>Products</b><a href="/codeply">Yune</a><a href="/cli">Yune Code</a><a href="/download">Download</a></nav>
-    <nav><b>Explore</b><a href="#how">How it works</a><a href="#team">The team</a><a href="/changelog">Changelog</a><a href="/blog">Blog</a></nav>
-    <nav><b>Support</b><a href="/docs">Docs</a><a href="#faq">FAQ</a><a href="/about">About</a></nav>
+    <div class="ft-brand"><a class="brand" href="/yune"><img src="/assets/site/v4/yune-logo.svg" alt="" width="26" height="26">Yune</a><small>Your AI that’s already on it.</small></div>
+    <nav><b>Products</b><a href="/yune/app">Yune</a><a href="/yune/code">Yune Code</a><a href="/yune/download">Download</a></nav>
+    <nav><b>Explore</b><a href="/yune/team">The team</a><a href="/yune/docs">Docs</a><a href="/yune/changelog">Changelog</a><a href="/yune/blog">Blog</a></nav>
+    <nav><b>Company</b><a href="/yune/about">About</a><a href="/yune/careers">Careers</a><a href="mailto:mawais9171@gmail.com">Contact</a></nav>
   </div>
-  <div class="ft-legal"><span>© 2026 Yune</span><span><details class="pc"><summary>Photo credits</summary><p>Nature photos via Wikimedia Commons, cropped: <a href="https://commons.wikimedia.org/wiki/File:Upper_Yosemite_fall_with_reflection_1.jpg">Upper Yosemite Fall</a> by Brocken Inaglory (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>) · <a href="https://commons.wikimedia.org/wiki/File:Tunnel_View,_Yosemite_Valley,_Yosemite_NP_-_Diliff.jpg">Tunnel View</a> by Diliff (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>) · <a href="https://commons.wikimedia.org/wiki/File:Golden_Gate_Bridge_as_seen_from_Marshall%E2%80%99s_Beach,_March_2018.jpg">Golden Gate Bridge</a> by Frank Schulenburg · <a href="https://commons.wikimedia.org/wiki/File:Sunrise_at_Maligne_lake.jpg">Maligne Lake</a> by Sergey Pesterev · <a href="https://commons.wikimedia.org/wiki/File:Bothe-Napa_Valley_State_Park_(01811).jpg">Bothe-Napa Valley forest</a> by Rhododendrites · <a href="https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Wildpark,_Damwild_--_2021_--_9033.jpg">Deer</a> by Dietmar Rabich (all four <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>) · <a href="https://commons.wikimedia.org/wiki/File:Lake_Tahoe_at_morning_-_7-2023.jpg">Lake Tahoe at morning</a> by John D. (<a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>).</p></details><a href="/privacy">Privacy</a><a href="/terms">Terms</a></span></div>
+  <div class="ft-legal"><span>© 2026 Yune</span><span><details class="pc"><summary>Photo credits</summary><p>Nature photos via Wikimedia Commons, cropped: <a href="https://commons.wikimedia.org/wiki/File:Upper_Yosemite_fall_with_reflection_1.jpg">Upper Yosemite Fall</a> by Brocken Inaglory (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>) · <a href="https://commons.wikimedia.org/wiki/File:Tunnel_View,_Yosemite_Valley,_Yosemite_NP_-_Diliff.jpg">Tunnel View</a> by Diliff (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>) · <a href="https://commons.wikimedia.org/wiki/File:Golden_Gate_Bridge_as_seen_from_Marshall%E2%80%99s_Beach,_March_2018.jpg">Golden Gate Bridge</a> by Frank Schulenburg · <a href="https://commons.wikimedia.org/wiki/File:Sunrise_at_Maligne_lake.jpg">Maligne Lake</a> by Sergey Pesterev · <a href="https://commons.wikimedia.org/wiki/File:Bothe-Napa_Valley_State_Park_(01811).jpg">Bothe-Napa Valley forest</a> by Rhododendrites · <a href="https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Wildpark,_Damwild_--_2021_--_9033.jpg">Deer</a> by Dietmar Rabich (all four <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>) · <a href="https://commons.wikimedia.org/wiki/File:Lake_Tahoe_at_morning_-_7-2023.jpg">Lake Tahoe at morning</a> by John D. (<a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>).</p></details><a href="/yune/privacy">Privacy</a><a href="/yune/terms">Terms</a><a href="/yune/eula">EULA</a></span></div>
 </footer>
 
 <script src="/assets/site/v4/wisp-2e1a14da.js"></script>
-<script src="/assets/site/v4/home-ac65be9f.js"></script>
+<script src="/assets/site/v4/home-e75b3eef.js"></script>
 </body>
 </html>

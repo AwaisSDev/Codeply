@@ -57,3 +57,21 @@
     loop(box, steps, t0 + 9000);
   });
 })();
+
+// subpages: phone menu, install tabs, copy buttons
+(function () {
+  var nav = document.getElementById('nv'), burger = document.querySelector('.burger');
+  if (burger) burger.addEventListener('click', function () { var o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); });
+  document.querySelectorAll('.mnav a').forEach(function (a) { a.addEventListener('click', function () { nav.classList.remove('open'); }); });
+  document.querySelectorAll('.install').forEach(function (box) {
+    var code = box.querySelector('code'), tabs = box.querySelectorAll('.in-tabs button');
+    tabs.forEach(function (t) { t.addEventListener('click', function () { tabs.forEach(function (x) { x.classList.toggle('on', x === t); }); code.textContent = t.dataset.cmd; }); });
+    if (tabs.length && /Mac|Linux/.test(navigator.platform) && tabs[1]) tabs[1].click();
+    var btn = box.querySelector('.in-cmd button');
+    if (btn) btn.addEventListener('click', function () {
+      (navigator.clipboard ? navigator.clipboard.writeText(code.textContent) : Promise.reject()).then(function () {
+        btn.textContent = 'Copied'; btn.classList.add('done'); setTimeout(function () { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 1600);
+      }, function () {});
+    });
+  });
+})();
